@@ -1,4 +1,5 @@
 #include <SDL.h>
+#include <SDL_image.h>
 
 class View {
 public:
@@ -11,6 +12,11 @@ public:
 private:
     SDL_Window* window;
     SDL_Renderer* renderer;
+
+    SDL_Texture* background;
+    SDL_Texture* home;
+    SDL_Texture* forest;
+    SDL_Texture* well;
 
     View();
 };

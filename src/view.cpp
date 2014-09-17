@@ -22,10 +22,17 @@ View::View() {
         SDL_Quit();
         return;
     }
+
+    background = IMG_LoadTexture(renderer, "res/img/grass.jpg");
+    well = IMG_LoadTexture(renderer, "res/img/well.png");
+    forest = IMG_LoadTexture(renderer, "res/img/trees.png");
+    home = IMG_LoadTexture(renderer, "res/img/home.png");
 }
 
 void View::draw() {
     SDL_RenderClear(renderer);
+
+    SDL_RenderCopy(renderer, background, nullptr, nullptr);
 
     SDL_RenderPresent(renderer);
 }
