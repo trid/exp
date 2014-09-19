@@ -17,6 +17,7 @@ private:
     SDL_Texture* home;
     SDL_Texture* forest;
     SDL_Texture* well;
+    SDL_Texture* actor;
 
     View();
 };

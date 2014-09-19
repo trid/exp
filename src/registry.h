@@ -1,8 +1,8 @@
 #include "vector"
 
-#include "actor.h"
-
 using std::vector;
+
+class Actor;
 
 class ActorsRegistry {
 public:

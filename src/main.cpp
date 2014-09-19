@@ -3,6 +3,7 @@
 #include "lua.hpp"
 #include "actor.h"
 #include "view.h"
+#include "registry.h"
 
 using namespace std;
 
@@ -19,13 +20,6 @@ void lua_test() {
     if (state) lua_close(state);
 }
 
-enum Position {
-    POSITION_NONE,
-    POSITION_HOME,
-    POSITION_FOREST,
-    POSITION_WATER
-};
-
 enum State {
     STATE_NONE,
     STATE_IN_ROUTE,
@@ -37,50 +31,58 @@ enum State {
 
 int ticksToForest = 3;
 int ticksToWater = 5;
-Position currentPosition = POSITION_HOME;
 Position targetPosition = POSITION_NONE;
 int wood = 0;
 int neededWood = 300;
 int wayPassed = 0;
 State state = STATE_NONE;
 
-Actor actor;
+Actor& actor = ActorsRegistry::getRegistry().createActor();
 
 int process() {
-    cout << "Place: " << currentPosition << endl;
+    cout << "Place: " << actor.getPosition() << endl;
     cout << "Wood: " << wood << endl;
     cout << "Thisrty: " << actor.getWater() << endl;
+    if (state == STATE_IN_ROUTE) {
+        cout << "Passed: " << wayPassed << endl;
+    }
 
     switch (state) {
         case STATE_NONE:
             state = STATE_IN_ROUTE;
             targetPosition = POSITION_FOREST;
+            cout << "WTF?!" << endl;
             break;
         case STATE_IN_ROUTE:
             wayPassed++;
-            switch (currentPosition) {
+            cout << "In route" << endl;
+            switch (actor.getPosition()) {
                 case POSITION_HOME:
                     if (targetPosition == POSITION_FOREST && wayPassed == ticksToForest) {
+                        cout << "Aaaah! Back to the forest!" << endl;
                         state = STATE_WOODCUTTING;
-                        currentPosition = POSITION_FOREST;
+                        actor.setPosition(POSITION_FOREST);
                         wayPassed = 0;
                     }
                     else if (targetPosition == POSITION_WATER && wayPassed == ticksToWater) {
+                        cout << "Oh well, it's well!" << endl;
                         state = STATE_DRINKING;
-                        currentPosition = POSITION_WATER;
+                        actor.setPosition(POSITION_WATER);
                         wayPassed = 0;
                     }
                     break;
                 case POSITION_FOREST:
+                    cout << "In forest, going home\n";
                     if (wayPassed == ticksToForest) {
-                        currentPosition = POSITION_HOME;
+                        actor.setPosition(POSITION_HOME);
                         targetPosition = POSITION_WATER;
                         wayPassed = 0;
                     }
                     break;
                 case POSITION_WATER:
+                    cout << "Near well, going home\n";
                     if (wayPassed == ticksToWater) {
-                        currentPosition = POSITION_HOME;
+                        actor.setPosition(POSITION_HOME);
                         targetPosition = POSITION_FOREST;
                         wayPassed = 0;
                     }
@@ -88,6 +90,7 @@ int process() {
             }
             break;
         case STATE_WOODCUTTING:
+            cout << "Cutting wood! I love wood! My wife is wood too!\n";
             wood++;
             if (actor.getWater() == 0) {
                 state = STATE_THIRSTY;
@@ -97,17 +100,20 @@ int process() {
             }
             break;
         case STATE_THIRSTY:
+            cout << "I'm thirsty. Going drink something\n";
             targetPosition = POSITION_HOME;
             state = STATE_IN_ROUTE;
             wayPassed = 0;
             break;
         case STATE_DRINKING:
+            cout << "Drinking. Hope here will be something except water.\n";
             actor.drink();
             state = STATE_IN_ROUTE;
             targetPosition = POSITION_HOME;
             wayPassed = 0;
             break;
         case STATE_FINISHED:
+            cout << "Finished work. Fucking paty.\n";
             return 1;
     }
 
@@ -120,6 +126,7 @@ int main(int argc, char* argv[]) {
     View& view = View::getView();
     while (process() == 0) {
         view.draw();
+        SDL_Delay(100);
     }
     return 0;
 }
