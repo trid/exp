@@ -1,9 +1,25 @@
+#ifndef ACTOR_H
+#define ACTOR_H
+
+#include "state.h"
+
 enum Position {
     POSITION_NONE,
     POSITION_HOME,
     POSITION_FOREST,
     POSITION_WATER
 };
+
+/*enum State {
+    STATE_NONE,
+    STATE_IN_ROUTE,
+    STATE_WOODCUTTING,
+    STATE_THIRSTY,
+    STATE_DRINKING,
+    STATE_FINISHED
+};*/
+
+class State;
 
 class Actor {
     friend class Registry;
@@ -13,7 +29,11 @@ private:
     int water = 60;
 
     Position position = POSITION_HOME;
+    Position target = POSITION_NONE;
+    State* state;
 public:
+    Actor();
+
     void update();
     void eat();
     void drink();
@@ -37,4 +57,12 @@ public:
     void setPosition(Position position) {
         this->position = position;
     }
+
+    State* getState() {
+        return state;
+    }
+
+    void setState(State* state);
 };
+
+#endif

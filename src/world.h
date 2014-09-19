@@ -15,6 +15,7 @@ struct Travel {
 
     //Returns true if actor finished it's way
     bool update() { distancePassed++; return distanceNeeded == distancePassed; }
+    bool finished() { return distancePassed == distanceNeeded; }
 };
 
 typedef std::shared_ptr<Travel> TravelPtr;
