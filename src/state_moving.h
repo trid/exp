@@ -8,7 +8,7 @@ class Actor;
 
 class StateMoving: public State {
 public:
-    virtual void enter(Actor *actor) { cout << "Start moving" << endl; };
+    virtual void enter(Actor *actor);;
     virtual void execute(Actor *actor);
     virtual void exit(Actor *actor) { cout << "End moving" << endl; };
 

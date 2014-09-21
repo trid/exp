@@ -32,7 +32,7 @@ Actor& actor = ActorsRegistry::getRegistry().createActor();
 
 int process() {
     cout << "Place: " << actor.getPosition() << endl;
-    cout << "Wood: " << wood << endl;
+    cout << "Wood: " << actor.getWood() << endl;
     cout << "Thisrty: " << actor.getWater() << endl;
 /*    if (actor.getState() == STATE_IN_ROUTE) {
         cout << "Passed: " << wayPassed << endl;
