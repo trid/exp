@@ -31,10 +31,8 @@ private:
     Position position = POSITION_HOME;
     Position target = POSITION_NONE;
     int steps = 0;
-    State* state;
+    State* state = nullptr;
 public:
-    Actor();
-
     void update();
     void eat();
     void drink();

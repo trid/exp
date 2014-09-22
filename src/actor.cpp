@@ -1,9 +1,5 @@
 #include "actor.h"
-#include "state_start.h"
 
-Actor::Actor() {
-    state = StateStart::getInstance();
-}
 
 void Actor::update() {
     if (food > 0) food--;
@@ -22,7 +18,9 @@ void Actor::drink() {
 }
 
 void Actor::setState(State* state) {
-    this->state->exit(this);
+    if (this->state) {
+        this->state->exit(this);
+    }
     state->enter(this);
     this->state = state;
 }
