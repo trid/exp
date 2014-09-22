@@ -30,6 +30,27 @@ public:
     void moveActor(Actor &actor, int dest);
     void update();
 
+    int getFood() const {
+        return food;
+    }
+
+    void setFood(int food) {
+        World::food = food;
+    }
+
+    int getWood() const {
+        return wood;
+    }
+
+    void setWood(int wood) {
+        World::wood = wood;
+    }
+
+    void addWood() {
+        wood++;
+    }
 private:
     std::list<TravelPtr> inRoute;
+    int wood = 0;
+    int food = 0;
 };

@@ -28,12 +28,13 @@ int wood = 0;
 int neededWood = 300;
 int wayPassed = 0;
 
-Actor& actor = ActorsRegistry::getRegistry().createActor();
+Actor& woodCutter = ActorsRegistry::getRegistry().createActor();
+Actor& hunter = ActorsRegistry::getRegistry().createActor();
 
 int process() {
-    cout << "Place: " << actor.getPosition() << endl;
-    cout << "Wood: " << actor.getWood() << endl;
-    cout << "Thisrty: " << actor.getWater() << endl;
+    cout << "Place: " << woodCutter.getPosition() << endl;
+    cout << "Wood: " << World::getWorld().getWood() << endl;
+    cout << "Thisrty: " << woodCutter.getWater() << endl;
 
     return 0;
 }

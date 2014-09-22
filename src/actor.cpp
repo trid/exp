@@ -39,6 +39,3 @@ int Actor::getSteps() {
     return steps;
 }
 
-void Actor::cutWood() {
-    wood++;
-}

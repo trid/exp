@@ -32,8 +32,6 @@ private:
     Position target = POSITION_NONE;
     int steps = 0;
     State* state;
-
-    int wood = 0;
 public:
     Actor();
 
@@ -71,9 +69,6 @@ public:
     void updateSteps() { steps++; }
     Position getTargetPosition();
     int getSteps();
-    void cutWood();
-
-    int getWood() { return wood; }
 };
 
 #endif
