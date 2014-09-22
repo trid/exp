@@ -11,3 +11,9 @@ Actor &ActorsRegistry::createActor() {
     actors.push_back(actor);
     return *actor;
 }
+
+void ActorsRegistry::update() {
+    for (Actor* actor: actors) {
+        actor->update();
+    }
+}
