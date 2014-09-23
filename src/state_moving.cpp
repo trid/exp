@@ -1,6 +1,6 @@
 #include "actor.h"
 #include "state_moving.h"
-#include "state_woodcutting.h"
+#include "state_manager.h"
 
 void StateMoving::execute(Actor *actor) {
     cout << "On road" << endl;
@@ -25,7 +25,7 @@ void StateMoving::execute(Actor *actor) {
         case POSITION_FOREST:
             if (actor->getSteps() == 3) {
                 cout << "Came to forest" << endl;
-                actor->setState(StateWoodcutting::getInstance());
+                actor->setState(StateManager::getInstance().getState("StateWoodcutting"));
                 actor->setPosition(POSITION_FOREST);
                 actor->resetSteps();
             }

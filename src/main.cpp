@@ -5,7 +5,7 @@
 #include "view.h"
 #include "registry.h"
 #include "world.h"
-#include "state_start.h"
+#include "state_manager.h"
 
 using namespace std;
 
@@ -44,8 +44,8 @@ int main(int argc, char* argv[]) {
     View& view = View::getView();
     World& world = World::getWorld();
     ActorsRegistry &registry = ActorsRegistry::getRegistry();
-
-    woodCutter.setState(StateStart::getInstance());
+    StateManager& stateManager = StateManager::getInstance();
+    woodCutter.setState(StateManager::getInstance().getState("StateStart"));
 
     while (process() == 0) {
         registry.update();
