@@ -32,7 +32,6 @@ void StateManager::registerScriptedStates() {
     path p("scripts/states/");
 
     for (auto it = directory_iterator(p); it != directory_iterator(); it++) {
-        cout << *it << endl;
         ScriptManager::getInstance().loadScript(it->path().string());
     }
 }
