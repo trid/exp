@@ -49,6 +49,10 @@ public:
     void addWood() {
         wood++;
     }
+
+    void addFood() {
+        food++;
+    }
 private:
     std::list<TravelPtr> inRoute;
     int wood = 0;

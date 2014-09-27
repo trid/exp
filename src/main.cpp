@@ -6,21 +6,9 @@
 #include "registry.h"
 #include "world.h"
 #include "state_manager.h"
+#include "script_manager.h"
 
 using namespace std;
-
-int print(lua_State* state) {
-    char const *str = lua_tostring(state, 1);
-    cout << "LUA: " << str;
-    return 0;
-}
-
-void lua_test() {
-    lua_State* state = luaL_newstate();
-    lua_register(state, "print", print);
-    int ret = luaL_dofile(state, "scripts/hello.lua");
-    if (state) lua_close(state);
-}
 
 int ticksToForest = 3;
 int ticksToWater = 5;
@@ -33,9 +21,8 @@ Actor& woodCutter = ActorsRegistry::getRegistry().createActor();
 Actor& hunter = ActorsRegistry::getRegistry().createActor();
 
 int process() {
-    cout << "Place: " << woodCutter.getPosition() << endl;
     cout << "Wood: " << World::getWorld().getWood() << endl;
-    cout << "Thisrty: " << woodCutter.getWater() << endl;
+    cout << "Food: " << World::getWorld().getFood() << endl;
 
     return 0;
 }
@@ -44,8 +31,12 @@ int main(int argc, char* argv[]) {
     View& view = View::getView();
     World& world = World::getWorld();
     ActorsRegistry &registry = ActorsRegistry::getRegistry();
+    ScriptManager& scriptManager = ScriptManager::getInstance();
     StateManager& stateManager = StateManager::getInstance();
+    stateManager.registerScriptedStates();
     woodCutter.setState(StateManager::getInstance().getState("StateStart"));
+
+    hunter.setState(stateManager.getState("StateHunterStart"));
 
     while (process() == 0) {
         registry.update();

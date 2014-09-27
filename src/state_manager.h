@@ -2,6 +2,7 @@
 #include <unordered_map>
 
 #include "state.h"
+#include "lua.hpp"
 
 class StateManager {
 private:
@@ -15,4 +16,7 @@ public:
     }
 
     State* getState(const std::string& name);
+
+    void registerScriptedStates();
+    void registerScriptedState(char const *tableName, char const *stateName);
 };
