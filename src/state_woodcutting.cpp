@@ -8,7 +8,7 @@ void StateWoodcutting::execute(Actor *actor) {
 
     if (actor->getWater() == 0) {
         cout << "Thirsty. Going to drink something." << endl;
-        actor->setTargetPosition(POSITION_HOME);
+        actor->setTargetPosition("home");
         actor->setState(StateManager::getInstance().getState("StateMoving"));
     }
     if (World::getWorld().getWood() > 300) {

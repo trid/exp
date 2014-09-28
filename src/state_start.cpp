@@ -6,5 +6,5 @@
 void StateStart::execute(Actor *actor) {
     cout << "What shall I do now..." << endl;
     actor->setState(StateManager::getInstance().getState("StateMoving"));
-    actor->setTargetPosition(POSITION_FOREST);
+    actor->setTargetPosition("forest");
 }

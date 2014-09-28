@@ -1,7 +1,11 @@
 #ifndef ACTOR_H
 #define ACTOR_H
 
-#include "state.h"
+#include <string>
+
+class State;
+
+using std::string;
 
 enum Position {
     POSITION_NONE,
@@ -10,17 +14,6 @@ enum Position {
     POSITION_WATER
 };
 
-/*enum State {
-    STATE_NONE,
-    STATE_IN_ROUTE,
-    STATE_WOODCUTTING,
-    STATE_THIRSTY,
-    STATE_DRINKING,
-    STATE_FINISHED
-};*/
-
-class State;
-
 class Actor {
     friend class Registry;
 private:
@@ -28,8 +21,8 @@ private:
     int food = 90;
     int water = 60;
 
-    Position position = POSITION_HOME;
-    Position target = POSITION_NONE;
+    string position = "";
+    string target = "";
     int steps = 0;
     State* state = nullptr;
 public:
@@ -49,11 +42,11 @@ public:
         return id;
     }
 
-    Position getPosition() const {
+    const string& getPosition() const {
         return position;
     }
 
-    void setPosition(Position position) {
+    void setPosition(const string& position) {
         this->position = position;
     }
 
@@ -62,10 +55,10 @@ public:
     }
 
     void setState(State* state);
-    void setTargetPosition(Position position);
+    void setTargetPosition(const string& position);
     void resetSteps() { steps = 0; }
     void updateSteps() { steps++; }
-    Position getTargetPosition();
+    const string& getTargetPosition();
     int getSteps();
 };
 

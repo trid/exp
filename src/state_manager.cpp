@@ -7,7 +7,6 @@
 #include "scripted_state.h"
 
 #include <boost/filesystem.hpp>
-#include <iostream>
 
 using boost::filesystem::path;
 using boost::filesystem::directory_iterator;

@@ -54,8 +54,8 @@ int addFood(lua_State* state) {
 
 int moveTo(lua_State* state) {
     Actor* actor = (Actor*)lua_topointer(state, -2);
-    int place = lua_tointeger(state, -1);
-    actor->setPosition((Position) place);
+    const char* place = lua_tostring(state, -1);
+    actor->setPosition(place);
     return 0;
 }
 

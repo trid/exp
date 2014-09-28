@@ -15,7 +15,7 @@ function executeGoingHunt(actor)
     print("In route to forest!\n")
     updateSteps(actor)
     if (getSteps(actor) == 3) then
-        moveTo(actor, 2)
+        moveTo(actor, "forest")
         setState(actor, "StateHunting")
     end
 end

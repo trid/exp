@@ -1,5 +1,6 @@
 #include "actor.h"
 
+#include "state.h"
 
 void Actor::update() {
     if (food > 0) food--;
@@ -25,11 +26,11 @@ void Actor::setState(State* state) {
     this->state = state;
 }
 
-void Actor::setTargetPosition(Position position) {
+void Actor::setTargetPosition(const string& position) {
     target = position;
 }
 
-Position Actor::getTargetPosition() {
+const string& Actor::getTargetPosition() {
     return target;
 }
 

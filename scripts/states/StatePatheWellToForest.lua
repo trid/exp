@@ -16,7 +16,7 @@ function executeInRouteToForest(actor)
     updateSteps(actor)
 
     if (getSteps(actor) == 4) then
-        moveTo(actor, 2)
+        moveTo(actor, "forest")
         setState(actor, "StateHunting")
     end
 end

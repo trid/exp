@@ -16,7 +16,7 @@ function executeInRouteToWell(actor)
     updateSteps(actor)
 
     if (getSteps(actor) == 4) then
-        moveTo(actor, 3)
+        moveTo(actor, "well")
         drink(actor);
         setState(actor, "StatePatheWellToForest")
     end

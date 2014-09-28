@@ -58,21 +58,17 @@ void View::draw() {
     rect.w = 100;
     rect.h = 104;
     for (Actor* actorItem: ActorsRegistry::getRegistry().getActors()) {
-        switch (actorItem->getPosition()) {
-            case POSITION_NONE:
-                break;
-            case POSITION_HOME:
-                rect.x = 400;
-                rect.y = 300;
-                break;
-            case POSITION_FOREST:
-                rect.x = 500;
-                rect.y = 0;
-                break;
-            case POSITION_WATER:
-                rect.x = 200;
-                rect.y = 200;
-                break;
+        if (actorItem->getPosition() == "home") {
+            rect.x = 400;
+            rect.y = 300;
+        }
+        if (actorItem->getPosition() == "forest") {
+            rect.x = 500;
+            rect.y = 0;
+        }
+        if (actorItem->getPosition() == "water") {
+            rect.x = 200;
+            rect.y = 200;
         }
         SDL_RenderCopy(renderer, actor, nullptr, &rect);
     }
