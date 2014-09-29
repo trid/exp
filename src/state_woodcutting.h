@@ -10,6 +10,9 @@ public:
     virtual void execute(Actor* actor);
     virtual void exit(Actor* actor) { cout << "Finished cutting wood" << endl; };
 
+
+    virtual void processMessage(Actor *actor, Message &message) override;
+
     static State* getInstance() {
         static StateWoodcutting instance;
         return &instance;

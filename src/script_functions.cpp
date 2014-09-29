@@ -71,3 +71,32 @@ int drink(lua_State* state) {
     actor->drink();
     return 0;
 }
+
+int getPlace(lua_State* state) {
+    Actor* actor = (Actor*)lua_topointer(state, -1);
+    const string& place = actor->getPosition();
+    lua_pushstring(state, place.c_str());
+
+    return 1;
+}
+
+int sendTo(lua_State* state) {
+    Actor* actor = (Actor*)lua_topointer(state, -3);
+    const char* direction = lua_tostring(state, -2);
+    int steps = lua_tointeger(state, -1);
+
+    World::getWorld().moveActor(actor, direction, steps);
+
+    return 0;
+}
+
+
+// Messages
+
+int getMessageType(lua_State* state) {
+    Message* message = (Message*)lua_topointer(state, -1);
+    char const *messageType = message->messageType.c_str();
+    lua_pushstring(state, messageType);
+
+    return 1;
+}

@@ -11,6 +11,7 @@ public:
     virtual void enter(Actor *) = 0;
     virtual void execute(Actor *) = 0;
     virtual void exit(Actor *) = 0;
+    virtual void processMessage(Actor *actor, Message &message) = 0;
 };
 
 #endif

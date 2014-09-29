@@ -16,7 +16,8 @@ function executeHunting(actor)
     addFood();
 
     if (getThirsty(actor) == 0) then
-        setState(actor, "StatePathForestToWell")
+        setState(actor, "StateHunterInRoute")
+        sendTo(actor, "well", 4)
     end
 end
 

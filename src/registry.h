@@ -1,4 +1,5 @@
 #include "vector"
+#include "actor.h"
 
 using std::vector;
 
@@ -12,10 +13,11 @@ public:
     };
 
     Actor& createActor();
-    Actor& getActor(int id);
+    Actor * getActor(int id);
     const vector<Actor*>& getActors();
     void killActor(int id);
     void update();
 private:
     vector<Actor*> actors;
+    int nextId = 0;
 };

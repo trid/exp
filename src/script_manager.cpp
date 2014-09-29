@@ -21,6 +21,10 @@ void ScriptManager::registerFunctions() {
     registerFunction("moveTo", moveTo);
     registerFunction("getThirsty", getThirsty);
     registerFunction("drink", drink);
+    registerFunction("getPlace", getPlace);
+    registerFunction("sendTo", sendTo);
+
+    registerFunction("getMessageType", getMessageType);
 }
 
 void ScriptManager::registerFunction(const string &name, lua_CFunction function) {

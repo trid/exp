@@ -38,7 +38,9 @@ int main(int argc, char* argv[]) {
     StateManager& stateManager = StateManager::getInstance();
     SystemEventManager& systemEventManager = SystemEventManager::getInstance();
     stateManager.registerScriptedStates();
+    woodCutter.setPosition("home");
     woodCutter.setState(StateManager::getInstance().getState("StateStart"));
+    hunter.setPosition("home");
 
     hunter.setState(stateManager.getState("StateHunterStart"));
 

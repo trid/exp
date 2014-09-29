@@ -2,6 +2,7 @@
 #define ACTOR_H
 
 #include <string>
+#include "message_manager.h"
 
 class State;
 
@@ -15,7 +16,7 @@ enum Position {
 };
 
 class Actor {
-    friend class Registry;
+    friend class ActorsRegistry;
 private:
     int id;
     int food = 90;
@@ -60,6 +61,7 @@ public:
     void updateSteps() { steps++; }
     const string& getTargetPosition();
     int getSteps();
+    void processMessage(Message &message);
 };
 
 #endif

@@ -9,6 +9,8 @@ public:
     virtual void execute(Actor* actor) { cout << "Enjoing myself." << endl; };
     virtual void exit(Actor* actor){};
 
+    virtual void processMessage(Actor *actor, Message &message);
+
     static StateFinished* getInstance() {
         static StateFinished stateFinished;
         return &stateFinished;

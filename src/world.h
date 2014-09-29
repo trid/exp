@@ -1,21 +1,28 @@
+#include <algorithm>
 #include <list>
 #include <memory>
+#include <string>
+#include "message_manager.h"
+#include "actor.h"
+
+using std::string;
+using std::remove_if;
 
 class Actor;
 
 struct Travel {
-    Actor& actor;
-    int dest;
+    Actor* actor;
+    string dest;
     int distancePassed;
     int distanceNeeded;
 
-    Travel(Actor& actor, int dest, int distance): actor(actor), dest(dest),
+    Travel(Actor* actor, const string& dest, int distance): actor(actor), dest(dest),
                                                        distancePassed(0), distanceNeeded(distance)
     {}
 
     //Returns true if actor finished it's way
-    bool update() { distancePassed++; return distanceNeeded == distancePassed; }
-    bool finished() { return distancePassed == distanceNeeded; }
+    void update();
+    bool finished() { return distancePassed >= distanceNeeded; }
 };
 
 typedef std::shared_ptr<Travel> TravelPtr;
@@ -27,7 +34,7 @@ public:
         return world;
     };
 
-    void moveActor(Actor &actor, int dest);
+    void moveActor(Actor *actor, string const &dest, int distance);
     void update();
 
     int getFood() const {

@@ -38,3 +38,8 @@ int Actor::getSteps() {
     return steps;
 }
 
+void Actor::processMessage(Message &message) {
+    if (state) {
+        state->processMessage(this, message);
+    }
+}

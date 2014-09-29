@@ -12,7 +12,8 @@ end
 
 function execute(actor)
     print("I'll go to forest and hunt!\n")
-    setState(actor, "StateGoingHunt")
+    sendTo(actor, "forest", 3);
+    setState(actor, "StateHunterInRoute")
 end
 
 function exit(actor)
