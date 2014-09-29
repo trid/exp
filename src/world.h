@@ -4,6 +4,7 @@
 #include <string>
 #include "message_manager.h"
 #include "actor.h"
+#include "process.h"
 
 using std::string;
 using std::remove_if;
@@ -61,7 +62,17 @@ public:
         food++;
     }
 private:
+    World();
+
     std::list<TravelPtr> inRoute;
     int wood = 0;
     int food = 0;
+};
+
+class WorldProcess: public Process {
+
+public:
+    virtual void update();
+
+    virtual bool finished();
 };

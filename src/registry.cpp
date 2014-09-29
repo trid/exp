@@ -1,6 +1,7 @@
 #include "registry.h"
 
 #include "actor.h"
+#include "application.h"
 
 const vector<Actor *> &ActorsRegistry::getActors() {
     return actors;
@@ -22,4 +23,17 @@ void ActorsRegistry::update() {
 
 Actor *ActorsRegistry::getActor(int id) {
     return actors[id];
+}
+
+void ActorsRegistry::ActorRegistryProcess::update() {
+    ActorsRegistry::getRegistry().update();
+}
+
+bool ActorsRegistry::ActorRegistryProcess::finished() {
+    return false;
+}
+
+ActorsRegistry::ActorsRegistry() {
+    ProcessPtr ptr(new ActorRegistryProcess());
+    Application::getInstance().addProcess(ptr);
 }

@@ -32,8 +32,6 @@ int process() {
 
 int main(int argc, char* argv[]) {
     View& view = View::getView();
-    World& world = World::getWorld();
-    ActorsRegistry &registry = ActorsRegistry::getRegistry();
     ScriptManager& scriptManager = ScriptManager::getInstance();
     StateManager& stateManager = StateManager::getInstance();
     SystemEventManager& systemEventManager = SystemEventManager::getInstance();
@@ -46,10 +44,9 @@ int main(int argc, char* argv[]) {
 
     while (app.isRunning()) {
         process();
-        registry.update();
-        world.update();
-        view.draw();
+        app.update();
         systemEventManager.process();
+        view.draw();
         SDL_Delay(100);
     }
     return 0;

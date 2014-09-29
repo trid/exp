@@ -1,5 +1,6 @@
 #include "vector"
 #include "actor.h"
+#include "process.h"
 
 using std::vector;
 
@@ -20,4 +21,12 @@ public:
 private:
     vector<Actor*> actors;
     int nextId = 0;
+
+    ActorsRegistry();
+public:
+    class ActorRegistryProcess: public Process{
+    public:
+        virtual void update();
+        virtual bool finished();
+    };
 };

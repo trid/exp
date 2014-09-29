@@ -1,6 +1,7 @@
 #include "world.h"
 
 #include "actor.h"
+#include "application.h"
 
 #include <iostream>
 using namespace std;
@@ -25,4 +26,17 @@ void Travel::update() {
         actor->setPosition(dest);
         MessageManager::getInstance().dispatchMessage(actor->getID(), message);
     }
+}
+
+void WorldProcess::update() {
+    World::getWorld().update();
+}
+
+bool WorldProcess::finished() {
+    return false;
+}
+
+World::World() {
+    ProcessPtr ptr(new WorldProcess());
+    Application::getInstance().addProcess(ptr);
 }
