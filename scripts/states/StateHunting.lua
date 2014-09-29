@@ -22,7 +22,7 @@ function executeHunting(actor)
 end
 
 function exitHunting(actor)
-    print("Returning from forest!\n")
+    print("Returning from hunt!\n")
 end
 
 StateHunting = {

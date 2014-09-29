@@ -1,8 +1,9 @@
 #include <iostream>
+#include <SDL_ttf.h>
 
 #include "actor.h"
 #include "application.h"
-#include "view.h"
+#include "view/view.h"
 #include "registry.h"
 #include "world.h"
 #include "state_manager.h"
@@ -23,12 +24,7 @@ Application& app = Application::getInstance();
 Actor& woodCutter = ActorsRegistry::getRegistry().createActor();
 Actor& hunter = ActorsRegistry::getRegistry().createActor();
 
-int process() {
-    cout << "Wood: " << World::getWorld().getWood() << endl;
-    cout << "Food: " << World::getWorld().getFood() << endl;
 
-    return 0;
-}
 
 int main(int argc, char* argv[]) {
     View& view = View::getView();
@@ -43,7 +39,6 @@ int main(int argc, char* argv[]) {
     hunter.setState(stateManager.getState("StateHunterStart"));
 
     while (app.isRunning()) {
-        process();
         app.update();
         systemEventManager.process();
         view.draw();

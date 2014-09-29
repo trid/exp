@@ -21,8 +21,10 @@ end
 function processMessageHunterInRoute(actor, message)
     if (getMessageType(message) == "FINISHED_MOVING") then
         if (getPlace(actor) == "forest") then
+            print("Returned to forest!\n")
             setState(actor, "StateHunting")
         elseif (getPlace(actor) == "well") then
+            drink(actor)
             setState(actor, "StateHunterInRoute")
             sendTo(actor, "forest", 4);
         end

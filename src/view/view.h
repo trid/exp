@@ -1,5 +1,6 @@
 #include <SDL.h>
 #include <SDL_image.h>
+#include "label.h"
 
 class View {
 public:
@@ -19,5 +20,10 @@ private:
     SDL_Texture* well;
     SDL_Texture* actor;
 
+    Label* foodLabel;
+    Label* woodLabel;
+
     View();
+
+    void updateLabels();
 };

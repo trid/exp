@@ -1,9 +1,11 @@
 #include <iostream>
+#include <sstream>
 
 #include "view.h"
 
-#include "actor.h"
-#include "registry.h"
+#include "../actor.h"
+#include "../registry.h"
+#include "../world.h"
 
 using namespace std;
 
@@ -31,9 +33,17 @@ View::View() {
     forest = IMG_LoadTexture(renderer, "res/img/trees.png");
     home = IMG_LoadTexture(renderer, "res/img/home.png");
     actor = IMG_LoadTexture(renderer, "res/img/actor.png");
+
+    TTF_Init();
+    Label::font = TTF_OpenFont("res/fonts/FreeSans.ttf", 20);
+
+    woodLabel = new Label(0, 0, "Wood: 0");
+    foodLabel = new Label(0, 30, "Food: 0");
 }
 
 void View::draw() {
+    updateLabels();
+    
     SDL_RenderClear(renderer);
 
     SDL_Rect rect;
@@ -73,5 +83,18 @@ void View::draw() {
         SDL_RenderCopy(renderer, actor, nullptr, &rect);
     }
 
+    foodLabel->draw(renderer);
+    woodLabel->draw(renderer);
+
     SDL_RenderPresent(renderer);
+}
+
+void View::updateLabels() {
+    std::stringstream ss;
+    World &world = World::getWorld();
+    ss << "Wood: " << world.getWood();
+    woodLabel->setText(ss.str());
+    ss.str("");
+    ss << "Food: " << world.getFood();
+    foodLabel->setText(ss.str());
 }
