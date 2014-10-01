@@ -14,6 +14,8 @@ int moveTo(lua_State* state);
 int getThirsty(lua_State* state);
 int drink(lua_State* state);
 int sendTo(lua_State* state);
+int eat(lua_State* state);
+int getFeed(lua_State* state);
 
 //Messages
 int getMessageType(lua_State* state);

@@ -18,6 +18,9 @@ function executeHunting(actor)
     if (getThirsty(actor) == 0) then
         setState(actor, "StateHunterInRoute")
         sendTo(actor, "well", 4)
+    elseif (getFeed(actor) == 0) then
+        setState(actor, "StateHunterInRoute")
+        sendTo(actor, "home", 3)
     end
 end
 

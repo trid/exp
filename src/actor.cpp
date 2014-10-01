@@ -1,6 +1,7 @@
 #include "actor.h"
 
 #include "state.h"
+#include "world.h"
 
 void Actor::update() {
     if (food > 0) food--;
@@ -12,6 +13,7 @@ void Actor::update() {
 
 void Actor::eat() {
     food = 90;
+    World::getWorld().removeFood();
 }
 
 void Actor::drink() {

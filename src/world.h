@@ -61,6 +61,10 @@ public:
     void addFood() {
         food++;
     }
+
+    void removeFood() {
+        food--;
+    }
 private:
     World();
 

@@ -25,11 +25,16 @@ function processMessageWoodcutterInRoute(actor, message)
         elseif (getPlace(actor) == "home" and getThirsty(actor) == 0) then
             setState(actor, "StateWoodcutterInRoute")
             sendTo(actor, "well", 2);
+        elseif (getPlace(actor) == "home" and getFeed(actor) == 0) then
+            setState(actor, "StateWoodcutterInRoute")
+            sendTo(actor, "forest", 3);
+            eat(actor)
+            print("Eating! Yummy!")
         elseif (getPlace(actor) == "well") then
             drink(actor)
             setState(actor, "StateWoodcutterInRoute")
             sendTo(actor, "home", 2);
-        elseif (getPlace(actor) == "home" and getThirsty ~= 0) then
+        elseif (getPlace(actor) == "home" and getThirsty() ~= 0 and getFeed() ~= 0) then
             setState(actor, "StateWoodcutterInRoute")
             sendTo(actor, "forest", 3);
         end

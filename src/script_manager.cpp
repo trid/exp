@@ -23,6 +23,8 @@ void ScriptManager::registerFunctions() {
     registerFunction("drink", drink);
     registerFunction("getPlace", getPlace);
     registerFunction("sendTo", sendTo);
+    registerFunction("eat", eat);
+    registerFunction("getFeed", getFeed);
 
     registerFunction("getMessageType", getMessageType);
 }

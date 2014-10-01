@@ -27,6 +27,10 @@ function processMessageHunterInRoute(actor, message)
             drink(actor)
             setState(actor, "StateHunterInRoute")
             sendTo(actor, "forest", 4);
+        elseif (getPlace(actor) == "home") then
+            eat(actor)
+            setState(actor, "StateHunterInRoute")
+            sendTo(actor, "forest", 3);
         end
     end
 end

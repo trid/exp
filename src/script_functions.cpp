@@ -90,6 +90,19 @@ int sendTo(lua_State* state) {
     return 0;
 }
 
+int eat(lua_State* state) {
+    Actor* actor = (Actor*)lua_topointer(state, -1);
+    actor->eat();
+
+    return 0;
+}
+
+int getFeed(lua_State* state) {
+    Actor* actor = (Actor*)lua_topointer(state, -1);
+    lua_pushinteger(state, actor->getFood());
+
+    return 1;
+}
 
 // Messages
 
