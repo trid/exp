@@ -26,6 +26,7 @@ private:
     string target = "";
     int steps = 0;
     State* state = nullptr;
+    string name;
 public:
     void update();
     void eat();
@@ -62,6 +63,14 @@ public:
     const string& getTargetPosition();
     int getSteps();
     void processMessage(Message &message);
+
+    const string &getName() const {
+        return name;
+    }
+
+    void setName(const string &name) {
+        Actor::name = name;
+    }
 };
 
 #endif

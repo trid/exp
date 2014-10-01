@@ -27,6 +27,8 @@ function processMessageHunterInRoute(actor, message)
             drink(actor)
             setState(actor, "StateHunterInRoute")
             sendTo(actor, "forest", 4);
+        elseif (getPlace(actor) == "home" and getStoredFood() >= 20) then
+            setState(actor, "StateHunterRest")
         elseif (getPlace(actor) == "home") then
             eat(actor)
             setState(actor, "StateHunterInRoute")

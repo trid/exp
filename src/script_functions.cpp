@@ -113,3 +113,10 @@ int getMessageType(lua_State* state) {
 
     return 1;
 }
+
+// World
+int getStoredFood(lua_State* state) {
+    lua_pushinteger(state, World::getWorld().getFood());
+
+    return 1;
+}

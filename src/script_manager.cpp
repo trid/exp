@@ -27,6 +27,8 @@ void ScriptManager::registerFunctions() {
     registerFunction("getFeed", getFeed);
 
     registerFunction("getMessageType", getMessageType);
+
+    registerFunction("getStoredFood", getStoredFood);
 }
 
 void ScriptManager::registerFunction(const string &name, lua_CFunction function) {

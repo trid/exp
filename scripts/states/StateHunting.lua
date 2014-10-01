@@ -13,7 +13,6 @@ end
 
 function executeHunting(actor)
     print("Hunting! Yum, fresh meat!\n")
-    addFood();
 
     if (getThirsty(actor) == 0) then
         setState(actor, "StateHunterInRoute")
@@ -21,6 +20,12 @@ function executeHunting(actor)
     elseif (getFeed(actor) == 0) then
         setState(actor, "StateHunterInRoute")
         sendTo(actor, "home", 3)
+    elseif (getStoredFood() >= 20) then
+        print("Have enough food, returning home.\n")
+        setState(actor, "StateHunterInRoute")
+        sendTo(actor, "home", 3)
+    else
+        addFood();
     end
 end
 

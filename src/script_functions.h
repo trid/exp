@@ -19,3 +19,6 @@ int getFeed(lua_State* state);
 
 //Messages
 int getMessageType(lua_State* state);
+
+//World
+int getStoredFood(lua_State* state);
