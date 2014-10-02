@@ -25,6 +25,7 @@ void ScriptManager::registerFunctions() {
     registerFunction("sendTo", sendTo);
     registerFunction("eat", eat);
     registerFunction("getFeed", getFeed);
+    registerFunction("say", say);
 
     registerFunction("getMessageType", getMessageType);
 

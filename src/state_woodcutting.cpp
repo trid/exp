@@ -3,7 +3,7 @@
 #include "world.h"
 
 void StateWoodcutting::execute(Actor *actor) {
-    cout << "Cutting wood! Loving wood! Just like my wife!" << endl;
+    actor->say("Cutting wood! Loving wood! Just like my wife!");
     World::getWorld().addWood();
 
     if (actor->getWater() == 0) {

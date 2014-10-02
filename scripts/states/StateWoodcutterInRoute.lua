@@ -7,15 +7,15 @@
 --
 
 function enterWoodcutterInRoute(actor)
-    print("Start moving!\n")
+    say(actor, "Start moving!\n")
 end
 
 function executeWoodcutterInRoute(actor)
-    print("On my way!\n")
+    say(actor, "On my way!\n")
 end
 
 function exitWoodcutterInRoute(actor)
-    print("Finished moving!\n")
+    say(actor, "Finished moving!\n")
 end
 
 function processMessageWoodcutterInRoute(actor, message)
@@ -29,7 +29,7 @@ function processMessageWoodcutterInRoute(actor, message)
             setState(actor, "StateWoodcutterInRoute")
             sendTo(actor, "forest", 3);
             eat(actor)
-            print("Eating! Yummy!")
+            say(actor, "Eating! Yummy!")
         elseif (getPlace(actor) == "well") then
             drink(actor)
             setState(actor, "StateWoodcutterInRoute")

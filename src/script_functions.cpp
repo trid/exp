@@ -104,6 +104,13 @@ int getFeed(lua_State* state) {
     return 1;
 }
 
+int say(lua_State* state) {
+    Actor* actor = (Actor*)lua_topointer(state, -2);
+    const char* message = lua_tostring(state, -1);
+
+    actor->say(message);
+}
+
 // Messages
 
 int getMessageType(lua_State* state) {

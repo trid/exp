@@ -1,5 +1,6 @@
 #include "lua.hpp"
 
+//Utils
 int print(lua_State* state);
 int registerScriptedState(lua_State* state);
 
@@ -16,6 +17,7 @@ int drink(lua_State* state);
 int sendTo(lua_State* state);
 int eat(lua_State* state);
 int getFeed(lua_State* state);
+int say(lua_State* state);
 
 //Messages
 int getMessageType(lua_State* state);

@@ -71,6 +71,8 @@ public:
     void setName(const string &name) {
         Actor::name = name;
     }
+
+    void say(const string &message);
 };
 
 #endif

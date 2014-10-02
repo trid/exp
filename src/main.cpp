@@ -34,8 +34,9 @@ int main(int argc, char* argv[]) {
     stateManager.registerScriptedStates();
     woodCutter.setPosition("home");
     woodCutter.setState(StateManager::getInstance().getState("StateStart"));
+    woodCutter.setName("John Wood");
     hunter.setPosition("home");
-
+    hunter.setName("Hunter Smith");
     hunter.setState(stateManager.getState("StateHunterStart"));
 
     while (app.isRunning()) {

@@ -7,21 +7,21 @@
 --
 
 function enterHunterInRoute(actor)
-    print("Start moving!\n")
+    say(actor, "Start moving!\n")
 end
 
 function executeHunterInRoute(actor)
-    print("On my way! I'm clever and fast!\n")
+    say(actor, "On my way! I'm clever and fast!\n")
 end
 
 function exitHunterInRoute(actor)
-    print("Finished moving!\n")
+    say(actor, "Finished moving!\n")
 end
 
 function processMessageHunterInRoute(actor, message)
     if (getMessageType(message) == "FINISHED_MOVING") then
         if (getPlace(actor) == "forest") then
-            print("Returned to forest!\n")
+            say(actor, "Returned to forest!\n")
             setState(actor, "StateHunting")
         elseif (getPlace(actor) == "well") then
             drink(actor)

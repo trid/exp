@@ -11,9 +11,9 @@ using std::endl;
 
 class StateStart: public State {
 public:
-    virtual void enter(Actor*) { cout << "Waked up." << endl;};
+    virtual void enter(Actor* actor) { actor->say("Waked up.");};
     virtual void execute(Actor*);
-    virtual void exit(Actor*) { cout << "Start to do something." << endl; };
+    virtual void exit(Actor* actor) { actor->say("Start to do something."); };
 
     virtual void processMessage(Actor *actor, Message &message);
 

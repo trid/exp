@@ -5,8 +5,7 @@
 #include "world.h"
 
 void StateStart::execute(Actor *actor) {
-    cout << "What shall I do now..." << endl;
-    //actor->setState(StateManager::getInstance().getState("StateMoving"));
+    actor->say("What shall I do now...");
     actor->setState(StateManager::getInstance().getState("StateWoodcutterInRoute"));
     actor->setTargetPosition("forest");
     World::getWorld().moveActor(actor, "forest", 3);

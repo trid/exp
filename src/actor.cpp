@@ -3,6 +3,11 @@
 #include "state.h"
 #include "world.h"
 
+#include <iostream>
+
+using std::cout;
+using std::endl;
+
 void Actor::update() {
     if (food > 0) food--;
     if (water > 0) water--;
@@ -44,4 +49,8 @@ void Actor::processMessage(Message &message) {
     if (state) {
         state->processMessage(this, message);
     }
+}
+
+void Actor::say(const string &message) {
+    cout << name << ": " << message << endl;
 }
