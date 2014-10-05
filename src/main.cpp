@@ -19,25 +19,15 @@ int wood = 0;
 int neededWood = 300;
 int wayPassed = 0;
 
-Application& app = Application::getInstance();
-
-Actor& woodCutter = ActorsRegistry::getRegistry().createActor();
-Actor& hunter = ActorsRegistry::getRegistry().createActor();
-
-
 
 int main(int argc, char* argv[]) {
+    Application& app = Application::getInstance();
     View& view = View::getView();
     ScriptManager& scriptManager = ScriptManager::getInstance();
     StateManager& stateManager = StateManager::getInstance();
     SystemEventManager& systemEventManager = SystemEventManager::getInstance();
     stateManager.registerScriptedStates();
-    woodCutter.setPosition("home");
-    woodCutter.setState(StateManager::getInstance().getState("StateStart"));
-    woodCutter.setName("John Wood");
-    hunter.setPosition("home");
-    hunter.setName("Hunter Smith");
-    hunter.setState(stateManager.getState("StateHunterStart"));
+    scriptManager.loadScript("scripts/init.lua");
 
     while (app.isRunning()) {
         app.update();

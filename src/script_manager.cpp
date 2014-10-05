@@ -26,10 +26,13 @@ void ScriptManager::registerFunctions() {
     registerFunction("eat", eat);
     registerFunction("getFeed", getFeed);
     registerFunction("say", say);
+    registerFunction("setName", setName);
 
     registerFunction("getMessageType", getMessageType);
 
     registerFunction("getStoredFood", getStoredFood);
+
+    registerFunction("createActor", createActor);
 }
 
 void ScriptManager::registerFunction(const string &name, lua_CFunction function) {

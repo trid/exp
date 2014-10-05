@@ -3,6 +3,7 @@
 #include "script_functions.h"
 #include "state_manager.h"
 #include "world.h"
+#include "registry.h"
 
 using std::cout;
 
@@ -24,7 +25,8 @@ int setState(lua_State* state) {
     Actor* actor = (Actor*)lua_topointer(state, -2);
     const char* stateName = lua_tostring(state, -1);
 
-    actor->setState(StateManager::getInstance().getState(stateName));
+    State *actorState = StateManager::getInstance().getState(stateName);
+    actor->setState(actorState);
     return 0;
 }
 
@@ -111,6 +113,13 @@ int say(lua_State* state) {
     actor->say(message);
 }
 
+int setName(lua_State* state) {
+    Actor* actor = (Actor*)lua_topointer(state, -2);
+    const char* name = lua_tostring(state, -1);
+
+    actor->setName(name);
+}
+
 // Messages
 
 int getMessageType(lua_State* state) {
@@ -124,6 +133,14 @@ int getMessageType(lua_State* state) {
 // World
 int getStoredFood(lua_State* state) {
     lua_pushinteger(state, World::getWorld().getFood());
+
+    return 1;
+}
+
+//Actor registry
+int createActor(lua_State* state) {
+    Actor& actor = ActorsRegistry::getRegistry().createActor();
+    lua_pushlightuserdata(state, &actor);
 
     return 1;
 }

@@ -18,9 +18,13 @@ int sendTo(lua_State* state);
 int eat(lua_State* state);
 int getFeed(lua_State* state);
 int say(lua_State* state);
+int setName(lua_State* state);
 
 //Messages
 int getMessageType(lua_State* state);
 
 //World
 int getStoredFood(lua_State* state);
+
+//Actors registry
+int createActor(lua_State* state);
