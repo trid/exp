@@ -31,27 +31,9 @@ int setState(lua_State* state) {
     return 0;
 }
 
-int updateSteps(lua_State* state) {
-    Actor* actor = (Actor*)lua_topointer(state, -1);
-    actor->updateSteps();
-    return 0;
-}
-
-int resetSteps(lua_State* state) {
-    Actor* actor = (Actor*)lua_topointer(state, -1);
-    actor->resetSteps();
-    return 0;
-}
-
-int getSteps(lua_State* state) {
-    Actor* actor = (Actor*)lua_topointer(state, -1);
-    int steps = actor->getSteps();
-    lua_pushinteger(state, steps);
-    return 1;
-}
-
 int addFood(lua_State* state) {
-    World::getWorld().addFood();
+    Actor* actor = (Actor*)lua_topointer(state, -1);
+    actor->addItem();
     return 0;
 }
 
@@ -119,6 +101,34 @@ int setName(lua_State* state) {
     const char* name = lua_tostring(state, -1);
 
     actor->setName(name);
+}
+
+int getInventory(lua_State* state) {
+    Actor* actor = (Actor*)lua_topointer(state, -1);
+    lua_pushinteger(state, actor->getInventory());
+
+    return 1;
+}
+
+int getInventorySize(lua_State* state) {
+    Actor* actor = (Actor*)lua_topointer(state, -1);
+    lua_pushinteger(state, actor->getInventoryLimit());
+
+    return 1;
+}
+
+int unloadWood(lua_State* state) {
+    Actor* actor = (Actor*)lua_topointer(state, -1);
+    actor->unloadWood();
+
+    return 0;
+}
+
+int unloadFood(lua_State* state) {
+    Actor* actor = (Actor*)lua_topointer(state, -1);
+    actor->unloadFood();
+
+    return 0;
 }
 
 // Messages

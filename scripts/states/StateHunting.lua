@@ -8,7 +8,6 @@
 
 function enterHunting(actor)
     say(actor, "Started hunt!\n")
-    resetSteps(actor)
 end
 
 function executeHunting(actor)
@@ -24,8 +23,12 @@ function executeHunting(actor)
         say(actor, "Have enough food, returning home.\n")
         setState(actor, "StateHunterInRoute")
         sendTo(actor, "home", 3)
+    elseif (getInventory(actor) == getInventorySize(actor)) then
+        say(actor, "My bag is heavy, returning home.\n")
+        setState(actor, "StateHunterInRoute")
+        sendTo(actor, "home", 3)
     else
-        addFood();
+        addFood(actor);
     end
 end
 

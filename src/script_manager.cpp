@@ -14,9 +14,6 @@ void ScriptManager::registerFunctions() {
     registerFunction("print", print);
     registerFunction("registerScriptedState", registerScriptedState);
     registerFunction("setState", setState);
-    registerFunction("updateSteps", updateSteps);
-    registerFunction("resetSteps", resetSteps);
-    registerFunction("getSteps", getSteps);
     registerFunction("addFood", addFood);
     registerFunction("moveTo", moveTo);
     registerFunction("getThirsty", getThirsty);
@@ -27,6 +24,10 @@ void ScriptManager::registerFunctions() {
     registerFunction("getFeed", getFeed);
     registerFunction("say", say);
     registerFunction("setName", setName);
+    registerFunction("getInventory", getInventory);
+    registerFunction("getInventorySize", getInventorySize);
+    registerFunction("unloadWood", unloadWood);
+    registerFunction("unloadFood", unloadFood);
 
     registerFunction("getMessageType", getMessageType);
 

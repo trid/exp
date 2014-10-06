@@ -7,19 +7,23 @@
 --
 
 function enterWoodcutterInRoute(actor)
-    say(actor, "Start moving!\n")
+    say(actor, "Start moving!")
 end
 
 function executeWoodcutterInRoute(actor)
-    say(actor, "On my way!\n")
+    say(actor, "On my way!")
 end
 
 function exitWoodcutterInRoute(actor)
-    say(actor, "Finished moving!\n")
+    say(actor, "Finished moving!")
 end
 
 function processMessageWoodcutterInRoute(actor, message)
     if (getMessageType(message) == "FINISHED_MOVING") then
+        -- Always check if we at home and unload wood
+        if (getPlace(actor) == "home") then
+            unloadWood(actor)
+        end
         if (getPlace(actor) == "forest") then
             setState(actor, "StateWoodcutting")
         elseif (getPlace(actor) == "home" and getThirsty(actor) == 0) then

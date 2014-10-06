@@ -54,12 +54,12 @@ public:
         World::wood = wood;
     }
 
-    void addWood() {
-        wood++;
+    void addWood(int i) {
+        wood += i;
     }
 
-    void addFood() {
-        food++;
+    void addFood(int i) {
+        food += i;
     }
 
     void removeFood() {

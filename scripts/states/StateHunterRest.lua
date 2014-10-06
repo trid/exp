@@ -5,12 +5,11 @@
 --
 
 function enterHunterRest(actor)
-    say(actor, "At home and going rest!\n")
-    resetSteps(actor)
+    say(actor, "At home and going rest!")
 end
 
 function executeHunterRest(actor)
-    say(actor, "Resting from hunt!\n")
+    say(actor, "Resting from hunt!")
     if (getFeed(actor) == 0) then
         eat(actor)
     end
@@ -22,7 +21,7 @@ function executeHunterRest(actor)
 end
 
 function exitHunterRest(actor)
-    say(actor, "Returning from rest!\n")
+    say(actor, "Returning from rest!")
 end
 
 StateHunterRest = {

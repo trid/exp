@@ -4,17 +4,23 @@
 
 void StateWoodcutting::execute(Actor *actor) {
     actor->say("Cutting wood! Loving wood! Just like my wife!");
-    World::getWorld().addWood();
+    actor->addItem();
 
     if (actor->getWater() == 0) {
-        cout << "Thirsty. Going to drink something." << endl;
+        actor->say("Thirsty. Going to drink something.");
         World::getWorld().moveActor(actor, "home", 3);
         actor->setState(StateManager::getInstance().getState("StateWoodcutterInRoute"));
     } else {
         if (actor->getFood() == 0) {
-            cout << "Hungry. Going to eat something." << endl;
+            actor->say("Hungry. Going to eat something.");
             World::getWorld().moveActor(actor, "home", 3);
             actor->setState(StateManager::getInstance().getState("StateWoodcutterInRoute"));
+        } else {
+            if (actor->getInventory() == actor->getInventoryLimit()) {
+                actor->say("Inventory is too heavy. Returning home");
+                World::getWorld().moveActor(actor, "home", 3);
+                actor->setState(StateManager::getInstance().getState("StateWoodcutterInRoute"));
+            }
         }
     }
 

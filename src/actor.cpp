@@ -41,10 +41,6 @@ const string& Actor::getTargetPosition() {
     return target;
 }
 
-int Actor::getSteps() {
-    return steps;
-}
-
 void Actor::processMessage(Message &message) {
     if (state) {
         state->processMessage(this, message);
@@ -53,4 +49,24 @@ void Actor::processMessage(Message &message) {
 
 void Actor::say(const string &message) {
     cout << name << ": " << message << endl;
+}
+
+void Actor::addItem() {
+    if (inventory < inventoryLimit) {
+        inventory++;
+    }
+}
+
+void Actor::unloadWood() {
+    World::getWorld().addWood(inventory);
+    inventory = 0;
+}
+
+void Actor::unloadFood() {
+    World::getWorld().addFood(inventory);
+    inventory = 0;
+}
+
+int Actor::getInventoryLimit() {
+    return inventoryLimit;
 }
