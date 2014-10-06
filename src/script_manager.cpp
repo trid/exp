@@ -33,6 +33,8 @@ void ScriptManager::registerFunctions() {
     registerFunction("getStoredFood", getStoredFood);
 
     registerFunction("createActor", createActor);
+
+    registerFunction("createSceneObject", createSceneObject);
 }
 
 void ScriptManager::registerFunction(const string &name, lua_CFunction function) {

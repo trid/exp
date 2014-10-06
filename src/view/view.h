@@ -1,6 +1,15 @@
+#ifndef VIEW_H
+#define VIEW_H
+
+#include <list>
+#include <string>
 #include <SDL.h>
 #include <SDL_image.h>
 #include "label.h"
+#include "map_object.h"
+
+using std::list;
+using std::string;
 
 class View {
 public:
@@ -10,6 +19,8 @@ public:
     };
 
     void draw();
+    SDL_Renderer* getRenderer() { return renderer; }
+    void registerMapObject(int x, int y, const string& path);
 private:
     SDL_Window* window;
     SDL_Renderer* renderer;
@@ -23,7 +34,11 @@ private:
     Label* foodLabel;
     Label* woodLabel;
 
+    list <MapObjectPtr> mapObjects;
+
     View();
 
     void updateLabels();
 };
+
+#endif

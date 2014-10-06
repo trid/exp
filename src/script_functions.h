@@ -28,3 +28,6 @@ int getStoredFood(lua_State* state);
 
 //Actors registry
 int createActor(lua_State* state);
+
+//Scene objects
+int createSceneObject(lua_State* state);

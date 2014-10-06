@@ -29,9 +29,6 @@ View::View() {
     }
 
     background = IMG_LoadTexture(renderer, "res/img/grass.jpg");
-    well = IMG_LoadTexture(renderer, "res/img/well.png");
-    forest = IMG_LoadTexture(renderer, "res/img/trees.png");
-    home = IMG_LoadTexture(renderer, "res/img/home.png");
     actor = IMG_LoadTexture(renderer, "res/img/actor.png");
 
     TTF_Init();
@@ -49,21 +46,10 @@ void View::draw() {
     SDL_Rect rect;
 
     SDL_RenderCopy(renderer, background, nullptr, nullptr);
-    rect.x = 400;
-    rect.y = 300;
-    rect.w = 320;
-    rect.h = 240;
-    SDL_RenderCopy(renderer, home, nullptr, &rect);
-    rect.x = 500;
-    rect.y = 0;
-    rect.w = 100;
-    rect.h = 128;
-    SDL_RenderCopy(renderer, forest, nullptr, &rect);
-    rect.x = 200;
-    rect.y = 200;
-    rect.w = 66;
-    rect.h = 72;
-    SDL_RenderCopy(renderer, well, nullptr, &rect);
+
+    for (MapObjectPtr ptr: mapObjects) {
+        ptr->draw(renderer);
+    }
 
     rect.w = 100;
     rect.h = 104;
@@ -97,4 +83,9 @@ void View::updateLabels() {
     ss.str("");
     ss << "Food: " << world.getFood();
     foodLabel->setText(ss.str());
+}
+
+void View::registerMapObject(int x, int y, const string &path) {
+    MapObjectPtr ptr(new MapObject(x, y, path));
+    mapObjects.push_back(ptr);
 }
