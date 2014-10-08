@@ -1,3 +1,6 @@
+#ifndef SCRIPT_MANAGER_H
+#define SCRIPT_MANAGER_H
+
 #include <string>
 
 #include "lua.hpp"
@@ -20,3 +23,5 @@ public:
     lua_State* getState() {
         return state; }
 };
+
+#endif

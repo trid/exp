@@ -6,6 +6,7 @@
 #include "../actor.h"
 #include "../registry.h"
 #include "../world.h"
+#include "../settings.h"
 
 using namespace std;
 
@@ -14,7 +15,9 @@ View::View() {
         cout << "SDL_Init error" << endl;
         return;
     }
-    window = SDL_CreateWindow("Test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
+    int windowWidth = Settings::getSettings().getIntParameter("screen_width");
+    int windowHeight = Settings::getSettings().getIntParameter("screen_height");
+    window = SDL_CreateWindow("Test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
     if (window == nullptr) {
         cout << "SDL_CreateWindow error" << endl;
         SDL_Quit();
