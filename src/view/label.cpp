@@ -1,9 +1,9 @@
 #include "label.h"
+#include "view.h"
 
-TTF_Font* Label::font;
 
 Label::Label(int x, int y, string const &text):
-x(x), y(y), text(text)
+        Widget(x, y), text(text)
 {
     textColor.r = 255;
     textColor.g = 255;
@@ -21,15 +21,15 @@ void Label::draw(SDL_Renderer *renderer) {
         if (renderedText) {
             SDL_DestroyTexture(renderedText);
         }
-        SDL_Surface* renderedSurface = TTF_RenderText_Solid(font, text.c_str(), textColor);
+        SDL_Surface* renderedSurface = TTF_RenderText_Solid(View::getView().getFont(), text.c_str(), textColor);
         renderedText = SDL_CreateTextureFromSurface(renderer, renderedSurface);
         SDL_FreeSurface(renderedSurface);
     }
     SDL_Rect rect;
     int w, h;
     SDL_QueryTexture(renderedText, nullptr, nullptr, &w, &h);
-    rect.x = x;
-    rect.y = y;
+    rect.x = getX();
+    rect.y = getY();
     rect.w = w;
     rect.h = h;
     SDL_RenderCopy(renderer, renderedText, nullptr, &rect);

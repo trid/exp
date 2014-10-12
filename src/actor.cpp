@@ -2,6 +2,7 @@
 
 #include "state.h"
 #include "world.h"
+#include "view/view.h"
 
 #include <iostream>
 
@@ -49,6 +50,7 @@ void Actor::processMessage(Message &message) {
 
 void Actor::say(const string &message) {
     cout << name << ": " << message << endl;
+    View::getView().addMessage(name + ": " + message);
 }
 
 void Actor::addItem() {

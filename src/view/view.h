@@ -5,11 +5,14 @@
 #include <string>
 #include <SDL.h>
 #include <SDL_image.h>
-#include "label.h"
+#include <SDL_ttf.h>
 #include "map_object.h"
 
 using std::list;
 using std::string;
+
+class Label;
+class LogView;
 
 class View {
 public:
@@ -21,18 +24,30 @@ public:
     void draw();
     SDL_Renderer* getRenderer() { return renderer; }
     void registerMapObject(int x, int y, const string& path);
+
+    void addMessage(const string& message);
+
+    TTF_Font* getFont();
+    int getWindowWidth() const { return windowWidth; }
+    void setWindowWidth(int windowWidth) { View::windowWidth = windowWidth; }
+    int getWindowHeight() const { return windowHeight; }
+    void setWindowHeight(int windowHeight) { View::windowHeight = windowHeight; }
+    Uint32 getScreenPixelFormat();
 private:
+    int windowWidth;
+    int windowHeight;
+
     SDL_Window* window;
     SDL_Renderer* renderer;
 
     SDL_Texture* background;
-    SDL_Texture* home;
-    SDL_Texture* forest;
-    SDL_Texture* well;
     SDL_Texture* actor;
 
     Label* foodLabel;
     Label* woodLabel;
+    LogView* logView;
+
+    TTF_Font* font;
 
     list <MapObjectPtr> mapObjects;
 

@@ -8,6 +8,9 @@
 #include "../world.h"
 #include "../settings.h"
 
+#include "label.h"
+#include "log_view.h"
+
 using namespace std;
 
 View::View() {
@@ -15,15 +18,15 @@ View::View() {
         cout << "SDL_Init error" << endl;
         return;
     }
-    int windowWidth = Settings::getSettings().getIntParameter("screen_width");
-    int windowHeight = Settings::getSettings().getIntParameter("screen_height");
+    windowWidth = Settings::getSettings().getIntParameter("screen_width");
+    windowHeight = Settings::getSettings().getIntParameter("screen_height");
     window = SDL_CreateWindow("Test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
     if (window == nullptr) {
         cout << "SDL_CreateWindow error" << endl;
         SDL_Quit();
         return;
     }
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
     if (renderer == nullptr) {
         cout << "SDL_CreateRenderer error" << endl;
         SDL_DestroyWindow(window);
@@ -35,10 +38,12 @@ View::View() {
     actor = IMG_LoadTexture(renderer, "res/img/actor.png");
 
     TTF_Init();
-    Label::font = TTF_OpenFont("res/fonts/FreeSans.ttf", 20);
+    font = TTF_OpenFont("res/fonts/FreeSans.ttf", 20);
 
+    int fontHeight = TTF_FontHeight(font);
     woodLabel = new Label(0, 0, "Wood: 0");
-    foodLabel = new Label(0, 30, "Food: 0");
+    foodLabel = new Label(0, fontHeight, "Food: 0");
+    logView = new LogView(0, windowHeight - fontHeight * 10);
 }
 
 void View::draw() {
@@ -74,6 +79,7 @@ void View::draw() {
 
     foodLabel->draw(renderer);
     woodLabel->draw(renderer);
+    logView->draw(renderer);
 
     SDL_RenderPresent(renderer);
 }
@@ -91,4 +97,16 @@ void View::updateLabels() {
 void View::registerMapObject(int x, int y, const string &path) {
     MapObjectPtr ptr(new MapObject(x, y, path));
     mapObjects.push_back(ptr);
+}
+
+TTF_Font *View::getFont() {
+    return font;
+}
+
+void View::addMessage(const string &message) {
+    logView->addMessage(message);
+}
+
+Uint32 View::getScreenPixelFormat() {
+    return SDL_GetWindowPixelFormat(window);
 }
