@@ -33,7 +33,9 @@ int setState(lua_State* state) {
 
 int addFood(lua_State* state) {
     Actor* actor = (Actor*)lua_topointer(state, -1);
-    actor->addItem();
+    if (actor->getPosition() == "forest") {
+        actor->addItem();
+    }
     return 0;
 }
 

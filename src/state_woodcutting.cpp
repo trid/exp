@@ -3,8 +3,13 @@
 #include "world.h"
 
 void StateWoodcutting::execute(Actor *actor) {
-    actor->say("Cutting wood! Loving wood! Just like my wife!");
-    actor->addItem();
+    if (actor->getPosition() == "forest") {
+        actor->say("Cutting wood! Loving wood! Just like my wife!");
+        actor->addItem();
+    }
+    else {
+        actor->say("Can't cut wood when not in forest");
+    }
 
     if (actor->getWater() == 0) {
         actor->say("Thirsty. Going to drink something.");

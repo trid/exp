@@ -18,12 +18,22 @@ void Actor::update() {
 }
 
 void Actor::eat() {
-    food = 90;
-    World::getWorld().removeFood();
+    if (position == "home") {
+        food = 90;
+        World::getWorld().removeFood();
+    }
+    else {
+        say("I'm not at home, there is nothing to eat");
+    }
 }
 
 void Actor::drink() {
-    water = 60;
+    if (position == "well") {
+        water = 60;
+    }
+    else {
+        say("There is no water to drink");
+    }
 }
 
 void Actor::setState(State* state) {
