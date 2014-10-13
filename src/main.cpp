@@ -13,10 +13,6 @@
 using namespace std;
 
 
-void updateTrash() {
-
-}
-
 int main(int argc, char* argv[]) {
     Application& app = Application::getInstance();
     View& view = View::getView();

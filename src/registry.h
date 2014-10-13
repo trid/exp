@@ -18,6 +18,7 @@ public:
     const vector<Actor*>& getActors();
     void killActor(int id);
     void update();
+    int getLastId() { return actors.back()->getID(); }
 private:
     vector<Actor*> actors;
     int nextId = 0;

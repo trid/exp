@@ -11,6 +11,7 @@ protected:
     SDL_Texture* surface = nullptr;
 public:
     Widget(int x, int y): x(x), y(y) {}
+    virtual ~Widget();
     virtual void draw(SDL_Renderer*) = 0;
 
     int getX() const { return x; }

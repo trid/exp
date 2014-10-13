@@ -13,6 +13,7 @@ using std::string;
 
 class Label;
 class LogView;
+class ActorView;
 
 class View {
 public:
@@ -32,6 +33,8 @@ public:
     int getWindowHeight() const { return windowHeight; }
     void setWindowHeight(int windowHeight) { View::windowHeight = windowHeight; }
     Uint32 getScreenPixelFormat();
+    void showNextAgent();
+    void showPrevAgent();
 private:
     int windowWidth;
     int windowHeight;
@@ -45,6 +48,7 @@ private:
     Label* foodLabel;
     Label* woodLabel;
     LogView* logView;
+    ActorView* actorView;
 
 
     list <MapObjectPtr> mapObjects;

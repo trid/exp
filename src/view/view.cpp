@@ -10,6 +10,7 @@
 
 #include "label.h"
 #include "log_view.h"
+#include "actor_view.h"
 #include "ui_manager.h"
 
 using namespace std;
@@ -43,10 +44,12 @@ View::View() {
     woodLabel = new Label(0, 0, "Wood: 0");
     foodLabel = new Label(0, fontHeight, "Food: 0");
     logView = new LogView(0, windowHeight - consoleFontHeight * 10);
+    actorView = new ActorView(windowWidth - 200, 0);
     UIManager &uiManager = UIManager::getInstance();
     uiManager.addWidget(woodLabel);
     uiManager.addWidget(foodLabel);
     uiManager.addWidget(logView);
+    uiManager.addWidget(actorView);
 }
 
 void View::draw() {
@@ -93,6 +96,7 @@ void View::updateLabels() {
     ss.str("");
     ss << "Food: " << world.getFood();
     foodLabel->setText(ss.str());
+    actorView->updateLabels();
 }
 
 void View::registerMapObject(int x, int y, const string &path) {
@@ -106,4 +110,12 @@ void View::addMessage(const string &message) {
 
 Uint32 View::getScreenPixelFormat() {
     return SDL_GetWindowPixelFormat(window);
+}
+
+void View::showNextAgent() {
+    actorView->nextActor();
+}
+
+void View::showPrevAgent() {
+    actorView->prevActor();
 }
