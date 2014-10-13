@@ -27,7 +27,6 @@ public:
 
     void addMessage(const string& message);
 
-    TTF_Font* getFont();
     int getWindowWidth() const { return windowWidth; }
     void setWindowWidth(int windowWidth) { View::windowWidth = windowWidth; }
     int getWindowHeight() const { return windowHeight; }
@@ -47,7 +46,6 @@ private:
     Label* woodLabel;
     LogView* logView;
 
-    TTF_Font* font;
 
     list <MapObjectPtr> mapObjects;
 

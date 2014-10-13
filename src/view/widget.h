@@ -1,6 +1,7 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
+#include <memory>
 #include <SDL_render.h>
 
 class Widget {
@@ -17,5 +18,7 @@ public:
     int getY() const { return y; }
     void setY(int y) { Widget::y = y; }
 };
+
+typedef std::shared_ptr<Widget> WidgetPtr;
 
 #endif

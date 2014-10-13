@@ -10,6 +10,7 @@
 
 #include "label.h"
 #include "log_view.h"
+#include "ui_manager.h"
 
 using namespace std;
 
@@ -37,13 +38,15 @@ View::View() {
     background = IMG_LoadTexture(renderer, "res/img/grass.jpg");
     actor = IMG_LoadTexture(renderer, "res/img/actor.png");
 
-    TTF_Init();
-    font = TTF_OpenFont("res/fonts/FreeSans.ttf", 20);
-
-    int fontHeight = TTF_FontHeight(font);
+    int fontHeight = TTF_FontHeight(UIManager::getInstance().getFont());
+    int consoleFontHeight = TTF_FontHeight(UIManager::getInstance().getConsoleFont());
     woodLabel = new Label(0, 0, "Wood: 0");
     foodLabel = new Label(0, fontHeight, "Food: 0");
-    logView = new LogView(0, windowHeight - fontHeight * 10);
+    logView = new LogView(0, windowHeight - consoleFontHeight * 10);
+    UIManager &uiManager = UIManager::getInstance();
+    uiManager.addWidget(woodLabel);
+    uiManager.addWidget(foodLabel);
+    uiManager.addWidget(logView);
 }
 
 void View::draw() {
@@ -77,9 +80,7 @@ void View::draw() {
         SDL_RenderCopy(renderer, actor, nullptr, &rect);
     }
 
-    foodLabel->draw(renderer);
-    woodLabel->draw(renderer);
-    logView->draw(renderer);
+    UIManager::getInstance().draw();
 
     SDL_RenderPresent(renderer);
 }
@@ -97,10 +98,6 @@ void View::updateLabels() {
 void View::registerMapObject(int x, int y, const string &path) {
     MapObjectPtr ptr(new MapObject(x, y, path));
     mapObjects.push_back(ptr);
-}
-
-TTF_Font *View::getFont() {
-    return font;
 }
 
 void View::addMessage(const string &message) {

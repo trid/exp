@@ -1,5 +1,6 @@
 #include "label.h"
 #include "view.h"
+#include "ui_manager.h"
 
 
 Label::Label(int x, int y, string const &text):
@@ -21,7 +22,7 @@ void Label::draw(SDL_Renderer *renderer) {
         if (renderedText) {
             SDL_DestroyTexture(renderedText);
         }
-        SDL_Surface* renderedSurface = TTF_RenderText_Solid(View::getView().getFont(), text.c_str(), textColor);
+        SDL_Surface* renderedSurface = TTF_RenderText_Solid(UIManager::getInstance().getFont(), text.c_str(), textColor);
         renderedText = SDL_CreateTextureFromSurface(renderer, renderedSurface);
         SDL_FreeSurface(renderedSurface);
     }

@@ -4,7 +4,6 @@
 #include "actor.h"
 #include "application.h"
 #include "view/view.h"
-#include "registry.h"
 #include "world.h"
 #include "state_manager.h"
 #include "script_manager.h"
@@ -13,13 +12,10 @@
 
 using namespace std;
 
-int ticksToForest = 3;
-int ticksToWater = 5;
-Position targetPosition = POSITION_NONE;
-int wood = 0;
-int neededWood = 300;
-int wayPassed = 0;
 
+void updateTrash() {
+
+}
 
 int main(int argc, char* argv[]) {
     Application& app = Application::getInstance();
