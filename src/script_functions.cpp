@@ -5,6 +5,7 @@
 #include "world.h"
 #include "registry.h"
 #include "view/view.h"
+#include "view/scene_object_manager.h"
 
 using std::cout;
 
@@ -162,11 +163,13 @@ int createActor(lua_State* state) {
 int createSceneObject(lua_State* state) {
     int x, y;
     const char* path;
-    x = lua_tointeger(state, -3);
-    y = lua_tointeger(state, -2);
-    path = lua_tostring(state, -1);
+    const char* name;
+    x = lua_tointeger(state, -4);
+    y = lua_tointeger(state, -3);
+    path = lua_tostring(state, -2);
+    name = lua_tostring(state, -1);
 
-    View::getView().registerMapObject(x, y, path);
+    SceneObjectManager::getInstance().createMapObject(x, y, path, name);
 
     return 0;
 }

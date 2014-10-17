@@ -12,6 +12,7 @@
 #include "log_view.h"
 #include "actor_view.h"
 #include "ui_manager.h"
+#include "scene_object_manager.h"
 
 using namespace std;
 
@@ -61,6 +62,9 @@ void View::draw() {
 
     SDL_RenderCopy(renderer, background, nullptr, nullptr);
 
+    //Scene objects before actors
+    SceneObjectManager::getInstance().draw(renderer);
+
     for (MapObjectPtr ptr: mapObjects) {
         ptr->draw(renderer);
     }
@@ -97,11 +101,6 @@ void View::updateLabels() {
     ss << "Food: " << world.getFood();
     foodLabel->setText(ss.str());
     actorView->updateLabels();
-}
-
-void View::registerMapObject(int x, int y, const string &path) {
-    MapObjectPtr ptr(new MapObject(x, y, path));
-    mapObjects.push_back(ptr);
 }
 
 void View::addMessage(const string &message) {

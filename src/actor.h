@@ -28,6 +28,10 @@ private:
     string name;
     int inventory = 0;
     int inventoryLimit = 20;
+    //Pixels per second
+    int speed = 30;
+    //Actor position
+    int x, y;
 public:
     void update();
     void eat();

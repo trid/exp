@@ -20,6 +20,6 @@ moveTo(hunter, "home")
 
 print("Loading scene objects\n")
 
-createSceneObject(400, 300, "res/img/home.png")
-createSceneObject(500, 0, "res/img/trees.png")
-createSceneObject(200, 200, "res/img/well.png")
+createSceneObject(400, 300, "res/img/home.png", "home")
+createSceneObject(500, 0, "res/img/trees.png", "forest")
+createSceneObject(200, 200, "res/img/well.png", "well")

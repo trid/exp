@@ -24,14 +24,11 @@ public:
 
     void draw();
     SDL_Renderer* getRenderer() { return renderer; }
-    void registerMapObject(int x, int y, const string& path);
 
     void addMessage(const string& message);
 
     int getWindowWidth() const { return windowWidth; }
-    void setWindowWidth(int windowWidth) { View::windowWidth = windowWidth; }
     int getWindowHeight() const { return windowHeight; }
-    void setWindowHeight(int windowHeight) { View::windowHeight = windowHeight; }
     Uint32 getScreenPixelFormat();
     void showNextAgent();
     void showPrevAgent();
