@@ -27,7 +27,7 @@ private:
 public:
     class ActorRegistryProcess: public Process{
     public:
-        virtual void update();
+        virtual void update(int delta);
         virtual bool finished();
     };
 };

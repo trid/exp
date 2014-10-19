@@ -16,7 +16,7 @@ function executeHunterRest(actor)
     if (getStoredFood() <= 10) then
         say(actor, "I have a hunt to do!")
         setState(actor, "StateHunterInRoute")
-        sendTo(actor, "forest", 3)
+        sendTo(actor, "forest")
     end
 end
 

@@ -1,3 +1,6 @@
+#ifndef SCENE_OBJECT_MANAGER_H
+#define SCENE_OBJECT_MANAGER_H
+
 #include <string>
 #include <unordered_map>
 #include <list>
@@ -22,3 +25,5 @@ public:
     MapObjectPtr getMapObject(const string& name);
     void draw(SDL_Renderer* renderer);
 };
+
+#endif

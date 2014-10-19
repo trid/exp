@@ -3,6 +3,7 @@
 #include "state.h"
 #include "world.h"
 #include "view/view.h"
+#include "view/scene_object_manager.h"
 
 #include <iostream>
 
@@ -81,4 +82,11 @@ void Actor::unloadFood() {
 
 int Actor::getInventoryLimit() {
     return inventoryLimit;
+}
+
+void Actor::setPosition(const string &position) {
+    this->position = position;
+    MapObjectPtr mapObject = SceneObjectManager::getInstance().getMapObject(position);
+    x = mapObject->getX();
+    y = mapObject->getY();
 }

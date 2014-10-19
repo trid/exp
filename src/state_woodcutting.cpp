@@ -13,17 +13,17 @@ void StateWoodcutting::execute(Actor *actor) {
 
     if (actor->getWater() == 0) {
         actor->say("Thirsty. Going to drink something.");
-        World::getWorld().moveActor(actor, "home", 3);
+        World::getWorld().moveActor(actor, "home");
         actor->setState(StateManager::getInstance().getState("StateWoodcutterInRoute"));
     } else {
         if (actor->getFood() == 0) {
             actor->say("Hungry. Going to eat something.");
-            World::getWorld().moveActor(actor, "home", 3);
+            World::getWorld().moveActor(actor, "home");
             actor->setState(StateManager::getInstance().getState("StateWoodcutterInRoute"));
         } else {
             if (actor->getInventory() == actor->getInventoryLimit()) {
                 actor->say("Inventory is too heavy. Returning home");
-                World::getWorld().moveActor(actor, "home", 3);
+                World::getWorld().moveActor(actor, "home");
                 actor->setState(StateManager::getInstance().getState("StateWoodcutterInRoute"));
             }
         }

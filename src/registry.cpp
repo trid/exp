@@ -25,7 +25,7 @@ Actor *ActorsRegistry::getActor(int id) {
     return (actors.empty()) ? nullptr : actors[id];
 }
 
-void ActorsRegistry::ActorRegistryProcess::update() {
+void ActorsRegistry::ActorRegistryProcess::update(int delta) {
     ActorsRegistry::getRegistry().update();
 }
 

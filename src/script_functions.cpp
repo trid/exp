@@ -69,11 +69,10 @@ int getPlace(lua_State* state) {
 }
 
 int sendTo(lua_State* state) {
-    Actor* actor = (Actor*)lua_topointer(state, -3);
-    const char* direction = lua_tostring(state, -2);
-    int steps = lua_tointeger(state, -1);
+    Actor* actor = (Actor*)lua_topointer(state, -2);
+    const char* direction = lua_tostring(state, -1);
 
-    World::getWorld().moveActor(actor, direction, steps);
+    World::getWorld().moveActor(actor, direction);
 
     return 0;
 }

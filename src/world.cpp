@@ -6,20 +6,21 @@
 #include <iostream>
 using namespace std;
 
-void World::moveActor(Actor *actor, const string &dest, int distance) {
-    TravelPtr route(new Travel(actor, dest, distance));
+void World::moveActor(Actor *actor, const string &dest) {
+    TravelPtr route(new Travel(actor, dest));
     inRoute.push_back(route);
 }
 
-void World::update() {
+void World::update(int delta) {
     for (TravelPtr travelPtr: inRoute) {
-        travelPtr->update();
+        travelPtr->update(delta);
     }
     inRoute.remove_if([](TravelPtr ptr){ return ptr->finished(); });
 }
 
-void Travel::update() {
-    distancePassed++;
+void Travel::update(int delta) {
+    distancePassed += actor->getSpeed() * delta / 1000;
+    actor->updatePosition(dx * delta, dy * delta);
     if (distancePassed >= distanceNeeded) {
         Message message;
         message.messageType = MESSAGE_FINISHED_MOVING;
@@ -28,8 +29,8 @@ void Travel::update() {
     }
 }
 
-void WorldProcess::update() {
-    World::getWorld().update();
+void WorldProcess::update(int delta) {
+    World::getWorld().update(delta);
 }
 
 bool WorldProcess::finished() {

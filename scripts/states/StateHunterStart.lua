@@ -12,7 +12,7 @@ end
 
 function execute(actor)
     say(actor, "I'll go to forest and hunt!\n")
-    sendTo(actor, "forest", 3);
+    sendTo(actor, "forest");
     setState(actor, "StateHunterInRoute")
 end
 

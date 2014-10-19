@@ -4,16 +4,9 @@
 #include <string>
 #include "message_manager.h"
 
-class State;
-
 using std::string;
 
-enum Position {
-    POSITION_NONE,
-    POSITION_HOME,
-    POSITION_FOREST,
-    POSITION_WATER
-};
+class State;
 
 class Actor {
     friend class ActorsRegistry;
@@ -29,9 +22,10 @@ private:
     int inventory = 0;
     int inventoryLimit = 20;
     //Pixels per second
-    int speed = 30;
+    double speed = 120;
     //Actor position
-    int x, y;
+    double x, y;
+    bool stateBreackable;
 public:
     void update();
     void eat();
@@ -41,26 +35,15 @@ public:
     int getWater() const { return water; }
     int getID() const { return id; }
     const string& getPosition() const { return position; }
-    void setPosition(const string& position) { this->position = position; }
+    void setPosition(const string& position);
     State* getState() { return state; }
     void setState(State* state);
     void setTargetPosition(const string& position);
     const string& getTargetPosition();
-    const string &getName() const {
-        return name;
-    }
-
-    void setName(const string &name) {
-        Actor::name = name;
-    }
-
-    int getInventory() const {
-        return inventory;
-    }
-
-    void setInventory(int inventory) {
-        Actor::inventory = inventory;
-    }
+    const string &getName() const { return name; }
+    void setName(const string &name) { Actor::name = name; }
+    int getInventory() const { return inventory; }
+    void setInventory(int inventory) { Actor::inventory = inventory; }
 
     void say(const string &message);
     void processMessage(Message &message);
@@ -69,6 +52,15 @@ public:
     void unloadFood();
 
     int getInventoryLimit();
+
+    int updatePosition(double dx, double dy) { x += dx; y += dy; }
+    int getX() const { return x; }
+    void setX(int x) { Actor::x = x; }
+    int getY() const { return y; }
+    void setY(int y) { Actor::y = y; }
+    double getSpeed() { return speed; }
+    bool isStateBreackable() const { return stateBreackable; }
+    void setStateBreackable(bool stateBreackable) { Actor::stateBreackable = stateBreackable; }
 };
 
 #endif
