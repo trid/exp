@@ -1,10 +1,14 @@
 #ifndef ACTOR_H
 #define ACTOR_H
 
+#include <set>
 #include <string>
+#include <unordered_map>
 #include "message_manager.h"
 
+using std::set;
 using std::string;
+using std::unordered_map;
 
 class State;
 
@@ -26,6 +30,9 @@ private:
     //Actor position
     double x, y;
     bool stateBreackable;
+    string executingState;
+    set <string> globalStates;
+    unordered_map <string, State*> globalStateReactors;
 public:
     void update();
     void eat();
@@ -61,6 +68,8 @@ public:
     double getSpeed() { return speed; }
     bool isStateBreackable() const { return stateBreackable; }
     void setStateBreackable(bool stateBreackable) { Actor::stateBreackable = stateBreackable; }
+    void addGlobalState(const string& stateName);
+    void setReactor(const string& stateName, State* reactionState);
 };
 
 #endif

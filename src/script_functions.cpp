@@ -133,6 +133,14 @@ int unloadFood(lua_State* state) {
     return 0;
 }
 
+int setReaction(lua_State* state) {
+    Actor* actor = (Actor*)lua_topointer(state, -3);
+    const char* reactionName = lua_tostring(state, -2);
+    const char* stateName = lua_tostring(state, -1);
+
+    actor->setReactor(reactionName, StateManager::getInstance().getState(stateName));
+}
+
 // Messages
 
 int getMessageType(lua_State* state) {

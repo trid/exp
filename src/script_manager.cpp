@@ -28,6 +28,7 @@ void ScriptManager::registerFunctions() {
     registerFunction("getInventorySize", getInventorySize);
     registerFunction("unloadWood", unloadWood);
     registerFunction("unloadFood", unloadFood);
+    registerFunction("setReaction", setReaction);
 
     registerFunction("getMessageType", getMessageType);
 

@@ -14,13 +14,13 @@ print("Creating woodcutter\n")
 
 woodcutter = createActor()
 setName(woodcutter, "John Wood")
-setState(woodcutter, "StateStart")
+setReaction(woodcutter, "NoState", "StateStart")
 moveTo(woodcutter, "home")
 
 print("Creating hunter\n")
 
 hunter = createActor()
 setName(hunter, "Hunter Smith")
-setState(hunter, "StateHunterStart")
+setReaction(hunter, "NoState", "StateHunterStart")
 moveTo(hunter, "home")
 

@@ -11,8 +11,34 @@ using std::cout;
 using std::endl;
 
 void Actor::update() {
-    if (food > 0) food--;
-    if (water > 0) water--;
+    if (food > 0) {
+        food--;
+    }
+    else {
+        addGlobalState("thirsty");
+    }
+    if (water > 0) {
+        water--;
+    }
+    else {
+        addGlobalState("hungry");
+    }
+
+    if (!globalStates.empty() && isStateBreackable()) {
+        State* reactionState;
+        for (auto globalState: globalStates) {
+            reactionState = globalStateReactors[globalState];
+            if (reactionState) {
+                setState(reactionState);
+                break;
+            }
+        }
+    }
+
+    if (!state) {
+        setState(globalStateReactors["NoState"]);
+    }
+
     if (state) {
         state->execute(this);
     }
@@ -89,4 +115,18 @@ void Actor::setPosition(const string &position) {
     MapObjectPtr mapObject = SceneObjectManager::getInstance().getMapObject(position);
     x = mapObject->getX();
     y = mapObject->getY();
+}
+
+void Actor::addGlobalState(const string &stateName) {
+    globalStates.insert(stateName);
+    if (executingState == "" && isStateBreackable()) {
+        State* reaction = globalStateReactors[stateName];
+        if (reaction) {
+            executingState = stateName;
+        }
+    }
+}
+
+void Actor::setReactor(const string &stateName, State *reactionState) {
+    globalStateReactors[stateName] = reactionState;
 }
