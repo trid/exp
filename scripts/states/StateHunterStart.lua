@@ -11,9 +11,18 @@ function enter(actor)
 end
 
 function execute(actor)
-    say(actor, "I'll go to forest and hunt!\n")
-    sendTo(actor, "forest");
-    setState(actor, "StateHunterInRoute")
+    if (getStoredFood() >= 20) then
+        if (getPlace(actor) == "home") then
+            setState(actor, "StateHunterRest")
+        else
+            setState(actor, "StateHunterInRoute")
+            sendTo(actor, "home");
+        end
+    else
+        say(actor, "I'll go to forest and hunt!\n")
+        sendTo(actor, "forest");
+        setState(actor, "StateHunterInRoute")
+    end
 end
 
 function exit(actor)

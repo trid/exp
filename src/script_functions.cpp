@@ -25,10 +25,15 @@ int registerScriptedState(lua_State* state) {
 
 int setState(lua_State* state) {
     Actor* actor = (Actor*)lua_topointer(state, -2);
-    const char* stateName = lua_tostring(state, -1);
+    if (lua_isnil(state, -1)) {
+        actor->setState(nullptr);
+    }
+    else {
+        const char *stateName = lua_tostring(state, -1);
 
-    State *actorState = StateManager::getInstance().getState(stateName);
-    actor->setState(actorState);
+        State *actorState = StateManager::getInstance().getState(stateName);
+        actor->setState(actorState);
+    }
     return 0;
 }
 
@@ -139,6 +144,12 @@ int setReaction(lua_State* state) {
     const char* stateName = lua_tostring(state, -1);
 
     actor->setReactor(reactionName, StateManager::getInstance().getState(stateName));
+}
+
+int setStateBreackable(lua_State* state) {
+    Actor* actor = (Actor*)lua_topointer(state, -2);
+    bool breackable = (bool) lua_toboolean(state, -1);
+    actor->setStateBreackable(breackable);
 }
 
 // Messages

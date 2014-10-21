@@ -29,7 +29,7 @@ private:
     double speed = 120;
     //Actor position
     double x, y;
-    bool stateBreackable;
+    bool stateBreackable = true;
     string executingState;
     set <string> globalStates;
     unordered_map <string, State*> globalStateReactors;
@@ -70,6 +70,8 @@ public:
     void setStateBreackable(bool stateBreackable) { Actor::stateBreackable = stateBreackable; }
     void addGlobalState(const string& stateName);
     void setReactor(const string& stateName, State* reactionState);
+
+    void removeGlobalState(string const &stateName);
 };
 
 #endif

@@ -8,6 +8,7 @@
 
 function enterHunterInRoute(actor)
     say(actor, "Start moving!")
+    setStateBreackable(actor, false)
 end
 
 function executeHunterInRoute(actor)
@@ -16,6 +17,7 @@ end
 
 function exitHunterInRoute(actor)
     say(actor, "Finished moving!")
+    setStateBreackable(actor, true)
 end
 
 function processMessageHunterInRoute(actor, message)
@@ -28,9 +30,14 @@ function processMessageHunterInRoute(actor, message)
             say(actor, "Returned to forest!")
             setState(actor, "StateHunting")
         elseif (getPlace(actor) == "well") then
+            say(actor, "Drinking!")
             drink(actor)
             setState(actor, "StateHunterInRoute")
-            sendTo(actor, "forest");
+            if (getStoredFood() >= 20) then
+                sendTo(actor, "home");
+            else
+                sendTo(actor, "forest")
+            end
         elseif (getPlace(actor) == "home" and getStoredFood() >= 20) then
             setState(actor, "StateHunterRest")
         elseif (getPlace(actor) == "home") then

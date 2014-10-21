@@ -15,16 +15,16 @@ void Actor::update() {
         food--;
     }
     else {
-        addGlobalState("thirsty");
+        addGlobalState("hungry");
     }
     if (water > 0) {
         water--;
     }
     else {
-        addGlobalState("hungry");
+        addGlobalState("thirsty");
     }
 
-    if (!globalStates.empty() && isStateBreackable()) {
+    if (!globalStates.empty() && isStateBreackable() && executingState == "") {
         State* reactionState;
         for (auto globalState: globalStates) {
             reactionState = globalStateReactors[globalState];
@@ -38,8 +38,7 @@ void Actor::update() {
     if (!state) {
         setState(globalStateReactors["NoState"]);
     }
-
-    if (state) {
+    else {
         state->execute(this);
     }
 }
@@ -52,6 +51,7 @@ void Actor::eat() {
     else {
         say("I'm not at home, there is nothing to eat");
     }
+    removeGlobalState("hungry");
 }
 
 void Actor::drink() {
@@ -61,13 +61,23 @@ void Actor::drink() {
     else {
         say("There is no water to drink");
     }
+    removeGlobalState("thirsty");
+}
+
+void Actor::removeGlobalState(const string &stateName) {
+    globalStates.erase(stateName);
+    if (executingState == stateName) {
+        executingState = "";
+    }
 }
 
 void Actor::setState(State* state) {
     if (this->state) {
         this->state->exit(this);
     }
-    state->enter(this);
+    if (state) {
+        state->enter(this);
+    }
     this->state = state;
 }
 
@@ -123,6 +133,7 @@ void Actor::addGlobalState(const string &stateName) {
         State* reaction = globalStateReactors[stateName];
         if (reaction) {
             executingState = stateName;
+            setState(reaction);
         }
     }
 }

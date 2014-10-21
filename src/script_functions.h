@@ -21,6 +21,7 @@ int getInventorySize(lua_State* state);
 int unloadWood(lua_State* state);
 int unloadFood(lua_State* state);
 int setReaction(lua_State* state);
+int setStateBreackable(lua_State* state);
 
 //Messages
 int getMessageType(lua_State* state);

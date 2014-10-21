@@ -8,6 +8,7 @@
 
 function enterWoodcutterInRoute(actor)
     say(actor, "Start moving!")
+    setStateBreackable(actor, false)
 end
 
 function executeWoodcutterInRoute(actor)
@@ -16,6 +17,7 @@ end
 
 function exitWoodcutterInRoute(actor)
     say(actor, "Finished moving!")
+    setStateBreackable(actor, true)
 end
 
 function processMessageWoodcutterInRoute(actor, message)

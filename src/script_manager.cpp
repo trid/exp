@@ -29,6 +29,7 @@ void ScriptManager::registerFunctions() {
     registerFunction("unloadWood", unloadWood);
     registerFunction("unloadFood", unloadFood);
     registerFunction("setReaction", setReaction);
+    registerFunction("setStateBreackable", setStateBreackable);
 
     registerFunction("getMessageType", getMessageType);
 
