@@ -1,6 +1,6 @@
 #include "state_manager.h"
 #include "state_woodcutting.h"
-#include "world.h"
+#include "../world.h"
 
 void StateWoodcutting::execute(Actor *actor) {
     if (actor->getPosition() == "forest") {

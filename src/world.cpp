@@ -1,6 +1,6 @@
 #include "world.h"
 
-#include "actor.h"
+#include "ai/actor.h"
 #include "application.h"
 
 #include <iostream>

@@ -1,9 +1,9 @@
 #include "actor.h"
 
 #include "state.h"
-#include "world.h"
-#include "view/view.h"
-#include "view/scene_object_manager.h"
+#include "../world.h"
+#include "../view/view.h"
+#include "../view/scene_object_manager.h"
 
 #include <iostream>
 

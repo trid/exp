@@ -3,8 +3,8 @@
 #include "actor_view.h"
 #include "ui_manager.h"
 #include "label.h"
-#include "../actor.h"
-#include "../registry.h"
+#include "../ai/actor.h"
+#include "../ai/registry.h"
 #include "view.h"
 
 using std::stringstream;

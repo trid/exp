@@ -2,7 +2,7 @@
 
 #include "actor.h"
 #include "state_manager.h"
-#include "world.h"
+#include "../world.h"
 
 void StateStart::execute(Actor *actor) {
     actor->say("What shall I do now...");

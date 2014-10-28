@@ -1,6 +1,6 @@
 #include "vector"
 #include "actor.h"
-#include "process.h"
+#include "../process.h"
 
 using std::vector;
 

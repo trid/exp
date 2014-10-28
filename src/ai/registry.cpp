@@ -1,7 +1,7 @@
 #include "registry.h"
 
 #include "actor.h"
-#include "application.h"
+#include "../application.h"
 
 const vector<Actor *> &ActorsRegistry::getActors() {
     return actors;

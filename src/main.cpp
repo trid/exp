@@ -1,11 +1,10 @@
 #include <iostream>
 #include <SDL_ttf.h>
 
-#include "actor.h"
 #include "application.h"
 #include "view/view.h"
 #include "world.h"
-#include "state_manager.h"
+#include "ai/state_manager.h"
 #include "script_manager.h"
 #include "system_event_manager.h"
 #include "settings.h"

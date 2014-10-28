@@ -2,7 +2,7 @@
 #include "state_start.h"
 #include "state_finished.h"
 #include "state_woodcutting.h"
-#include "script_manager.h"
+#include "../script_manager.h"
 #include "scripted_state.h"
 
 #include <boost/filesystem.hpp>

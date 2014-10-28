@@ -1,9 +1,9 @@
 #include <lua.hpp>
 #include <iostream>
 #include "script_functions.h"
-#include "state_manager.h"
+#include "ai/state_manager.h"
 #include "world.h"
-#include "registry.h"
+#include "ai/registry.h"
 #include "view/view.h"
 #include "view/scene_object_manager.h"
 

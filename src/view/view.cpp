@@ -3,8 +3,8 @@
 
 #include "view.h"
 
-#include "../actor.h"
-#include "../registry.h"
+#include "../ai/actor.h"
+#include "../ai/registry.h"
 #include "../world.h"
 #include "../settings.h"
 

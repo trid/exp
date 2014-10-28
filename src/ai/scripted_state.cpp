@@ -1,6 +1,6 @@
 #include "actor.h"
 #include "scripted_state.h"
-#include "script_manager.h"
+#include "../script_manager.h"
 
 void ScriptedState::callFunction(Actor *actor, const string &function) {
     lua_State* state = ScriptManager::getInstance().getState();

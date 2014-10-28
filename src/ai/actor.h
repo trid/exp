@@ -4,7 +4,7 @@
 #include <set>
 #include <string>
 #include <unordered_map>
-#include "message_manager.h"
+#include "../message_manager.h"
 
 using std::set;
 using std::string;

@@ -4,7 +4,7 @@
 #include <memory>
 #include <string>
 #include "message_manager.h"
-#include "actor.h"
+#include "ai/actor.h"
 #include "process.h"
 #include "view/map_object.h"
 #include "view/scene_object_manager.h"
