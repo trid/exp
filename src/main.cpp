@@ -1,5 +1,4 @@
 #include <iostream>
-#include <SDL_ttf.h>
 
 #include "application.h"
 #include "view/view.h"
