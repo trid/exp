@@ -11,24 +11,12 @@ using std::cout;
 using std::endl;
 
 void Actor::update() {
-    if (food > 0) {
-        food--;
-    }
-    else {
-        addGlobalState("hungry");
-    }
-    if (water > 0) {
-        water--;
-    }
-    else {
-        addGlobalState("thirsty");
-    }
-
     if (!globalStates.empty() && isStateBreackable() && executingState == "") {
         State* reactionState;
         for (auto globalState: globalStates) {
             reactionState = globalStateReactors[globalState];
             if (reactionState) {
+                executingState = globalState;
                 setState(reactionState);
                 break;
             }
@@ -43,25 +31,27 @@ void Actor::update() {
     }
 }
 
-void Actor::eat() {
-    if (position == "home") {
-        food = 90;
-        World::getWorld().removeFood();
+void Actor::updateStatus() {
+    if (food > 0) {
+        food--;
     }
     else {
-        say("I'm not at home, there is nothing to eat");
+        addGlobalState("hungry");
     }
-    removeGlobalState("hungry");
+    if (water > 0) {
+        water--;
+    }
+    else {
+        addGlobalState("thirsty");
+    }
+}
+
+void Actor::eat() {
+    World::getWorld().doAction(this, "eat");
 }
 
 void Actor::drink() {
-    if (position == "well") {
-        water = 60;
-    }
-    else {
-        say("There is no water to drink");
-    }
-    removeGlobalState("thirsty");
+    World::getWorld().doAction(this, "drink");
 }
 
 void Actor::removeGlobalState(const string &stateName) {
@@ -140,4 +130,22 @@ void Actor::addGlobalState(const string &stateName) {
 
 void Actor::setReactor(const string &stateName, State *reactionState) {
     globalStateReactors[stateName] = reactionState;
+}
+
+void Actor::setAction(ActionPtr &action) {
+    if (currentAction) {
+        currentAction->stop();
+    }
+    currentAction = action;
+}
+
+void Actor::removeAction() {
+    if (currentAction) {
+        currentAction->stop();
+        currentAction = nullptr;
+    }
+}
+
+bool Actor::hasAction() {
+    return currentAction != nullptr;
 }

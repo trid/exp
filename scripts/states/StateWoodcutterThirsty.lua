@@ -5,11 +5,11 @@
 --
 
 function enterWoodcutterThirsty(actor)
-    say(actor, "I want to drink!\n")
+    say(actor, "I want to drink!")
 end
 
 function executeWoodcutterThirsty(actor)
-    say(actor, "I'll go to the well!\n")
+    say(actor, "I'll go to the well!")
     sendTo(actor, "well");
     setState(actor, "StateWoodcutterInRoute")
 end

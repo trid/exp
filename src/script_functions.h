@@ -6,7 +6,6 @@ int registerScriptedState(lua_State* state);
 
 //Actors
 int setState(lua_State* state);
-int addFood(lua_State* state);
 int getPlace(lua_State* state);
 int moveTo(lua_State* state);
 int getThirsty(lua_State* state);
@@ -22,6 +21,8 @@ int unloadWood(lua_State* state);
 int unloadFood(lua_State* state);
 int setReaction(lua_State* state);
 int setStateBreackable(lua_State* state);
+int hasAction(lua_State* state);
+int doAction(lua_State* state);
 
 //Messages
 int getMessageType(lua_State* state);

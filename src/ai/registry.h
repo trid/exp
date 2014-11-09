@@ -30,4 +30,12 @@ public:
         virtual void update(int delta);
         virtual bool finished();
     };
+    class ActorStatusUpdateProcess: public Process {
+    private:
+        int time = 0;
+        int interval = 500;
+    public:
+        virtual void update(int delta);
+        virtual bool finished();
+    };
 };

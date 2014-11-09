@@ -5,6 +5,7 @@
 #include <string>
 #include <unordered_map>
 #include "../message_manager.h"
+#include "../action.h"
 
 using std::set;
 using std::string;
@@ -33,13 +34,16 @@ private:
     string executingState;
     set <string> globalStates;
     unordered_map <string, State*> globalStateReactors;
+    ActionPtr currentAction;
 public:
     void update();
     void eat();
     void drink();
 
     int getFood() const { return food; }
+    void setFood(int food) { this->food = food; }
     int getWater() const { return water; }
+    void setWater(int water) { this->water = water; }
     int getID() const { return id; }
     const string& getPosition() const { return position; }
     void setPosition(const string& position);
@@ -72,6 +76,12 @@ public:
     void setReactor(const string& stateName, State* reactionState);
 
     void removeGlobalState(string const &stateName);
+
+    void setAction(ActionPtr& action);
+    void removeAction();
+    bool hasAction();
+
+    void updateStatus();
 };
 
 #endif

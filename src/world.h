@@ -3,6 +3,7 @@
 #include <list>
 #include <memory>
 #include <string>
+#include <set>
 #include "message_manager.h"
 #include "ai/actor.h"
 #include "process.h"
@@ -13,6 +14,8 @@ using std::string;
 using std::remove_if;
 using std::atan2;
 using std::sqrt;
+using std::set;
+using std::list;
 
 class Actor;
 
@@ -79,12 +82,22 @@ public:
     void removeFood() {
         food--;
     }
+
+    const set<string>& getActions(Actor* actor);
+    void doAction(Actor* actor, const string& action);
 private:
     World();
 
     std::list<TravelPtr> inRoute;
     int wood = 0;
     int food = 0;
+
+    //TODO: Remove me with hardcoded actions
+    set <string> homeActions;
+    set <string> forestActions;
+    set <string> wellActions;
+
+    list<ActionPtr> actions;
 };
 
 class WorldProcess: public Process {

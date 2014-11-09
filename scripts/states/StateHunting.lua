@@ -8,18 +8,13 @@
 
 function enterHunting(actor)
     say(actor, "Started hunt!")
+    doAction(actor, "hunt")
 end
 
 function executeHunting(actor)
     say(actor, "Hunting! Yum, fresh meat!")
 
-    if (getThirsty(actor) == 0) then
-        setState(actor, "StateHunterInRoute")
-        sendTo(actor, "well")
-    elseif (getFeed(actor) == 0) then
-        setState(actor, "StateHunterInRoute")
-        sendTo(actor, "home")
-    elseif (getStoredFood() >= 20) then
+    if (getStoredFood() >= 20) then
         say(actor, "Have enough food, returning home.")
         setState(actor, "StateHunterInRoute")
         sendTo(actor, "home")
@@ -27,8 +22,6 @@ function executeHunting(actor)
         say(actor, "My bag is heavy, returning home.")
         setState(actor, "StateHunterInRoute")
         sendTo(actor, "home")
-    else
-        addFood(actor);
     end
 end
 

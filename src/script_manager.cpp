@@ -14,7 +14,6 @@ void ScriptManager::registerFunctions() {
     registerFunction("print", print);
     registerFunction("registerScriptedState", registerScriptedState);
     registerFunction("setState", setState);
-    registerFunction("addFood", addFood);
     registerFunction("moveTo", moveTo);
     registerFunction("getThirsty", getThirsty);
     registerFunction("drink", drink);
@@ -30,6 +29,8 @@ void ScriptManager::registerFunctions() {
     registerFunction("unloadFood", unloadFood);
     registerFunction("setReaction", setReaction);
     registerFunction("setStateBreackable", setStateBreackable);
+    registerFunction("hasAction", hasAction);
+    registerFunction("doAction", doAction);
 
     registerFunction("getMessageType", getMessageType);
 

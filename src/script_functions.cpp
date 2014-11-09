@@ -37,14 +37,6 @@ int setState(lua_State* state) {
     return 0;
 }
 
-int addFood(lua_State* state) {
-    Actor* actor = (Actor*)lua_topointer(state, -1);
-    if (actor->getPosition() == "forest") {
-        actor->addItem();
-    }
-    return 0;
-}
-
 int moveTo(lua_State* state) {
     Actor* actor = (Actor*)lua_topointer(state, -2);
     const char* place = lua_tostring(state, -1);
@@ -150,6 +142,22 @@ int setStateBreackable(lua_State* state) {
     Actor* actor = (Actor*)lua_topointer(state, -2);
     bool breackable = (bool) lua_toboolean(state, -1);
     actor->setStateBreackable(breackable);
+}
+
+int hasAction(lua_State* state) {
+    Actor* actor = (Actor*)lua_topointer(state, -1);
+    bool hasAction = actor->hasAction();
+    lua_pushboolean(state, hasAction);
+
+    return 1;
+}
+
+int doAction(lua_State* state) {
+    Actor* actor = (Actor*)lua_topointer(state, -2);
+    const char* action = lua_tostring(state, -1);
+
+    World::getWorld().doAction(actor, action);
+    return 0;
 }
 
 // Messages

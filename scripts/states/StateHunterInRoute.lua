@@ -30,20 +30,11 @@ function processMessageHunterInRoute(actor, message)
             say(actor, "Returned to forest!")
             setState(actor, "StateHunting")
         elseif (getPlace(actor) == "well") then
-            say(actor, "Drinking!")
-            drink(actor)
-            setState(actor, "StateHunterInRoute")
-            if (getStoredFood() >= 20) then
-                sendTo(actor, "home");
-            else
-                sendTo(actor, "forest")
-            end
+             setState(actor, "StateDrinking")
         elseif (getPlace(actor) == "home" and getStoredFood() >= 20) then
             setState(actor, "StateHunterRest")
         elseif (getPlace(actor) == "home") then
-            eat(actor)
-            setState(actor, "StateHunterInRoute")
-            sendTo(actor, "forest");
+            setState(actor, "StateEating")
         end
     end
 end

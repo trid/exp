@@ -10,8 +10,7 @@ end
 
 function executeHunterHungry(actor)
     if (getPlace(actor) == "home") then
-        eat(actor)
-        setState(actor, nil)
+        setState(actor, "StateEating")
     else
         say(actor, "I'll go to home!\n")
         sendTo(actor, "home");

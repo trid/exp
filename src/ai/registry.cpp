@@ -35,5 +35,21 @@ bool ActorsRegistry::ActorRegistryProcess::finished() {
 
 ActorsRegistry::ActorsRegistry() {
     ProcessPtr ptr(new ActorRegistryProcess());
-    Application::getInstance().addProcess(ptr);
+    Application &application = Application::getInstance();
+    application.addProcess(ptr);
+    application.addProcess(ProcessPtr(new ActorStatusUpdateProcess()));
+}
+
+void ActorsRegistry::ActorStatusUpdateProcess::update(int delta) {
+    time += delta;
+    if (time > interval) {
+        time -= interval;
+        for (Actor* actor: ActorsRegistry::getRegistry().getActors()) {
+            actor->updateStatus();
+        }
+    }
+}
+
+bool ActorsRegistry::ActorStatusUpdateProcess::finished() {
+    return false;
 }
