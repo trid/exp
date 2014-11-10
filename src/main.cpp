@@ -26,7 +26,6 @@ int main(int argc, char* argv[]) {
         app.update();
         systemEventManager.process();
         view.draw();
-        SDL_Delay(delay);
     }
     return 0;
 }
