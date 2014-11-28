@@ -4,10 +4,12 @@
 #include <memory>
 #include <string>
 #include <typeinfo>
+#include <functional>
 
 using std::shared_ptr;
 using std::string;
 using std::type_info;
+using std::function;
 
 
 class BadTypeException {};
@@ -195,7 +197,93 @@ public:
     }
 };
 
+template <class T, class U> class CallbackParameter: public AbstractParameter {
+private:
+    const type_info& type = typeid(T);
+    function<void (U*, T)> setterCallback;
+    function<T (U*)> getterCallback;
+    U* caller;
+public:
+    virtual const type_info &getType() {
+        return type;
+    }
+
+    virtual const string &getString() {
+        return "";
+    }
+
+    virtual int getInt() {
+        return (int)getterCallback(caller);
+    }
+
+    virtual double getDouble() {
+        return (double)getterCallback(caller);
+    }
+
+    virtual bool getBool() {
+        return (bool)getterCallback(caller);
+    }
+
+    virtual void *getPointer() {
+        return (void*)getterCallback(caller);
+    }
+
+    virtual void setData(int i) {
+        setterCallback(caller, i);
+    }
+
+    virtual void setData(float f) {
+        setterCallback(caller, f);
+    }
+
+    virtual void setData(void *pointer) {
+        setterCallback(caller, pointer);
+    }
+
+    virtual void setData(const string &data) {}
+
+    void setSetterFunction(function<void (U*, T)>& setter) {
+        setterCallback = setter;
+    }
+    void setGetterFunction(function<T (U*)>& getter) {
+        getterCallback = getter;
+    }
+};
+
+template <class string, class U> class CallbackParameter: public AbstractParameter {
+    function<void (U*, const string&)> setterCallback;
+    function<const string& (U*)> getterCallback;
+    U* caller;
+public:
+    virtual const type_info &getType() {
+        return typeid(string);
+    }
+
+    virtual string const &getString() {
+        return getterCallback(caller);
+    }
+
+    virtual int getInt() { return 0; }
+    virtual double getDouble() { return 0; }
+    virtual bool getBool() { return false; }
+    virtual void *getPointer() {}
+    virtual void setData(int i) {}
+    virtual void setData(float f) {}
+    virtual void setData(void *pointer) {}
+
+    virtual void setData(string const &data) {
+        setterCallback(caller, data);
+    }
+
+    void setSetterFunction(function<void (U*, const string&)>& setter) {
+        setterCallback = setter;
+    }
+    void setGetterFunction(function<const string& (U*)>& getter) {
+        getterCallback = getter;
+    }
+};
+
+
 typedef shared_ptr<AbstractParameter> ParameterPtr;
 
 #endif
-
