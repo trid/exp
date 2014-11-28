@@ -19,6 +19,8 @@ private:
     int id;
     int food = 90;
     int water = 60;
+    int maxFood = 90;
+    int maxWater = 60;
 
     string position = "";
     string target = "";
@@ -44,6 +46,10 @@ public:
     void setFood(int food) { this->food = food; }
     int getWater() const { return water; }
     void setWater(int water) { this->water = water; }
+    int getMaxFood() { return maxFood; }
+    void setMaxFood(int maxFood) { this->maxFood = maxFood; }
+    int getMaxWater() { return maxWater; }
+    inf setMaxWater() { this->maxWater = maxWater; }
     int getID() const { return id; }
     const string& getPosition() const { return position; }
     void setPosition(const string& position);

@@ -204,6 +204,8 @@ private:
     function<T (U*)> getterCallback;
     U* caller;
 public:
+    CallbackParameter(U* caller): caller(caller) {};
+
     virtual const type_info &getType() {
         return type;
     }
@@ -255,6 +257,8 @@ template <class string, class U> class CallbackParameter: public AbstractParamet
     function<const string& (U*)> getterCallback;
     U* caller;
 public:
+    CallbackParameter(U* caller): caller(caller) {};
+
     virtual const type_info &getType() {
         return typeid(string);
     }
