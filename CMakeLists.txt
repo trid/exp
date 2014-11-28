@@ -11,7 +11,7 @@ else()
 	include_directories(${Boost_INCLUDE_DIRS})
 
 	find_package(SDL2)
-	include_directories(${SDL2_INCLUDE_DIR})	
+	include_directories(${SDL2_INCLUDE_DIR})
 endif (WIN32)
 
 file(GLOB SOURCE_FILES src/*.cpp)

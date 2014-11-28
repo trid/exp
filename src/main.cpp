@@ -7,6 +7,7 @@
 #include "script_manager.h"
 #include "system_event_manager.h"
 #include "settings.h"
+#include "parameter.h"
 
 using namespace std;
 
@@ -20,7 +21,6 @@ int main(int argc, char* argv[]) {
     Settings& settings = Settings::getSettings();
     stateManager.registerScriptedStates();
     scriptManager.loadScript("scripts/init.lua");
-    int delay = settings.getIntParameter("time_delay");
 
     while (app.isRunning()) {
         app.update();
