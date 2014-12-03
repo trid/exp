@@ -2,7 +2,7 @@
 #include "script_object.h"
 
 
-void ScriptObject::addParameter(string name, ParameterPtr ptr) {
+void ScriptObject::addParameter(string const &name, ParameterPtr ptr) {
     parameters[name] = ptr;
 }
 

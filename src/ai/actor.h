@@ -49,7 +49,7 @@ public:
     int getMaxFood() { return maxFood; }
     void setMaxFood(int maxFood) { this->maxFood = maxFood; }
     int getMaxWater() { return maxWater; }
-    inf setMaxWater() { this->maxWater = maxWater; }
+    int setMaxWater(int maxWater) { this->maxWater = maxWater; }
     int getID() const { return id; }
     const string& getPosition() const { return position; }
     void setPosition(const string& position);

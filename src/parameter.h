@@ -1,5 +1,5 @@
-#ifndef PARAMETER_H
-#define PARAMETER_H
+#ifndef SCRIPT_PARAMETER_H
+#define SCRIPT_PARAMETER_H
 
 #include <memory>
 #include <string>
@@ -211,6 +211,7 @@ public:
     }
 
     virtual const string &getString() {
+        throw BadTypeException();
         return "";
     }
 
@@ -239,20 +240,20 @@ public:
     }
 
     virtual void setData(void *pointer) {
-        setterCallback(caller, pointer);
+        setterCallback(caller, *(T*)pointer);
     }
 
     virtual void setData(const string &data) {}
 
-    void setSetterFunction(function<void (U*, T)>& setter) {
+    void setSetterFunction(const function<void (U*, T)>& setter) {
         setterCallback = setter;
     }
-    void setGetterFunction(function<T (U*)>& getter) {
+    void setGetterFunction(const function<T (U*)>& getter) {
         getterCallback = getter;
     }
 };
 
-template <class string, class U> class CallbackParameter: public AbstractParameter {
+template <class U> class CallbackParameter<string, U>: public AbstractParameter {
     function<void (U*, const string&)> setterCallback;
     function<const string& (U*)> getterCallback;
     U* caller;

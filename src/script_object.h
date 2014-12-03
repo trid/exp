@@ -9,7 +9,7 @@ class ScriptObject {
 private:
     unordered_map<string, ParameterPtr> parameters;
 public:
-    void addParameter(string name, ParameterPtr ptr);
+    void addParameter(string const &name, ParameterPtr ptr);
     AbstractParameter & getParameter(const string &name);
     void deleteParameter(const string& name);
 };

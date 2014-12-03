@@ -7,7 +7,6 @@
 #include "script_manager.h"
 #include "system_event_manager.h"
 #include "settings.h"
-#include "parameter.h"
 
 using namespace std;
 
