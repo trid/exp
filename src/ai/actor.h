@@ -47,9 +47,9 @@ public:
     int getWater() const { return water; }
     void setWater(int water) { this->water = water; }
     int getMaxFood() { return maxFood; }
-    void setMaxFood(int maxFood) { this->maxFood = maxFood; }
+    void setMaxFood(int maxFood) { this->maxFood = maxFood; food = maxFood; }
     int getMaxWater() { return maxWater; }
-    int setMaxWater(int maxWater) { this->maxWater = maxWater; }
+    int setMaxWater(int maxWater) { this->maxWater = maxWater; water = maxWater; }
     int getID() const { return id; }
     const string& getPosition() const { return position; }
     void setPosition(const string& position);

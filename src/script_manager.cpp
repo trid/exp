@@ -31,6 +31,7 @@ void ScriptManager::registerFunctions() {
     registerFunction("setStateBreackable", setStateBreackable);
     registerFunction("hasAction", hasAction);
     registerFunction("doAction", doAction);
+    registerFunction("getId", getId);
 
     registerFunction("getMessageType", getMessageType);
 
@@ -39,6 +40,10 @@ void ScriptManager::registerFunctions() {
     registerFunction("createActor", createActor);
 
     registerFunction("createSceneObject", createSceneObject);
+
+    registerFunction("getScriptObject", getScriptObject);
+    registerFunction("getObjectParameter", getObjectParameter);
+    registerFunction("setParameterValue", setParameterValue);
 }
 
 void ScriptManager::registerFunction(const string &name, lua_CFunction function) {

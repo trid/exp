@@ -9,7 +9,7 @@ void ActionEating::update(int delta) {
     time += delta;
     if (time >= maxTime) {
         time = maxTime;
-        actor->setFood(90);
+        actor->setFood(actor->getMaxFood());
         actor->removeGlobalState("hungry");
         World::getWorld().removeFood();
         stop();

@@ -10,7 +10,7 @@ void ActionDrink::update(int delta) {
     time += delta;
     if (time >= maxTime) {
         time = maxTime;
-        actor->setWater(60);
+        actor->setWater(actor->getMaxWater());
         actor->removeGlobalState("thirsty");
         actor->say("Ooh! Not thirsty anymore!");
     }

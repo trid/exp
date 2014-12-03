@@ -6,8 +6,8 @@ void ScriptObject::addParameter(string const &name, ParameterPtr ptr) {
     parameters[name] = ptr;
 }
 
-AbstractParameter & ScriptObject::getParameter(const string &name) {
-    return *parameters[name];
+ParameterPtr ScriptObject::getParameter(const string &name) {
+    return parameters[name];
 }
 
 

@@ -6,6 +6,8 @@
 #include "ai/registry.h"
 #include "view/view.h"
 #include "view/scene_object_manager.h"
+#include "script_object_manager.h"
+#include "ai/actor_object.h"
 
 using std::cout;
 
@@ -160,6 +162,13 @@ int doAction(lua_State* state) {
     return 0;
 }
 
+int getId(lua_State* state) {
+    Actor* actor = (Actor*)lua_topointer(state, -1);
+    lua_pushinteger(state, actor->getID());
+
+    return 1;
+}
+
 // Messages
 
 int getMessageType(lua_State* state) {
@@ -198,4 +207,42 @@ int createSceneObject(lua_State* state) {
     SceneObjectManager::getInstance().createMapObject(x, y, path, name);
 
     return 0;
+}
+
+//Script objects
+int getScriptObject(lua_State* state) {
+    const char* name = lua_tostring(state, -1);
+    lua_pushlightuserdata(state, ScriptObjectManager::getInstance().getItem(name));
+    return 1;
+}
+
+int getObjectParameter(lua_State* state) {
+    ActorObject* actorObject = (ActorObject*)lua_topointer(state, -2);
+    const char* paramName = lua_tostring(state, -1);
+    lua_pushlightuserdata(state, actorObject->getParameter(paramName).get());
+    return 1;
+}
+
+int setParameterValue(lua_State* state) {
+    AbstractParameter* parameter = (AbstractParameter *) lua_topointer(state, -2);
+    if (lua_isnumber(state, -1)) {
+        //Small trouble in LUA: it do not care about int or string convertible to int. Same with strings. Fuck.
+        parameter->setData(lua_tointeger(state, -1));
+        return 0;
+    }
+    if (lua_isstring(state, -1)) {
+        parameter->setData(lua_tostring(state, -1));
+        return 0;
+    }
+}
+
+int getParameterValue(lua_State* state) {
+    AbstractParameter* parameter = (AbstractParameter *) lua_topointer(state, -1);
+    if (parameter->getType() == typeid(int)) {
+        lua_pushinteger(state, parameter->getInt());
+    }
+    if (parameter->getType() == typeid(string)) {
+        lua_pushstring(state, parameter->getString().c_str());
+    }
+    return 1;
 }

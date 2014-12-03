@@ -19,6 +19,13 @@ setReaction(woodcutter, "thirsty", "StateWoodcutterThirsty")
 setReaction(woodcutter, "hungry", "StateWoodcutterHungry")
 moveTo(woodcutter, "home")
 
+woodcutterObject = getScriptObject("actor" .. getId(woodcutter))
+woodcutterMaxFoodParameter = getObjectParameter(woodcutterObject, "maxFood")
+setParameterValue(woodcutterMaxFoodParameter, 120);
+woodcutterMaxWaterParameter = getObjectParameter(woodcutterObject, "maxWater")
+setParameterValue(woodcutterMaxWaterParameter, 90);
+
+
 print("Creating hunter\n")
 
 hunter = createActor()

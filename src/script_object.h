@@ -10,6 +10,6 @@ private:
     unordered_map<string, ParameterPtr> parameters;
 public:
     void addParameter(string const &name, ParameterPtr ptr);
-    AbstractParameter & getParameter(const string &name);
+    ParameterPtr getParameter(const string &name);
     void deleteParameter(const string& name);
 };

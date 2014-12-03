@@ -23,6 +23,7 @@ int setReaction(lua_State* state);
 int setStateBreackable(lua_State* state);
 int hasAction(lua_State* state);
 int doAction(lua_State* state);
+int getId(lua_State* state);
 
 //Messages
 int getMessageType(lua_State* state);
@@ -35,3 +36,9 @@ int createActor(lua_State* state);
 
 //Scene objects
 int createSceneObject(lua_State* state);
+
+//Script objects
+int getScriptObject(lua_State* state);
+int getObjectParameter(lua_State* state);
+int setParameterValue(lua_State* state);
+int getParameterValue(lua_State* state);
