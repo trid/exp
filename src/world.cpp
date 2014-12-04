@@ -9,6 +9,7 @@ using namespace std;
 
 void World::moveActor(Actor *actor, const string &dest) {
     TravelPtr route(new Travel(actor, dest));
+    actor->setPosition("In route");
     inRoute.push_back(route);
 }
 

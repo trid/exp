@@ -112,9 +112,11 @@ int Actor::getInventoryLimit() {
 
 void Actor::setPosition(const string &position) {
     this->position = position;
-    MapObjectPtr mapObject = SceneObjectManager::getInstance().getMapObject(position);
-    x = mapObject->getX();
-    y = mapObject->getY();
+    if (position != "In route") {
+        MapObjectPtr mapObject = SceneObjectManager::getInstance().getMapObject(position);
+        x = mapObject->getX();
+        y = mapObject->getY();
+    }
 }
 
 void Actor::addGlobalState(const string &stateName) {
