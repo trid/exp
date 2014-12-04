@@ -35,9 +35,14 @@ function processMessageWoodcutterInRoute(actor, message)
             setState(actor, "StateEating")
         elseif (getPlace(actor) == "well") then
             setState(actor, "StateDrinking")
+        elseif (getPlace(actor) == "home" and getStoredWood() >= 300) then
+            setState(actor, "StateFinished")
         elseif (getPlace(actor) == "home" and getThirsty() ~= 0 and getFeed() ~= 0) then
             setState(actor, "StateWoodcutterInRoute")
-            sendTo(actor, "forest");
+            sendTo(actor, "forest")
+        elseif (getPlace(actor) ~= "home" and getWood() >= 300) then
+            setState(actor, "StateWoodcutterInRoute")
+            sendTo(actor, "home")
         end
     end
 end

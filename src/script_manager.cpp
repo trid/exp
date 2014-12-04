@@ -36,6 +36,7 @@ void ScriptManager::registerFunctions() {
     registerFunction("getMessageType", getMessageType);
 
     registerFunction("getStoredFood", getStoredFood);
+    registerFunction("getStoredWood", getStoredWood);
 
     registerFunction("createActor", createActor);
 

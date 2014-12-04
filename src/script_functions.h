@@ -30,6 +30,7 @@ int getMessageType(lua_State* state);
 
 //World
 int getStoredFood(lua_State* state);
+int getStoredWood(lua_State* state);
 
 //Actors registry
 int createActor(lua_State* state);

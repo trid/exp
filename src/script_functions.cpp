@@ -186,6 +186,12 @@ int getStoredFood(lua_State* state) {
     return 1;
 }
 
+int getStoredWood(lua_State* state) {
+    lua_pushinteger(state, World::getWorld().getWood());
+
+    return 1;
+}
+
 //Actor registry
 int createActor(lua_State* state) {
     Actor& actor = ActorsRegistry::getRegistry().createActor();
