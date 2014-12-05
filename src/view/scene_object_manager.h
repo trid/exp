@@ -4,7 +4,7 @@
 #include <string>
 #include <unordered_map>
 #include <list>
-#include "map_object.h"
+#include "map_object_view.h"
 
 using std::unordered_map;
 using std::list;
@@ -20,7 +20,7 @@ public:
         return som;
     }
 
-    MapObject* createMapObject(int x, int y, const string &path, const string& name);
+    MapObjectView * createMapObject(int x, int y, const string &path, const string& name);
     void removeSceneObject(const string& name);
     MapObjectPtr getMapObject(const string& name);
     void draw(SDL_Renderer* renderer);

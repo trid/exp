@@ -1,16 +1,16 @@
 #include <SDL_image.h>
-#include "map_object.h"
+#include "map_object_view.h"
 #include "view.h"
 
-MapObject::MapObject(int x, int y, string const &path): x(x), y(y) {
+MapObjectView::MapObjectView(int x, int y, string const &path): x(x), y(y) {
     image = IMG_LoadTexture(View::getView().getRenderer(), path.c_str());
 }
 
-MapObject::~MapObject() {
+MapObjectView::~MapObjectView() {
     SDL_DestroyTexture(image);
 }
 
-void MapObject::draw(SDL_Renderer *renderer) {
+void MapObjectView::draw(SDL_Renderer *renderer) {
     SDL_Rect rect;
     rect.x = x;
     rect.y = y;

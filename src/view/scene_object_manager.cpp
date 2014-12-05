@@ -1,8 +1,8 @@
-#include "map_object.h"
+#include "map_object_view.h"
 #include "scene_object_manager.h"
 
-MapObject *SceneObjectManager::createMapObject(int x, int y, const string &path, const string& name) {
-    MapObject* ptr = new MapObject(x, y, path);
+MapObjectView *SceneObjectManager::createMapObject(int x, int y, const string &path, const string& name) {
+    MapObjectView * ptr = new MapObjectView(x, y, path);
     mapObjects[name] = MapObjectPtr(ptr);
     return ptr;
 }

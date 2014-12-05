@@ -6,7 +6,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
-#include "map_object.h"
+#include "map_object_view.h"
 
 using std::list;
 using std::string;

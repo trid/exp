@@ -3,17 +3,17 @@
 
 #include <string>
 #include <memory>
-#include "SDL.h"
+#include <SDL_render.h>
 
 using std::string;
 
-class MapObject {
+class MapObjectView {
 private:
     int x, y;
     SDL_Texture* image;
 public:
-    MapObject(int x, int y, const string& path);
-    ~MapObject();
+    MapObjectView(int x, int y, const string& path);
+    ~MapObjectView();
     void draw(SDL_Renderer* renderer);
 
     int getX() const {
@@ -21,7 +21,7 @@ public:
     }
 
     void setX(int x) {
-        MapObject::x = x;
+        MapObjectView::x = x;
     }
 
     int getY() const {
@@ -29,10 +29,10 @@ public:
     }
 
     void setY(int y) {
-        MapObject::y = y;
+        MapObjectView::y = y;
     }
 };
 
-typedef std::shared_ptr<MapObject> MapObjectPtr;
+typedef std::shared_ptr<MapObjectView> MapObjectPtr;
 
 #endif
