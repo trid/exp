@@ -1,0 +1,28 @@
+<types>
+    <location>
+        <name>
+            home
+        </name>
+        <actions>
+            <action>eat</action>
+            <action>rest</action>
+        </actions>
+    </location>
+    <location>
+        <name>
+            forest
+        </name>
+        <actions>
+            <action>hunt</action>
+            <action>cut_wood</action>
+        </actions>
+    </location>
+    <location>
+        <name>
+            well
+        </name>
+        <actions>
+            <action>drink</action>
+        </actions>
+    </location>
+</types>

@@ -7,6 +7,7 @@
 #include "script_manager.h"
 #include "system_event_manager.h"
 #include "settings.h"
+#include "location_type_manager.h"
 
 using namespace std;
 
