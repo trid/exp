@@ -14,5 +14,5 @@ public:
         static LocationTypeManager manager;
         return manager;
     }
-    LocationType* getLocationType(string& name) { return types[name]; }
+    LocationType* getLocationType(string const &name) { return types[name]; }
 };

@@ -7,30 +7,20 @@
 
 using std::string;
 
+class Location;
+
 class MapObjectView {
+friend class SceneObjectManager;
 private:
-    int x, y;
     SDL_Texture* image;
+    Location* location;
 public:
-    MapObjectView(int x, int y, const string& path);
+    MapObjectView();
     ~MapObjectView();
     void draw(SDL_Renderer* renderer);
 
-    int getX() const {
-        return x;
-    }
-
-    void setX(int x) {
-        MapObjectView::x = x;
-    }
-
-    int getY() const {
-        return y;
-    }
-
-    void setY(int y) {
-        MapObjectView::y = y;
-    }
+    int getX() const;
+    int getY() const;
 };
 
 typedef std::shared_ptr<MapObjectView> MapObjectPtr;

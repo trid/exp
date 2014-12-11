@@ -10,7 +10,7 @@ public:
 
     LocationType *getType() const { return type; }
     void setType(LocationType *type) { Location::type = type; }
-    string &getName() const { return name; }
+    const string &getName() const { return name; }
     void setName(string &name) { Location::name = name; }
     int getXPos() const { return xPos; }
     void setXPos(int xPos) { Location::xPos = xPos; }

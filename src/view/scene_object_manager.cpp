@@ -1,9 +1,23 @@
 #include "map_object_view.h"
 #include "scene_object_manager.h"
+#include "view.h"
+#include "../location.h"
 
-MapObjectView *SceneObjectManager::createMapObject(int x, int y, const string &path, const string& name) {
-    MapObjectView * ptr = new MapObjectView(x, y, path);
-    mapObjects[name] = MapObjectPtr(ptr);
+#include <sstream>
+
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/xml_parser.hpp>
+
+using std::stringstream;
+
+using boost::property_tree::ptree;
+using boost::property_tree::xml_parser::trim_whitespace;
+
+MapObjectView *SceneObjectManager::createMapObject(Location *location) {
+    MapObjectView * ptr = new MapObjectView();
+    ptr->location = location;
+    ptr->image = sprites[location->getType()->getName()];
+    mapObjects[location->getName()] = MapObjectPtr(ptr);
     return ptr;
 }
 
@@ -18,5 +32,20 @@ MapObjectPtr SceneObjectManager::getMapObject(const string &name) {
 void SceneObjectManager::draw(SDL_Renderer *renderer) {
     for (auto & ptr: mapObjects) {
         ptr.second->draw(renderer);
+    }
+}
+
+SceneObjectManager::SceneObjectManager() {
+    ptree pt;
+    read_xml("res/locations/location_images.xml", pt, trim_whitespace);
+
+    auto locationTypes = pt.get_child("locations");
+
+    for (auto& loc: locationTypes) {
+        const string& type = loc.second.get<string>("name");
+        const string& image = loc.second.get<string>("sprite");
+        stringstream ss;
+        ss << "res/img/" << image;
+        sprites[type] = IMG_LoadTexture(View::getView().getRenderer(), ss.str().c_str());
     }
 }

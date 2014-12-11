@@ -6,9 +6,9 @@
 
 print("Loading scene objects\n")
 
-createSceneObject(400, 300, "res/img/home.png", "home")
-createSceneObject(500, 0, "res/img/trees.png", "forest")
-createSceneObject(200, 200, "res/img/well.png", "well")
+createSceneObject(400, 300, "home", "home")
+createSceneObject(500, 0, "forest", "forest")
+createSceneObject(200, 200, "well", "well")
 
 print("Creating woodcutter\n")
 

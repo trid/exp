@@ -10,17 +10,20 @@ using std::unordered_map;
 using std::list;
 using std::string;
 
+class Location;
+
 class SceneObjectManager {
 private:
-    SceneObjectManager(){};
+    SceneObjectManager();
     unordered_map<string, MapObjectPtr> mapObjects;
+    unordered_map<string, SDL_Texture*> sprites;
 public:
     static SceneObjectManager& getInstance() {
         static SceneObjectManager som;
         return som;
     }
 
-    MapObjectView * createMapObject(int x, int y, const string &path, const string& name);
+    MapObjectView *createMapObject(Location *location);
     void removeSceneObject(const string& name);
     MapObjectPtr getMapObject(const string& name);
     void draw(SDL_Renderer* renderer);

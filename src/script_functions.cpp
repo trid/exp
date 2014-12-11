@@ -8,6 +8,7 @@
 #include "view/scene_object_manager.h"
 #include "script_object_manager.h"
 #include "ai/actor_object.h"
+#include "location_manager.h"
 
 using std::cout;
 
@@ -203,14 +204,14 @@ int createActor(lua_State* state) {
 //Scene objects
 int createSceneObject(lua_State* state) {
     int x, y;
-    const char* path;
     const char* name;
+    const char* type;
     x = lua_tointeger(state, -4);
     y = lua_tointeger(state, -3);
-    path = lua_tostring(state, -2);
+    type = lua_tostring(state, -2);
     name = lua_tostring(state, -1);
 
-    SceneObjectManager::getInstance().createMapObject(x, y, path, name);
+    LocationManager::getInstance().createLocation(type, name, x, y);
 
     return 0;
 }

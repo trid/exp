@@ -1,3 +1,6 @@
+#ifndef LOCATION_TYPE_H
+#define LOCATION_TYPE_H
+
 #include <string>
 #include <unordered_set>
 
@@ -15,3 +18,5 @@ public:
     const string& getName() { return name; }
     const unordered_set<string>& getActions() { return actions; }
 };
+
+#endif
