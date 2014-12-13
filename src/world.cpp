@@ -3,6 +3,7 @@
 #include "ai/actor.h"
 #include "application.h"
 #include "action_manager.h"
+#include "location_manager.h"
 
 #include <iostream>
 using namespace std;
@@ -61,20 +62,13 @@ World::World() {
     wellActions.emplace("drink");
 }
 
-const set<string> &World::getActions(Actor *actor) {
-    if (actor->getPosition() == "home") {
-        return homeActions;
-    }
-    if (actor->getPosition() == "forest") {
-        return forestActions;
-    }
-    if (actor->getPosition() == "well") {
-        return wellActions;
-    }
+unordered_set<string> const & World::getActions(Actor *actor) {
+    Location* location = LocationManager::getInstance().getLocation(actor->getPosition());
+    return location->getType()->getActions();
 }
 
 void World::doAction(Actor *actor, const string &action) {
-    set<string> const &placeActions = getActions(actor);
+    unordered_set<string> const &placeActions = getActions(actor);
     if (placeActions.find(action) != placeActions.end()) {
         ActionPtr actionInstance = ActionManager::getInstance().getAction(action, actor);
         actor->setAction(actionInstance);

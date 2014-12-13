@@ -3,7 +3,7 @@
 #include <list>
 #include <memory>
 #include <string>
-#include <set>
+#include <unordered_set>
 #include "message_manager.h"
 #include "ai/actor.h"
 #include "process.h"
@@ -14,7 +14,7 @@ using std::string;
 using std::remove_if;
 using std::atan2;
 using std::sqrt;
-using std::set;
+using std::unordered_set;
 using std::list;
 
 class Actor;
@@ -83,7 +83,7 @@ public:
         food--;
     }
 
-    const set<string>& getActions(Actor* actor);
+    unordered_set <string> const & getActions(Actor *actor);
     void doAction(Actor* actor, const string& action);
 private:
     World();
