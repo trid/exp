@@ -72,18 +72,6 @@ void View::draw() {
     rect.w = 100;
     rect.h = 104;
     for (Actor* actorItem: ActorsRegistry::getRegistry().getActors()) {
-        /*if (actorItem->getPosition() == "home") {
-            rect.x = 400;
-            rect.y = 300;
-        }
-        if (actorItem->getPosition() == "forest") {
-            rect.x = 500;
-            rect.y = 0;
-        }
-        if (actorItem->getPosition() == "water") {
-            rect.x = 200;
-            rect.y = 200;
-        }*/
         rect.x = actorItem->getX();
         rect.y = actorItem->getY();
         SDL_RenderCopy(renderer, actor, nullptr, &rect);
