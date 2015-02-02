@@ -7,6 +7,7 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include "map_object_view.h"
+#include "ui_message_manager.h"
 
 using std::list;
 using std::string;
@@ -14,6 +15,22 @@ using std::string;
 class Label;
 class LogView;
 class ActorView;
+
+class WoodUpdaterListener: public IUIMessageListener {
+private:
+    Label* label;
+public:
+    WoodUpdaterListener(Label* label): label(label){}
+    virtual bool listen(UIMessageData const &messageData);
+};
+
+class FoodUpdaterListener: public IUIMessageListener {
+private:
+    Label* label;
+public:
+    FoodUpdaterListener(Label* label): label(label){}
+    virtual bool listen(UIMessageData const &messageData);
+};
 
 class View {
 public:
@@ -32,6 +49,9 @@ public:
     Uint32 getScreenPixelFormat();
     void showNextAgent();
     void showPrevAgent();
+
+    IUIMessageListener* woodUpdater;
+    IUIMessageListener* foodUpdater;
 private:
     int windowWidth;
     int windowHeight;
@@ -51,8 +71,6 @@ private:
     list <MapObjectPtr> mapObjects;
 
     View();
-
-    void updateLabels();
 };
 
 #endif

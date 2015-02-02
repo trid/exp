@@ -51,10 +51,17 @@ View::View() {
     uiManager.addWidget(foodLabel);
     uiManager.addWidget(logView);
     uiManager.addWidget(actorView);
+
+    woodUpdater = new WoodUpdaterListener(woodLabel);
+    foodUpdater = new FoodUpdaterListener(foodLabel);
+
+    UIMessageManager& uiMessageManager = UIMessageManager::getInstance();
+    uiMessageManager.addListener("WOOD_UPDATED_MESSAGE", woodUpdater);
+    uiMessageManager.addListener("FOOD_UPDATED_MESSAGE", foodUpdater);
 }
 
 void View::draw() {
-    updateLabels();
+    actorView->updateLabels();
     
     SDL_RenderClear(renderer);
 
@@ -82,17 +89,6 @@ void View::draw() {
     SDL_RenderPresent(renderer);
 }
 
-void View::updateLabels() {
-    std::stringstream ss;
-    World &world = World::getWorld();
-    ss << "Wood: " << world.getWood();
-    woodLabel->setText(ss.str());
-    ss.str("");
-    ss << "Food: " << world.getFood();
-    foodLabel->setText(ss.str());
-    actorView->updateLabels();
-}
-
 void View::addMessage(const string &message) {
     logView->addMessage(message);
 }
@@ -107,4 +103,20 @@ void View::showNextAgent() {
 
 void View::showPrevAgent() {
     actorView->prevActor();
+}
+
+bool WoodUpdaterListener::listen(UIMessageData const &messageData) {
+    std::stringstream ss;
+    World &world = World::getWorld();
+    ss << "Wood: " << world.getWood();
+    label->setText(ss.str());
+    return true;
+}
+
+bool FoodUpdaterListener::listen(UIMessageData const &messageData) {
+    std::stringstream ss;
+    World &world = World::getWorld();
+    ss << "Food: " << world.getFood();
+    label->setText(ss.str());
+    return true;
 }

@@ -32,17 +32,6 @@ void World::update(int delta) {
     actions.remove_if([](ActionPtr ptr){ return ptr->isFinished() || !ptr->isRunning() || !ptr->isValid(); });
 }
 
-void Travel::update(int delta) {
-    distancePassed += actor->getSpeed() * delta / 1000;
-    actor->updatePosition(dx * delta, dy * delta);
-    if (distancePassed >= distanceNeeded) {
-        Message message;
-        message.messageType = MESSAGE_FINISHED_MOVING;
-        actor->setPosition(dest);
-        MessageManager::getInstance().dispatchMessage(actor->getID(), message);
-    }
-}
-
 void WorldProcess::update(int delta) {
     World::getWorld().update(delta);
 }
@@ -73,5 +62,33 @@ void World::doAction(Actor *actor, const string &action) {
         ActionPtr actionInstance = ActionManager::getInstance().getAction(action, actor);
         actor->setAction(actionInstance);
         actions.push_back(actionInstance);
+    }
+}
+
+void World::removeFood() {
+    food--;
+    UIMessageManager::getInstance().sendMessage("FOOD_UPDATED_MESSAGE", UIMessageData());
+}
+
+void World::addFood(int i) {
+    food += i;
+    UIMessageManager::getInstance().sendMessage("FOOD_UPDATED_MESSAGE", UIMessageData());
+}
+
+void World::addWood(int i) {
+    wood += i;
+
+    UIMessageManager::getInstance().sendMessage("WOOD_UPDATED_MESSAGE", UIMessageData());
+}
+
+
+void Travel::update(int delta) {
+    distancePassed += actor->getSpeed() * delta / 1000;
+    actor->updatePosition(dx * delta, dy * delta);
+    if (distancePassed >= distanceNeeded) {
+        Message message;
+        message.messageType = MESSAGE_FINISHED_MOVING;
+        actor->setPosition(dest);
+        MessageManager::getInstance().dispatchMessage(actor->getID(), message);
     }
 }

@@ -9,6 +9,7 @@
 #include "process.h"
 #include "view/map_object_view.h"
 #include "view/scene_object_manager.h"
+#include "view/ui_message_manager.h"
 
 using std::string;
 using std::remove_if;
@@ -71,17 +72,11 @@ public:
         World::wood = wood;
     }
 
-    void addWood(int i) {
-        wood += i;
-    }
+    void addWood(int i);
 
-    void addFood(int i) {
-        food += i;
-    }
+    void addFood(int i);
 
-    void removeFood() {
-        food--;
-    }
+    void removeFood();
 
     unordered_set <string> const & getActions(Actor *actor);
     void doAction(Actor* actor, const string& action);
