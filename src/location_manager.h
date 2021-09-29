@@ -1,3 +1,6 @@
+#ifndef LOCATION_MANAGER_H
+#define LOCATION_MANAGER_H
+
 #include <list>
 #include <string>
 #include <unordered_map>
@@ -8,19 +11,21 @@ using std::string;
 using std::list;
 using std::unordered_map;
 
+class LocationTypeManager;
+
 class LocationManager {
-private:
-    LocationManager(){};
-    list<Location*> locations;
-    unordered_map<string, Location*> locationsByName;
 public:
-    static LocationManager& getInstance(){
-        static LocationManager locationManager;
-        return locationManager;
-    }
+    LocationManager(LocationTypeManager& locationTypeManager);
 
     void
     createLocation(const string& type, const string& name, int xPos, int yPos, SceneObjectManager& sceneObjectManager);
     Location* getLocation(const string& name);
     const list <Location*>& getLocations();
+private:
+    list<Location*> locations;
+    unordered_map<string, Location*> locationsByName;
+
+    LocationTypeManager& _locationTypeManager;
 };
+
+#endif // LOCATION_MANAGER_H

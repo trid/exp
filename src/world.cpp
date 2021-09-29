@@ -5,6 +5,7 @@
 #include "application.h"
 #include "actions/action_manager.h"
 #include "location_manager.h"
+#include "location_type.h"
 
 #include "ai/actor.h"
 
@@ -57,7 +58,8 @@ World::World(View& view, Application& application) :
         _sceneObjectManager(view),
         _actionManager(*this),
         _actorsRegistry(application),
-        _messageManager(_actorsRegistry)
+        _messageManager(_actorsRegistry),
+        _locationManager(_locationTypeManager)
 {
     g_world = this;
     ProcessPtr ptr(new WorldProcess(*this));
@@ -71,7 +73,7 @@ World::World(View& view, Application& application) :
 }
 
 unordered_set<string> const & World::getActions(Actor *actor) {
-    Location* location = LocationManager::getInstance().getLocation(actor->getPosition());
+    Location* location = _locationManager.getLocation(actor->getPosition());
     return location->getType()->getActions();
 }
 
@@ -110,6 +112,10 @@ MessageManager& World::getMessageManager() {
 
 int World::getFood() const {
     return food;
+}
+
+LocationManager& World::getLocationManager() {
+    return _locationManager;
 }
 
 

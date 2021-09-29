@@ -226,7 +226,7 @@ int createSceneObject(lua_State* state) {
     type = lua_tostring(state, -2);
     name = lua_tostring(state, -1);
 
-    LocationManager::getInstance().createLocation(type, name, x, y, *g_sceneObjectManager);
+    g_world->getLocationManager().createLocation(type, name, x, y, *g_sceneObjectManager);
 
     return 0;
 }

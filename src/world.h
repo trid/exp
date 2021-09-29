@@ -10,6 +10,8 @@
 
 #include "actions/action_manager.h"
 #include "application.h"
+#include "location_manager.h"
+#include "location_type_manager.h"
 #include "process.h"
 #include "message_manager.h"
 
@@ -88,6 +90,7 @@ public:
 
     SceneObjectManager& getSceneObjectManager();
     MessageManager& getMessageManager();
+    LocationManager& getLocationManager();
 
 private:
     std::list<TravelPtr> inRoute;
@@ -106,6 +109,8 @@ private:
     ActionManager _actionManager;
     ActorsRegistry _actorsRegistry;
     MessageManager _messageManager;
+    LocationTypeManager _locationTypeManager;
+    LocationManager _locationManager;
 };
 
 class WorldProcess: public Process {

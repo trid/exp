@@ -13,10 +13,10 @@ private:
     string name;
     unordered_set<string> actions;
 public:
-    LocationType(const string& name): name(name){}
+    explicit LocationType(const string& name): name(name){}
 
     const string& getName() { return name; }
     const unordered_set<string>& getActions() { return actions; }
 };
 
-#endif
+#endif // LOCATION_TYPE_H
