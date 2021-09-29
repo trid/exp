@@ -13,7 +13,7 @@
 
 using namespace std;
 
-extern World* g_world;
+World* g_world;
 
 void World::moveActor(Actor *actor, const string &dest) {
     TravelPtr route(new Travel(actor, dest, _sceneObjectManager, *this));
