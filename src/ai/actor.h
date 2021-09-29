@@ -5,7 +5,7 @@
 #include <string>
 #include <unordered_map>
 #include "../message_manager.h"
-#include "../action.h"
+#include "../actions/action.h"
 #include "state.h"
 
 using std::set;

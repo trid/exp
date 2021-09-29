@@ -3,7 +3,7 @@
 #include <iostream>
 
 #include "application.h"
-#include "action_manager.h"
+#include "actions/action_manager.h"
 #include "location_manager.h"
 
 #include "ai/actor.h"

@@ -1,6 +1,6 @@
 #include "action.h"
-#include "ai/actor.h"
-#include "world.h"
+#include "../ai/actor.h"
+#include "../world.h"
 
 class ActionEating: public Action {
 public:

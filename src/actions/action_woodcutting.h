@@ -1,5 +1,5 @@
 #include "action.h"
-#include "ai/actor.h"
+#include "../ai/actor.h"
 
 class ActionWoodcutting: public Action {
 private:

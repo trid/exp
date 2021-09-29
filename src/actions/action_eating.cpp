@@ -1,5 +1,5 @@
 #include "action_eating.h"
-#include "world.h"
+#include "../world.h"
 
 bool ActionEating::isValid() {
     return actor->getPosition() == "home";

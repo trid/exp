@@ -8,7 +8,7 @@
 #include <string>
 #include <unordered_set>
 
-#include "action_manager.h"
+#include "actions/action_manager.h"
 #include "application.h"
 #include "process.h"
 #include "message_manager.h"

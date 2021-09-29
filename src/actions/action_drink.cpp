@@ -1,6 +1,6 @@
 #include "action_drink.h"
 
-#include "ai/actor.h"
+#include "../ai/actor.h"
 
 bool ActionDrink::isValid() {
     return actor->getPosition() == "well";
