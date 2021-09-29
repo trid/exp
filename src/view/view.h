@@ -36,7 +36,7 @@ public:
 
 class View {
 public:
-    explicit View(Settings& settings);
+    explicit View(const Settings& settings);
 
     void draw();
     SDL_Renderer* getRenderer() { return renderer; }

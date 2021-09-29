@@ -21,7 +21,7 @@ extern SceneObjectManager* g_sceneObjectManager;
 World* g_world;
 extern ActorsRegistry* g_actorsRegistry;
 
-View::View(Settings& settings) {
+View::View(const Settings& settings) {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         cout << "SDL_Init error" << endl;
         return;

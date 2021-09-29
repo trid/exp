@@ -10,15 +10,15 @@ class ScriptManager;
 
 class Settings {
 public:
-    Settings(ScriptManager& scriptManager);
+    explicit Settings(ScriptManager& scriptManager);
 
-    int getIntParameter(const string& name);
-    bool getBoolParameter(const string& name);
-    string getStringParameter(const string& name);
-
-    void pushSettingToStack(string const &name);
+    int getIntParameter(const string& name) const;
+    bool getBoolParameter(const string& name) const;
+    string getStringParameter(const string& name) const;
 
 private:
+    void pushSettingToStack(string const &name) const;
+
     ScriptManager& _scriptManager;
 };
 
