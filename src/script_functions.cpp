@@ -1,14 +1,19 @@
-#include <lua5.1/lua.hpp>
 #include <iostream>
-#include "script_functions.h"
-#include "ai/state_manager.h"
-#include "world.h"
-#include "ai/registry.h"
-#include "view/view.h"
-#include "view/scene_object_manager.h"
-#include "script_object_manager.h"
-#include "ai/actor_object.h"
+
+#include <lua5.1/lua.hpp>
+
+#include "constants.h"
 #include "location_manager.h"
+#include "script_functions.h"
+#include "script_object_manager.h"
+#include "world.h"
+
+#include "ai/actor_object.h"
+#include "ai/state_manager.h"
+#include "ai/registry.h"
+
+#include "view/scene_object_manager.h"
+#include "view/view.h"
 
 using std::cout;
 
@@ -21,7 +26,7 @@ GUIPanel* g_panel;
 
 int print(lua_State* state) {
     char const *str = lua_tostring(state, 1);
-    cout << "LUA: " << str;
+    cout << kScriptMessagePrefix << str;
     return 0;
 }
 

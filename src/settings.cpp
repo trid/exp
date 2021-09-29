@@ -1,10 +1,12 @@
 #include "settings.h"
+
+#include "constants.h"
 #include "script_manager.h"
 
 Settings::Settings(ScriptManager& scriptManager):
     _scriptManager(scriptManager)
 {
-    _scriptManager.loadScript("scripts/settings.lua");
+    _scriptManager.loadScript(kSettingsScriptPath);
 }
 
 string Settings::getStringParameter(const string& name) const {
@@ -19,7 +21,7 @@ bool Settings::getBoolParameter(const string& name) const {
 
 void Settings::pushSettingToStack(string const &name) const {
     lua_State *state = _scriptManager.getState();
-    lua_getglobal(state, "settings");
+    lua_getglobal(state, kSettingsKey);
     lua_pushstring(state, name.c_str());
     lua_gettable(state, -2);
 }

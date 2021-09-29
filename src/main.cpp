@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "application.h"
+#include "constants.h"
 #include "location_type_manager.h"
 #include "script_manager.h"
 #include "settings.h"
@@ -28,7 +29,7 @@ int main(int argc, char* argv[]) {
     SystemEventManager systemEventManager{app, panel};
 
     stateManager.registerScriptedStates();
-    scriptManager.loadScript("scripts/init.lua");
+    scriptManager.loadScript(kInitScriptPath);
 
     while (app.isRunning()) {
         app.update();

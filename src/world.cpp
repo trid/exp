@@ -3,9 +3,11 @@
 #include <iostream>
 
 #include "application.h"
-#include "actions/action_manager.h"
+#include "constants.h"
 #include "location_manager.h"
 #include "location_type.h"
+
+#include "actions/action_manager.h"
 
 #include "ai/actor.h"
 
@@ -17,7 +19,7 @@ World* g_world;
 
 void World::moveActor(Actor *actor, const string &dest) {
     TravelPtr route(new Travel(actor, dest, _sceneObjectManager, *this));
-    actor->setPosition("In route");
+    actor->setPosition(kPositionInRoute);
     inRoute.push_back(route);
 }
 
@@ -65,11 +67,11 @@ World::World(View& view, Application& application) :
     ProcessPtr ptr(new WorldProcess(*this));
     application.addProcess(ptr);
 
-    homeActions.emplace("eat");
-    homeActions.emplace("rest");
-    forestActions.emplace("hunt");
-    forestActions.emplace("cut_wood");
-    wellActions.emplace("drink");
+    homeActions.emplace(kActionEat);
+    homeActions.emplace(kActionRest);
+    forestActions.emplace(kActionHunt);
+    forestActions.emplace(kActionCutWood);
+    wellActions.emplace(kActionDring);
 }
 
 unordered_set<string> const & World::getActions(Actor *actor) {
@@ -88,18 +90,18 @@ void World::doAction(Actor *actor, const string &action) {
 
 void World::removeFood() {
     food--;
-    _view.getUIMessageManager().sendMessage("FOOD_UPDATED_MESSAGE", UIMessageData());
+    _view.getUIMessageManager().sendMessage(kFoodUpdatedMessage, UIMessageData());
 }
 
 void World::addFood(int i) {
     food += i;
-    _view.getUIMessageManager().sendMessage("FOOD_UPDATED_MESSAGE", UIMessageData());
+    _view.getUIMessageManager().sendMessage(kFoodUpdatedMessage, UIMessageData());
 }
 
 void World::addWood(int i) {
     wood += i;
 
-    _view.getUIMessageManager().sendMessage("WOOD_UPDATED_MESSAGE", UIMessageData());
+    _view.getUIMessageManager().sendMessage(kWoodUpdatedMessage, UIMessageData());
 }
 
 SceneObjectManager& World::getSceneObjectManager() {
