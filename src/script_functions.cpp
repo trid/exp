@@ -1,4 +1,4 @@
-#include <lua.hpp>
+#include <lua5.1/lua.hpp>
 #include <iostream>
 #include "script_functions.h"
 #include "ai/state_manager.h"
@@ -12,6 +12,12 @@
 
 using std::cout;
 
+StateManager* g_stateManager = nullptr;
+View* g_view = nullptr;
+SceneObjectManager* g_sceneObjectManager = nullptr;
+extern World* g_world;
+extern ActorsRegistry* g_actorsRegistry;
+
 int print(lua_State* state) {
     char const *str = lua_tostring(state, 1);
     cout << "LUA: " << str;
@@ -22,7 +28,7 @@ int registerScriptedState(lua_State* state) {
     const char* stateName = lua_tostring(state, -2);
     const char* tableName = lua_tostring(state, -1);
 
-    StateManager::getInstance().registerScriptedState(tableName, stateName);
+    g_stateManager->registerScriptedState(tableName, stateName);
     return 0;
 }
 
@@ -34,7 +40,7 @@ int setState(lua_State* state) {
     else {
         const char *stateName = lua_tostring(state, -1);
 
-        State *actorState = StateManager::getInstance().getState(stateName);
+        State *actorState = g_stateManager->getState(stateName);
         actor->setState(actorState);
     }
     return 0;
@@ -72,7 +78,7 @@ int sendTo(lua_State* state) {
     Actor* actor = (Actor*)lua_topointer(state, -2);
     const char* direction = lua_tostring(state, -1);
 
-    World::getWorld().moveActor(actor, direction);
+    g_world->moveActor(actor, direction);
 
     return 0;
 }
@@ -96,6 +102,8 @@ int say(lua_State* state) {
     const char* message = lua_tostring(state, -1);
 
     actor->say(message);
+
+    return 1;
 }
 
 int setName(lua_State* state) {
@@ -103,6 +111,8 @@ int setName(lua_State* state) {
     const char* name = lua_tostring(state, -1);
 
     actor->setName(name);
+
+    return 1;
 }
 
 int getInventory(lua_State* state) {
@@ -138,13 +148,17 @@ int setReaction(lua_State* state) {
     const char* reactionName = lua_tostring(state, -2);
     const char* stateName = lua_tostring(state, -1);
 
-    actor->setReactor(reactionName, StateManager::getInstance().getState(stateName));
+    actor->setReactor(reactionName, g_stateManager->getState(stateName));
+
+    return 1;
 }
 
 int setStateBreackable(lua_State* state) {
     Actor* actor = (Actor*)lua_topointer(state, -2);
     bool breackable = (bool) lua_toboolean(state, -1);
     actor->setStateBreackable(breackable);
+
+    return 1;
 }
 
 int hasAction(lua_State* state) {
@@ -159,7 +173,7 @@ int doAction(lua_State* state) {
     Actor* actor = (Actor*)lua_topointer(state, -2);
     const char* action = lua_tostring(state, -1);
 
-    World::getWorld().doAction(actor, action);
+    g_world->doAction(actor, action);
     return 0;
 }
 
@@ -182,20 +196,20 @@ int getMessageType(lua_State* state) {
 
 // World
 int getStoredFood(lua_State* state) {
-    lua_pushinteger(state, World::getWorld().getFood());
+    lua_pushinteger(state, g_world->getFood());
 
     return 1;
 }
 
 int getStoredWood(lua_State* state) {
-    lua_pushinteger(state, World::getWorld().getWood());
+    lua_pushinteger(state, g_world->getWood());
 
     return 1;
 }
 
 //Actor registry
 int createActor(lua_State* state) {
-    Actor& actor = ActorsRegistry::getRegistry().createActor();
+    Actor& actor = g_actorsRegistry->createActor(*g_view, *g_world);
     lua_pushlightuserdata(state, &actor);
 
     return 1;
@@ -211,7 +225,7 @@ int createSceneObject(lua_State* state) {
     type = lua_tostring(state, -2);
     name = lua_tostring(state, -1);
 
-    LocationManager::getInstance().createLocation(type, name, x, y);
+    LocationManager::getInstance().createLocation(type, name, x, y, *g_sceneObjectManager);
 
     return 0;
 }
@@ -233,14 +247,15 @@ int getObjectParameter(lua_State* state) {
 int setParameterValue(lua_State* state) {
     AbstractParameter* parameter = (AbstractParameter *) lua_topointer(state, -2);
     if (lua_isnumber(state, -1)) {
-        //Small trouble in LUA: it do not care about int or string convertible to int. Same with strings. Fuck.
-        parameter->setData(lua_tointeger(state, -1));
+        //Small trouble in LUA: it does not care about int or string convertible to int. Same with strings. Fuck.
+        parameter->setData((int)lua_tointeger(state, -1));
         return 0;
     }
     if (lua_isstring(state, -1)) {
         parameter->setData(lua_tostring(state, -1));
         return 0;
     }
+    return 1;
 }
 
 int getParameterValue(lua_State* state) {

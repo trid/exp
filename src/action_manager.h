@@ -1,3 +1,6 @@
+#ifndef ACTION_MANAGER_H
+#define ACTION_MANAGER_H
+
 #include <string>
 #include <unordered_map>
 
@@ -7,15 +10,15 @@ using std::string;
 using std::unordered_map;
 
 class ActionManager {
-private:
-    ActionManager();
-    ~ActionManager();
-    unordered_map<string, VirtualActionFactory*> actionMap;
 public:
-    static ActionManager& getInstance() {
-        static ActionManager am;
-        return am;
-    }
+    ActionManager(World& world);
+    ~ActionManager();
 
     ActionPtr getAction(const string& action, Actor* actor);
+private:
+    World& _world;
+
+    unordered_map<string, VirtualActionFactory*> _actionMap;
 };
+
+#endif // ACTION_MANAGER_H

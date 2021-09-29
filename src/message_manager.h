@@ -7,6 +7,8 @@ using std::string;
 
 static const string MESSAGE_FINISHED_MOVING = "FINISHED_MOVING";
 
+class ActorsRegistry;
+
 class Message {
 public:
     string messageType;
@@ -15,12 +17,12 @@ public:
 
 class MessageManager {
 public:
-    static MessageManager& getInstance() {
-        static MessageManager messageManager;
-        return messageManager;
-    };
+    explicit MessageManager(ActorsRegistry& actorRegistry);
 
     void dispatchMessage(int actorId, Message& message);
+
+private:
+    ActorsRegistry& _actorRegistry;
 };
 
 #endif

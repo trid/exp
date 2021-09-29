@@ -2,7 +2,7 @@
 #define WIDGET_H
 
 #include <memory>
-#include <SDL_render.h>
+#include <SDL2/SDL_render.h>
 
 class Widget {
 private:

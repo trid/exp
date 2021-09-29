@@ -1,9 +1,9 @@
-cmake_minimum_required(VERSION 2.8.4)
+cmake_minimum_required(VERSION 3.20)
+
 project(exp)
 
 if (WIN32)
 	include_directories(external/lua/include)
-	include_directories(external/sdl/include)
 else()
 	include_directories(/usr/include/lua5.2)
 
@@ -19,22 +19,17 @@ file(GLOB AI_SOURCE_FILES src/ai/*.cpp)
 file(GLOB VIEW_SOURCE_FILES src/view/*.cpp)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-link_directories(libs)
+set(Boost_USE_STATIC_LIBS ON)
+find_package(Boost COMPONENTS system filesystem)
+include_directories(${BOOST_INCLUDEDIR})
+
+find_package(SDL2 REQUIRED)
+include_directories(SDL2Test ${SDL2_INCLUDE_DIRS})
 
 add_executable(exp ${SOURCE_FILES} ${VIEW_SOURCE_FILES} ${AI_SOURCE_FILES})
-if (WIN32)
-	target_link_libraries(exp liblua.a)
-	target_link_libraries(exp SDL2_ttf.a)
-	target_link_libraries(exp SDL2_image.a)
-	target_link_libraries(exp SDL2main.lib)
-	target_link_libraries(exp SDL2.lib)
-	target_link_libraries(exp freetype.lib)
-	target_link_libraries(exp libboost_system-mgw48-1_56.a)
-	target_link_libraries(exp libboost_filesystem-mgw48-1_56.a)
-else()
-	target_link_libraries(exp lua5.2)
-	target_link_libraries(exp ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSTEM_LIBRARY})
-	target_link_libraries(exp SDL2)
-	target_link_libraries(exp SDL2_ttf)
-	target_link_libraries(exp SDL2_image)
-endif(WIN32)
+target_link_libraries(exp lua5.1)
+target_link_libraries(exp ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSTEM_LIBRARY})
+
+target_link_libraries(exp SDL2 SDL2_image SDL2_ttf)
+
+

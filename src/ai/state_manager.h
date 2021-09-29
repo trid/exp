@@ -1,22 +1,28 @@
+#ifndef STATE_MANAGER_H
+#define STATE_MANAGER_H
+
 #include <string>
 #include <unordered_map>
 
 #include "state.h"
-#include "lua.hpp"
+#include "lua5.1/lua.hpp"
+
+class ScriptManager;
+class World;
 
 class StateManager {
-private:
-    std::unordered_map<std::string, State*> states;
-    void registerStates();
-    StateManager();
 public:
-    static StateManager& getInstance() {
-        static StateManager sm;
-        return sm;
-    }
+    StateManager(ScriptManager& scriptManager, World& world);
 
     State* getState(const std::string& name);
 
     void registerScriptedStates();
     void registerScriptedState(char const *tableName, char const *stateName);
+private:
+    void registerStates(World& world);
+
+    std::unordered_map<std::string, State*> _states;
+    ScriptManager& _scriptManager;
 };
+
+#endif

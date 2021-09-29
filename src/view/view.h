@@ -3,11 +3,13 @@
 
 #include <list>
 #include <string>
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL_ttf.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 #include "map_object_view.h"
+#include "ui_manager.h"
 #include "ui_message_manager.h"
+#include "../settings.h"
 
 using std::list;
 using std::string;
@@ -34,10 +36,7 @@ public:
 
 class View {
 public:
-    static View& getView() {
-        static View view;
-        return view;
-    };
+    explicit View(Settings& settings);
 
     void draw();
     SDL_Renderer* getRenderer() { return renderer; }
@@ -67,10 +66,9 @@ private:
     LogView* logView;
     ActorView* actorView;
 
-
     list <MapObjectPtr> mapObjects;
 
-    View();
+    UIManager _uiManager;
 };
 
 #endif

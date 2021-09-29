@@ -3,8 +3,9 @@
 #include "ui_manager.h"
 
 
-Label::Label(int x, int y, string const &text):
-        Widget(x, y), text(text)
+Label::Label(int x, int y, UIManager& uiManager, const string& text) :
+        Widget(x, y), text(text),
+        _uiManager(uiManager)
 {
     textColor.r = 255;
     textColor.g = 255;
@@ -22,7 +23,7 @@ void Label::draw(SDL_Renderer *renderer) {
         if (renderedText) {
             SDL_DestroyTexture(renderedText);
         }
-        SDL_Surface* renderedSurface = TTF_RenderText_Solid(UIManager::getInstance().getFont(), text.c_str(), textColor);
+        SDL_Surface* renderedSurface = TTF_RenderText_Solid(_uiManager.getFont(), text.c_str(), textColor);
         renderedText = SDL_CreateTextureFromSurface(renderer, renderedSurface);
         SDL_FreeSurface(renderedSurface);
     }

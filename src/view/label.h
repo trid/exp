@@ -1,19 +1,22 @@
 #include <string>
-#include <SDL.h>
-#include <SDL_ttf.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include "widget.h"
 
 using std::string;
 
+class UIManager;
+
 class Label: public Widget {
+public:
+    Label(int x, int y, UIManager& uiManager, const string& text = "");
+    void setText(const string& text);
+    virtual void draw(SDL_Renderer* renderer) override;
 private:
     string text;
     bool dirty = true;
     SDL_Texture* renderedText = nullptr;
     SDL_Color textColor;
 
-public:
-    Label(int x, int y, const string& text = "");
-    void setText(const string& text);
-    virtual void draw(SDL_Renderer* renderer) override;
+    UIManager& _uiManager;
 };

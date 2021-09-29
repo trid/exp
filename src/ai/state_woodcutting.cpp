@@ -7,13 +7,13 @@ void StateWoodcutting::execute(Actor *actor) {
 
     if (actor->getInventory() == actor->getInventoryLimit()) {
         actor->say("Inventory is too heavy. Returning home");
-        World::getWorld().moveActor(actor, "home");
-        actor->setState(StateManager::getInstance().getState("StateWoodcutterInRoute"));
+        _world.moveActor(actor, "home");
+        actor->setState(getStateManager().getState("StateWoodcutterInRoute"));
     }
 
-    if (World::getWorld().getWood() >= 300) {
-        World::getWorld().moveActor(actor, "home");
-        actor->setState(StateManager::getInstance().getState("StateWoodcutterInRoute"));
+    if (_world.getWood() >= 300) {
+        _world.moveActor(actor, "home");
+        actor->setState(getStateManager().getState("StateWoodcutterInRoute"));
     }
 }
 
@@ -28,5 +28,9 @@ void StateWoodcutting::exit(Actor* actor) {
 
 void StateWoodcutting::enter(Actor* actor) {
     actor->say("Start cutting wood");
-    World::getWorld().doAction(actor, "cut_wood");
+    _world.doAction(actor, "cut_wood");
 }
+
+StateWoodcutting::StateWoodcutting(StateManager& stateManager, World& world):
+    State(stateManager),
+    _world(world) {}

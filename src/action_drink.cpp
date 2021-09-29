@@ -23,3 +23,6 @@ int ActionDrink::progress() {
 bool ActionDrink::isFinished() {
     return time >= maxTime;
 }
+
+ActionDrink::ActionDrink(Actor* actor, World& world):
+    Action(actor, world) {}

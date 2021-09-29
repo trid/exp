@@ -7,33 +7,38 @@
 
 #include <boost/filesystem.hpp>
 
+extern StateManager* g_stateManager;
+
 using boost::filesystem::path;
 using boost::filesystem::directory_iterator;
 using boost::filesystem::directory_entry;
 
-void StateManager::registerStates() {
-    states["StateStart"] = StateStart::getInstance();
-    states["StateFinished"] = StateFinished::getInstance();
-    states["StateWoodcutting"] = StateWoodcutting::getInstance();
+void StateManager::registerStates(World& world) {
+    _states["StateStart"] = new StateStart(*this, world);
+    _states["StateFinished"] = new StateFinished(*this);
+    _states["StateWoodcutting"] = new StateWoodcutting(*this, world);
 }
 
-StateManager::StateManager() {
-    registerStates();
+StateManager::StateManager(ScriptManager& scriptManager, World& world):
+    _scriptManager(scriptManager)
+{
+    registerStates(world);
+    g_stateManager = this;
 }
 
 State *StateManager::getState(const std::string &name) {
-    return states[name];
+    return _states[name];
 }
 
 void StateManager::registerScriptedStates() {
     path p("scripts/states/");
 
     for (auto it = directory_iterator(p); it != directory_iterator(); it++) {
-        ScriptManager::getInstance().loadScript(it->path().string());
+        _scriptManager.loadScript(it->path().string());
     }
 }
 
 void StateManager::registerScriptedState(char const *tableName, char const *stateName) {
-    ScriptedState* state = new ScriptedState(tableName);
-    states[stateName] = state;
+    ScriptedState* state = new ScriptedState(*this, _scriptManager, tableName);
+    _states[stateName] = state;
 }

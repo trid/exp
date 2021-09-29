@@ -3,7 +3,7 @@
 
 #include <string>
 #include <memory>
-#include <SDL_render.h>
+#include <SDL2/SDL_render.h>
 
 using std::string;
 

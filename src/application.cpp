@@ -9,3 +9,11 @@ void Application::update() {
     }
     processes.remove_if([](ProcessPtr processPtr) { return processPtr->finished(); });
 }
+
+Application::Application() : lastTime(SDL_GetTicks()) {}
+
+void Application::finish() { running = false; }
+
+bool Application::isRunning() const { return running; }
+
+void Application::addProcess(ProcessPtr ptr) { processes.push_back(ptr); }

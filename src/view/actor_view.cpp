@@ -1,7 +1,6 @@
-#include <SDL_ttf.h>
+#include <SDL2/SDL_ttf.h>
 #include <sstream>
 #include "actor_view.h"
-#include "ui_manager.h"
 #include "label.h"
 #include "../ai/actor.h"
 #include "../ai/registry.h"
@@ -9,27 +8,33 @@
 
 using std::stringstream;
 
-ActorView::ActorView(int x, int y) : Widget(x, y) {
-    UIManager &uiManager = UIManager::getInstance();
-    int fontHeight = TTF_FontHeight(uiManager.getFont());
-    nameLabel = new Label(0, 0, "Name: ");
-    foodLabel = new Label(0, fontHeight, "Food: ");
-    waterLabel = new Label(0, fontHeight * 2, "Water: ");
-    placeLabel = new Label(0, fontHeight * 3, "Place: ");
-    actor = ActorsRegistry::getRegistry().getActor(0);
+ActorsRegistry* g_actorsRegistry = nullptr;
+
+ActorView::ActorView(int x, int y, UIManager& uiManager, View& view) :
+        Widget(x, y),
+        _uiManager(uiManager),
+        _view(view)
+{
+    int fontHeight = TTF_FontHeight(_uiManager.getFont());
+    nameLabel = new Label(0, 0, _uiManager, "Name: ");
+    foodLabel = new Label(0, fontHeight, _uiManager, "Food: ");
+    waterLabel = new Label(0, fontHeight * 2, _uiManager, "Water: ");
+    placeLabel = new Label(0, fontHeight * 3, _uiManager, "Place: ");
+    if (g_actorsRegistry) {
+        actor = g_actorsRegistry->getActor(0);
+    }
 }
 
 void ActorView::nextActor() {
-    ActorsRegistry &registry = ActorsRegistry::getRegistry();
-    if (actor->getID() != registry.getLastId()) {
-        actor = registry.getActor(actor->getID() + 1);
+    if (actor->getID() != g_actorsRegistry->getLastId()) {
+        actor = g_actorsRegistry->getActor(actor->getID() + 1);
     }
     updateLabels();
 }
 
 void ActorView::prevActor() {
     if (actor->getID() > 0) {
-        actor = ActorsRegistry::getRegistry().getActor(actor->getID() - 1);
+        actor = g_actorsRegistry->getActor(actor->getID() - 1);
     }
     updateLabels();
 }
@@ -37,8 +42,8 @@ void ActorView::prevActor() {
 void ActorView::draw(SDL_Renderer *renderer) {
     //TODO: move it to constructor after moving UI item out from View class
     if (!surface) {
-        int fontHeight = TTF_FontHeight(UIManager::getInstance().getFont());
-        surface = SDL_CreateTexture(renderer, View::getView().getScreenPixelFormat(), SDL_TEXTUREACCESS_TARGET, 200, fontHeight * 4);
+        int fontHeight = TTF_FontHeight(_uiManager.getFont());
+        surface = SDL_CreateTexture(renderer, _view.getScreenPixelFormat(), SDL_TEXTUREACCESS_TARGET, 200, fontHeight * 4);
         SDL_SetTextureBlendMode(surface, SDL_BLENDMODE_BLEND);
     }
 
@@ -59,8 +64,8 @@ void ActorView::draw(SDL_Renderer *renderer) {
 }
 
 void ActorView::updateLabels() {
-    if (!actor) {
-        actor = ActorsRegistry::getRegistry().getActor(0);
+    if (!actor && g_actorsRegistry) {
+        actor = g_actorsRegistry->getActor(0);
     }
     if (!actor) {
         return;

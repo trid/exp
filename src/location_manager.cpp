@@ -2,11 +2,12 @@
 #include "location_type_manager.h"
 #include "view/scene_object_manager.h"
 
-void LocationManager::createLocation(const string &type, const string &name, int xPos, int yPos) {
+void LocationManager::createLocation(const string& type, const string& name, int xPos, int yPos,
+                                     SceneObjectManager& sceneObjectManager) {
     Location* location = new Location(LocationTypeManager::getInstance().getLocationType(type), name, xPos, yPos);
     locations.push_back(location);
     locationsByName[name] = location;
-    SceneObjectManager::getInstance().createMapObject(location);
+    sceneObjectManager.createMapObject(location);
 }
 
 Location *LocationManager::getLocation(const string &name) {

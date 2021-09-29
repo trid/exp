@@ -10,12 +10,14 @@
 
 using std::stringstream;
 
+extern ActorsRegistry* g_actorsRegistry;
+
 const vector<Actor *> &ActorsRegistry::getActors() {
     return actors;
 }
 
-Actor &ActorsRegistry::createActor() {
-    Actor* actor = new Actor();
+Actor& ActorsRegistry::createActor(View& view, World& world) {
+    Actor* actor = new Actor(view, world);
     actor->id = nextId;
     nextId++;
     actors.push_back(actor);
@@ -37,25 +39,29 @@ Actor *ActorsRegistry::getActor(int id) {
 }
 
 void ActorsRegistry::ActorRegistryProcess::update(int delta) {
-    ActorsRegistry::getRegistry().update();
+    _actorsRegistry.update();
 }
 
 bool ActorsRegistry::ActorRegistryProcess::finished() {
     return false;
 }
 
-ActorsRegistry::ActorsRegistry() {
-    ProcessPtr ptr(new ActorRegistryProcess());
-    Application &application = Application::getInstance();
+ActorsRegistry::ActorRegistryProcess::ActorRegistryProcess(ActorsRegistry& actorsRegistry) : _actorsRegistry(
+        actorsRegistry) {}
+
+ActorsRegistry::ActorsRegistry(Application& application) {
+    g_actorsRegistry = this;
+
+    ProcessPtr ptr(new ActorRegistryProcess(*this));
     application.addProcess(ptr);
-    application.addProcess(ProcessPtr(new ActorStatusUpdateProcess()));
+    application.addProcess(ProcessPtr(new ActorStatusUpdateProcess(*this)));
 }
 
 void ActorsRegistry::ActorStatusUpdateProcess::update(int delta) {
     time += delta;
     if (time > interval) {
         time -= interval;
-        for (Actor* actor: ActorsRegistry::getRegistry().getActors()) {
+        for (Actor* actor: _actorRegistry.getActors()) {
             actor->updateStatus();
         }
     }
@@ -64,3 +70,6 @@ void ActorsRegistry::ActorStatusUpdateProcess::update(int delta) {
 bool ActorsRegistry::ActorStatusUpdateProcess::finished() {
     return false;
 }
+
+ActorsRegistry::ActorStatusUpdateProcess::ActorStatusUpdateProcess(ActorsRegistry& actorRegistry) : _actorRegistry(
+        actorRegistry) {}

@@ -1,9 +1,14 @@
+#include "application.h"
+
+class View;
+
 class SystemEventManager{
 public:
-    static SystemEventManager& getInstance() {
-        static SystemEventManager systemEventManager;
-        return systemEventManager;
-    }
+    SystemEventManager(Application& application, View& view);
 
     void process();
+
+private:
+    Application& _application;
+    View& _view;
 };

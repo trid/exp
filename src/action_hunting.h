@@ -6,7 +6,7 @@ private:
     int time = 0;
     int interval = 300;
 public:
-    ActionHunting(Actor *actor) : Action(actor) { }
+    explicit ActionHunting(Actor* actor, World& world);
 
     virtual bool isValid();
     virtual void update(int delta);

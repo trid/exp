@@ -1,22 +1,24 @@
 #include "settings.h"
 #include "script_manager.h"
 
-Settings::Settings() {
-    ScriptManager::getInstance().loadScript("scripts/settings.lua");
+Settings::Settings(ScriptManager& scriptManager):
+    _scriptManager(scriptManager)
+{
+    _scriptManager.loadScript("scripts/settings.lua");
 }
 
-const string &Settings::getStringParameter(const string& name) {
+string Settings::getStringParameter(const string& name) {
     pushSettingToStack(name);
-    return lua_tostring(ScriptManager::getInstance().getState(), -1);
+    return lua_tostring(_scriptManager.getState(), -1);
 }
 
 bool Settings::getBoolParameter(const string& name) {
     pushSettingToStack(name);
-    return (bool)lua_toboolean(ScriptManager::getInstance().getState(), -1);
+    return (bool)lua_toboolean(_scriptManager.getState(), -1);
 }
 
 void Settings::pushSettingToStack(string const &name) {
-    lua_State *state = ScriptManager::getInstance().getState();
+    lua_State *state = _scriptManager.getState();
     lua_getglobal(state, "settings");
     lua_pushstring(state, name.c_str());
     lua_gettable(state, -2);
@@ -24,5 +26,5 @@ void Settings::pushSettingToStack(string const &name) {
 
 int Settings::getIntParameter(const string& name) {
     pushSettingToStack(name);
-    return lua_tointeger(ScriptManager::getInstance().getState(), -1);
+    return lua_tointeger(_scriptManager.getState(), -1);
 }

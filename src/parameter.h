@@ -12,7 +12,7 @@ using std::type_info;
 using std::function;
 
 
-class BadTypeException {};
+class BadTypeException: public std::exception {};
 
 
 class AbstractParameter {
@@ -28,8 +28,6 @@ public:
 
     virtual void setData(int i) = 0;
     virtual void setData(float f) = 0;
-    //No bool, bitches. 'Cause fuckin' string is bool
-    //virtual void setData(bool b) = 0;
     virtual void setData(void* pointer) = 0;
     virtual void setData(const string& data) = 0;
 
@@ -157,7 +155,7 @@ public:
         if (typeid(void*) != type){
             throw BadTypeException();
         }
-        return *dataPointer;
+        return (void*)dataPointer;
     }
 
     virtual void setData(const void* data) override {
@@ -212,7 +210,6 @@ public:
 
     virtual const string &getString() {
         throw BadTypeException();
-        return "";
     }
 
     virtual int getInt() {
@@ -271,7 +268,7 @@ public:
     virtual int getInt() { return 0; }
     virtual double getDouble() { return 0; }
     virtual bool getBool() { return false; }
-    virtual void *getPointer() {}
+    virtual void *getPointer() { return nullptr; }
     virtual void setData(int i) {}
     virtual void setData(float f) {}
     virtual void setData(void *pointer) {}

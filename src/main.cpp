@@ -1,3 +1,5 @@
+#define SDL_MAIN_HANDLED
+
 #include <iostream>
 
 #include "application.h"
@@ -13,12 +15,14 @@ using namespace std;
 
 
 int main(int argc, char* argv[]) {
-    Application& app = Application::getInstance();
-    View& view = View::getView();
-    ScriptManager& scriptManager = ScriptManager::getInstance();
-    StateManager& stateManager = StateManager::getInstance();
-    SystemEventManager& systemEventManager = SystemEventManager::getInstance();
-    Settings& settings = Settings::getSettings();
+    Application app{};
+    ScriptManager scriptManager{};
+    Settings settings{scriptManager};
+    View view{settings};
+    World world(view, app);
+    StateManager stateManager{scriptManager, world};
+    SystemEventManager systemEventManager{app, view};
+
     stateManager.registerScriptedStates();
     scriptManager.loadScript("scripts/init.lua");
 

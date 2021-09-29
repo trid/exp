@@ -1,18 +1,12 @@
 #include "widget.h"
+#include "ui_manager.h"
 
 class Actor;
 class Label;
 
 class ActorView: public Widget {
-private:
-    Actor* actor;
-
-    Label* nameLabel;
-    Label* foodLabel;
-    Label* waterLabel;
-    Label* placeLabel;
 public:
-    ActorView(int x, int y);
+    ActorView(int x, int y, UIManager& uiManager, View& view);
     virtual ~ActorView();
 
     void updateLabels();
@@ -21,4 +15,14 @@ public:
 
 
     virtual void draw(SDL_Renderer *renderer);
+private:
+    Actor* actor = nullptr;
+
+    Label* nameLabel;
+    Label* foodLabel;
+    Label* waterLabel;
+    Label* placeLabel;
+
+    UIManager& _uiManager;
+    View& _view;
 };

@@ -6,7 +6,7 @@ private:
     int time = 0;
     int interval = 200;
 public:
-    ActionWoodcutting(Actor *actor) : Action(actor) {}
+    explicit ActionWoodcutting(Actor* actor, World& world);
 
     virtual bool isValid();
     virtual void update(int delta);

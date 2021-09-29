@@ -19,3 +19,6 @@ int ActionHunting::progress() {
 bool ActionHunting::isFinished() {
     return false;
 }
+
+ActionHunting::ActionHunting(Actor* actor, World& world):
+    Action(actor, world) { }

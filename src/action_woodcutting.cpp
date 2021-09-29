@@ -19,3 +19,5 @@ int ActionWoodcutting::progress() {
 bool ActionWoodcutting::isFinished() {
     return false;
 }
+
+ActionWoodcutting::ActionWoodcutting(Actor* actor, World& world) : Action(actor, world) {}

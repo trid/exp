@@ -4,3 +4,5 @@
 void StateFinished::processMessage(Actor *actor, Message &message) {
 
 }
+
+StateFinished::StateFinished(StateManager& stateManager) : State(stateManager) {}

@@ -3,19 +3,15 @@
 
 #include <string>
 
-#include "lua.hpp"
+#include "lua5.1/lua.hpp"
 
 using std::string;
 
 class ScriptManager {
 private:
-    ScriptManager();
     lua_State* state;
 public:
-    static ScriptManager& getInstance() {
-        static ScriptManager sm;
-        return sm;
-    }
+    ScriptManager();
 
     void loadScript(const string& path);
     void registerFunctions();

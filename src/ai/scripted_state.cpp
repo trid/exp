@@ -1,10 +1,12 @@
 #include "actor.h"
 #include "scripted_state.h"
 #include "../script_manager.h"
+#include "lua5.1/lua.hpp"
+
 
 void ScriptedState::callFunction(Actor *actor, const string &function) {
-    lua_State* state = ScriptManager::getInstance().getState();
-    lua_getglobal(state, tableName.c_str());
+    lua_State* state = _scriptManager.getState();
+    lua_getglobal(state, _tableName.c_str());
     lua_pushstring(state, function.c_str());
     lua_gettable(state, -2);
     if (lua_isfunction(state, -1)) {
@@ -26,13 +28,16 @@ void ScriptedState::enter(Actor *actor) {
     callFunction(actor, "enter");
 }
 
-ScriptedState::ScriptedState(const string &tableName): tableName(tableName) {
+ScriptedState::ScriptedState(StateManager& stateManager, ScriptManager& scriptManager, const string& tableName) :
+    State(stateManager),
+    _scriptManager(scriptManager),
+    _tableName(tableName) {
 
 }
 
 void ScriptedState::processMessage(Actor *actor, Message &message) {
-    lua_State* state = ScriptManager::getInstance().getState();
-    lua_getglobal(state, tableName.c_str());
+    lua_State* state = _scriptManager.getState();
+    lua_getglobal(state, _tableName.c_str());
     lua_pushstring(state, "processMessage");
     lua_gettable(state, -2);
     if (lua_isfunction(state, -1)) {

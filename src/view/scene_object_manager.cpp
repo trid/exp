@@ -13,6 +13,8 @@ using std::stringstream;
 using boost::property_tree::ptree;
 using boost::property_tree::xml_parser::trim_whitespace;
 
+extern SceneObjectManager* g_sceneObjectManager;
+
 MapObjectView *SceneObjectManager::createMapObject(Location *location) {
     MapObjectView * ptr = new MapObjectView();
     ptr->location = location;
@@ -35,7 +37,7 @@ void SceneObjectManager::draw(SDL_Renderer *renderer) {
     }
 }
 
-SceneObjectManager::SceneObjectManager() {
+SceneObjectManager::SceneObjectManager(View& view) {
     ptree pt;
     read_xml("res/locations/location_images.xml", pt, trim_whitespace);
 
@@ -46,6 +48,8 @@ SceneObjectManager::SceneObjectManager() {
         const string& image = loc.second.get<string>("sprite");
         stringstream ss;
         ss << "res/img/" << image;
-        sprites[type] = IMG_LoadTexture(View::getView().getRenderer(), ss.str().c_str());
+        sprites[type] = IMG_LoadTexture(view.getRenderer(), ss.str().c_str());
     }
+
+    g_sceneObjectManager = this;
 }

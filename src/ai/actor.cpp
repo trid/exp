@@ -47,11 +47,11 @@ void Actor::updateStatus() {
 }
 
 void Actor::eat() {
-    World::getWorld().doAction(this, "eat");
+    _world.doAction(this, "eat");
 }
 
 void Actor::drink() {
-    World::getWorld().doAction(this, "drink");
+    _world.doAction(this, "drink");
 }
 
 void Actor::removeGlobalState(const string &stateName) {
@@ -87,7 +87,7 @@ void Actor::processMessage(Message &message) {
 
 void Actor::say(const string &message) {
     cout << name << ": " << message << endl;
-    View::getView().addMessage(name + ": " + message);
+    _view.addMessage(name + ": " + message);
 }
 
 void Actor::addItem() {
@@ -97,12 +97,12 @@ void Actor::addItem() {
 }
 
 void Actor::unloadWood() {
-    World::getWorld().addWood(inventory);
+    _world.addWood(inventory);
     inventory = 0;
 }
 
 void Actor::unloadFood() {
-    World::getWorld().addFood(inventory);
+    _world.addFood(inventory);
     inventory = 0;
 }
 
@@ -113,7 +113,7 @@ int Actor::getInventoryLimit() {
 void Actor::setPosition(const string &position) {
     this->position = position;
     if (position != "In route") {
-        MapObjectPtr mapObject = SceneObjectManager::getInstance().getMapObject(position);
+        MapObjectPtr mapObject = _world.getSceneObjectManager().getMapObject(position);
         x = mapObject->getX();
         y = mapObject->getY();
     }
@@ -151,3 +151,7 @@ void Actor::removeAction() {
 bool Actor::hasAction() {
     return currentAction != nullptr;
 }
+
+Actor::Actor(View& view, World& world):
+    _view(view),
+    _world(world) {}

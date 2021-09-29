@@ -1,4 +1,3 @@
-#include "ui_manager.h"
 #include "view.h"
 
 UIManager::UIManager() {
@@ -7,8 +6,7 @@ UIManager::UIManager() {
     logFont = TTF_OpenFont("res/fonts/FreeSans.ttf", 14);
 }
 
-void UIManager::draw() {
-    View& view = View::getView();
+void UIManager::draw(View& view) {
     for (WidgetPtr widgetPtr: widgets){
         widgetPtr->draw(view.getRenderer());
     }
@@ -17,3 +15,4 @@ void UIManager::draw() {
 void UIManager::addWidget(Widget *widget) {
     widgets.push_back(WidgetPtr(widget));
 }
+

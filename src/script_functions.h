@@ -1,4 +1,9 @@
-#include "lua.hpp"
+#include "lua5.1/lua.hpp"
+#include "ai/state_manager.h"
+
+extern StateManager* stateManager;
+
+class StateManager;
 
 //Utils
 int print(lua_State* state);

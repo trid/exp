@@ -11,7 +11,7 @@ void ActionEating::update(int delta) {
         time = maxTime;
         actor->setFood(actor->getMaxFood());
         actor->removeGlobalState("hungry");
-        World::getWorld().removeFood();
+        _world.removeFood();
         stop();
     }
 }
@@ -22,4 +22,11 @@ int ActionEating::progress() {
 
 bool ActionEating::isFinished() {
     return time >= maxTime;
+}
+
+ActionEating::ActionEating(Actor* actor, World& world):
+        Action(actor, world),
+        _world(world)
+{
+
 }

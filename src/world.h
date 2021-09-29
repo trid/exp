@@ -1,12 +1,21 @@
+#ifndef WORLD_H
+#define WORLD_H
+
 #include <algorithm>
 #include <cmath>
 #include <list>
 #include <memory>
 #include <string>
 #include <unordered_set>
-#include "message_manager.h"
-#include "ai/actor.h"
+
+#include "action_manager.h"
+#include "application.h"
 #include "process.h"
+#include "message_manager.h"
+
+#include "ai/actor.h"
+#include "ai/registry.h"
+
 #include "view/map_object_view.h"
 #include "view/scene_object_manager.h"
 #include "view/ui_message_manager.h"
@@ -26,11 +35,13 @@ struct Travel {
     double distancePassed;
     double distanceNeeded;
     double dx, dy;
+    World& world;
 
-    Travel(Actor* actor, const string& dest): actor(actor), dest(dest),
-                                                       distancePassed(0)
+    Travel(Actor* actor, const string& dest, SceneObjectManager& sceneObjectManager, World& world)
+            : actor(actor), dest(dest),
+              distancePassed(0), world(world)
     {
-        MapObjectPtr mapObject = SceneObjectManager::getInstance().getMapObject(dest);
+        MapObjectPtr mapObject = sceneObjectManager.getMapObject(dest);
         int xDist = mapObject->getX() - actor->getX();
         int yDist = mapObject->getY() - actor->getY();
         double angle = atan2(yDist, xDist);
@@ -48,18 +59,12 @@ typedef std::shared_ptr<Travel> TravelPtr;
 
 class World {
 public:
-    static World& getWorld() {
-        static World world;
-        return world;
-    };
+    World(View& view, Application& application);
 
     void moveActor(Actor *actor, string const &dest);
     void update(int delta);
 
-    int getFood() const {
-        return food;
-    }
-
+    int getFood() const;
     void setFood(int food) {
         World::food = food;
     }
@@ -80,9 +85,11 @@ public:
 
     unordered_set <string> const & getActions(Actor *actor);
     void doAction(Actor* actor, const string& action);
-private:
-    World();
 
+    SceneObjectManager& getSceneObjectManager();
+    MessageManager& getMessageManager();
+
+private:
     std::list<TravelPtr> inRoute;
     int wood = 0;
     int food = 0;
@@ -93,12 +100,23 @@ private:
     set <string> wellActions;
 
     list<ActionPtr> actions;
+
+    SceneObjectManager _sceneObjectManager;
+    ActionManager _actionManager;
+    ActorsRegistry _actorsRegistry;
+    MessageManager _messageManager;
 };
 
 class WorldProcess: public Process {
-
 public:
+    WorldProcess(World& world);
+
     virtual void update(int delta);
 
     virtual bool finished();
+
+private:
+    World& _world;
 };
+
+#endif // WORLD_H

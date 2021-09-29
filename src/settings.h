@@ -1,21 +1,25 @@
+#ifndef SETTINGS_H
+#define SETTINGS_H
+
 #include <string>
-#include <lua.hpp>
+#include <lua5.1/lua.hpp>
 
 using std::string;
 
-class Settings {
-private:
-    Settings();
+class ScriptManager;
 
+class Settings {
 public:
-    static Settings& getSettings() {
-        static Settings settings;
-        return settings;
-    }
+    Settings(ScriptManager& scriptManager);
 
     int getIntParameter(const string& name);
     bool getBoolParameter(const string& name);
-    const string & getStringParameter(const string& name);
+    string getStringParameter(const string& name);
 
     void pushSettingToStack(string const &name);
+
+private:
+    ScriptManager& _scriptManager;
 };
+
+#endif // SETTINGS_H
