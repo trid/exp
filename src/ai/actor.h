@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include "../message_manager.h"
 #include "../action.h"
+#include "state.h"
 
 using std::set;
 using std::string;
@@ -34,8 +35,8 @@ public:
     int getID() const { return id; }
     const string& getPosition() const { return position; }
     void setPosition(const string& position);
-    State* getState() { return state; }
-    void setState(State* state);
+    StateOpt getState();
+    void setState(std::optional<std::reference_wrapper<State>> state);
     void setTargetPosition(const string& position);
     const string& getTargetPosition();
     const string &getName() const { return name; }
@@ -60,7 +61,7 @@ public:
     bool isStateBreackable() const { return stateBreackable; }
     void setStateBreackable(bool stateBreackable) { Actor::stateBreackable = stateBreackable; }
     void addGlobalState(const string& stateName);
-    void setReactor(const string& stateName, State* reactionState);
+    void setReactor(const string& stateName, StateOpt reactionState);
 
     void removeGlobalState(string const &stateName);
 
@@ -78,7 +79,7 @@ private:
 
     string position = "";
     string target = "";
-    State* state = nullptr;
+    StateOpt _state = std::nullopt;
     string name;
     int inventory = 0;
     int inventoryLimit = 20;
@@ -89,11 +90,11 @@ private:
     bool stateBreackable = true;
     string executingState;
     set <string> globalStates;
-    unordered_map <string, State*> globalStateReactors;
+    unordered_map <string, StateOpt> globalStateReactors;
     ActionPtr currentAction;
 
     View& _view;
     World& _world;
 };
 
-#endif
+#endif // ACTOR_H

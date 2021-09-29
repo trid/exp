@@ -17,7 +17,7 @@ endif (WIN32)
 file(GLOB SOURCE_FILES src/*.cpp)
 file(GLOB AI_SOURCE_FILES src/ai/*.cpp)
 file(GLOB VIEW_SOURCE_FILES src/view/*.cpp)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 
 set(Boost_USE_STATIC_LIBS ON)
 find_package(Boost COMPONENTS system filesystem)

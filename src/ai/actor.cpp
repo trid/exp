@@ -12,7 +12,7 @@ using std::endl;
 
 void Actor::update() {
     if (!globalStates.empty() && isStateBreackable() && executingState == "") {
-        State* reactionState;
+        StateOpt reactionState;
         for (auto globalState: globalStates) {
             reactionState = globalStateReactors[globalState];
             if (reactionState) {
@@ -23,11 +23,11 @@ void Actor::update() {
         }
     }
 
-    if (!state) {
+    if (!_state) {
         setState(globalStateReactors["NoState"]);
     }
     else {
-        state->execute(this);
+        _state->get().execute(this);
     }
 }
 
@@ -61,14 +61,14 @@ void Actor::removeGlobalState(const string &stateName) {
     }
 }
 
-void Actor::setState(State* state) {
-    if (this->state) {
-        this->state->exit(this);
+void Actor::setState(StateOpt newState) {
+    if (_state) {
+        _state->get().exit(this);
     }
-    if (state) {
-        state->enter(this);
+    if (newState) {
+        newState->get().enter(this);
     }
-    this->state = state;
+    _state = newState;
 }
 
 void Actor::setTargetPosition(const string& position) {
@@ -80,8 +80,8 @@ const string& Actor::getTargetPosition() {
 }
 
 void Actor::processMessage(Message &message) {
-    if (state) {
-        state->processMessage(this, message);
+    if (_state) {
+        _state->get().processMessage(this, message);
     }
 }
 
@@ -122,7 +122,7 @@ void Actor::setPosition(const string &position) {
 void Actor::addGlobalState(const string &stateName) {
     globalStates.insert(stateName);
     if (executingState == "" && isStateBreackable()) {
-        State* reaction = globalStateReactors[stateName];
+        auto reaction = globalStateReactors[stateName];
         if (reaction) {
             executingState = stateName;
             setState(reaction);
@@ -130,7 +130,7 @@ void Actor::addGlobalState(const string &stateName) {
     }
 }
 
-void Actor::setReactor(const string &stateName, State *reactionState) {
+void Actor::setReactor(const string &stateName, StateOpt reactionState) {
     globalStateReactors[stateName] = reactionState;
 }
 
@@ -155,3 +155,5 @@ bool Actor::hasAction() {
 Actor::Actor(View& view, World& world):
     _view(view),
     _world(world) {}
+
+StateOpt Actor::getState() { return _state; }

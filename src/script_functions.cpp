@@ -35,12 +35,12 @@ int registerScriptedState(lua_State* state) {
 int setState(lua_State* state) {
     Actor* actor = (Actor*)lua_topointer(state, -2);
     if (lua_isnil(state, -1)) {
-        actor->setState(nullptr);
+        actor->setState(std::nullopt);
     }
     else {
         const char *stateName = lua_tostring(state, -1);
 
-        State *actorState = g_stateManager->getState(stateName);
+        auto actorState = g_stateManager->getState(stateName);
         actor->setState(actorState);
     }
     return 0;

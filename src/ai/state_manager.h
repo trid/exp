@@ -14,14 +14,14 @@ class StateManager {
 public:
     StateManager(ScriptManager& scriptManager, World& world);
 
-    State* getState(const std::string& name);
+    StateOpt getState(const std::string& name);
 
     void registerScriptedStates();
     void registerScriptedState(char const *tableName, char const *stateName);
 private:
     void registerStates(World& world);
 
-    std::unordered_map<std::string, State*> _states;
+    std::unordered_map<std::string, StateUPtr> _states;
     ScriptManager& _scriptManager;
 };
 

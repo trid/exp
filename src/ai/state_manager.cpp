@@ -14,9 +14,9 @@ using boost::filesystem::directory_iterator;
 using boost::filesystem::directory_entry;
 
 void StateManager::registerStates(World& world) {
-    _states["StateStart"] = new StateStart(*this, world);
-    _states["StateFinished"] = new StateFinished(*this);
-    _states["StateWoodcutting"] = new StateWoodcutting(*this, world);
+    _states["StateStart"] = std::make_unique<StateStart>(*this, world);
+    _states["StateFinished"] = std::make_unique<StateFinished>(*this);
+    _states["StateWoodcutting"] = std::make_unique<StateWoodcutting>(*this, world);
 }
 
 StateManager::StateManager(ScriptManager& scriptManager, World& world):
@@ -26,8 +26,12 @@ StateManager::StateManager(ScriptManager& scriptManager, World& world):
     g_stateManager = this;
 }
 
-State *StateManager::getState(const std::string &name) {
-    return _states[name];
+StateOpt StateManager::getState(const std::string &name) {
+    auto it = _states.find(name);
+    if (it != _states.end()) {
+        return std::reference_wrapper<State>{*it->second};
+    }
+    return std::nullopt;
 }
 
 void StateManager::registerScriptedStates() {
@@ -39,6 +43,5 @@ void StateManager::registerScriptedStates() {
 }
 
 void StateManager::registerScriptedState(char const *tableName, char const *stateName) {
-    ScriptedState* state = new ScriptedState(*this, _scriptManager, tableName);
-    _states[stateName] = state;
+    _states[stateName] = std::make_unique<ScriptedState>(*this, _scriptManager, tableName);
 }

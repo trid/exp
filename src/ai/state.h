@@ -2,14 +2,15 @@
 #define STATE_H
 
 #include <memory>
-#include "actor.h"
+#include <optional>
 
 class Actor;
+class Message;
 class StateManager;
 
 class State {
 public:
-    State(StateManager& stateManager);
+    explicit State(StateManager& stateManager);
 
     virtual void enter(Actor *) = 0;
     virtual void execute(Actor *) = 0;
@@ -23,4 +24,7 @@ private:
     StateManager& _stateManager;
 };
 
-#endif
+using StateUPtr = std::unique_ptr<State>;
+using StateOpt = std::optional<std::reference_wrapper<State>>;
+
+#endif // STATE_H
