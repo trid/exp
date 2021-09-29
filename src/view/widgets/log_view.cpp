@@ -1,7 +1,7 @@
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_ttf.h>
 #include "log_view.h"
-#include "view.h"
+#include "../view.h"
 #include "ui_manager.h"
 
 void LogView::draw(SDL_Renderer *renderer) {

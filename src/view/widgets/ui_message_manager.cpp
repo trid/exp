@@ -17,8 +17,8 @@ Variant const & UIMessageData::getParameter(const string &name) {
     return *param;
 }
 
-void UIMessageManager::addListener(const string &name, IUIMessageListener *listener) {
-    listeners[name] = listener;
+void UIMessageManager::addListener(const string &name, IUIMessageListenerPtr listener) {
+    listeners[name] = std::move(listener);
 }
 
 void UIMessageManager::removeListener(const string &name) {
@@ -29,8 +29,8 @@ void UIMessageManager::sendMessage(const string &name, const UIMessageData &data
     if (listeners[name]) {
         listeners[name]->listen(data);
     } else {
-        for (auto data: listeners) {
-            cout << data.first << endl;
+        for (auto& listener: listeners) {
+            cout << listener.first << endl;
         }
         cout << listeners.size() << endl;
     }

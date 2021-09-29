@@ -10,14 +10,15 @@ private:
 protected:
     SDL_Texture* surface = nullptr;
 public:
-    Widget(int x, int y): x(x), y(y) {}
+    Widget();
+    Widget(int x, int y);
     virtual ~Widget();
     virtual void draw(SDL_Renderer*) = 0;
 
-    int getX() const { return x; }
-    void setX(int x) { Widget::x = x; }
-    int getY() const { return y; }
-    void setY(int y) { Widget::y = y; }
+    int getX() const;
+    void setX(int x);
+    int getY() const;
+    void setY(int y);
 };
 
 typedef std::shared_ptr<Widget> WidgetPtr;

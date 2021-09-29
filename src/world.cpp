@@ -1,11 +1,15 @@
 #include "world.h"
 
-#include "ai/actor.h"
+#include <iostream>
+
 #include "application.h"
 #include "action_manager.h"
 #include "location_manager.h"
 
-#include <iostream>
+#include "ai/actor.h"
+
+#include "view/view.h"
+
 using namespace std;
 
 extern World* g_world;
@@ -49,6 +53,7 @@ WorldProcess::WorldProcess(World& world):
 }
 
 World::World(View& view, Application& application) :
+        _view(view),
         _sceneObjectManager(view),
         _actionManager(*this),
         _actorsRegistry(application),
@@ -81,18 +86,18 @@ void World::doAction(Actor *actor, const string &action) {
 
 void World::removeFood() {
     food--;
-    UIMessageManager::getInstance().sendMessage("FOOD_UPDATED_MESSAGE", UIMessageData());
+    _view.getUIMessageManager().sendMessage("FOOD_UPDATED_MESSAGE", UIMessageData());
 }
 
 void World::addFood(int i) {
     food += i;
-    UIMessageManager::getInstance().sendMessage("FOOD_UPDATED_MESSAGE", UIMessageData());
+    _view.getUIMessageManager().sendMessage("FOOD_UPDATED_MESSAGE", UIMessageData());
 }
 
 void World::addWood(int i) {
     wood += i;
 
-    UIMessageManager::getInstance().sendMessage("WOOD_UPDATED_MESSAGE", UIMessageData());
+    _view.getUIMessageManager().sendMessage("WOOD_UPDATED_MESSAGE", UIMessageData());
 }
 
 SceneObjectManager& World::getSceneObjectManager() {

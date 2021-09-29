@@ -1,5 +1,5 @@
 #include "label.h"
-#include "view.h"
+#include "../view.h"
 #include "ui_manager.h"
 
 

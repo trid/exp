@@ -16,8 +16,8 @@ const vector<Actor *> &ActorsRegistry::getActors() {
     return actors;
 }
 
-Actor& ActorsRegistry::createActor(View& view, World& world) {
-    Actor* actor = new Actor(view, world);
+Actor& ActorsRegistry::createActor(View& view, World& world, GUIPanel& guiPanel) {
+    Actor* actor = new Actor(view, world, guiPanel);
     actor->id = nextId;
     nextId++;
     actors.push_back(actor);

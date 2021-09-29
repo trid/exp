@@ -17,6 +17,7 @@ endif (WIN32)
 file(GLOB SOURCE_FILES src/*.cpp)
 file(GLOB AI_SOURCE_FILES src/ai/*.cpp)
 file(GLOB VIEW_SOURCE_FILES src/view/*.cpp)
+file(GLOB WIDGETS_SOURCE_FILES src/view/widgets/*.cpp)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 
 set(Boost_USE_STATIC_LIBS ON)
@@ -26,7 +27,7 @@ include_directories(${BOOST_INCLUDEDIR})
 find_package(SDL2 REQUIRED)
 include_directories(SDL2Test ${SDL2_INCLUDE_DIRS})
 
-add_executable(exp ${SOURCE_FILES} ${VIEW_SOURCE_FILES} ${AI_SOURCE_FILES})
+add_executable(exp ${SOURCE_FILES} ${VIEW_SOURCE_FILES} ${AI_SOURCE_FILES} ${WIDGETS_SOURCE_FILES})
 target_link_libraries(exp lua5.1)
 target_link_libraries(exp ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSTEM_LIBRARY})
 

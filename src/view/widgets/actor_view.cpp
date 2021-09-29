@@ -2,9 +2,9 @@
 #include <sstream>
 #include "actor_view.h"
 #include "label.h"
-#include "../ai/actor.h"
-#include "../ai/registry.h"
-#include "view.h"
+#include "../../ai/actor.h"
+#include "../../ai/registry.h"
+#include "../view.h"
 
 using std::stringstream;
 
@@ -40,6 +40,8 @@ void ActorView::prevActor() {
 }
 
 void ActorView::draw(SDL_Renderer *renderer) {
+    updateLabels();
+
     //TODO: move it to constructor after moving UI item out from View class
     if (!surface) {
         int fontHeight = TTF_FontHeight(_uiManager.getFont());

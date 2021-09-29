@@ -18,7 +18,7 @@
 
 #include "view/map_object_view.h"
 #include "view/scene_object_manager.h"
-#include "view/ui_message_manager.h"
+#include "view/widgets/ui_message_manager.h"
 
 using std::string;
 using std::remove_if;
@@ -101,6 +101,7 @@ private:
 
     list<ActionPtr> actions;
 
+    View& _view;
     SceneObjectManager _sceneObjectManager;
     ActionManager _actionManager;
     ActorsRegistry _actorsRegistry;

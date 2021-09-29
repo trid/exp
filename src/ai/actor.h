@@ -12,13 +12,14 @@ using std::set;
 using std::string;
 using std::unordered_map;
 
+class GUIPanel;
 class State;
 class View;
 
 class Actor {
     friend class ActorsRegistry;
 public:
-    explicit Actor(View& view, World& world);
+    explicit Actor(View& view, World& world, GUIPanel& guiPanel);
 
     void update();
     void eat();
@@ -36,7 +37,7 @@ public:
     const string& getPosition() const { return position; }
     void setPosition(const string& position);
     StateOpt getState();
-    void setState(std::optional<std::reference_wrapper<State>> state);
+    void setState(const StateOpt& state);
     void setTargetPosition(const string& position);
     const string& getTargetPosition();
     const string &getName() const { return name; }
@@ -79,7 +80,7 @@ private:
 
     string position = "";
     string target = "";
-    StateOpt _state = std::nullopt;
+    StateOpt _state = boost::none;
     string name;
     int inventory = 0;
     int inventoryLimit = 20;
@@ -95,6 +96,7 @@ private:
 
     View& _view;
     World& _world;
+    GUIPanel& _guiPanel;
 };
 
 #endif // ACTOR_H

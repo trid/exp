@@ -8,10 +8,10 @@
 #include "../world.h"
 #include "../settings.h"
 
-#include "label.h"
-#include "log_view.h"
-#include "actor_view.h"
-#include "ui_manager.h"
+#include "widgets/label.h"
+#include "widgets/log_view.h"
+#include "widgets/actor_view.h"
+#include "widgets/ui_manager.h"
 #include "scene_object_manager.h"
 
 using namespace std;
@@ -45,31 +45,10 @@ View::View(const Settings& settings) {
     background = IMG_LoadTexture(renderer, "res/img/grass.jpg");
     actor = IMG_LoadTexture(renderer, "res/img/actor.png");
 
-    int fontHeight = TTF_FontHeight(_uiManager.getFont());
-    int consoleFontHeight = TTF_FontHeight(_uiManager.getConsoleFont());
-    woodLabel = new Label(0, 0, _uiManager, "Wood: 0");
-    foodLabel = new Label(0, fontHeight, _uiManager, "Food: 0");
-    logView = new LogView(*this, _uiManager, 0, windowHeight - consoleFontHeight * 10);
-    actorView = new ActorView(windowWidth - 200, 0, _uiManager, *this);
-
-    _uiManager.addWidget(woodLabel);
-    _uiManager.addWidget(foodLabel);
-    _uiManager.addWidget(logView);
-    _uiManager.addWidget(actorView);
-
-    woodUpdater = new WoodUpdaterListener(woodLabel);
-    foodUpdater = new FoodUpdaterListener(foodLabel);
-
-    UIMessageManager& uiMessageManager = UIMessageManager::getInstance();
-    uiMessageManager.addListener("WOOD_UPDATED_MESSAGE", woodUpdater);
-    uiMessageManager.addListener("FOOD_UPDATED_MESSAGE", foodUpdater);
-
     g_view = this;
 }
 
 void View::draw() {
-    actorView->updateLabels();
-    
     SDL_RenderClear(renderer);
 
     SDL_Rect rect;
@@ -96,32 +75,17 @@ void View::draw() {
     SDL_RenderPresent(renderer);
 }
 
-void View::addMessage(const string &message) {
-    logView->addMessage(message);
-}
-
 Uint32 View::getScreenPixelFormat() {
     return SDL_GetWindowPixelFormat(window);
 }
 
-void View::showNextAgent() {
-    actorView->nextActor();
+
+
+UIManager& View::getUiManager() {
+    return _uiManager;
 }
 
-void View::showPrevAgent() {
-    actorView->prevActor();
+UIMessageManager& View::getUIMessageManager() {
+    return _uiMessageManager;
 }
 
-bool WoodUpdaterListener::listen(UIMessageData const &messageData) {
-    std::stringstream ss;
-    ss << "Wood: " << g_world->getWood();
-    label->setText(ss.str());
-    return true;
-}
-
-bool FoodUpdaterListener::listen(UIMessageData const &messageData) {
-    std::stringstream ss;
-    ss << "Food: " << g_world->getFood();
-    label->setText(ss.str());
-    return true;
-}

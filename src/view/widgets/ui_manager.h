@@ -15,7 +15,7 @@ public:
     UIManager();
 
     void draw(View& view);
-    void addWidget(Widget* widget);
+    void addWidget(WidgetPtr widget);
     TTF_Font* getFont() { return font; };
     TTF_Font* getConsoleFont() { return logFont; };
 

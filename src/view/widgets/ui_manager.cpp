@@ -1,4 +1,4 @@
-#include "view.h"
+#include "../view.h"
 
 UIManager::UIManager() {
     TTF_Init();
@@ -12,7 +12,7 @@ void UIManager::draw(View& view) {
     }
 }
 
-void UIManager::addWidget(Widget *widget) {
+void UIManager::addWidget(WidgetPtr widget) {
     widgets.push_back(WidgetPtr(widget));
 }
 

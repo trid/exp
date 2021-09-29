@@ -29,9 +29,9 @@ StateManager::StateManager(ScriptManager& scriptManager, World& world):
 StateOpt StateManager::getState(const std::string &name) {
     auto it = _states.find(name);
     if (it != _states.end()) {
-        return std::reference_wrapper<State>{*it->second};
+        return *it->second;
     }
-    return std::nullopt;
+    return boost::none;
 }
 
 void StateManager::registerScriptedStates() {

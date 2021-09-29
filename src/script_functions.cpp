@@ -17,6 +17,7 @@ View* g_view = nullptr;
 SceneObjectManager* g_sceneObjectManager = nullptr;
 extern World* g_world;
 extern ActorsRegistry* g_actorsRegistry;
+GUIPanel* g_panel;
 
 int print(lua_State* state) {
     char const *str = lua_tostring(state, 1);
@@ -35,7 +36,7 @@ int registerScriptedState(lua_State* state) {
 int setState(lua_State* state) {
     Actor* actor = (Actor*)lua_topointer(state, -2);
     if (lua_isnil(state, -1)) {
-        actor->setState(std::nullopt);
+        actor->setState(boost::none);
     }
     else {
         const char *stateName = lua_tostring(state, -1);
@@ -209,7 +210,7 @@ int getStoredWood(lua_State* state) {
 
 //Actor registry
 int createActor(lua_State* state) {
-    Actor& actor = g_actorsRegistry->createActor(*g_view, *g_world);
+    Actor& actor = g_actorsRegistry->createActor(*g_view, *g_world, *g_panel);
     lua_pushlightuserdata(state, &actor);
 
     return 1;

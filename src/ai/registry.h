@@ -38,7 +38,7 @@ public:
 public:
     ActorsRegistry(Application& application);
 
-    Actor& createActor(View& view, World& world);
+    Actor& createActor(View& view, World& world, GUIPanel& guiPanel);
     Actor * getActor(int id);
     const vector<Actor*>& getActors();
     void killActor(int id);

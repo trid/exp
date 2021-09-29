@@ -11,15 +11,15 @@ void SystemEventManager::process() {
         }
         if (e.type == SDL_KEYUP) {
             if (e.key.keysym.sym == SDLK_LEFT) {
-                _view.showPrevAgent();
+                _guiPanel.showPrevAgent();
             }
             if (e.key.keysym.sym == SDLK_RIGHT) {
-                _view.showNextAgent();
+                _guiPanel.showNextAgent();
             }
         }
     }
 }
 
-SystemEventManager::SystemEventManager(Application& application, View& view):
+SystemEventManager::SystemEventManager(Application& application, GUIPanel& guiPanel):
         _application(application),
-        _view(view) {}
+        _guiPanel(guiPanel){}

@@ -2,7 +2,7 @@
 #define STATE_H
 
 #include <memory>
-#include <optional>
+#include "boost/optional.hpp"
 
 class Actor;
 class Message;
@@ -25,6 +25,6 @@ private:
 };
 
 using StateUPtr = std::unique_ptr<State>;
-using StateOpt = std::optional<std::reference_wrapper<State>>;
+using StateOpt = boost::optional<State&>;
 
 #endif // STATE_H

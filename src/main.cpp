@@ -3,13 +3,16 @@
 #include <iostream>
 
 #include "application.h"
-#include "view/view.h"
-#include "world.h"
-#include "ai/state_manager.h"
-#include "script_manager.h"
-#include "system_event_manager.h"
-#include "settings.h"
 #include "location_type_manager.h"
+#include "script_manager.h"
+#include "settings.h"
+#include "system_event_manager.h"
+#include "world.h"
+
+#include "ai/state_manager.h"
+
+#include "view/view.h"
+#include "view/widgets/gui_panel.h"
 
 using namespace std;
 
@@ -21,7 +24,8 @@ int main(int argc, char* argv[]) {
     View view{settings};
     World world(view, app);
     StateManager stateManager{scriptManager, world};
-    SystemEventManager systemEventManager{app, view};
+    GUIPanel panel{world, view};
+    SystemEventManager systemEventManager{app, panel};
 
     stateManager.registerScriptedStates();
     scriptManager.loadScript("scripts/init.lua");

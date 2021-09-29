@@ -1,9 +1,10 @@
 #include "actor.h"
 
-#include "state.h"
 #include "../world.h"
 #include "../view/view.h"
 #include "../view/scene_object_manager.h"
+#include "../view/widgets/gui_panel.h"
+#include "state.h"
 
 #include <iostream>
 
@@ -27,7 +28,7 @@ void Actor::update() {
         setState(globalStateReactors["NoState"]);
     }
     else {
-        _state->get().execute(this);
+        _state->execute(this);
     }
 }
 
@@ -61,12 +62,12 @@ void Actor::removeGlobalState(const string &stateName) {
     }
 }
 
-void Actor::setState(StateOpt newState) {
+void Actor::setState(const StateOpt& newState) {
     if (_state) {
-        _state->get().exit(this);
+        _state->exit(this);
     }
     if (newState) {
-        newState->get().enter(this);
+        newState->enter(this);
     }
     _state = newState;
 }
@@ -81,13 +82,13 @@ const string& Actor::getTargetPosition() {
 
 void Actor::processMessage(Message &message) {
     if (_state) {
-        _state->get().processMessage(this, message);
+        _state->processMessage(this, message);
     }
 }
 
 void Actor::say(const string &message) {
     cout << name << ": " << message << endl;
-    _view.addMessage(name + ": " + message);
+    _guiPanel.addMessage(name + ": " + message);
 }
 
 void Actor::addItem() {
@@ -152,8 +153,9 @@ bool Actor::hasAction() {
     return currentAction != nullptr;
 }
 
-Actor::Actor(View& view, World& world):
+Actor::Actor(View& view, World& world, GUIPanel& guiPanel):
     _view(view),
-    _world(world) {}
+    _world(world),
+    _guiPanel(guiPanel){}
 
 StateOpt Actor::getState() { return _state; }
