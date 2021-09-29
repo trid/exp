@@ -1,12 +1,11 @@
 #ifndef UI_MANAGER_H
 #define UI_MANAGER_H
 
-#include <list>
-#include <SDL2/SDL_ttf.h>
+#include <vector>
+
 #include "widget.h"
 
-
-using std::list;
+#include "SDL2/SDL_ttf.h"
 
 class View;
 
@@ -20,7 +19,7 @@ public:
     TTF_Font* getConsoleFont() { return logFont; };
 
 private:
-    list<WidgetPtr> widgets;
+    std::vector<WidgetPtr> widgets;
 
     TTF_Font* font;
     TTF_Font* logFont;
