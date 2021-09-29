@@ -18,7 +18,6 @@ using namespace std;
 
 extern View* g_view;
 extern SceneObjectManager* g_sceneObjectManager;
-World* g_world;
 extern ActorsRegistry* g_actorsRegistry;
 
 View::View(const Settings& settings) {
@@ -78,8 +77,6 @@ void View::draw() {
 Uint32 View::getScreenPixelFormat() {
     return SDL_GetWindowPixelFormat(window);
 }
-
-
 
 UIManager& View::getUiManager() {
     return _uiManager;
