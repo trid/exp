@@ -1,10 +1,14 @@
-#include <SDL2/SDL_ttf.h>
 #include <sstream>
-#include "actor_view.h"
-#include "label.h"
+#include <SDL2/SDL_ttf.h>
+
 #include "../../ai/actor.h"
 #include "../../ai/registry.h"
+
 #include "../view.h"
+
+#include "actor_view.h"
+#include "constants.h"
+#include "label.h"
 
 using std::stringstream;
 
@@ -16,10 +20,10 @@ ActorView::ActorView(int x, int y, UIManager& uiManager, View& view) :
         _view(view)
 {
     int fontHeight = TTF_FontHeight(_uiManager.getFont());
-    nameLabel = new Label(0, 0, _uiManager, "Name: ");
-    foodLabel = new Label(0, fontHeight, _uiManager, "Food: ");
-    waterLabel = new Label(0, fontHeight * 2, _uiManager, "Water: ");
-    placeLabel = new Label(0, fontHeight * 3, _uiManager, "Place: ");
+    nameLabel = new Label(0, 0, _uiManager, kNameLabelPrefix);
+    foodLabel = new Label(0, fontHeight, _uiManager, kFoodLabelPrefix);
+    waterLabel = new Label(0, fontHeight * 2, _uiManager, kWaterLabelPrefix);
+    placeLabel = new Label(0, fontHeight * 3, _uiManager, kLocationLabelPrefix);
     if (g_actorsRegistry) {
         actor = g_actorsRegistry->getActor(0);
     }
@@ -72,14 +76,14 @@ void ActorView::updateLabels() {
     if (!actor) {
         return;
     }
-    nameLabel->setText("Name: " + actor->getName());
+    nameLabel->setText(kNameLabelPrefix + actor->getName());
     stringstream ss;
-    ss << "Food: " << actor->getFood();
+    ss << kFoodLabelPrefix << actor->getFood();
     foodLabel->setText(ss.str());
     ss.str("");
-    ss << "Water: " << actor->getWater();
+    ss << kWaterLabelPrefix << actor->getWater();
     waterLabel->setText(ss.str());
-    placeLabel->setText("Place: " + actor->getPosition());
+    placeLabel->setText(kLocationLabelPrefix + actor->getPosition());
 }
 
 ActorView::~ActorView() {

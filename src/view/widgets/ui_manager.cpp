@@ -1,9 +1,11 @@
 #include "../view.h"
 
+#include "constants.h"
+
 UIManager::UIManager() {
     TTF_Init();
-    font = TTF_OpenFont("res/fonts/FreeSans.ttf", 20);
-    logFont = TTF_OpenFont("res/fonts/FreeSans.ttf", 14);
+    font = TTF_OpenFont(kFontPath, 20);
+    logFont = TTF_OpenFont(kFontPath, 14);
 }
 
 void UIManager::draw(View& view) {

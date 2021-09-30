@@ -6,8 +6,10 @@
 
 #include <sstream>
 
+#include "../../constants.h"
 #include "../../world.h"
 
+#include "constants.h"
 #include "label.h"
 
 extern GUIPanel* g_panel;
@@ -23,7 +25,7 @@ public:
 
     virtual bool listen(UIMessageData const &messageData) {
         std::stringstream ss;
-        ss << "Wood: " << _world.getWood();
+        ss << kWoodLabelPrefix << _world.getWood();
         _label.setText(ss.str());
         return true;
     }
@@ -40,7 +42,7 @@ public:
 
     virtual bool listen(UIMessageData const &messageData) {
         std::stringstream ss;
-        ss << "Food: " << _world.getFood();
+        ss << kFoodLabelPrefix << _world.getFood();
         _label.setText(ss.str());
         return true;
     }
@@ -56,10 +58,10 @@ GUIPanel::GUIPanel(const World& world, View& view):
     int fontHeight = TTF_FontHeight(uiManager.getFont());
     int consoleFontHeight = TTF_FontHeight(uiManager.getConsoleFont());
 
-    _woodLabel = std::make_shared<Label>(0, 0, uiManager, "Wood: 0");
-    _foodLabel = std::make_shared<Label>(0, fontHeight, uiManager, "Food: 0");
+    _woodLabel = std::make_shared<Label>(0, 0, uiManager, std::string(kWoodLabelPrefix) + "0");
+    _foodLabel = std::make_shared<Label>(0, fontHeight, uiManager, std::string(kFoodLabelPrefix) + "0");
     _logView = std::make_shared<LogView>(view, uiManager, 0, view.getWindowHeight() - consoleFontHeight * 10);
-    _actorView = std::make_shared<ActorView>(view.getWindowWidth() - 200, 0, uiManager, view);
+    _actorView = std::make_shared<ActorView>(view.getWindowWidth() - kActorDataViewWidth, 0, uiManager, view);
 
     uiManager.addWidget(_woodLabel);
     uiManager.addWidget(_foodLabel);
@@ -70,8 +72,8 @@ GUIPanel::GUIPanel(const World& world, View& view):
     auto foodUpdater = std::make_unique<FoodUpdaterListener>(*_foodLabel, world);
 
     UIMessageManager& uiMessageManager = view.getUIMessageManager();
-    uiMessageManager.addListener("WOOD_UPDATED_MESSAGE", std::move(woodUpdater));
-    uiMessageManager.addListener("FOOD_UPDATED_MESSAGE", std::move(foodUpdater));
+    uiMessageManager.addListener(kWoodUpdatedMessage, std::move(woodUpdater));
+    uiMessageManager.addListener(kFoodUpdatedMessage, std::move(foodUpdater));
 }
 
 void GUIPanel::addMessage(const string& message) {
