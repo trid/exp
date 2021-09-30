@@ -4,7 +4,7 @@
 class ActionHunting: public Action {
 private:
     int time = 0;
-    int interval = 300;
+    int interval;
 public:
     explicit ActionHunting(Actor* actor, World& world);
 

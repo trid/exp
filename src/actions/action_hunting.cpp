@@ -1,7 +1,11 @@
 #include "action_hunting.h"
 
+#include "../ai/constants.h"
+
+#include "constants.h"
+
 bool ActionHunting::isValid() {
-    return actor->getPosition() == "forest";
+    return actor->getPosition() == kForestLocationName;
 }
 
 void ActionHunting::update(int delta) {
@@ -21,4 +25,5 @@ bool ActionHunting::isFinished() {
 }
 
 ActionHunting::ActionHunting(Actor* actor, World& world):
-    Action(actor, world) { }
+    Action(actor, world),
+    interval(kActionHuntTime) { }

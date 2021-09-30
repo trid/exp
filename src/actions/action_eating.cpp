@@ -1,8 +1,12 @@
 #include "action_eating.h"
+
 #include "../world.h"
+#include "../ai/constants.h"
+
+#include "constants.h"
 
 bool ActionEating::isValid() {
-    return actor->getPosition() == "home";
+    return actor->getPosition() == kHomeLocationName;
 }
 
 void ActionEating::update(int delta) {
@@ -10,7 +14,7 @@ void ActionEating::update(int delta) {
     if (time >= maxTime) {
         time = maxTime;
         actor->setFood(actor->getMaxFood());
-        actor->removeGlobalState("hungry");
+        actor->removeGlobalState(kHungryStateName);
         _world.removeFood();
         stop();
     }
@@ -26,6 +30,7 @@ bool ActionEating::isFinished() {
 
 ActionEating::ActionEating(Actor* actor, World& world):
         Action(actor, world),
+        maxTime(kActionEatTime),
         _world(world)
 {
 

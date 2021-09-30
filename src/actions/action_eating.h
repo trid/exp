@@ -6,13 +6,13 @@ class ActionEating: public Action {
 public:
     ActionEating(Actor* actor, World& world);
 
-    virtual bool isValid();
-    virtual void update(int delta);
-    virtual int progress();
-    virtual bool isFinished();
+    bool isValid() override;
+    void update(int delta) override;
+    int progress() override;
+    bool isFinished() override;
 private:
     int time = 0;
-    int maxTime = 1000;
+    int maxTime;
 
     World& _world;
 };

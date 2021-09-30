@@ -4,13 +4,15 @@
 #include "action_woodcutting.h"
 #include "action_hunting.h"
 
+#include "../constants.h"
+
 ActionManager::ActionManager(World& world):
     _world(world)
 {
-    _actionMap["drink"] = new ActionFactory<ActionDrink>;
-    _actionMap["eat"] = new ActionFactory<ActionEating>;
-    _actionMap["cut_wood"] = new ActionFactory<ActionWoodcutting>;
-    _actionMap["hunt"] = new ActionFactory<ActionHunting>;
+    _actionMap[kActionDrink] = new ActionFactory<ActionDrink>;
+    _actionMap[kActionEat] = new ActionFactory<ActionEating>;
+    _actionMap[kActionCutWood] = new ActionFactory<ActionWoodcutting>;
+    _actionMap[kActionHunt] = new ActionFactory<ActionHunting>;
 }
 
 ActionManager::~ActionManager() {

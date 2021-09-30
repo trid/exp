@@ -3,12 +3,12 @@
 class ActionDrink: public Action {
 private:
     int time = 0;
-    int maxTime = 1000;
+    int maxTime;
 public:
     ActionDrink(Actor* actor, World& world);
 
-    virtual bool isValid();
-    virtual void update(int delta);
-    virtual int progress();
-    virtual bool isFinished();
+    bool isValid() override;
+    void update(int delta) override;
+    int progress() override;
+    bool isFinished() override;
 };

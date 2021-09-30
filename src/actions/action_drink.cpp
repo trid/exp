@@ -1,9 +1,12 @@
 #include "action_drink.h"
 
+#include "../ai/constants.h"
 #include "../ai/actor.h"
 
+#include "constants.h"
+
 bool ActionDrink::isValid() {
-    return actor->getPosition() == "well";
+    return actor->getPosition() == kWellLocationName;
 }
 
 void ActionDrink::update(int delta) {
@@ -11,8 +14,8 @@ void ActionDrink::update(int delta) {
     if (time >= maxTime) {
         time = maxTime;
         actor->setWater(actor->getMaxWater());
-        actor->removeGlobalState("thirsty");
-        actor->say("Ooh! Not thirsty anymore!");
+        actor->removeGlobalState(kThirstyStateName);
+        actor->say(kActionDrinkExecutedMessage);
     }
 }
 
@@ -25,4 +28,5 @@ bool ActionDrink::isFinished() {
 }
 
 ActionDrink::ActionDrink(Actor* actor, World& world):
-    Action(actor, world) {}
+    Action(actor, world),
+    maxTime(kActionDrinkTime) {}
