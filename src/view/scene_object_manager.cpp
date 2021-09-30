@@ -1,12 +1,15 @@
-#include "map_object_view.h"
 #include "scene_object_manager.h"
-#include "view.h"
-#include "../location.h"
 
 #include <sstream>
 
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
+
+#include "../location.h"
+
+#include "constants.h"
+#include "map_object_view.h"
+#include "view.h"
 
 using std::stringstream;
 
@@ -39,15 +42,15 @@ void SceneObjectManager::draw(SDL_Renderer *renderer) {
 
 SceneObjectManager::SceneObjectManager(View& view) {
     ptree pt;
-    read_xml("res/locations/location_images.xml", pt, trim_whitespace);
+    read_xml(kLocationsImagesDataPath, pt, trim_whitespace);
 
-    auto locationTypes = pt.get_child("locations");
+    auto locationTypes = pt.get_child(kLocationKey);
 
     for (auto& loc: locationTypes) {
-        const string& type = loc.second.get<string>("name");
-        const string& image = loc.second.get<string>("sprite");
+        const string& type = loc.second.get<string>(kLocationTypeKey);
+        const string& image = loc.second.get<string>(kSpriteNameKey);
         stringstream ss;
-        ss << "res/img/" << image;
+        ss << kImageResourcesPath << image;
         sprites[type] = IMG_LoadTexture(view.getRenderer(), ss.str().c_str());
     }
 

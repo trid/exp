@@ -8,11 +8,13 @@
 #include "../world.h"
 #include "../settings.h"
 
+#include "constants.h"
+#include "scene_object_manager.h"
+
 #include "widgets/label.h"
 #include "widgets/log_view.h"
 #include "widgets/actor_view.h"
 #include "widgets/ui_manager.h"
-#include "scene_object_manager.h"
 
 using namespace std;
 
@@ -22,27 +24,27 @@ extern ActorsRegistry* g_actorsRegistry;
 
 View::View(const Settings& settings) {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-        cout << "SDL_Init error" << endl;
+        cout << kSDLInitErrorMessage << endl;
         return;
     }
-    windowWidth = settings.getIntParameter("screen_width");
-    windowHeight = settings.getIntParameter("screen_height");
-    window = SDL_CreateWindow("Test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
+    windowWidth = settings.getIntParameter(kScreenWidthParameterKey);
+    windowHeight = settings.getIntParameter(kScreenHeightParameterKey);
+    window = SDL_CreateWindow(kWindowTitle, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
     if (window == nullptr) {
-        cout << "SDL_CreateWindow error" << endl;
+        cout << kSDLCreateWindowError << endl;
         SDL_Quit();
         return;
     }
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
     if (renderer == nullptr) {
-        cout << "SDL_CreateRenderer error" << endl;
+        cout << kSDLCreateRendererError << endl;
         SDL_DestroyWindow(window);
         SDL_Quit();
         return;
     }
 
-    background = IMG_LoadTexture(renderer, "res/img/grass.jpg");
-    actor = IMG_LoadTexture(renderer, "res/img/actor.png");
+    background = IMG_LoadTexture(renderer, kGrassSpritePath);
+    actor = IMG_LoadTexture(renderer, kActorSpritePath);
 
     g_view = this;
 }
