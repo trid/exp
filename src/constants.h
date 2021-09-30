@@ -23,7 +23,7 @@ constexpr char kActionEat[] = "eat";
 constexpr char kActionRest[] = "rest";
 constexpr char kActionHunt[] = "hunt";
 constexpr char kActionCutWood[] = "cut_wood";
-constexpr char kActionDring[] = "drink";
+constexpr char kActionDrink[] = "drink";
 
 // Messages
 constexpr char kFoodUpdatedMessage[] = "FOOD_UPDATED_MESSAGE";

@@ -1,11 +1,14 @@
 #include "state_manager.h"
-#include "state_start.h"
-#include "state_finished.h"
-#include "state_woodcutting.h"
-#include "../script_manager.h"
-#include "scripted_state.h"
 
 #include <boost/filesystem.hpp>
+
+#include "../script_manager.h"
+
+#include "constants.h"
+#include "scripted_state.h"
+#include "state_finished.h"
+#include "state_start.h"
+#include "state_woodcutting.h"
 
 extern StateManager* g_stateManager;
 
@@ -14,9 +17,9 @@ using boost::filesystem::directory_iterator;
 using boost::filesystem::directory_entry;
 
 void StateManager::registerStates(World& world) {
-    _states["StateStart"] = std::make_unique<StateStart>(*this, world);
-    _states["StateFinished"] = std::make_unique<StateFinished>(*this);
-    _states["StateWoodcutting"] = std::make_unique<StateWoodcutting>(*this, world);
+    _states[kStateStartName] = std::make_unique<StateStart>(*this, world);
+    _states[kStateFinishedName] = std::make_unique<StateFinished>(*this);
+    _states[kStateWoodcuttingName] = std::make_unique<StateWoodcutting>(*this, world);
 }
 
 StateManager::StateManager(ScriptManager& scriptManager, World& world):
@@ -35,7 +38,7 @@ StateOpt StateManager::getState(const std::string &name) {
 }
 
 void StateManager::registerScriptedStates() {
-    path p("scripts/states/");
+    path p(kStateScriptsPath);
 
     for (auto it = directory_iterator(p); it != directory_iterator(); it++) {
         _scriptManager.loadScript(it->path().string());

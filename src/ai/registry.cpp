@@ -2,11 +2,10 @@
 
 #include <sstream>
 
-#include "actor.h"
-#include "../application.h"
-#include "actor_object.h"
-#include "../view/scene_object_manager.h"
 #include "../script_object_manager.h"
+
+#include "actor_object.h"
+#include "constants.h"
 
 using std::stringstream;
 
@@ -23,7 +22,7 @@ Actor& ActorsRegistry::createActor(View& view, World& world, GUIPanel& guiPanel)
     actors.push_back(actor);
     ActorObject* actorObject = new ActorObject(actor);
     stringstream ss;
-    ss << "actor" << actor->getID();
+    ss << kTemporaryActorNamePrefix << actor->getID();
     ScriptObjectManager::getInstance().addItem(ss.str(), actorObject);
     return *actor;
 }

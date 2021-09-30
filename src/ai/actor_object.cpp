@@ -1,5 +1,7 @@
-#include "actor.h"
 #include "actor_object.h"
+
+#include "actor.h"
+#include "constants.h"
 
 ActorObject::ActorObject(Actor *actor) {
     CallbackParameter<int, Actor>* maxFeed = new CallbackParameter<int, Actor>(actor);
@@ -11,6 +13,6 @@ ActorObject::ActorObject(Actor *actor) {
     maxWater->setSetterFunction(&Actor::setMaxWater);
     maxWater->setGetterFunction(&Actor::getMaxWater);
 
-    addParameter("maxFood", ParameterPtr(maxFeed));
-    addParameter("maxWater", ParameterPtr(maxWater));
+    addParameter(kMaxFoodParameter, ParameterPtr(maxFeed));
+    addParameter(kMaxWaterParameter, ParameterPtr(maxWater));
 }

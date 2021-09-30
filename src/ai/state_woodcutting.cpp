@@ -1,19 +1,23 @@
-#include "state_manager.h"
 #include "state_woodcutting.h"
+
+#include "../constants.h"
 #include "../world.h"
 
+#include "constants.h"
+#include "state_manager.h"
+
 void StateWoodcutting::execute(Actor *actor) {
-    actor->say("Cutting wood! Loving wood! Just like my wife!");
+    actor->say(kStateWoodcuttingExecuteMessage);
 
     if (actor->getInventory() == actor->getInventoryLimit()) {
-        actor->say("Inventory is too heavy. Returning home");
-        _world.moveActor(actor, "home");
-        actor->setState(getStateManager().getState("StateWoodcutterInRoute"));
+        actor->say(kInventoryIsFullMessage);
+        _world.moveActor(actor, kHomeLocationName);
+        actor->setState(getStateManager().getState(kStateWoodcutterInRoute));
     }
 
     if (_world.getWood() >= 300) {
-        _world.moveActor(actor, "home");
-        actor->setState(getStateManager().getState("StateWoodcutterInRoute"));
+        _world.moveActor(actor, kHomeLocationName);
+        actor->setState(getStateManager().getState(kStateWoodcutterInRoute));
     }
 }
 
@@ -22,13 +26,13 @@ void StateWoodcutting::processMessage(Actor *actor, Message &message) {
 }
 
 void StateWoodcutting::exit(Actor* actor) {
-    actor->say("Finished cutting wood");
+    actor->say(kStateWoodcuttingExitMessage);
     actor->removeAction();
 }
 
 void StateWoodcutting::enter(Actor* actor) {
-    actor->say("Start cutting wood");
-    _world.doAction(actor, "cut_wood");
+    actor->say(kStateWoodcuttingEnterMessage);
+    _world.doAction(actor, kActionCutWood);
 }
 
 StateWoodcutting::StateWoodcutting(StateManager& stateManager, World& world):

@@ -1,12 +1,15 @@
 #include "actor.h"
 
+#include <iostream>
+
+#include "../constants.h"
 #include "../world.h"
 #include "../view/view.h"
 #include "../view/scene_object_manager.h"
 #include "../view/widgets/gui_panel.h"
-#include "state.h"
 
-#include <iostream>
+#include "constants.h"
+#include "state.h"
 
 using std::cout;
 using std::endl;
@@ -25,7 +28,7 @@ void Actor::update() {
     }
 
     if (!_state) {
-        setState(globalStateReactors["NoState"]);
+        setState(globalStateReactors[kNoStateStateName]);
     }
     else {
         _state->execute(this);
@@ -37,22 +40,22 @@ void Actor::updateStatus() {
         food--;
     }
     else {
-        addGlobalState("hungry");
+        addGlobalState(kHungryStateName);
     }
     if (water > 0) {
         water--;
     }
     else {
-        addGlobalState("thirsty");
+        addGlobalState(kThirstyStateName);
     }
 }
 
 void Actor::eat() {
-    _world.doAction(this, "eat");
+    _world.doAction(this, kActionEat);
 }
 
 void Actor::drink() {
-    _world.doAction(this, "drink");
+    _world.doAction(this, kActionDrink);
 }
 
 void Actor::removeGlobalState(const string &stateName) {
@@ -113,7 +116,7 @@ int Actor::getInventoryLimit() {
 
 void Actor::setPosition(const string &position) {
     this->position = position;
-    if (position != "In route") {
+    if (position != kPositionInRoute) {
         MapObjectPtr mapObject = _world.getSceneObjectManager().getMapObject(position);
         x = mapObject->getX();
         y = mapObject->getY();

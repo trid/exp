@@ -9,10 +9,10 @@ class StateWoodcutting: public State {
 public:
     StateWoodcutting(StateManager& stateManager, World& world);
 
-    virtual void enter(Actor* actor);
-    virtual void execute(Actor* actor);
-    virtual void exit(Actor* actor);
-    virtual void processMessage(Actor *actor, Message &message) override;
+    void enter(Actor* actor) override;
+    void execute(Actor* actor) override;
+    void exit(Actor* actor) override;
+    void processMessage(Actor *actor, Message &message) override;
 
 private:
     World& _world;

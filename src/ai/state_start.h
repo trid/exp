@@ -1,7 +1,7 @@
 #ifndef STATE_START_H
 #define STATE_START_H
 
-#include "iostream"
+#include <iostream>
 
 #include "state.h"
 #include "actor.h"
@@ -13,11 +13,11 @@ class StateStart: public State {
 public:
     StateStart(StateManager& stateManager, World& world);
 
-    virtual void enter(Actor* actor) { actor->say("Waked up.");};
-    virtual void execute(Actor*);
-    virtual void exit(Actor* actor) { actor->say("Start to do something."); };
+    void enter(Actor* actor) override;;
+    void execute(Actor*) override;
+    void exit(Actor* actor) override;;
 
-    virtual void processMessage(Actor *actor, Message &message);
+    void processMessage(Actor *actor, Message &message) override;
 
 private:
     World& _world;

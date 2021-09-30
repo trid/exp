@@ -71,7 +71,7 @@ World::World(View& view, Application& application) :
     homeActions.emplace(kActionRest);
     forestActions.emplace(kActionHunt);
     forestActions.emplace(kActionCutWood);
-    wellActions.emplace(kActionDring);
+    wellActions.emplace(kActionDrink);
 }
 
 unordered_set<string> const & World::getActions(Actor *actor) {
