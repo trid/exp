@@ -5,8 +5,6 @@
 
 using std::string;
 
-static const string MESSAGE_FINISHED_MOVING = "FINISHED_MOVING";
-
 class ActorsRegistry;
 
 class Message {

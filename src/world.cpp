@@ -126,7 +126,7 @@ void Travel::update(int delta) {
     actor->updatePosition(dx * delta, dy * delta);
     if (distancePassed >= distanceNeeded) {
         Message message;
-        message.messageType = MESSAGE_FINISHED_MOVING;
+        message.messageType = kFinishedMovingMessage;
         actor->setPosition(dest);
         world.getMessageManager().dispatchMessage(actor->getID(), message);
     }
