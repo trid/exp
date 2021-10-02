@@ -15,11 +15,12 @@ Label::Label(int x, int y, const UIManager& uiManager, const string& text) :
 
 void Label::setText(const string &text) {
     this->text = text;
-    dirty = true;
+    _dirty = true;
 }
 
 void Label::draw(SDL_Renderer *renderer) {
-    if (dirty) {
+    if (_dirty) {
+        _dirty = false;
         if (renderedText) {
             SDL_DestroyTexture(renderedText);
         }

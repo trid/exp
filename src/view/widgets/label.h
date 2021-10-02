@@ -11,10 +11,10 @@ class Label: public Widget {
 public:
     Label(int x, int y, const UIManager& uiManager, const string& text = "");
     void setText(const string& text);
-    virtual void draw(SDL_Renderer* renderer) override;
+    void draw(SDL_Renderer* renderer) override;
 private:
     string text;
-    bool dirty = true;
+    bool _dirty = true;
     SDL_Texture* renderedText = nullptr;
     SDL_Color textColor;
 
