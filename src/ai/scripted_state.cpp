@@ -9,7 +9,7 @@
 
 
 void ScriptedState::callFunction(Actor *actor, const string &function) {
-    lua_State* state = _scriptManager.getState();
+    lua_State* state = _scriptContext.getState();
     lua_getglobal(state, _tableName.c_str());
     lua_pushstring(state, function.c_str());
     lua_gettable(state, -2);
@@ -33,14 +33,14 @@ void ScriptedState::enter(Actor *actor) {
 }
 
 ScriptedState::ScriptedState(StateManager& stateManager, ScriptContext& scriptManager, const string& tableName) :
-    State(stateManager),
-    _scriptManager(scriptManager),
-    _tableName(tableName) {
+        State(stateManager),
+        _scriptContext(scriptManager),
+        _tableName(tableName) {
 
 }
 
 void ScriptedState::processMessage(Actor *actor, Message &message) {
-    lua_State* state = _scriptManager.getState();
+    lua_State* state = _scriptContext.getState();
     lua_getglobal(state, _tableName.c_str());
     lua_pushstring(state, kScriptProcessMessageMethodName);
     lua_gettable(state, -2);

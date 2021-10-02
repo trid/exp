@@ -15,7 +15,7 @@ public:
 
     virtual void processMessage(Actor *actor, Message &message);
 private:
-    ScriptContext& _scriptManager;
+    ScriptContext& _scriptContext;
     const string _tableName;
     void callFunction(Actor *actor, const string &function);
 };
