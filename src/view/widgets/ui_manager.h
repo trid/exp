@@ -15,8 +15,8 @@ public:
 
     void draw(View& view);
     void addWidget(WidgetPtr widget);
-    TTF_Font* getFont() { return font; };
-    TTF_Font* getConsoleFont() { return logFont; };
+    [[nodiscard]] TTF_Font* getFont() const { return font; };
+    [[nodiscard]] TTF_Font* getConsoleFont() const { return logFont; };
 
 private:
     std::vector<WidgetPtr> widgets;

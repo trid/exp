@@ -9,7 +9,7 @@ class UIManager;
 
 class Label: public Widget {
 public:
-    Label(int x, int y, UIManager& uiManager, const string& text = "");
+    Label(int x, int y, const UIManager& uiManager, const string& text = "");
     void setText(const string& text);
     virtual void draw(SDL_Renderer* renderer) override;
 private:
@@ -18,5 +18,5 @@ private:
     SDL_Texture* renderedText = nullptr;
     SDL_Color textColor;
 
-    UIManager& _uiManager;
+    const UIManager& _uiManager;
 };

@@ -3,7 +3,7 @@
 #include "ui_manager.h"
 
 
-Label::Label(int x, int y, UIManager& uiManager, const string& text) :
+Label::Label(int x, int y, const UIManager& uiManager, const string& text) :
         Widget(x, y), text(text),
         _uiManager(uiManager)
 {

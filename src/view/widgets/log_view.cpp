@@ -50,7 +50,7 @@ void LogView::addMessage(const string &message) {
     dirty = true;
 }
 
-LogView::LogView(View& view, UIManager& uiManager, int x, int y):
+LogView::LogView(View& view, const UIManager& uiManager, int x, int y):
         Widget(x, y),
         _view(view),
         _uiManager(uiManager)

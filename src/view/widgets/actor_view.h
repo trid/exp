@@ -6,7 +6,7 @@ class Label;
 
 class ActorView: public Widget {
 public:
-    ActorView(int x, int y, UIManager& uiManager, View& view);
+    ActorView(int x, int y, const UIManager& uiManager, View& view);
     virtual ~ActorView();
 
     void updateLabels();
@@ -23,6 +23,6 @@ private:
     Label* waterLabel;
     Label* placeLabel;
 
-    UIManager& _uiManager;
+    const UIManager& _uiManager;
     View& _view;
 };

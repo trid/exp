@@ -14,7 +14,7 @@ using std::stringstream;
 
 ActorsRegistry* g_actorsRegistry = nullptr;
 
-ActorView::ActorView(int x, int y, UIManager& uiManager, View& view) :
+ActorView::ActorView(int x, int y, const UIManager& uiManager, View& view) :
         Widget(x, y),
         _uiManager(uiManager),
         _view(view)
