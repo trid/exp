@@ -7,12 +7,12 @@
 #include "state.h"
 #include "lua5.1/lua.hpp"
 
-class ScriptManager;
+class ScriptContext;
 class World;
 
 class StateManager {
 public:
-    StateManager(ScriptManager& scriptManager, World& world);
+    StateManager(ScriptContext& scriptManager, World& world);
 
     StateOpt getState(const std::string& name);
 
@@ -22,7 +22,7 @@ private:
     void registerStates(World& world);
 
     std::unordered_map<std::string, StateUPtr> _states;
-    ScriptManager& _scriptManager;
+    ScriptContext& _scriptManager;
 };
 
 #endif

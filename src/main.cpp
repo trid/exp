@@ -5,7 +5,7 @@
 #include "application.h"
 #include "constants.h"
 #include "location_type_manager.h"
-#include "script_manager.h"
+#include "main_script_context.h"
 #include "settings.h"
 #include "system_event_manager.h"
 #include "world.h"
@@ -20,16 +20,16 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
     Application app{};
-    ScriptManager scriptManager{};
-    Settings settings{scriptManager};
+    Settings settings{};
+    MainScriptContext scriptContext{};
     View view{settings};
     World world(view, app);
-    StateManager stateManager{scriptManager, world};
+    StateManager stateManager{scriptContext, world};
     GUIPanel panel{world, view};
     SystemEventManager systemEventManager{app, panel};
 
     stateManager.registerScriptedStates();
-    scriptManager.loadScript(kInitScriptPath);
+    scriptContext.loadScript(kInitScriptPath);
 
     while (app.isRunning()) {
         app.update();

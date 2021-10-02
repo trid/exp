@@ -2,24 +2,25 @@
 #define SETTINGS_H
 
 #include <string>
-#include <lua5.1/lua.hpp>
+
+#include "lua5.1/lua.hpp"
+
+#include "script_context.h"
 
 using std::string;
 
-class ScriptManager;
-
 class Settings {
 public:
-    explicit Settings(ScriptManager& scriptManager);
+    explicit Settings();
 
-    int getIntParameter(const string& name) const;
-    bool getBoolParameter(const string& name) const;
-    string getStringParameter(const string& name) const;
+    [[nodiscard]] int getIntParameter(const string& name) const;
+    [[nodiscard]] bool getBoolParameter(const string& name) const;
+    [[nodiscard]] string getStringParameter(const string& name) const;
 
 private:
     void pushSettingToStack(string const &name) const;
 
-    ScriptManager& _scriptManager;
+    ScriptContext _scriptManager;
 };
 
 #endif // SETTINGS_H

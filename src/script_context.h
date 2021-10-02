@@ -7,17 +7,15 @@
 
 using std::string;
 
-class ScriptManager {
+class ScriptContext {
 private:
     lua_State* state;
 public:
-    ScriptManager();
+    ScriptContext();
 
     void loadScript(const string& path);
-    void registerFunctions();
     void registerFunction(const string& name, lua_CFunction function);
-    lua_State* getState() {
-        return state; }
+    [[nodiscard]] lua_State* getState() const;
 };
 
 #endif

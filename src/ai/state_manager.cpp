@@ -2,7 +2,7 @@
 
 #include <boost/filesystem.hpp>
 
-#include "../script_manager.h"
+#include "../script_context.h"
 
 #include "constants.h"
 #include "scripted_state.h"
@@ -22,7 +22,7 @@ void StateManager::registerStates(World& world) {
     _states[kStateWoodcuttingName] = std::make_unique<StateWoodcutting>(*this, world);
 }
 
-StateManager::StateManager(ScriptManager& scriptManager, World& world):
+StateManager::StateManager(ScriptContext& scriptManager, World& world):
     _scriptManager(scriptManager)
 {
     registerStates(world);

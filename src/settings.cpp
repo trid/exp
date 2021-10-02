@@ -1,10 +1,10 @@
 #include "settings.h"
 
 #include "constants.h"
-#include "script_manager.h"
+#include "script_context.h"
 
-Settings::Settings(ScriptManager& scriptManager):
-    _scriptManager(scriptManager)
+Settings::Settings():
+    _scriptManager()
 {
     _scriptManager.loadScript(kSettingsScriptPath);
 }

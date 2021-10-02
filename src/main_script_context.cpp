@@ -1,16 +1,18 @@
-#include "script_manager.h"
+//
+// Created by TriD on 02.10.2021.
+//
+
+#include "main_script_context.h"
+
 #include "script_functions.h"
 
-ScriptManager::ScriptManager() {
-    state = luaL_newstate();
+MainScriptContext::MainScriptContext():
+    ScriptContext()
+{
     registerFunctions();
 }
 
-void ScriptManager::loadScript(const string &path) {
-    luaL_dofile(state, path.c_str());
-}
-
-void ScriptManager::registerFunctions() {
+void MainScriptContext::registerFunctions() {
     registerFunction("print", print);
     registerFunction("registerScriptedState", registerScriptedState);
     registerFunction("setState", setState);
@@ -45,8 +47,4 @@ void ScriptManager::registerFunctions() {
     registerFunction("getScriptObject", getScriptObject);
     registerFunction("getObjectParameter", getObjectParameter);
     registerFunction("setParameterValue", setParameterValue);
-}
-
-void ScriptManager::registerFunction(const string &name, lua_CFunction function) {
-    lua_register(state, name.c_str(), function);
 }

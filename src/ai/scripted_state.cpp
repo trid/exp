@@ -2,7 +2,7 @@
 
 #include "lua5.1/lua.hpp"
 
-#include "../script_manager.h"
+#include "../script_context.h"
 
 #include "actor.h"
 #include "constants.h"
@@ -32,7 +32,7 @@ void ScriptedState::enter(Actor *actor) {
     callFunction(actor, kScriptEnterMethodName);
 }
 
-ScriptedState::ScriptedState(StateManager& stateManager, ScriptManager& scriptManager, const string& tableName) :
+ScriptedState::ScriptedState(StateManager& stateManager, ScriptContext& scriptManager, const string& tableName) :
     State(stateManager),
     _scriptManager(scriptManager),
     _tableName(tableName) {
