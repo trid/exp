@@ -2,7 +2,7 @@
 
 #include <boost/filesystem.hpp>
 
-#include "../script_context.h"
+#include "../scripting/script_context.h"
 
 #include "constants.h"
 #include "scripted_state.h"

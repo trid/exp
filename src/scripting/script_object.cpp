@@ -1,4 +1,4 @@
-#include "parameter.h"
+#include "../parameter.h"
 #include "script_object.h"
 
 

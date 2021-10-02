@@ -1,6 +1,6 @@
 #include <string>
 #include <unordered_map>
-#include "parameter.h"
+#include "../parameter.h"
 
 using std::string;
 using std::unordered_map;

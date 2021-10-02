@@ -2,7 +2,7 @@
 
 #include "lua5.1/lua.hpp"
 
-#include "../script_context.h"
+#include "../scripting/script_context.h"
 
 #include "actor.h"
 #include "constants.h"

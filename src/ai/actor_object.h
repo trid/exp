@@ -1,4 +1,4 @@
-#include "../script_object.h"
+#include "../scripting/script_object.h"
 #include "actor.h"
 
 class ActorObject: public ScriptObject {

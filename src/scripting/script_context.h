@@ -8,14 +8,15 @@
 using std::string;
 
 class ScriptContext {
-private:
-    lua_State* state;
 public:
     ScriptContext();
+    virtual ~ScriptContext();
 
     void loadScript(const string& path);
     void registerFunction(const string& name, lua_CFunction function);
     [[nodiscard]] lua_State* getState() const;
+private:
+    lua_State* _state;
 };
 
 #endif

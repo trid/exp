@@ -5,7 +5,6 @@
 --
 
 settings = {
-    time_delay = 100,
     screen_height = 768,
     screen_width = 1024
 }

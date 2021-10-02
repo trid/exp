@@ -5,7 +5,8 @@
 
 #include "lua5.1/lua.hpp"
 
-#include "script_context.h"
+#include "scripting/script_context.h"
+#include "scripting/settings_reader.h"
 
 using std::string;
 
@@ -13,14 +14,12 @@ class Settings {
 public:
     explicit Settings();
 
-    [[nodiscard]] int getIntParameter(const string& name) const;
-    [[nodiscard]] bool getBoolParameter(const string& name) const;
-    [[nodiscard]] string getStringParameter(const string& name) const;
+    [[nodiscard]] int getScreenWidth() const;
+    [[nodiscard]] int getScreenHeight() const;
 
 private:
-    void pushSettingToStack(string const &name) const;
-
-    ScriptContext _scriptManager;
+    int _screenWidth;
+    int _screenHeight;
 };
 
 #endif // SETTINGS_H

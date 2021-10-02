@@ -1,16 +1,20 @@
 #include "script_context.h"
 
 ScriptContext::ScriptContext() {
-    state = luaL_newstate();
+    _state = luaL_newstate();
 }
 
 void ScriptContext::loadScript(const string &path) {
-    luaL_dofile(state, path.c_str());
+    luaL_dofile(_state, path.c_str());
 }
 
 void ScriptContext::registerFunction(const string &name, lua_CFunction function) {
-    lua_register(state, name.c_str(), function);
+    lua_register(_state, name.c_str(), function);
 }
 
 lua_State* ScriptContext::getState() const {
-    return state; }
+    return _state; }
+
+ScriptContext::~ScriptContext() {
+    lua_close(_state);
+}

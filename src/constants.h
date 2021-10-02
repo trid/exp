@@ -29,4 +29,8 @@ constexpr char kActionDrink[] = "drink";
 constexpr char kFoodUpdatedMessage[] = "FOOD_UPDATED_MESSAGE";
 constexpr char kWoodUpdatedMessage[] = "WOOD_UPDATED_MESSAGE";
 
+// Settings
+constexpr char kScreenWidthParameterKey[] = "screen_width";
+constexpr char kScreenHeightParameterKey[] = "screen_height";
+
 #endif //EXP_CONSTANTS_H

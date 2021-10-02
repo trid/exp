@@ -2,18 +2,18 @@
 
 #include <lua5.1/lua.hpp>
 
-#include "constants.h"
-#include "location_manager.h"
+#include "../constants.h"
+#include "../location_manager.h"
 #include "script_functions.h"
 #include "script_object_manager.h"
-#include "world.h"
+#include "../world.h"
 
-#include "ai/actor_object.h"
-#include "ai/state_manager.h"
-#include "ai/registry.h"
+#include "../ai/actor_object.h"
+#include "../ai/state_manager.h"
+#include "../ai/registry.h"
 
-#include "view/scene_object_manager.h"
-#include "view/view.h"
+#include "../view/scene_object_manager.h"
+#include "../view/view.h"
 
 using std::cout;
 

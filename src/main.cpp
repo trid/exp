@@ -5,7 +5,7 @@
 #include "application.h"
 #include "constants.h"
 #include "location_type_manager.h"
-#include "main_script_context.h"
+#include "scripting/main_script_context.h"
 #include "settings.h"
 #include "system_event_manager.h"
 #include "world.h"

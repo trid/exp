@@ -2,7 +2,7 @@
 
 #include <sstream>
 
-#include "../script_object_manager.h"
+#include "../scripting/script_object_manager.h"
 
 #include "actor_object.h"
 #include "constants.h"

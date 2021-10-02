@@ -1,5 +1,5 @@
 #include "lua5.1/lua.hpp"
-#include "ai/state_manager.h"
+#include "../ai/state_manager.h"
 
 extern StateManager* stateManager;
 

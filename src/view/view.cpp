@@ -27,8 +27,8 @@ View::View(const Settings& settings) {
         cout << kSDLInitErrorMessage << endl;
         return;
     }
-    windowWidth = settings.getIntParameter(kScreenWidthParameterKey);
-    windowHeight = settings.getIntParameter(kScreenHeightParameterKey);
+    windowWidth = settings.getScreenWidth();
+    windowHeight = settings.getScreenHeight();
     window = SDL_CreateWindow(kWindowTitle, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
     if (window == nullptr) {
         cout << kSDLCreateWindowError << endl;
