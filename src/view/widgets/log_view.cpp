@@ -12,7 +12,8 @@ void LogView::draw(SDL_Renderer *renderer) {
         int height = TTF_FontHeight(_uiManager.getConsoleFont());
         int startHeight = 0;
         int surfaceHeight = height * 10;
-        surface = SDL_CreateTexture(renderer, _view.getScreenPixelFormat(), SDL_TEXTUREACCESS_TARGET, _view.getWindowWidth(), surfaceHeight);
+        surface = SDL_CreateTexture(renderer, _view.getScreenPixelFormat(), SDL_TEXTUREACCESS_TARGET,
+                                    _view.getWindow().getWidth(), surfaceHeight);
         SDL_SetTextureBlendMode(surface, SDL_BLENDMODE_BLEND);
         SDL_SetRenderTarget(renderer, surface);
 

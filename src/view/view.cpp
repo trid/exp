@@ -22,34 +22,17 @@ extern View* g_view;
 extern SceneObjectManager* g_sceneObjectManager;
 extern ActorsRegistry* g_actorsRegistry;
 
-View::View(const Settings& settings) {
-    if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-        cout << kSDLInitErrorMessage << endl;
-        return;
-    }
-    windowWidth = settings.getScreenWidth();
-    windowHeight = settings.getScreenHeight();
-    window = SDL_CreateWindow(kWindowTitle, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
-    if (window == nullptr) {
-        cout << kSDLCreateWindowError << endl;
-        SDL_Quit();
-        return;
-    }
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
-    if (renderer == nullptr) {
-        cout << kSDLCreateRendererError << endl;
-        SDL_DestroyWindow(window);
-        SDL_Quit();
-        return;
-    }
-
-    background = IMG_LoadTexture(renderer, kGrassSpritePath);
-    actor = IMG_LoadTexture(renderer, kActorSpritePath);
+View::View(const Settings& settings):
+    _window(settings)
+{
+    background = IMG_LoadTexture(_window.getRenderer(), kGrassSpritePath);
+    actor = IMG_LoadTexture(_window.getRenderer(), kActorSpritePath);
 
     g_view = this;
 }
 
 void View::draw() {
+    auto renderer = _window.getRenderer();
     SDL_RenderClear(renderer);
 
     SDL_Rect rect;
@@ -77,7 +60,7 @@ void View::draw() {
 }
 
 Uint32 View::getScreenPixelFormat() {
-    return SDL_GetWindowPixelFormat(window);
+    return _window.getScreenPixelFormat();
 }
 
 UIManager& View::getUiManager() {
@@ -86,5 +69,9 @@ UIManager& View::getUiManager() {
 
 UIMessageManager& View::getUIMessageManager() {
     return _uiMessageManager;
+}
+
+Window& View::getWindow() {
+    return _window;
 }
 

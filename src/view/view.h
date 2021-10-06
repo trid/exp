@@ -7,6 +7,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include "map_object_view.h"
+#include "window.h"
 #include "widgets/ui_manager.h"
 #include "widgets/ui_message_manager.h"
 #include "../settings.h"
@@ -22,21 +23,16 @@ class View {
 public:
     explicit View(const Settings& settings);
 
-    void draw();
-    SDL_Renderer* getRenderer() { return renderer; }
-
-    int getWindowWidth() const { return windowWidth; }
-    int getWindowHeight() const { return windowHeight; }
-    Uint32 getScreenPixelFormat();
-
     UIManager& getUiManager();
     UIMessageManager& getUIMessageManager();
-private:
-    int windowWidth;
-    int windowHeight;
 
-    SDL_Window* window;
-    SDL_Renderer* renderer;
+    Uint32 getScreenPixelFormat();
+
+    void draw();
+
+    Window& getWindow();
+private:
+    Window _window;
 
     SDL_Texture* background;
     SDL_Texture* actor;

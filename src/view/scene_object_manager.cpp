@@ -51,7 +51,7 @@ SceneObjectManager::SceneObjectManager(View& view) {
         const string& image = loc.second.get<string>(kSpriteNameKey);
         stringstream ss;
         ss << kImageResourcesPath << image;
-        sprites[type] = IMG_LoadTexture(view.getRenderer(), ss.str().c_str());
+        sprites[type] = IMG_LoadTexture(view.getWindow().getRenderer(), ss.str().c_str());
     }
 
     g_sceneObjectManager = this;
