@@ -1,10 +1,13 @@
 #include "action.h"
 #include "../ai/actor.h"
-#include "../world.h"
+
+namespace Core {
+class World;
+} // namespace Core
 
 class ActionEating: public Action {
 public:
-    ActionEating(Actor* actor, World& world);
+    ActionEating(Actor* actor, Core::World& world);
 
     bool isValid() override;
     void update(int delta) override;
@@ -14,5 +17,5 @@ private:
     int time = 0;
     int maxTime;
 
-    World& _world;
+    Core::World& _world;
 };

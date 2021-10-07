@@ -6,7 +6,10 @@
 using std::shared_ptr;
 
 class Actor;
+
+namespace Core {
 class World;
+} // namespace Core
 
 class Action {
 private:
@@ -23,16 +26,16 @@ public:
     void stop() { running = false; }
     Actor* getActor() { return actor; }
 
-    Action(Actor* actor, World&): actor(actor) {}
+    Action(Actor* actor, Core::World&): actor(actor) {}
 };
 
 class VirtualActionFactory {
 public:
-    virtual Action* createAction(Actor* actor, World& world) = 0;
+    virtual Action* createAction(Actor* actor, Core::World& world) = 0;
 };
 
 template <class T> class ActionFactory: public VirtualActionFactory {
-    virtual Action* createAction(Actor* actor, World& world) override { return new T(actor, world); }
+    virtual Action* createAction(Actor* actor, Core::World& world) override { return new T(actor, world); }
 };
 
 typedef shared_ptr<Action> ActionPtr;

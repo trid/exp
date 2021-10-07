@@ -6,6 +6,7 @@
 #include <boost/property_tree/xml_parser.hpp>
 
 #include "../location.h"
+#include "../location_type.h"
 
 #include "constants.h"
 #include "map_object_view.h"
@@ -18,7 +19,7 @@ using boost::property_tree::xml_parser::trim_whitespace;
 
 extern SceneObjectManager* g_sceneObjectManager;
 
-MapObjectView *SceneObjectManager::createMapObject(Location *location) {
+MapObjectView *SceneObjectManager::createMapObject(Core::Location *location) {
     MapObjectView * ptr = new MapObjectView();
     ptr->location = location;
     ptr->image = sprites[location->getType()->getName()];

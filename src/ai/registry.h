@@ -12,7 +12,7 @@ class Actor;
 
 class ActorsRegistry {
 public:
-    class ActorRegistryProcess: public Process{
+    class ActorRegistryProcess: public Core::Process{
     public:
         ActorRegistryProcess(ActorsRegistry& actorsRegistry);
 
@@ -22,7 +22,8 @@ public:
     private:
         ActorsRegistry& _actorsRegistry;
     };
-    class ActorStatusUpdateProcess: public Process {
+
+    class ActorStatusUpdateProcess: public Core::Process {
     public:
         ActorStatusUpdateProcess(ActorsRegistry& actorRegistry);
 
@@ -36,9 +37,9 @@ public:
     };
 
 public:
-    ActorsRegistry(Application& application);
+    ActorsRegistry(Core::Application& application);
 
-    Actor& createActor(View& view, World& world, GUIPanel& guiPanel);
+    Actor& createActor(View& view, Core::World& world, GUIPanel& guiPanel);
     Actor * getActor(int id);
     const vector<Actor*>& getActors();
     void killActor(int id);

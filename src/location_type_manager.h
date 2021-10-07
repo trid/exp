@@ -3,18 +3,21 @@
 
 #include <string>
 #include <unordered_map>
-#include "location_type.h"
 
-using std::string;
-using std::unordered_map;
+namespace Core {
+
+class LocationType;
 
 class LocationTypeManager {
 public:
     LocationTypeManager();
 
-    LocationType* getLocationType(string const &name) { return types[name]; }
+    LocationType* getLocationType(std::string const& name) { return types[name]; }
+
 private:
-    unordered_map<string, LocationType*> types;
+    std::unordered_map<std::string, LocationType*> types;
 };
+
+} // namespace Core
 
 #endif

@@ -6,13 +6,18 @@
 
 #include "process.h"
 
+namespace Core {
+
 class Application {
 public:
     Application();
 
     void finish();
+
     bool isRunning() const;
+
     void update();
+
     void addProcess(ProcessPtr ptr);
 
 private:
@@ -21,5 +26,7 @@ private:
 
     int lastTime;
 };
+
+} // namespace Core
 
 #endif // APPLICATION_H

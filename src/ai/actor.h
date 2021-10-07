@@ -1,25 +1,24 @@
 #ifndef ACTOR_H
 #define ACTOR_H
 
-#include <set>
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
 #include "../message_manager.h"
 #include "../actions/action.h"
 #include "state.h"
 
-using std::set;
-using std::string;
-using std::unordered_map;
-
 class GUIPanel;
-class State;
 class View;
+
+namespace Core {
+class World;
+} // namespace Core
 
 class Actor {
     friend class ActorsRegistry;
 public:
-    explicit Actor(View& view, World& world, GUIPanel& guiPanel);
+    explicit Actor(View& view, Core::World& world, GUIPanel& guiPanel);
 
     void update();
     void eat();
@@ -34,19 +33,19 @@ public:
     int getMaxWater() { return maxWater; }
     void setMaxWater(int maxWater) { this->maxWater = maxWater; water = maxWater; }
     int getID() const { return id; }
-    const string& getPosition() const { return position; }
-    void setPosition(const string& position);
+    const std::string& getPosition() const { return position; }
+    void setPosition(const std::string& position);
     StateOpt getState();
     void setState(const StateOpt& state);
-    void setTargetPosition(const string& position);
-    const string& getTargetPosition();
-    const string &getName() const { return name; }
-    void setName(const string &name) { Actor::name = name; }
+    void setTargetPosition(const std::string& position);
+    const std::string& getTargetPosition();
+    const std::string &getName() const { return name; }
+    void setName(const std::string &name) { Actor::name = name; }
     int getInventory() const { return inventory; }
     void setInventory(int inventory) { Actor::inventory = inventory; }
 
-    void say(const string &message);
-    void processMessage(Message &message);
+    void say(const std::string &message);
+    void processMessage(Core::Message &message);
     void addItem();
     void unloadWood();
     void unloadFood();
@@ -61,10 +60,10 @@ public:
     double getSpeed() { return speed; }
     bool isStateBreackable() const { return stateBreackable; }
     void setStateBreackable(bool stateBreackable) { Actor::stateBreackable = stateBreackable; }
-    void addGlobalState(const string& stateName);
-    void setReactor(const string& stateName, StateOpt reactionState);
+    void addGlobalState(const std::string& stateName);
+    void setReactor(const std::string& stateName, StateOpt reactionState);
 
-    void removeGlobalState(string const &stateName);
+    void removeGlobalState(std::string const &stateName);
 
     void setAction(ActionPtr& action);
     void removeAction();
@@ -78,10 +77,10 @@ private:
     int maxFood = 90;
     int maxWater = 60;
 
-    string position = "";
-    string target = "";
+    std::string position = "";
+    std::string target = "";
     StateOpt _state = boost::none;
-    string name;
+    std::string name;
     int inventory = 0;
     int inventoryLimit = 20;
     //Pixels per second
@@ -89,13 +88,13 @@ private:
     //Actor position
     double x, y;
     bool stateBreackable = true;
-    string executingState;
-    set <string> globalStates;
-    unordered_map <string, StateOpt> globalStateReactors;
+    std::string executingState;
+    std::unordered_set <std::string> globalStates;
+    std::unordered_map <std::string, StateOpt> globalStateReactors;
     ActionPtr currentAction;
 
     View& _view;
-    World& _world;
+    Core::World& _world;
     GUIPanel& _guiPanel;
 };
 

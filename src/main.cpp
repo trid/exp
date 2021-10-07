@@ -19,17 +19,17 @@ using namespace std;
 
 
 int main(int argc, char* argv[]) {
-    Application app{};
-    Settings settings{};
+    Core::Application app{};
+    Core::Settings settings{};
     MainScriptContext scriptContext{};
     View view{settings};
-    World world(view, app);
+    Core::World world(view, app);
     StateManager stateManager{scriptContext, world};
     GUIPanel panel{world, view};
-    SystemEventManager systemEventManager{app, panel};
+    Core::SystemEventManager systemEventManager{app, panel};
 
     stateManager.registerScriptedStates();
-    scriptContext.loadScript(kInitScriptPath);
+    scriptContext.loadScript(Core::kInitScriptPath);
 
     while (app.isRunning()) {
         app.update();

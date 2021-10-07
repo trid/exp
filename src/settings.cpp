@@ -4,8 +4,9 @@
 
 #include "scripting/settings_reader.h"
 
-Settings::Settings()
-{
+namespace Core {
+
+Settings::Settings() {
     SettingsReader settingsReader;
     _screenWidth = settingsReader.getIntParameter(kScreenWidthParameterKey);
     _screenHeight = settingsReader.getIntParameter(kScreenHeightParameterKey);
@@ -19,3 +20,4 @@ int Settings::getScreenHeight() const {
     return _screenHeight;
 }
 
+} //namespace Core

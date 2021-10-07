@@ -4,19 +4,22 @@
 #include <string>
 #include <unordered_set>
 
-using std::string;
-using std::unordered_set;
+namespace Core {
 
 class LocationType {
-friend class LocationTypeManager;
-private:
-    string name;
-    unordered_set<string> actions;
-public:
-    explicit LocationType(const string& name): name(name){}
+    friend class LocationTypeManager;
 
-    const string& getName() { return name; }
-    const unordered_set<string>& getActions() { return actions; }
+private:
+    std::string name;
+    std::unordered_set <std::string> actions;
+public:
+    explicit LocationType(const std::string& name);
+
+    const std::string& getName();
+
+    const std::unordered_set <std::string>& getActions();
 };
+
+} // namespace Core
 
 #endif // LOCATION_TYPE_H

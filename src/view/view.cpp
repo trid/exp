@@ -22,7 +22,7 @@ extern View* g_view;
 extern SceneObjectManager* g_sceneObjectManager;
 extern ActorsRegistry* g_actorsRegistry;
 
-View::View(const Settings& settings):
+View::View(const Core::Settings& settings):
     _window(settings)
 {
     background = IMG_LoadTexture(_window.getRenderer(), kGrassSpritePath);

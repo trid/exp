@@ -1,6 +1,6 @@
 #include "state_woodcutting.h"
 
-#include "../constants.h"
+#include "../actions/constants.h"
 #include "../world.h"
 
 #include "constants.h"
@@ -21,7 +21,7 @@ void StateWoodcutting::execute(Actor *actor) {
     }
 }
 
-void StateWoodcutting::processMessage(Actor *actor, Message &message) {
+void StateWoodcutting::processMessage(Actor *actor, Core::Message &message) {
 
 }
 
@@ -35,6 +35,6 @@ void StateWoodcutting::enter(Actor* actor) {
     _world.doAction(actor, kActionCutWood);
 }
 
-StateWoodcutting::StateWoodcutting(StateManager& stateManager, World& world):
+StateWoodcutting::StateWoodcutting(StateManager& stateManager, Core::World& world):
     State(stateManager),
     _world(world) {}

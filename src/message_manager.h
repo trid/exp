@@ -3,13 +3,13 @@
 
 #include <string>
 
-using std::string;
-
 class ActorsRegistry;
+
+namespace Core {
 
 class Message {
 public:
-    string messageType;
+    std::string messageType;
     void* messageData;
 };
 
@@ -22,5 +22,7 @@ public:
 private:
     ActorsRegistry& _actorRegistry;
 };
+
+} // namespace Core
 
 #endif

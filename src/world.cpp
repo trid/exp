@@ -8,17 +8,18 @@
 #include "location_type.h"
 
 #include "actions/action_manager.h"
+#include "actions/constants.h"
 
 #include "ai/actor.h"
 
 #include "view/view.h"
 
-using namespace std;
+Core::World* g_world;
 
-World* g_world;
+namespace Core {
 
-void World::moveActor(Actor *actor, const string &dest) {
-    TravelPtr route(new Travel(actor, dest, _sceneObjectManager, *this));
+void World::moveActor(Actor* actor, const string& dest) {
+    auto route = std::make_shared<Travel>(actor, dest, _sceneObjectManager, *this);
     actor->setPosition(kPositionInRoute);
     inRoute.push_back(route);
 }
@@ -27,7 +28,7 @@ void World::update(int delta) {
     for (TravelPtr travelPtr: inRoute) {
         travelPtr->update(delta);
     }
-    inRoute.remove_if([](TravelPtr ptr){ return ptr->finished(); });
+    inRoute.remove_if([](TravelPtr ptr) { return ptr->finished(); });
     for (ActionPtr actionPtr: actions) {
         if (actionPtr->isValid() && !actionPtr->isFinished() && actionPtr->isRunning()) {
             actionPtr->update(delta);
@@ -38,7 +39,7 @@ void World::update(int delta) {
             actionPtr->getActor()->removeAction();
         }
     }
-    actions.remove_if([](ActionPtr ptr){ return ptr->isFinished() || !ptr->isRunning() || !ptr->isValid(); });
+    actions.remove_if([](ActionPtr ptr) { return ptr->isFinished() || !ptr->isRunning() || !ptr->isValid(); });
 }
 
 void WorldProcess::update(int delta) {
@@ -49,9 +50,8 @@ bool WorldProcess::finished() {
     return false;
 }
 
-WorldProcess::WorldProcess(World& world):
-    _world(world)
-{
+WorldProcess::WorldProcess(World& world) :
+        _world(world) {
 
 }
 
@@ -61,8 +61,7 @@ World::World(View& view, Application& application) :
         _actionManager(*this),
         _actorsRegistry(application),
         _messageManager(_actorsRegistry),
-        _locationManager(_locationTypeManager)
-{
+        _locationManager(_locationTypeManager) {
     g_world = this;
     ProcessPtr ptr(new WorldProcess(*this));
     application.addProcess(ptr);
@@ -74,13 +73,13 @@ World::World(View& view, Application& application) :
     wellActions.emplace(kActionDrink);
 }
 
-unordered_set<string> const & World::getActions(Actor *actor) {
+std::unordered_set<std::string> const& World::getActions(Actor* actor) {
     Location* location = _locationManager.getLocation(actor->getPosition());
     return location->getType()->getActions();
 }
 
-void World::doAction(Actor *actor, const string &action) {
-    unordered_set<string> const &placeActions = getActions(actor);
+void World::doAction(Actor* actor, const string& action) {
+    const auto& placeActions = getActions(actor);
     if (placeActions.find(action) != placeActions.end()) {
         ActionPtr actionInstance = _actionManager.getAction(action, actor);
         actor->setAction(actionInstance);
@@ -131,3 +130,5 @@ void Travel::update(int delta) {
         world.getMessageManager().dispatchMessage(actor->getID(), message);
     }
 }
+
+} // namespace Core

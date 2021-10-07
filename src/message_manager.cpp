@@ -2,13 +2,16 @@
 #include "ai/actor.h"
 #include "ai/registry.h"
 
-void MessageManager::dispatchMessage(int actorId, Message &message) {
+namespace Core {
+
+void MessageManager::dispatchMessage(int actorId, Message& message) {
     Actor* actor = _actorRegistry.getActor(actorId);
     actor->processMessage(message);
 }
 
-MessageManager::MessageManager(ActorsRegistry& actorRegistry):
-    _actorRegistry(actorRegistry)
-{
+MessageManager::MessageManager(ActorsRegistry& actorRegistry) :
+        _actorRegistry(actorRegistry) {
 
 }
+
+} // namespace Core

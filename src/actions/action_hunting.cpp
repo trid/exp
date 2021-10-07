@@ -24,6 +24,6 @@ bool ActionHunting::isFinished() {
     return false;
 }
 
-ActionHunting::ActionHunting(Actor* actor, World& world):
+ActionHunting::ActionHunting(Actor* actor, Core::World& world):
     Action(actor, world),
     interval(kActionHuntTime) { }

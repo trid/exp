@@ -29,13 +29,13 @@ int SettingsReader::getIntParameter(const std::string& name) const {
 
 void SettingsReader::pushSettingNameToStack(const std::string &name) const {
     lua_State *state = _settingsScriptContext.getState();
-    lua_getglobal(state, kSettingsKey);
+    lua_getglobal(state, Core::kSettingsKey);
     lua_pushstring(state, name.c_str());
     lua_gettable(state, -2);
 }
 
 SettingsReader::SettingsReader() {
-    _settingsScriptContext.loadScript(kSettingsScriptPath);
+    _settingsScriptContext.loadScript(Core::kSettingsScriptPath);
 }
 
 void SettingsReader::cleanStack() const {

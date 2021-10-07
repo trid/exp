@@ -4,6 +4,7 @@
 
 #include "../constants.h"
 #include "../world.h"
+#include "../actions/constants.h"
 #include "../view/view.h"
 #include "../view/scene_object_manager.h"
 #include "../view/widgets/gui_panel.h"
@@ -83,7 +84,7 @@ const string& Actor::getTargetPosition() {
     return target;
 }
 
-void Actor::processMessage(Message &message) {
+void Actor::processMessage(Core::Message &message) {
     if (_state) {
         _state->processMessage(this, message);
     }
@@ -116,7 +117,7 @@ int Actor::getInventoryLimit() {
 
 void Actor::setPosition(const string &position) {
     this->position = position;
-    if (position != kPositionInRoute) {
+    if (position != Core::kPositionInRoute) {
         MapObjectPtr mapObject = _world.getSceneObjectManager().getMapObject(position);
         x = mapObject->getX();
         y = mapObject->getY();
@@ -156,7 +157,7 @@ bool Actor::hasAction() {
     return currentAction != nullptr;
 }
 
-Actor::Actor(View& view, World& world, GUIPanel& guiPanel):
+Actor::Actor(View& view, Core::World& world, GUIPanel& guiPanel):
     _view(view),
     _world(world),
     _guiPanel(guiPanel){}

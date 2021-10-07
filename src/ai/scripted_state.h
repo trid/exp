@@ -13,7 +13,7 @@ public:
     virtual void execute(Actor *actor);
     virtual void exit(Actor *actor);
 
-    virtual void processMessage(Actor *actor, Message &message);
+    virtual void processMessage(Actor *actor, Core::Message &message);
 private:
     ScriptContext& _scriptContext;
     const string _tableName;

@@ -2,11 +2,11 @@
 #include "script_object.h"
 
 
-void ScriptObject::addParameter(string const &name, ParameterPtr ptr) {
+void ScriptObject::addParameter(string const &name, Core::ParameterPtr ptr) {
     parameters[name] = ptr;
 }
 
-ParameterPtr ScriptObject::getParameter(const string &name) {
+Core::ParameterPtr ScriptObject::getParameter(const string &name) {
     return parameters[name];
 }
 

@@ -7,13 +7,15 @@
 
 using std::string;
 
+namespace Core {
 class Location;
+} // namespace Core
 
 class MapObjectView {
 friend class SceneObjectManager;
 private:
     SDL_Texture* image;
-    Location* location;
+    Core::Location* location;
 public:
     MapObjectView();
     ~MapObjectView();

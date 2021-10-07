@@ -3,7 +3,7 @@
 #include "constants.h"
 #include "state.h"
 
-void StateFinished::processMessage(Actor *actor, Message &message) {
+void StateFinished::processMessage(Actor *actor, Core::Message &message) {
 
 }
 

@@ -3,6 +3,8 @@
 #include "application.h"
 #include "view/view.h"
 
+namespace Core {
+
 void SystemEventManager::process() {
     SDL_Event e;
     while (SDL_PollEvent(&e)) {
@@ -20,6 +22,8 @@ void SystemEventManager::process() {
     }
 }
 
-SystemEventManager::SystemEventManager(Application& application, GUIPanel& guiPanel):
+SystemEventManager::SystemEventManager(Application& application, GUIPanel& guiPanel) :
         _application(application),
-        _guiPanel(guiPanel){}
+        _guiPanel(guiPanel) {}
+
+} // namespace Core

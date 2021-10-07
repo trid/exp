@@ -3,26 +3,30 @@
 
 #include <string>
 
-#include "location_type.h"
+namespace Core {
 
 class LocationType;
 
 class Location {
 public:
-    Location(LocationType* type, const std::string& name, int xPos, int yPos): type(type), name(name), xPos(xPos), yPos(yPos){}
+    Location(LocationType* type, const std::string& name, int xPos, int yPos);
 
-    LocationType* getType() const { return type; }
-    void setType(LocationType* type) { Location::type = type; }
-    const std::string& getName() const { return name; }
-    void setName(std::string& name) { Location::name = name; }
-    int getXPos() const { return xPos; }
-    void setXPos(int xPos) { Location::xPos = xPos; }
-    int getYPos() const { return yPos; }
-    void setYPos(int yPos) { Location::yPos = yPos; }
+    [[nodiscard]] LocationType* getType() const;
+    void setType(LocationType* type);
+    [[nodiscard]] const std::string& getName() const;
+    void setName(std::string& name);
+
+    [[nodiscard]] int getXPos() const;
+    void setXPos(int xPos);
+    [[nodiscard]] int getYPos() const;
+    void setYPos(int yPos);
+
 private:
     LocationType* type;
     std::string name;
     int xPos, yPos;
 };
+
+} // namespace Core
 
 #endif // LOCATION_H

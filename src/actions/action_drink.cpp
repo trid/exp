@@ -27,6 +27,6 @@ bool ActionDrink::isFinished() {
     return time >= maxTime;
 }
 
-ActionDrink::ActionDrink(Actor* actor, World& world):
+ActionDrink::ActionDrink(Actor* actor, Core::World& world):
     Action(actor, world),
     maxTime(kActionDrinkTime) {}

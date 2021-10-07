@@ -21,7 +21,7 @@ class ActorView;
 
 class View {
 public:
-    explicit View(const Settings& settings);
+    explicit View(const Core::Settings& settings);
 
     UIManager& getUiManager();
     UIMessageManager& getUIMessageManager();

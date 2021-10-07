@@ -6,9 +6,10 @@
 
 #include <iostream>
 
+#include "../settings.h"
 #include "constants.h"
 
-Window::Window(const Settings& settings) {
+Window::Window(const Core::Settings& settings) {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         std::cout << kSDLInitErrorMessage << std::endl;
         return;

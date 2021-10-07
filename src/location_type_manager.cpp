@@ -4,9 +4,12 @@
 #include <boost/property_tree/xml_parser.hpp>
 
 #include "constants.h"
+#include "location_type.h"
 
 using boost::property_tree::ptree;
 using boost::property_tree::xml_parser::trim_whitespace;
+
+namespace Core {
 
 LocationTypeManager::LocationTypeManager() {
     ptree pt;
@@ -16,7 +19,7 @@ LocationTypeManager::LocationTypeManager() {
 
     for (auto& loc: locationTypes) {
         auto subtree = loc.second;
-        const string& name = subtree.get<string>(kLocationNameKey);
+        const std::string& name = subtree.get<std::string>(kLocationNameKey);
         LocationType* locationType = new LocationType(name);
         for (auto action: subtree.get_child(kLocationActionsKey)) {
             locationType->actions.emplace(action.second.data());
@@ -24,3 +27,5 @@ LocationTypeManager::LocationTypeManager() {
         types[locationType->getName()] = locationType;
     }
 }
+
+} // namespace Core

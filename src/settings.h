@@ -8,7 +8,7 @@
 #include "scripting/script_context.h"
 #include "scripting/settings_reader.h"
 
-using std::string;
+namespace Core {
 
 class Settings {
 public:
@@ -21,5 +21,7 @@ private:
     int _screenWidth;
     int _screenHeight;
 };
+
+} // namespace Core
 
 #endif // SETTINGS_H

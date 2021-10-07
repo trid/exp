@@ -1,5 +1,7 @@
 #include "application.h"
 
+namespace Core {
+
 void Application::update() {
     int currentTime = SDL_GetTicks();
     int delta = currentTime - lastTime;
@@ -17,3 +19,5 @@ void Application::finish() { running = false; }
 bool Application::isRunning() const { return running; }
 
 void Application::addProcess(ProcessPtr ptr) { processes.push_back(ptr); }
+
+} // namespace Core

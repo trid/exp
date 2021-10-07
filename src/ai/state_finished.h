@@ -12,5 +12,5 @@ public:
     void execute(Actor* actor) override;
     void exit(Actor* actor) override;
 
-    void processMessage(Actor *actor, Message &message) override;
+    void processMessage(Actor *actor, Core::Message &message) override;
 };

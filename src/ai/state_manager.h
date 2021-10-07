@@ -8,18 +8,21 @@
 #include "lua5.1/lua.hpp"
 
 class ScriptContext;
+
+namespace Core {
 class World;
+} // namespace Core
 
 class StateManager {
 public:
-    StateManager(ScriptContext& scriptManager, World& world);
+    StateManager(ScriptContext& scriptManager, Core::World& world);
 
     StateOpt getState(const std::string& name);
 
     void registerScriptedStates();
     void registerScriptedState(char const *tableName, char const *stateName);
 private:
-    void registerStates(World& world);
+    void registerStates(Core::World& world);
 
     std::unordered_map<std::string, StateUPtr> _states;
     ScriptContext& _scriptManager;

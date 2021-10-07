@@ -17,9 +17,9 @@ extern GUIPanel* g_panel;
 class WoodUpdaterListener: public IUIMessageListener {
 private:
     Label& _label;
-    const World& _world;
+    const Core::World& _world;
 public:
-    WoodUpdaterListener(Label& label, const World& world):
+    WoodUpdaterListener(Label& label, const Core::World& world):
         _label(label),
         _world(world) {}
 
@@ -34,9 +34,9 @@ public:
 class FoodUpdaterListener: public IUIMessageListener {
 private:
     Label& _label;
-    const World& _world;
+    const Core::World& _world;
 public:
-    FoodUpdaterListener(Label& label, const World& world):
+    FoodUpdaterListener(Label& label, const Core::World& world):
         _label(label),
         _world(world) {}
 
@@ -48,7 +48,7 @@ public:
     }
 };
 
-GUIPanel::GUIPanel(const World& world, View& view):
+GUIPanel::GUIPanel(const Core::World& world, View& view):
     _world(world)
 {
     g_panel = this;
@@ -72,8 +72,8 @@ GUIPanel::GUIPanel(const World& world, View& view):
     auto foodUpdater = std::make_unique<FoodUpdaterListener>(*_foodLabel, world);
 
     UIMessageManager& uiMessageManager = view.getUIMessageManager();
-    uiMessageManager.addListener(kWoodUpdatedMessage, std::move(woodUpdater));
-    uiMessageManager.addListener(kFoodUpdatedMessage, std::move(foodUpdater));
+    uiMessageManager.addListener(Core::kWoodUpdatedMessage, std::move(woodUpdater));
+    uiMessageManager.addListener(Core::kFoodUpdatedMessage, std::move(foodUpdater));
 }
 
 void GUIPanel::addMessage(const string& message) {

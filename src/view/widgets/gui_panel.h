@@ -10,18 +10,21 @@
 
 #include "widget.h"
 
-class World;
 class View;
+
+namespace Core {
+class World;
+} // namespace Core
 
 class GUIPanel {
 public:
-    GUIPanel(const World& world, View& view);
+    GUIPanel(const Core::World& world, View& view);
 
     void addMessage(const string &message);
     void showNextAgent();
     void showPrevAgent();
 private:
-    const World& _world;
+    const Core::World& _world;
 
     std::shared_ptr<Label> _foodLabel;
     std::shared_ptr<Label> _woodLabel;

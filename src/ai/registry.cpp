@@ -15,7 +15,7 @@ const vector<Actor *> &ActorsRegistry::getActors() {
     return actors;
 }
 
-Actor& ActorsRegistry::createActor(View& view, World& world, GUIPanel& guiPanel) {
+Actor& ActorsRegistry::createActor(View& view, Core::World& world, GUIPanel& guiPanel) {
     Actor* actor = new Actor(view, world, guiPanel);
     actor->id = nextId;
     nextId++;
@@ -48,12 +48,12 @@ bool ActorsRegistry::ActorRegistryProcess::finished() {
 ActorsRegistry::ActorRegistryProcess::ActorRegistryProcess(ActorsRegistry& actorsRegistry) : _actorsRegistry(
         actorsRegistry) {}
 
-ActorsRegistry::ActorsRegistry(Application& application) {
+ActorsRegistry::ActorsRegistry(Core::Application& application) {
     g_actorsRegistry = this;
 
-    ProcessPtr ptr(new ActorRegistryProcess(*this));
+    Core::ProcessPtr ptr(new ActorRegistryProcess(*this));
     application.addProcess(ptr);
-    application.addProcess(ProcessPtr(new ActorStatusUpdateProcess(*this)));
+    application.addProcess(Core::ProcessPtr(new ActorStatusUpdateProcess(*this)));
 }
 
 void ActorsRegistry::ActorStatusUpdateProcess::update(int delta) {

@@ -31,6 +31,6 @@ ScriptedState::ScriptedState(StateManager& stateManager, ScriptContext& scriptMa
 
 }
 
-void ScriptedState::processMessage(Actor *actor, Message &message) {
+void ScriptedState::processMessage(Actor *actor, Core::Message &message) {
     _scriptContext.callFunctionInTable(_tableName, kScriptProcessMessageMethodName, {actor, &message});
 }

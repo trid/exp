@@ -6,19 +6,16 @@
 
 #include "action.h"
 
-using std::string;
-using std::unordered_map;
-
 class ActionManager {
 public:
-    ActionManager(World& world);
+    ActionManager(Core::World& world);
     ~ActionManager();
 
-    ActionPtr getAction(const string& action, Actor* actor);
+    ActionPtr getAction(const std::string& action, Actor* actor);
 private:
-    World& _world;
+    Core::World& _world;
 
-    unordered_map<string, VirtualActionFactory*> _actionMap;
+    std::unordered_map<std::string, VirtualActionFactory*> _actionMap;
 };
 
 #endif // ACTION_MANAGER_H

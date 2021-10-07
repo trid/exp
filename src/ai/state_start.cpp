@@ -1,6 +1,5 @@
 #include "state_start.h"
 
-#include "actor.h"
 #include "constants.h"
 #include "state_manager.h"
 #include "../world.h"
@@ -20,11 +19,11 @@ void StateStart::execute(Actor *actor) {
     }
 }
 
-void StateStart::processMessage(Actor *actor, Message &message) {
+void StateStart::processMessage(Actor *actor, Core::Message &message) {
 
 }
 
-StateStart::StateStart(StateManager& stateManager, World& world):
+StateStart::StateStart(StateManager& stateManager, Core::World& world):
     State(stateManager),
     _world(world)
 {

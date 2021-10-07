@@ -4,9 +4,9 @@
 #include "action_woodcutting.h"
 #include "action_hunting.h"
 
-#include "../constants.h"
+#include "constants.h"
 
-ActionManager::ActionManager(World& world):
+ActionManager::ActionManager(Core::World& world):
     _world(world)
 {
     _actionMap[kActionDrink] = new ActionFactory<ActionDrink>;
@@ -21,6 +21,6 @@ ActionManager::~ActionManager() {
     }
 }
 
-ActionPtr ActionManager::getAction(const string &action, Actor *actor) {
+ActionPtr ActionManager::getAction(const std::string &action, Actor *actor) {
     return ActionPtr(_actionMap[action]->createAction(actor, _world));
 }

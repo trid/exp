@@ -16,13 +16,13 @@ using boost::filesystem::path;
 using boost::filesystem::directory_iterator;
 using boost::filesystem::directory_entry;
 
-void StateManager::registerStates(World& world) {
+void StateManager::registerStates(Core::World& world) {
     _states[kStateStartName] = std::make_unique<StateStart>(*this, world);
     _states[kStateFinishedName] = std::make_unique<StateFinished>(*this);
     _states[kStateWoodcuttingName] = std::make_unique<StateWoodcutting>(*this, world);
 }
 
-StateManager::StateManager(ScriptContext& scriptManager, World& world):
+StateManager::StateManager(ScriptContext& scriptManager, Core::World& world):
     _scriptManager(scriptManager)
 {
     registerStates(world);

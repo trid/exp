@@ -7,11 +7,13 @@
 
 #include "SDL2/SDL.h"
 
-#include "../settings.h"
+namespace Core {
+class Settings;
+} // namespace Core
 
 class Window {
 public:
-    explicit Window(const Settings& settings);
+    explicit Window(const Core::Settings& settings);
 
     SDL_Renderer* getRenderer() { return _renderer; }
 

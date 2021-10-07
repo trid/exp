@@ -6,21 +6,18 @@
 #include <typeinfo>
 #include <functional>
 
-using std::shared_ptr;
-using std::string;
-using std::type_info;
-using std::function;
+namespace Core {
 
-
-class BadTypeException: public std::exception {};
+class BadTypeException : public std::exception {
+};
 
 
 class AbstractParameter {
 private:
     bool writeable = true;
 public:
-    virtual const type_info& getType() = 0;
-    virtual const string& getString() = 0;
+    virtual const std::type_info& getType() = 0;
+    virtual const std::string& getString() = 0;
     virtual int getInt() = 0;
     virtual double getDouble() = 0;
     virtual bool getBool() = 0;
@@ -29,9 +26,10 @@ public:
     virtual void setData(int i) = 0;
     virtual void setData(float f) = 0;
     virtual void setData(void* pointer) = 0;
-    virtual void setData(const string& data) = 0;
+    virtual void setData(const std::string& data) = 0;
 
     bool isWritable() { return writeable; }
+
     void setWritable(bool writable) { this->writeable = writable; }
 };
 
@@ -40,56 +38,60 @@ A good example of a bad code. Hope no one ever see it. I'll never be proud by su
 Hope someone clever will tell a better way. Or I'll find it by myself. Sorry the gods of programming, i've betrayed you.
 Very limited decision. Still there are problems with strings.
  */
-template <class T> class Parameter: public AbstractParameter {
+template<class T>
+class Parameter : public AbstractParameter {
 private:
-    const type_info& type = typeid(T);
+    const std::type_info& type = typeid(T);
 protected:
     T data;
 public:
-    virtual const type_info& getType() { return type; }
+    virtual const std::type_info& getType() { return type; }
 
-    virtual string const &getString() {
-        if (typeid(string) != type){
+    virtual std::string const& getString() {
+        if (typeid(std::string) != type) {
             throw BadTypeException();
         }
-        return *(string*)(&data); }
-
-    virtual int getInt() {
-        if (typeid(int) != type){
-            throw BadTypeException();
-        }
-        return *(int*)(&data); }
-
-    virtual double getDouble() {
-        if (typeid(float) != type){
-            throw BadTypeException();
-        }
-        return *(float*)(&data); }
-
-    virtual bool getBool() {
-        if (typeid(bool) != type){
-            throw BadTypeException();
-        }
-        return *(bool*)(&data);
+        return *(std::string * )(&data);
     }
 
-    virtual void *getPointer() {
-        if (typeid(void*) != type){
+    virtual int getInt() {
+        if (typeid(int) != type) {
+            throw BadTypeException();
+        }
+        return *(int*) (&data);
+    }
+
+    virtual double getDouble() {
+        if (typeid(float) != type) {
+            throw BadTypeException();
+        }
+        return *(float*) (&data);
+    }
+
+    virtual bool getBool() {
+        if (typeid(bool) != type) {
+            throw BadTypeException();
+        }
+        return *(bool*) (&data);
+    }
+
+    virtual void* getPointer() {
+        if (typeid(void*) != type) {
             throw BadTypeException();
         }
         return nullptr;
     }
 
-    virtual void setData(void *data) {
+    virtual void setData(void* data) {
         if (isWritable()) {
             this->data = *(T*) &data;
         }
     }
 
-    virtual void setData(const string &data) {
+    virtual void setData(const std::string& data) {
         if (isWritable()) {
             //This strange code is for those cases when we have T as int
-            this->data = *(T*)&data;
+            this->data = *(T*) &data;
         }
     }
 
@@ -112,75 +114,79 @@ public:
     }*/
 };
 
-class PointerParameter: public Parameter<void*> {
+class PointerParameter : public Parameter<void*> {
 public:
     virtual void* getPointer() {
         return data;
     }
 };
 
-template <class T> class LinkedParameter: public AbstractParameter {
+template<class T>
+class LinkedParameter : public AbstractParameter {
 private:
-    const type_info& type = typeid(T);
+    const std::type_info& type = typeid(T);
     void* dataPointer;
 public:
-    virtual const type_info& getType() { return type; }
+    virtual const std::type_info& getType() { return type; }
 
-    virtual string const &getString() {
-        if (typeid(string) != type){
+    virtual std::string const& getString() {
+        if (typeid(std::string) != type) {
             throw BadTypeException();
         }
-        return *(string*)dataPointer; }
-
-    virtual int getInt() {
-        if (typeid(int) != type){
-            throw BadTypeException();
-        }
-        return *(int*)dataPointer; }
-
-    virtual double getDouble() {
-        if (typeid(float) != type){
-            throw BadTypeException();
-        }
-        return *(float*)dataPointer; }
-
-    virtual bool getBool() {
-        if (typeid(bool) != type){
-            throw BadTypeException();
-        }
-        return *(bool*)dataPointer;
+        return *(std::string*) dataPointer;
     }
 
-    virtual void *getPointer() {
-        if (typeid(void*) != type){
+    virtual int getInt() {
+        if (typeid(int) != type) {
             throw BadTypeException();
         }
-        return (void*)dataPointer;
+        return *(int*) dataPointer;
+    }
+
+    virtual double getDouble() {
+        if (typeid(float) != type) {
+            throw BadTypeException();
+        }
+        return *(float*) dataPointer;
+    }
+
+    virtual bool getBool() {
+        if (typeid(bool) != type) {
+            throw BadTypeException();
+        }
+        return *(bool*) dataPointer;
+    }
+
+    virtual void* getPointer() {
+        if (typeid(void*) != type) {
+            throw BadTypeException();
+        }
+        return (void*) dataPointer;
     }
 
     virtual void setData(const void* data) override {
         if (isWritable()) {
-            *this->data = *(T *) data;
+            *this->data = *(T*) data;
         }
     }
 
-    virtual void setData(const string &data) {
+    virtual void setData(const std::string& data) {
         if (isWritable()) {
             //The more i write it the more i think. Do i really need such changes?
             //Can't it be improved with some kind of magical macros?
-            *this->data = *(T*)&data;
+            *this->data = *(T*) &data;
         }
     }
 
     virtual void setData(int data) {
         if (isWritable()) {
-            *this->data = *(T *) &data;
+            *this->data = *(T*) &data;
         }
     }
 
     virtual void setData(float data) {
         if (isWritable()) {
-            *this->data = *(T *) &data;
+            *this->data = *(T*) &data;
         }
     }
 
@@ -195,37 +201,38 @@ public:
     }
 };
 
-template <class T, class U> class CallbackParameter: public AbstractParameter {
+template<class T, class U>
+class CallbackParameter : public AbstractParameter {
 private:
-    const type_info& type = typeid(T);
-    function<void (U*, T)> setterCallback;
-    function<T (U*)> getterCallback;
+    const std::type_info& type = typeid(T);
+    std::function<void(U*, T)> setterCallback;
+    std::function<T(U*)> getterCallback;
     U* caller;
 public:
-    CallbackParameter(U* caller): caller(caller) {};
+    CallbackParameter(U* caller) : caller(caller) {};
 
-    virtual const type_info &getType() {
+    virtual const std::type_info& getType() {
         return type;
     }
 
-    virtual const string &getString() {
+    virtual const std::string& getString() {
         throw BadTypeException();
     }
 
     virtual int getInt() {
-        return (int)getterCallback(caller);
+        return (int) getterCallback(caller);
     }
 
     virtual double getDouble() {
-        return (double)getterCallback(caller);
+        return (double) getterCallback(caller);
     }
 
     virtual bool getBool() {
-        return (bool)getterCallback(caller);
+        return (bool) getterCallback(caller);
     }
 
-    virtual void *getPointer() {
-        return (void*)getterCallback(caller);
+    virtual void* getPointer() {
+        return (void*) getterCallback(caller);
     }
 
     virtual void setData(int i) {
@@ -236,56 +243,67 @@ public:
         setterCallback(caller, f);
     }
 
-    virtual void setData(void *pointer) {
-        setterCallback(caller, *(T*)pointer);
+    virtual void setData(void* pointer) {
+        setterCallback(caller, *(T*) pointer);
     }
 
-    virtual void setData(const string &data) {}
+    virtual void setData(const std::string& data) {}
 
-    void setSetterFunction(const function<void (U*, T)>& setter) {
+    void setSetterFunction(const std::function<void(U*, T)>& setter) {
         setterCallback = setter;
     }
-    void setGetterFunction(const function<T (U*)>& getter) {
+
+    void setGetterFunction(const std::function<T(U*)>& getter) {
         getterCallback = getter;
     }
 };
 
-template <class U> class CallbackParameter<string, U>: public AbstractParameter {
-    function<void (U*, const string&)> setterCallback;
-    function<const string& (U*)> getterCallback;
+template<class U>
+class CallbackParameter<std::string, U> : public AbstractParameter {
+    std::function<void(U*, const std::string&)> setterCallback;
+    std::function<const std::string&(U*)> getterCallback;
     U* caller;
 public:
-    CallbackParameter(U* caller): caller(caller) {};
+    CallbackParameter(U* caller) : caller(caller) {};
 
-    virtual const type_info &getType() {
-        return typeid(string);
+    virtual const std::type_info& getType() {
+        return typeid(std::string);
     }
 
-    virtual string const &getString() {
+    virtual std::string const& getString() {
         return getterCallback(caller);
     }
 
     virtual int getInt() { return 0; }
-    virtual double getDouble() { return 0; }
-    virtual bool getBool() { return false; }
-    virtual void *getPointer() { return nullptr; }
-    virtual void setData(int i) {}
-    virtual void setData(float f) {}
-    virtual void setData(void *pointer) {}
 
-    virtual void setData(string const &data) {
+    virtual double getDouble() { return 0; }
+
+    virtual bool getBool() { return false; }
+
+    virtual void* getPointer() { return nullptr; }
+
+    virtual void setData(int i) {}
+
+    virtual void setData(float f) {}
+
+    virtual void setData(void* pointer) {}
+
+    virtual void setData(std::string const& data) {
         setterCallback(caller, data);
     }
 
-    void setSetterFunction(function<void (U*, const string&)>& setter) {
+    void setSetterFunction(std::function<void(U*, const std::string&)>& setter) {
         setterCallback = setter;
     }
-    void setGetterFunction(function<const string& (U*)>& getter) {
+
+    void setGetterFunction(std::function<const std::string&(U*)>& getter) {
         getterCallback = getter;
     }
 };
 
 
-typedef shared_ptr<AbstractParameter> ParameterPtr;
+typedef std::shared_ptr <AbstractParameter> ParameterPtr;
 
-#endif
+} // namespace Core
+
+#endif // SCRIPT_PARAMETER_H

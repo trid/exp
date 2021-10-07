@@ -4,8 +4,6 @@
 
 #include "../constants.h"
 #include "../location_manager.h"
-#include "script_functions.h"
-#include "script_object_manager.h"
 #include "../world.h"
 
 #include "../ai/actor_object.h"
@@ -15,12 +13,16 @@
 #include "../view/scene_object_manager.h"
 #include "../view/view.h"
 
+#include "constants.h"
+#include "script_functions.h"
+#include "script_object_manager.h"
+
 using std::cout;
 
 StateManager* g_stateManager = nullptr;
 View* g_view = nullptr;
 SceneObjectManager* g_sceneObjectManager = nullptr;
-extern World* g_world;
+extern Core::World* g_world;
 extern ActorsRegistry* g_actorsRegistry;
 GUIPanel* g_panel;
 
@@ -193,7 +195,7 @@ int getId(lua_State* state) {
 // Messages
 
 int getMessageType(lua_State* state) {
-    Message* message = (Message*)lua_topointer(state, -1);
+    Core::Message* message = (Core::Message*)lua_topointer(state, -1);
     char const *messageType = message->messageType.c_str();
     lua_pushstring(state, messageType);
 
@@ -251,7 +253,7 @@ int getObjectParameter(lua_State* state) {
 }
 
 int setParameterValue(lua_State* state) {
-    AbstractParameter* parameter = (AbstractParameter *) lua_topointer(state, -2);
+    Core::AbstractParameter* parameter = (Core::AbstractParameter *) lua_topointer(state, -2);
     if (lua_isnumber(state, -1)) {
         //Small trouble in LUA: it does not care about int or string convertible to int. Same with strings. Fuck.
         parameter->setData((int)lua_tointeger(state, -1));
@@ -265,7 +267,7 @@ int setParameterValue(lua_State* state) {
 }
 
 int getParameterValue(lua_State* state) {
-    AbstractParameter* parameter = (AbstractParameter *) lua_topointer(state, -1);
+    Core::AbstractParameter* parameter = (Core::AbstractParameter *) lua_topointer(state, -1);
     if (parameter->getType() == typeid(int)) {
         lua_pushinteger(state, parameter->getInt());
     }
