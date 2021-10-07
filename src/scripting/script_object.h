@@ -2,14 +2,15 @@
 #include <unordered_map>
 #include "../parameter.h"
 
-using std::string;
-using std::unordered_map;
+namespace Scripting {
 
 class ScriptObject {
 private:
-    unordered_map<string, Core::ParameterPtr> parameters;
+    std::unordered_map <std::string, Core::ParameterPtr> parameters;
 public:
-    void addParameter(string const &name, Core::ParameterPtr ptr);
-    Core::ParameterPtr getParameter(const string &name);
-    void deleteParameter(const string& name);
+    void addParameter(std::string const& name, Core::ParameterPtr ptr);
+    Core::ParameterPtr getParameter(const std::string& name);
+    void deleteParameter(const std::string& name);
 };
+
+} // namespace Scripting

@@ -1,6 +1,8 @@
 #include "lua5.1/lua.hpp"
 #include "../ai/state_manager.h"
 
+namespace Scripting {
+
 //Utils
 int print(lua_State* state);
 int registerScriptedState(lua_State* state);
@@ -44,3 +46,5 @@ int getScriptObject(lua_State* state);
 int getObjectParameter(lua_State* state);
 int setParameterValue(lua_State* state);
 int getParameterValue(lua_State* state);
+
+} // namespace Scripting

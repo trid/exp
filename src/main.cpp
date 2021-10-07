@@ -21,7 +21,7 @@ using namespace std;
 int main(int argc, char* argv[]) {
     Core::Application app{};
     Core::Settings settings{};
-    MainScriptContext scriptContext{};
+    Scripting::MainScriptContext scriptContext{};
     View view{settings};
     Core::World world(view, app);
     Core::AI::StateManager stateManager{scriptContext, world};

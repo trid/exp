@@ -24,7 +24,7 @@ void StateManager::registerStates(Core::World& world) {
     _states[kStateWoodcuttingName] = std::make_unique<StateWoodcutting>(*this, world);
 }
 
-StateManager::StateManager(ScriptContext& scriptManager, Core::World& world) :
+StateManager::StateManager(Scripting::ScriptContext& scriptManager, Core::World& world) :
         _scriptManager(scriptManager) {
     registerStates(world);
     g_stateManager = this;

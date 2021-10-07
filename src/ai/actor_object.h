@@ -3,7 +3,7 @@
 
 namespace Core::AI {
 
-class ActorObject : public ScriptObject {
+class ActorObject : public Scripting::ScriptObject {
 public:
     ActorObject(Actor* actor);
 };

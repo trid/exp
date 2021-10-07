@@ -5,6 +5,10 @@
 #ifndef EXP_SCRIPTING_CONSTANTS_H
 #define EXP_SCRIPTING_CONSTANTS_H
 
+namespace Scripting {
+
 constexpr char kScriptMessagePrefix[] = "LUA: ";
+
+} // namespace Scripting
 
 #endif //EXP_CONSTANTS_H

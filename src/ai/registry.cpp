@@ -8,6 +8,7 @@
 #include "constants.h"
 
 Core::AI::ActorsRegistry* g_actorsRegistry = nullptr;
+extern Scripting::ScriptObjectManager* g_scriptObjectManager;
 
 namespace Core::AI {
 
@@ -23,7 +24,7 @@ Actor& ActorsRegistry::createActor(View& view, Core::World& world, GUIPanel& gui
     ActorObject* actorObject = new ActorObject(actor);
     std::stringstream ss;
     ss << kTemporaryActorNamePrefix << actor->getID();
-    ScriptObjectManager::getInstance().addItem(ss.str(), actorObject);
+    g_scriptObjectManager->addItem(ss.str(), actorObject);
     return *actor;
 }
 

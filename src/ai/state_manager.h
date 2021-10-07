@@ -7,7 +7,9 @@
 #include "state.h"
 #include "lua5.1/lua.hpp"
 
+namespace Scripting {
 class ScriptContext;
+} // namespace Scripting
 
 namespace Core {
 class World;
@@ -17,7 +19,7 @@ namespace Core::AI {
 
 class StateManager {
 public:
-    StateManager(ScriptContext& scriptManager, Core::World& world);
+    StateManager(Scripting::ScriptContext& scriptManager, Core::World& world);
 
     StateOpt getState(const std::string& name);
 
@@ -27,7 +29,7 @@ private:
     void registerStates(Core::World& world);
 
     std::unordered_map<std::string, StateUPtr> _states;
-    ScriptContext& _scriptManager;
+    Scripting::ScriptContext& _scriptManager;
 };
 
 } // namespace Core::AI

@@ -1,22 +1,19 @@
 #include <unordered_map>
 #include <string>
 
-using std::string;
-using std::unordered_map;
+namespace Scripting {
 
 class ScriptObject;
 
 class ScriptObjectManager {
-private:
-    ScriptObjectManager(){}
-    unordered_map<string, ScriptObject*> objects;
 public:
-    static ScriptObjectManager& getInstance() {
-        static ScriptObjectManager scriptObjectManager;
-        return scriptObjectManager;
-    }
+    ScriptObjectManager();
 
-    ScriptObject* getItem(const string& name);
-    void addItem(const string& name, ScriptObject* item);
-    void deleteItem(const string& name);
+    ScriptObject* getItem(const std::string& name);
+    void addItem(const std::string& name, ScriptObject* item);
+    void deleteItem(const std::string& name);
+private:
+    std::unordered_map<std::string, ScriptObject*> objects;
 };
+
+} // namespace Scripting

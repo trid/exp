@@ -6,6 +6,8 @@
 
 #include "lua5.1/lua.hpp"
 
+namespace Scripting {
+
 class ScriptContext {
 public:
     ScriptContext();
@@ -20,4 +22,6 @@ private:
     lua_State* _state;
 };
 
-#endif
+} // namespace Scripting
+
+#endif // SCRIPT_MANAGER_H

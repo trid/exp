@@ -25,9 +25,12 @@ SceneObjectManager* g_sceneObjectManager = nullptr;
 extern Core::World* g_world;
 extern Core::AI::ActorsRegistry* g_actorsRegistry;
 GUIPanel* g_panel;
+extern Scripting::ScriptObjectManager* g_scriptObjectManager;
+
+namespace Scripting {
 
 int print(lua_State* state) {
-    char const *str = lua_tostring(state, 1);
+    char const* str = lua_tostring(state, 1);
     cout << kScriptMessagePrefix << str;
     return 0;
 }
@@ -41,12 +44,11 @@ int registerScriptedState(lua_State* state) {
 }
 
 int setState(lua_State* state) {
-    auto* actor = (Core::AI::Actor*)lua_topointer(state, -2);
+    auto* actor = (Core::AI::Actor*) lua_topointer(state, -2);
     if (lua_isnil(state, -1)) {
         actor->setState(boost::none);
-    }
-    else {
-        const char *stateName = lua_tostring(state, -1);
+    } else {
+        const char* stateName = lua_tostring(state, -1);
 
         auto actorState = g_stateManager->getState(stateName);
         actor->setState(actorState);
@@ -55,27 +57,27 @@ int setState(lua_State* state) {
 }
 
 int moveTo(lua_State* state) {
-    auto* actor = (Core::AI::Actor*)lua_topointer(state, -2);
+    auto* actor = (Core::AI::Actor*) lua_topointer(state, -2);
     const char* place = lua_tostring(state, -1);
     actor->setPosition(place);
     return 0;
 }
 
 int getThirsty(lua_State* state) {
-    auto* actor = (Core::AI::Actor*)lua_topointer(state, -1);
+    auto* actor = (Core::AI::Actor*) lua_topointer(state, -1);
     int water = actor->getWater();
     lua_pushinteger(state, water);
     return 1;
 }
 
 int drink(lua_State* state) {
-    auto* actor = (Core::AI::Actor*)lua_topointer(state, -1);
+    auto* actor = (Core::AI::Actor*) lua_topointer(state, -1);
     actor->drink();
     return 0;
 }
 
 int getPlace(lua_State* state) {
-    auto* actor = (Core::AI::Actor*)lua_topointer(state, -1);
+    auto* actor = (Core::AI::Actor*) lua_topointer(state, -1);
     const string& place = actor->getPosition();
     lua_pushstring(state, place.c_str());
 
@@ -83,7 +85,7 @@ int getPlace(lua_State* state) {
 }
 
 int sendTo(lua_State* state) {
-    auto* actor = (Core::AI::Actor*)lua_topointer(state, -2);
+    auto* actor = (Core::AI::Actor*) lua_topointer(state, -2);
     const char* direction = lua_tostring(state, -1);
 
     g_world->moveActor(actor, direction);
@@ -92,21 +94,21 @@ int sendTo(lua_State* state) {
 }
 
 int eat(lua_State* state) {
-    auto* actor = (Core::AI::Actor*)lua_topointer(state, -1);
+    auto* actor = (Core::AI::Actor*) lua_topointer(state, -1);
     actor->eat();
 
     return 0;
 }
 
 int getFeed(lua_State* state) {
-    auto* actor = (Core::AI::Actor*)lua_topointer(state, -1);
+    auto* actor = (Core::AI::Actor*) lua_topointer(state, -1);
     lua_pushinteger(state, actor->getFood());
 
     return 1;
 }
 
 int say(lua_State* state) {
-    auto* actor = (Core::AI::Actor*)lua_topointer(state, -2);
+    auto* actor = (Core::AI::Actor*) lua_topointer(state, -2);
     const char* message = lua_tostring(state, -1);
 
     actor->say(message);
@@ -115,7 +117,7 @@ int say(lua_State* state) {
 }
 
 int setName(lua_State* state) {
-    auto* actor = (Core::AI::Actor*)lua_topointer(state, -2);
+    auto* actor = (Core::AI::Actor*) lua_topointer(state, -2);
     const char* name = lua_tostring(state, -1);
 
     actor->setName(name);
@@ -124,35 +126,35 @@ int setName(lua_State* state) {
 }
 
 int getInventory(lua_State* state) {
-    auto* actor = (Core::AI::Actor*)lua_topointer(state, -1);
+    auto* actor = (Core::AI::Actor*) lua_topointer(state, -1);
     lua_pushinteger(state, actor->getInventory());
 
     return 1;
 }
 
 int getInventorySize(lua_State* state) {
-    auto* actor = (Core::AI::Actor*)lua_topointer(state, -1);
+    auto* actor = (Core::AI::Actor*) lua_topointer(state, -1);
     lua_pushinteger(state, actor->getInventoryLimit());
 
     return 1;
 }
 
 int unloadWood(lua_State* state) {
-    auto* actor = (Core::AI::Actor*)lua_topointer(state, -1);
+    auto* actor = (Core::AI::Actor*) lua_topointer(state, -1);
     actor->unloadWood();
 
     return 0;
 }
 
 int unloadFood(lua_State* state) {
-    auto* actor = (Core::AI::Actor*)lua_topointer(state, -1);
+    auto* actor = (Core::AI::Actor*) lua_topointer(state, -1);
     actor->unloadFood();
 
     return 0;
 }
 
 int setReaction(lua_State* state) {
-    auto* actor = (Core::AI::Actor*)lua_topointer(state, -3);
+    auto* actor = (Core::AI::Actor*) lua_topointer(state, -3);
     const char* reactionName = lua_tostring(state, -2);
     const char* stateName = lua_tostring(state, -1);
 
@@ -162,7 +164,7 @@ int setReaction(lua_State* state) {
 }
 
 int setStateBreackable(lua_State* state) {
-    auto* actor = (Core::AI::Actor*)lua_topointer(state, -2);
+    auto* actor = (Core::AI::Actor*) lua_topointer(state, -2);
     bool breackable = (bool) lua_toboolean(state, -1);
     actor->setStateBreackable(breackable);
 
@@ -170,7 +172,7 @@ int setStateBreackable(lua_State* state) {
 }
 
 int hasAction(lua_State* state) {
-    auto* actor = (Core::AI::Actor*)lua_topointer(state, -1);
+    auto* actor = (Core::AI::Actor*) lua_topointer(state, -1);
     bool hasAction = actor->hasAction();
     lua_pushboolean(state, hasAction);
 
@@ -178,7 +180,7 @@ int hasAction(lua_State* state) {
 }
 
 int doAction(lua_State* state) {
-    auto* actor = (Core::AI::Actor*)lua_topointer(state, -2);
+    auto* actor = (Core::AI::Actor*) lua_topointer(state, -2);
     const char* action = lua_tostring(state, -1);
 
     g_world->doAction(actor, action);
@@ -186,7 +188,7 @@ int doAction(lua_State* state) {
 }
 
 int getId(lua_State* state) {
-    auto* actor = (Core::AI::Actor*)lua_topointer(state, -1);
+    auto* actor = (Core::AI::Actor*) lua_topointer(state, -1);
     lua_pushinteger(state, actor->getID());
 
     return 1;
@@ -195,8 +197,8 @@ int getId(lua_State* state) {
 // Messages
 
 int getMessageType(lua_State* state) {
-    Core::Message* message = (Core::Message*)lua_topointer(state, -1);
-    char const *messageType = message->messageType.c_str();
+    Core::Message* message = (Core::Message*) lua_topointer(state, -1);
+    char const* messageType = message->messageType.c_str();
     lua_pushstring(state, messageType);
 
     return 1;
@@ -241,22 +243,22 @@ int createSceneObject(lua_State* state) {
 //Script objects
 int getScriptObject(lua_State* state) {
     const char* name = lua_tostring(state, -1);
-    lua_pushlightuserdata(state, ScriptObjectManager::getInstance().getItem(name));
+    lua_pushlightuserdata(state, g_scriptObjectManager->getItem(name));
     return 1;
 }
 
 int getObjectParameter(lua_State* state) {
-    auto* actorObject = (Core::AI::ActorObject*)lua_topointer(state, -2);
+    auto* actorObject = (Core::AI::ActorObject*) lua_topointer(state, -2);
     const char* paramName = lua_tostring(state, -1);
     lua_pushlightuserdata(state, actorObject->getParameter(paramName).get());
     return 1;
 }
 
 int setParameterValue(lua_State* state) {
-    Core::AbstractParameter* parameter = (Core::AbstractParameter *) lua_topointer(state, -2);
+    Core::AbstractParameter* parameter = (Core::AbstractParameter*) lua_topointer(state, -2);
     if (lua_isnumber(state, -1)) {
         //Small trouble in LUA: it does not care about int or string convertible to int. Same with strings. Fuck.
-        parameter->setData((int)lua_tointeger(state, -1));
+        parameter->setData((int) lua_tointeger(state, -1));
         return 0;
     }
     if (lua_isstring(state, -1)) {
@@ -267,7 +269,7 @@ int setParameterValue(lua_State* state) {
 }
 
 int getParameterValue(lua_State* state) {
-    Core::AbstractParameter* parameter = (Core::AbstractParameter *) lua_topointer(state, -1);
+    Core::AbstractParameter* parameter = (Core::AbstractParameter*) lua_topointer(state, -1);
     if (parameter->getType() == typeid(int)) {
         lua_pushinteger(state, parameter->getInt());
     }
@@ -276,3 +278,5 @@ int getParameterValue(lua_State* state) {
     }
     return 1;
 }
+
+} // namespace Scripting

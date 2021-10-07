@@ -6,6 +6,8 @@
 
 #include "../constants.h"
 
+namespace Scripting {
+
 std::string SettingsReader::getStringParameter(const std::string& name) const {
     pushSettingNameToStack(name);
     auto res = lua_tostring(_settingsScriptContext.getState(), -1);
@@ -27,8 +29,8 @@ int SettingsReader::getIntParameter(const std::string& name) const {
     return res;
 }
 
-void SettingsReader::pushSettingNameToStack(const std::string &name) const {
-    lua_State *state = _settingsScriptContext.getState();
+void SettingsReader::pushSettingNameToStack(const std::string& name) const {
+    lua_State* state = _settingsScriptContext.getState();
     lua_getglobal(state, Core::kSettingsKey);
     lua_pushstring(state, name.c_str());
     lua_gettable(state, -2);
@@ -41,3 +43,5 @@ SettingsReader::SettingsReader() {
 void SettingsReader::cleanStack() const {
     lua_pop(_settingsScriptContext.getState(), 2);
 }
+
+} // namespace Scripting

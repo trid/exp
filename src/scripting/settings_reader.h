@@ -7,6 +7,8 @@
 
 #include "script_context.h"
 
+namespace Scripting {
+
 class SettingsReader {
 public:
     SettingsReader();
@@ -15,11 +17,12 @@ public:
     [[nodiscard]] bool getBoolParameter(const std::string& name) const;
     [[nodiscard]] std::string getStringParameter(const std::string& name) const;
 private:
-    void pushSettingNameToStack(const std::string &name) const;
+    void pushSettingNameToStack(const std::string& name) const;
     void cleanStack() const;
 
     ScriptContext _settingsScriptContext;
 };
 
+} // namespace Scripting
 
 #endif //EXP_SETTINGS_READER_H

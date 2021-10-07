@@ -9,7 +9,7 @@
 
 namespace Core::AI {
 
-void ScriptedState::callFunction(Actor* actor, const string& function) {
+void ScriptedState::callFunction(Actor* actor, const std::string& function) {
     _scriptContext.callFunctionInTable(_tableName, function, {actor});
 }
 
@@ -25,7 +25,8 @@ void ScriptedState::enter(Actor* actor) {
     callFunction(actor, kScriptEnterMethodName);
 }
 
-ScriptedState::ScriptedState(StateManager& stateManager, ScriptContext& scriptManager, const string& tableName) :
+ScriptedState::ScriptedState(StateManager& stateManager, Scripting::ScriptContext& scriptManager,
+                             const std::string& tableName) :
         State(stateManager),
         _scriptContext(scriptManager),
         _tableName(tableName) {

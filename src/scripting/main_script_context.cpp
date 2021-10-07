@@ -6,9 +6,10 @@
 
 #include "script_functions.h"
 
-MainScriptContext::MainScriptContext():
-    ScriptContext()
-{
+namespace Scripting {
+
+MainScriptContext::MainScriptContext() :
+        ScriptContext() {
     registerFunctions();
 }
 
@@ -48,3 +49,5 @@ void MainScriptContext::registerFunctions() {
     registerFunction("getObjectParameter", getObjectParameter);
     registerFunction("setParameterValue", setParameterValue);
 }
+
+} // namespace Scripting

@@ -7,7 +7,7 @@
 namespace Core {
 
 Settings::Settings() {
-    SettingsReader settingsReader;
+    Scripting::SettingsReader settingsReader;
     _screenWidth = settingsReader.getIntParameter(kScreenWidthParameterKey);
     _screenHeight = settingsReader.getIntParameter(kScreenHeightParameterKey);
 }

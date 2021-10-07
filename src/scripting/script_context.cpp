@@ -1,19 +1,22 @@
 #include "script_context.h"
 
+namespace Scripting {
+
 ScriptContext::ScriptContext() {
     _state = luaL_newstate();
 }
 
-void ScriptContext::loadScript(const std::string &path) {
+void ScriptContext::loadScript(const std::string& path) {
     luaL_dofile(_state, path.c_str());
 }
 
-void ScriptContext::registerFunction(const std::string &name, lua_CFunction function) {
+void ScriptContext::registerFunction(const std::string& name, lua_CFunction function) {
     lua_register(_state, name.c_str(), function);
 }
 
 lua_State* ScriptContext::getState() const {
-    return _state; }
+    return _state;
+}
 
 ScriptContext::~ScriptContext() {
     lua_close(_state);
@@ -32,3 +35,5 @@ void ScriptContext::callFunctionInTable(const std::string& tableName, const std:
         lua_call(_state, args.size(), 0);
     }
 }
+
+} // namespace Scripting

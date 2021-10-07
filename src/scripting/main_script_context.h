@@ -7,14 +7,20 @@
 
 
 #include "script_context.h"
+#include "script_object_manager.h"
 
-class MainScriptContext: public ScriptContext {
+namespace Scripting {
+
+class MainScriptContext : public ScriptContext {
 public:
     MainScriptContext();
 
 private:
     void registerFunctions();
+
+    ScriptObjectManager _scriptObjectManager;
 };
 
+} // namespace Scripting
 
 #endif //EXP_MAIN_SCRIPT_CONTEXT_H
