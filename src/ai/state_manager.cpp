@@ -10,11 +10,13 @@
 #include "state_start.h"
 #include "state_woodcutting.h"
 
-extern StateManager* g_stateManager;
+extern Core::AI::StateManager* g_stateManager;
 
 using boost::filesystem::path;
 using boost::filesystem::directory_iterator;
 using boost::filesystem::directory_entry;
+
+namespace Core::AI {
 
 void StateManager::registerStates(Core::World& world) {
     _states[kStateStartName] = std::make_unique<StateStart>(*this, world);
@@ -22,14 +24,13 @@ void StateManager::registerStates(Core::World& world) {
     _states[kStateWoodcuttingName] = std::make_unique<StateWoodcutting>(*this, world);
 }
 
-StateManager::StateManager(ScriptContext& scriptManager, Core::World& world):
-    _scriptManager(scriptManager)
-{
+StateManager::StateManager(ScriptContext& scriptManager, Core::World& world) :
+        _scriptManager(scriptManager) {
     registerStates(world);
     g_stateManager = this;
 }
 
-StateOpt StateManager::getState(const std::string &name) {
+StateOpt StateManager::getState(const std::string& name) {
     auto it = _states.find(name);
     if (it != _states.end()) {
         return *it->second;
@@ -45,6 +46,8 @@ void StateManager::registerScriptedStates() {
     }
 }
 
-void StateManager::registerScriptedState(char const *tableName, char const *stateName) {
+void StateManager::registerScriptedState(char const* tableName, char const* stateName) {
     _states[stateName] = std::make_unique<ScriptedState>(*this, _scriptManager, tableName);
 }
+
+} // namespace Core::AI

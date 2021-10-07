@@ -7,7 +7,7 @@
 namespace Core::Actions {
 
 bool ActionHunting::isValid() {
-    return actor->getPosition() == kForestLocationName;
+    return actor->getPosition() == Core::AI::kForestLocationName;
 }
 
 void ActionHunting::update(int delta) {
@@ -26,7 +26,7 @@ bool ActionHunting::isFinished() {
     return false;
 }
 
-ActionHunting::ActionHunting(Actor* actor, Core::World& world) :
+ActionHunting::ActionHunting(AI::Actor* actor, Core::World& world) :
         Action(actor, world),
         interval(kActionHuntTime) {}
 

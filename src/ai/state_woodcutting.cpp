@@ -6,7 +6,9 @@
 #include "constants.h"
 #include "state_manager.h"
 
-void StateWoodcutting::execute(Actor *actor) {
+namespace Core::AI {
+
+void StateWoodcutting::execute(Actor* actor) {
     actor->say(kStateWoodcuttingExecuteMessage);
 
     if (actor->getInventory() == actor->getInventoryLimit()) {
@@ -21,7 +23,7 @@ void StateWoodcutting::execute(Actor *actor) {
     }
 }
 
-void StateWoodcutting::processMessage(Actor *actor, Core::Message &message) {
+void StateWoodcutting::processMessage(Actor* actor, Core::Message& message) {
 
 }
 
@@ -35,6 +37,8 @@ void StateWoodcutting::enter(Actor* actor) {
     _world.doAction(actor, Core::Actions::kActionCutWood);
 }
 
-StateWoodcutting::StateWoodcutting(StateManager& stateManager, Core::World& world):
-    State(stateManager),
-    _world(world) {}
+StateWoodcutting::StateWoodcutting(StateManager& stateManager, Core::World& world) :
+        State(stateManager),
+        _world(world) {}
+
+} // namespace Core::AI

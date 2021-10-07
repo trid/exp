@@ -6,13 +6,13 @@
 #include "../process.h"
 #include "../application.h"
 
-using std::vector;
+namespace Core::AI {
 
 class Actor;
 
 class ActorsRegistry {
 public:
-    class ActorRegistryProcess: public Core::Process{
+    class ActorRegistryProcess : public Core::Process {
     public:
         ActorRegistryProcess(ActorsRegistry& actorsRegistry);
 
@@ -23,7 +23,7 @@ public:
         ActorsRegistry& _actorsRegistry;
     };
 
-    class ActorStatusUpdateProcess: public Core::Process {
+    class ActorStatusUpdateProcess : public Core::Process {
     public:
         ActorStatusUpdateProcess(ActorsRegistry& actorRegistry);
 
@@ -40,14 +40,18 @@ public:
     ActorsRegistry(Core::Application& application);
 
     Actor& createActor(View& view, Core::World& world, GUIPanel& guiPanel);
-    Actor * getActor(int id);
-    const vector<Actor*>& getActors();
+    Actor* getActor(int id);
+    const std::vector<Actor*>& getActors();
     void killActor(int id);
     void update();
+
     int getLastId() { return actors.back()->getID(); }
+
 private:
-    vector<Actor*> actors;
+    std::vector<Actor*> actors;
     int nextId = 0;
 };
+
+} // namespace Core::AI
 
 #endif // ACTOR_REGISTRY_H

@@ -5,11 +5,13 @@
 
 using std::shared_ptr;
 
-class Actor;
-
 namespace Core {
 class World;
 } // namespace Core
+
+namespace Core::AI {
+class Actor;
+} // namespace Core::AI
 
 namespace Core::Actions {
 
@@ -17,7 +19,7 @@ class Action {
 private:
     bool running = true;
 protected:
-    Actor* actor;
+    AI::Actor* actor;
 public:
     virtual bool isValid() = 0;
     virtual void update(int delta) = 0;
@@ -28,19 +30,19 @@ public:
 
     void stop();
 
-    Actor* getActor();
+    AI::Actor* getActor();
 
-    Action(Actor* actor, Core::World&);
+    Action(AI::Actor* actor, Core::World&);
 };
 
 class VirtualActionFactory {
 public:
-    virtual Action* createAction(Actor* actor, Core::World& world) = 0;
+    virtual Action* createAction(AI::Actor* actor, Core::World& world) = 0;
 };
 
 template<class T>
 class ActionFactory : public VirtualActionFactory {
-    virtual Action* createAction(Actor* actor, Core::World& world) override { return new T(actor, world); }
+    Action* createAction(AI::Actor* actor, Core::World& world) override { return new T(actor, world); }
 };
 
 typedef shared_ptr<Action> ActionPtr;

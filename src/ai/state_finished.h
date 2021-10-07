@@ -2,9 +2,9 @@
 
 #include "actor.h"
 
-using namespace std;
+namespace Core::AI {
 
-class StateFinished: public State {
+class StateFinished : public State {
 public:
     explicit StateFinished(StateManager& stateManager);
 
@@ -12,5 +12,7 @@ public:
     void execute(Actor* actor) override;
     void exit(Actor* actor) override;
 
-    void processMessage(Actor *actor, Core::Message &message) override;
+    void processMessage(Actor* actor, Core::Message& message) override;
 };
+
+} // namespace AI

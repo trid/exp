@@ -8,7 +8,7 @@
 namespace Core::Actions {
 
 bool ActionEating::isValid() {
-    return actor->getPosition() == kHomeLocationName;
+    return actor->getPosition() == Core::AI::kHomeLocationName;
 }
 
 void ActionEating::update(int delta) {
@@ -16,7 +16,7 @@ void ActionEating::update(int delta) {
     if (time >= maxTime) {
         time = maxTime;
         actor->setFood(actor->getMaxFood());
-        actor->removeGlobalState(kHungryStateName);
+        actor->removeGlobalState(Core::AI::kHungryStateName);
         _world.removeFood();
         stop();
     }
@@ -30,7 +30,7 @@ bool ActionEating::isFinished() {
     return time >= maxTime;
 }
 
-ActionEating::ActionEating(Actor* actor, Core::World& world) :
+ActionEating::ActionEating(AI::Actor* actor, Core::World& world) :
         Action(actor, world),
         maxTime(kActionEatTime),
         _world(world) {

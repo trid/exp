@@ -3,7 +3,9 @@
 #include "actor.h"
 #include "constants.h"
 
-ActorObject::ActorObject(Actor *actor) {
+namespace Core::AI {
+
+ActorObject::ActorObject(Actor* actor) {
     Core::CallbackParameter<int, Actor>* maxFeed = new Core::CallbackParameter<int, Actor>(actor);
     Core::CallbackParameter<int, Actor>* maxWater = new Core::CallbackParameter<int, Actor>(actor);
 
@@ -16,3 +18,5 @@ ActorObject::ActorObject(Actor *actor) {
     addParameter(kMaxFoodParameter, Core::ParameterPtr(maxFeed));
     addParameter(kMaxWaterParameter, Core::ParameterPtr(maxWater));
 }
+
+} // namespace Core::AI

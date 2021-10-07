@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
     MainScriptContext scriptContext{};
     View view{settings};
     Core::World world(view, app);
-    StateManager stateManager{scriptContext, world};
+    Core::AI::StateManager stateManager{scriptContext, world};
     GUIPanel panel{world, view};
     Core::SystemEventManager systemEventManager{app, panel};
 

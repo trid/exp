@@ -9,7 +9,7 @@ namespace Core::Actions {
 
 class ActionEating : public Action {
 public:
-    ActionEating(Actor* actor, Core::World& world);
+    ActionEating(AI::Actor* actor, Core::World& world);
 
     bool isValid() override;
     void update(int delta) override;

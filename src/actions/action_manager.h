@@ -13,7 +13,7 @@ public:
     ActionManager(Core::World& world);
     ~ActionManager();
 
-    ActionPtr getAction(const std::string& action, Actor* actor);
+    ActionPtr getAction(const std::string& action, AI::Actor* actor);
 private:
     Core::World& _world;
 

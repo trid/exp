@@ -3,7 +3,9 @@
 #include "constants.h"
 #include "state.h"
 
-void StateFinished::processMessage(Actor *actor, Core::Message &message) {
+namespace Core::AI {
+
+void StateFinished::processMessage(Actor* actor, Core::Message& message) {
 
 }
 
@@ -14,3 +16,5 @@ void StateFinished::enter(Actor* actor) { actor->say(kStateFinishedEnterMessage)
 void StateFinished::execute(Actor* actor) { actor->say(kStateFinishedExecuteMessage); }
 
 void StateFinished::exit(Actor* actor) { actor->say(kStateFinishedExitMessage); }
+
+}

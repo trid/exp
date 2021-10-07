@@ -4,12 +4,14 @@
 #include <memory>
 #include "boost/optional.hpp"
 
-class Actor;
-class StateManager;
-
 namespace Core {
 class Message;
 } // namespace Core
+
+namespace Core::AI {
+
+class Actor;
+class StateManager;
 
 class State {
 public:
@@ -29,5 +31,7 @@ private:
 
 using StateUPtr = std::unique_ptr<State>;
 using StateOpt = boost::optional<State&>;
+
+} // namespace Core::AI
 
 #endif // STATE_H

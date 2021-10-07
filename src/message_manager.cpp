@@ -5,11 +5,11 @@
 namespace Core {
 
 void MessageManager::dispatchMessage(int actorId, Message& message) {
-    Actor* actor = _actorRegistry.getActor(actorId);
+    AI::Actor* actor = _actorRegistry.getActor(actorId);
     actor->processMessage(message);
 }
 
-MessageManager::MessageManager(ActorsRegistry& actorRegistry) :
+MessageManager::MessageManager(AI::ActorsRegistry& actorRegistry) :
         _actorRegistry(actorRegistry) {
 
 }

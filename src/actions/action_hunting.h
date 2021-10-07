@@ -8,7 +8,7 @@ private:
     int time = 0;
     int interval;
 public:
-    explicit ActionHunting(Actor* actor, Core::World& world);
+    explicit ActionHunting(AI::Actor* actor, Core::World& world);
 
     virtual bool isValid();
     virtual void update(int delta);

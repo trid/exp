@@ -13,6 +13,8 @@ namespace Core {
 class World;
 } // namespace Core
 
+namespace Core::AI {
+
 class StateManager {
 public:
     StateManager(ScriptContext& scriptManager, Core::World& world);
@@ -20,12 +22,14 @@ public:
     StateOpt getState(const std::string& name);
 
     void registerScriptedStates();
-    void registerScriptedState(char const *tableName, char const *stateName);
+    void registerScriptedState(char const* tableName, char const* stateName);
 private:
     void registerStates(Core::World& world);
 
     std::unordered_map<std::string, StateUPtr> _states;
     ScriptContext& _scriptManager;
 };
+
+} // namespace Core::AI
 
 #endif

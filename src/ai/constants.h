@@ -5,6 +5,8 @@
 #ifndef EXP_AI_CONSTANTS_H
 #define EXP_AI_CONSTANTS_H
 
+namespace Core::AI {
+
 constexpr char kNoStateStateName[] = "NoState";
 constexpr char kHungryStateName[] = "Hungry";
 constexpr char kThirstyStateName[] = "Thirsty";
@@ -40,5 +42,7 @@ constexpr char kStateScriptsPath[] = "scripts/states/";
 
 constexpr char kForestLocationName[] = "forest";
 constexpr char kHomeLocationName[] = "home";
+
+} // namespace Core::AI
 
 #endif //EXP_AI_CONSTANTS_H

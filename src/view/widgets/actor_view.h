@@ -1,8 +1,11 @@
 #include "widget.h"
 #include "ui_manager.h"
 
-class Actor;
 class Label;
+
+namespace Core::AI {
+class Actor;
+}
 
 class ActorView: public Widget {
 public:
@@ -16,7 +19,7 @@ public:
 
     virtual void draw(SDL_Renderer *renderer);
 private:
-    Actor* actor = nullptr;
+    Core::AI::Actor* actor = nullptr;
 
     Label* nameLabel;
     Label* foodLabel;

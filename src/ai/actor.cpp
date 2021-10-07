@@ -12,8 +12,7 @@
 #include "constants.h"
 #include "state.h"
 
-using std::cout;
-using std::endl;
+namespace Core::AI {
 
 void Actor::update() {
     if (!globalStates.empty() && isStateBreackable() && executingState == "") {
@@ -30,8 +29,7 @@ void Actor::update() {
 
     if (!_state) {
         setState(globalStateReactors[kNoStateStateName]);
-    }
-    else {
+    } else {
         _state->execute(this);
     }
 }
@@ -39,14 +37,12 @@ void Actor::update() {
 void Actor::updateStatus() {
     if (food > 0) {
         food--;
-    }
-    else {
+    } else {
         addGlobalState(kHungryStateName);
     }
     if (water > 0) {
         water--;
-    }
-    else {
+    } else {
         addGlobalState(kThirstyStateName);
     }
 }
@@ -59,7 +55,7 @@ void Actor::drink() {
     _world.doAction(this, Core::Actions::kActionDrink);
 }
 
-void Actor::removeGlobalState(const string &stateName) {
+void Actor::removeGlobalState(const string& stateName) {
     globalStates.erase(stateName);
     if (executingState == stateName) {
         executingState = "";
@@ -84,14 +80,14 @@ const string& Actor::getTargetPosition() {
     return target;
 }
 
-void Actor::processMessage(Core::Message &message) {
+void Actor::processMessage(Core::Message& message) {
     if (_state) {
         _state->processMessage(this, message);
     }
 }
 
-void Actor::say(const string &message) {
-    cout << name << ": " << message << endl;
+void Actor::say(const string& message) {
+    std::cout << name << ": " << message << std::endl;
     _guiPanel.addMessage(name + ": " + message);
 }
 
@@ -115,7 +111,7 @@ int Actor::getInventoryLimit() {
     return inventoryLimit;
 }
 
-void Actor::setPosition(const string &position) {
+void Actor::setPosition(const string& position) {
     this->position = position;
     if (position != Core::kPositionInRoute) {
         MapObjectPtr mapObject = _world.getSceneObjectManager().getMapObject(position);
@@ -124,7 +120,7 @@ void Actor::setPosition(const string &position) {
     }
 }
 
-void Actor::addGlobalState(const string &stateName) {
+void Actor::addGlobalState(const string& stateName) {
     globalStates.insert(stateName);
     if (executingState == "" && isStateBreackable()) {
         auto reaction = globalStateReactors[stateName];
@@ -135,11 +131,11 @@ void Actor::addGlobalState(const string &stateName) {
     }
 }
 
-void Actor::setReactor(const string &stateName, StateOpt reactionState) {
+void Actor::setReactor(const string& stateName, StateOpt reactionState) {
     globalStateReactors[stateName] = reactionState;
 }
 
-void Actor::setAction(Core::Actions::ActionPtr &action) {
+void Actor::setAction(Core::Actions::ActionPtr& action) {
     if (currentAction) {
         currentAction->stop();
     }
@@ -157,9 +153,11 @@ bool Actor::hasAction() {
     return currentAction != nullptr;
 }
 
-Actor::Actor(View& view, Core::World& world, GUIPanel& guiPanel):
-    _view(view),
-    _world(world),
-    _guiPanel(guiPanel){}
+Actor::Actor(View& view, Core::World& world, GUIPanel& guiPanel) :
+        _view(view),
+        _world(world),
+        _guiPanel(guiPanel) {}
 
 StateOpt Actor::getState() { return _state; }
+
+} // namespace Core::AI

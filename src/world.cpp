@@ -18,7 +18,7 @@ Core::World* g_world;
 
 namespace Core {
 
-void World::moveActor(Actor* actor, const string& dest) {
+void World::moveActor(AI::Actor* actor, const string& dest) {
     auto route = std::make_shared<Travel>(actor, dest, _sceneObjectManager, *this);
     actor->setPosition(kPositionInRoute);
     inRoute.push_back(route);
@@ -73,12 +73,12 @@ World::World(View& view, Application& application) :
     wellActions.emplace(Actions::kActionDrink);
 }
 
-std::unordered_set<std::string> const& World::getActions(Actor* actor) {
+std::unordered_set<std::string> const& World::getActions(AI::Actor* actor) {
     Location* location = _locationManager.getLocation(actor->getPosition());
     return location->getType()->getActions();
 }
 
-void World::doAction(Actor* actor, const string& action) {
+void World::doAction(AI::Actor* actor, const string& action) {
     const auto& placeActions = getActions(actor);
     if (placeActions.find(action) != placeActions.end()) {
         Actions::ActionPtr actionInstance = _actionManager.getAction(action, actor);

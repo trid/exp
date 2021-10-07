@@ -12,7 +12,7 @@
 
 using std::stringstream;
 
-ActorsRegistry* g_actorsRegistry = nullptr;
+extern Core::AI::ActorsRegistry* g_actorsRegistry;
 
 ActorView::ActorView(int x, int y, const UIManager& uiManager, View& view) :
         Widget(x, y),

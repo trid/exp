@@ -10,7 +10,9 @@ namespace Core {
 class World;
 } // namespace Core
 
-class StateStart: public State {
+namespace Core::AI {
+
+class StateStart : public State {
 public:
     StateStart(StateManager& stateManager, Core::World& world);
 
@@ -18,10 +20,12 @@ public:
     void execute(Actor*) override;
     void exit(Actor* actor) override;;
 
-    void processMessage(Actor *actor, Core::Message &message) override;
+    void processMessage(Actor* actor, Core::Message& message) override;
 
 private:
     Core::World& _world;
 };
 
-#endif
+} // namespace Core::AI
+
+#endif // STATE_START_H

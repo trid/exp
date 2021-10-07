@@ -11,7 +11,7 @@ private:
     int time = 0;
     int maxTime;
 public:
-    ActionDrink(Actor* actor, Core::World& world);
+    ActionDrink(AI::Actor* actor, Core::World& world);
 
     bool isValid() override;
     void update(int delta) override;

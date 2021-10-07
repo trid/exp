@@ -3,9 +3,11 @@
 
 #include <string>
 
-class ActorsRegistry;
-
 namespace Core {
+
+namespace AI {
+class ActorsRegistry;
+}
 
 class Message {
 public:
@@ -15,12 +17,12 @@ public:
 
 class MessageManager {
 public:
-    explicit MessageManager(ActorsRegistry& actorRegistry);
+    explicit MessageManager(AI::ActorsRegistry& actorRegistry);
 
     void dispatchMessage(int actorId, Message& message);
 
 private:
-    ActorsRegistry& _actorRegistry;
+    AI::ActorsRegistry& _actorRegistry;
 };
 
 } // namespace Core

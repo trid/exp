@@ -22,19 +22,22 @@
 #include "view/scene_object_manager.h"
 #include "view/widgets/ui_message_manager.h"
 
-class Actor;
 
 namespace Core {
 
+namespace AI {
+class Actor;
+} // namespace AI
+
 struct Travel {
-    Actor* actor;
+    AI::Actor* actor;
     string dest;
     double distancePassed;
     double distanceNeeded;
     double dx, dy;
     World& world;
 
-    Travel(Actor* actor, const string& dest, SceneObjectManager& sceneObjectManager, World& world)
+    Travel(AI::Actor* actor, const string& dest, SceneObjectManager& sceneObjectManager, World& world)
             : actor(actor), dest(dest),
               distancePassed(0), world(world) {
         MapObjectPtr mapObject = sceneObjectManager.getMapObject(dest);
@@ -58,7 +61,7 @@ class World {
 public:
     World(View& view, Application& application);
 
-    void moveActor(Actor* actor, string const& dest);
+    void moveActor(AI::Actor* actor, string const& dest);
 
     void update(int delta);
 
@@ -82,9 +85,9 @@ public:
 
     void removeFood();
 
-    std::unordered_set<string> const& getActions(Actor* actor);
+    std::unordered_set<string> const& getActions(AI::Actor* actor);
 
-    void doAction(Actor* actor, const string& action);
+    void doAction(AI::Actor* actor, const string& action);
 
     SceneObjectManager& getSceneObjectManager();
 
@@ -107,7 +110,7 @@ private:
     View& _view;
     SceneObjectManager _sceneObjectManager;
     Actions::ActionManager _actionManager;
-    ActorsRegistry _actorsRegistry;
+    AI::ActorsRegistry _actorsRegistry;
     MessageManager _messageManager;
     LocationTypeManager _locationTypeManager;
     LocationManager _locationManager;

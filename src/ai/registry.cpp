@@ -7,11 +7,11 @@
 #include "actor_object.h"
 #include "constants.h"
 
-using std::stringstream;
+Core::AI::ActorsRegistry* g_actorsRegistry = nullptr;
 
-extern ActorsRegistry* g_actorsRegistry;
+namespace Core::AI {
 
-const vector<Actor *> &ActorsRegistry::getActors() {
+const std::vector<Actor*>& ActorsRegistry::getActors() {
     return actors;
 }
 
@@ -21,7 +21,7 @@ Actor& ActorsRegistry::createActor(View& view, Core::World& world, GUIPanel& gui
     nextId++;
     actors.push_back(actor);
     ActorObject* actorObject = new ActorObject(actor);
-    stringstream ss;
+    std::stringstream ss;
     ss << kTemporaryActorNamePrefix << actor->getID();
     ScriptObjectManager::getInstance().addItem(ss.str(), actorObject);
     return *actor;
@@ -33,8 +33,8 @@ void ActorsRegistry::update() {
     }
 }
 
-Actor *ActorsRegistry::getActor(int id) {
-    return (actors.empty()) ? (Actor*)nullptr : actors[id];
+Actor* ActorsRegistry::getActor(int id) {
+    return (actors.empty()) ? (Actor*) nullptr : actors[id];
 }
 
 void ActorsRegistry::ActorRegistryProcess::update(int delta) {
@@ -72,3 +72,5 @@ bool ActorsRegistry::ActorStatusUpdateProcess::finished() {
 
 ActorsRegistry::ActorStatusUpdateProcess::ActorStatusUpdateProcess(ActorsRegistry& actorRegistry) : _actorRegistry(
         actorRegistry) {}
+
+} // namespace Core::AI

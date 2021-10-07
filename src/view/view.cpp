@@ -20,7 +20,7 @@ using namespace std;
 
 extern View* g_view;
 extern SceneObjectManager* g_sceneObjectManager;
-extern ActorsRegistry* g_actorsRegistry;
+extern Core::AI::ActorsRegistry* g_actorsRegistry;
 
 View::View(const Core::Settings& settings):
     _window(settings)
@@ -48,7 +48,7 @@ void View::draw() {
 
     rect.w = 100;
     rect.h = 104;
-    for (Actor* actorItem: g_actorsRegistry->getActors()) {
+    for (Core::AI::Actor* actorItem: g_actorsRegistry->getActors()) {
         rect.x = actorItem->getX();
         rect.y = actorItem->getY();
         SDL_RenderCopy(renderer, actor, nullptr, &rect);

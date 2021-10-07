@@ -7,7 +7,7 @@
 namespace Core::Actions {
 
 bool ActionWoodcutting::isValid() {
-    return actor->getPosition() == kForestLocationName;
+    return actor->getPosition() == Core::AI::kForestLocationName;
 }
 
 void ActionWoodcutting::update(int delta) {
@@ -26,7 +26,7 @@ bool ActionWoodcutting::isFinished() {
     return false;
 }
 
-ActionWoodcutting::ActionWoodcutting(Actor* actor, Core::World& world) :
+ActionWoodcutting::ActionWoodcutting(AI::Actor* actor, Core::World& world) :
         Action(actor, world),
         interval(kWoodcuttingTime) {}
 
