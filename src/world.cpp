@@ -29,17 +29,17 @@ void World::update(int delta) {
         travelPtr->update(delta);
     }
     inRoute.remove_if([](TravelPtr ptr) { return ptr->finished(); });
-    for (ActionPtr actionPtr: actions) {
+    for (Actions::ActionPtr actionPtr: actions) {
         if (actionPtr->isValid() && !actionPtr->isFinished() && actionPtr->isRunning()) {
             actionPtr->update(delta);
         }
     }
-    for (ActionPtr actionPtr: actions) {
+    for (Actions::ActionPtr actionPtr: actions) {
         if (!actionPtr->isValid() || actionPtr->isFinished() || !actionPtr->isRunning()) {
             actionPtr->getActor()->removeAction();
         }
     }
-    actions.remove_if([](ActionPtr ptr) { return ptr->isFinished() || !ptr->isRunning() || !ptr->isValid(); });
+    actions.remove_if([](Actions::ActionPtr ptr) { return ptr->isFinished() || !ptr->isRunning() || !ptr->isValid(); });
 }
 
 void WorldProcess::update(int delta) {
@@ -66,11 +66,11 @@ World::World(View& view, Application& application) :
     ProcessPtr ptr(new WorldProcess(*this));
     application.addProcess(ptr);
 
-    homeActions.emplace(kActionEat);
-    homeActions.emplace(kActionRest);
-    forestActions.emplace(kActionHunt);
-    forestActions.emplace(kActionCutWood);
-    wellActions.emplace(kActionDrink);
+    homeActions.emplace(Actions::kActionEat);
+    homeActions.emplace(Actions::kActionRest);
+    forestActions.emplace(Actions::kActionHunt);
+    forestActions.emplace(Actions::kActionCutWood);
+    wellActions.emplace(Actions::kActionDrink);
 }
 
 std::unordered_set<std::string> const& World::getActions(Actor* actor) {
@@ -81,7 +81,7 @@ std::unordered_set<std::string> const& World::getActions(Actor* actor) {
 void World::doAction(Actor* actor, const string& action) {
     const auto& placeActions = getActions(actor);
     if (placeActions.find(action) != placeActions.end()) {
-        ActionPtr actionInstance = _actionManager.getAction(action, actor);
+        Actions::ActionPtr actionInstance = _actionManager.getAction(action, actor);
         actor->setAction(actionInstance);
         actions.push_back(actionInstance);
     }

@@ -4,7 +4,9 @@ namespace Core {
 class World;
 } // namespace Core
 
-class ActionDrink: public Action {
+namespace Core::Actions {
+
+class ActionDrink : public Action {
 private:
     int time = 0;
     int maxTime;
@@ -16,3 +18,5 @@ public:
     int progress() override;
     bool isFinished() override;
 };
+
+} // namespace Core::Actions

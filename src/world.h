@@ -102,11 +102,11 @@ private:
     std::unordered_set<string> forestActions;
     std::unordered_set<string> wellActions;
 
-    std::list<ActionPtr> actions;
+    std::list<Actions::ActionPtr> actions;
 
     View& _view;
     SceneObjectManager _sceneObjectManager;
-    ActionManager _actionManager;
+    Actions::ActionManager _actionManager;
     ActorsRegistry _actorsRegistry;
     MessageManager _messageManager;
     LocationTypeManager _locationTypeManager;

@@ -5,6 +5,8 @@
 
 #include "constants.h"
 
+namespace Core::Actions {
+
 bool ActionEating::isValid() {
     return actor->getPosition() == kHomeLocationName;
 }
@@ -28,10 +30,11 @@ bool ActionEating::isFinished() {
     return time >= maxTime;
 }
 
-ActionEating::ActionEating(Actor* actor, Core::World& world):
+ActionEating::ActionEating(Actor* actor, Core::World& world) :
         Action(actor, world),
         maxTime(kActionEatTime),
-        _world(world)
-{
+        _world(world) {
 
 }
+
+} // namespace Core::Actions

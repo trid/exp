@@ -4,6 +4,8 @@
 
 #include "constants.h"
 
+namespace Core::Actions {
+
 bool ActionHunting::isValid() {
     return actor->getPosition() == kForestLocationName;
 }
@@ -24,6 +26,8 @@ bool ActionHunting::isFinished() {
     return false;
 }
 
-ActionHunting::ActionHunting(Actor* actor, Core::World& world):
-    Action(actor, world),
-    interval(kActionHuntTime) { }
+ActionHunting::ActionHunting(Actor* actor, Core::World& world) :
+        Action(actor, world),
+        interval(kActionHuntTime) {}
+
+} // namespace Core::Actions

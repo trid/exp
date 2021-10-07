@@ -11,6 +11,8 @@ namespace Core {
 class World;
 } // namespace Core
 
+namespace Core::Actions {
+
 class Action {
 private:
     bool running = true;
@@ -22,11 +24,13 @@ public:
     virtual int progress() = 0;
     virtual bool isFinished() = 0;
 
-    bool isRunning() { return running; }
-    void stop() { running = false; }
-    Actor* getActor() { return actor; }
+    [[nodiscard]] bool isRunning() const;
 
-    Action(Actor* actor, Core::World&): actor(actor) {}
+    void stop();
+
+    Actor* getActor();
+
+    Action(Actor* actor, Core::World&);
 };
 
 class VirtualActionFactory {
@@ -34,10 +38,13 @@ public:
     virtual Action* createAction(Actor* actor, Core::World& world) = 0;
 };
 
-template <class T> class ActionFactory: public VirtualActionFactory {
+template<class T>
+class ActionFactory : public VirtualActionFactory {
     virtual Action* createAction(Actor* actor, Core::World& world) override { return new T(actor, world); }
 };
 
 typedef shared_ptr<Action> ActionPtr;
+
+} // namespace Core::Actions
 
 #endif

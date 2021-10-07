@@ -5,6 +5,8 @@
 #ifndef EXP_ACTIONS_CONSTANTS_H
 #define EXP_ACTIONS_CONSTANTS_H
 
+namespace Core::Actions {
+
 constexpr char kWellLocationName[] = "well";
 
 constexpr char kActionDrinkExecutedMessage[] = "Ooh! Not thirsty anymore!";
@@ -19,5 +21,7 @@ constexpr char kActionRest[] = "rest";
 constexpr char kActionHunt[] = "hunt";
 constexpr char kActionCutWood[] = "cut_wood";
 constexpr char kActionDrink[] = "drink";
+
+} // namespace Core::Actions
 
 #endif //EXP_ACTIONS_CONSTANTS_H

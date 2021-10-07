@@ -4,6 +4,8 @@
 
 #include "constants.h"
 
+namespace Core::Actions {
+
 bool ActionWoodcutting::isValid() {
     return actor->getPosition() == kForestLocationName;
 }
@@ -25,5 +27,7 @@ bool ActionWoodcutting::isFinished() {
 }
 
 ActionWoodcutting::ActionWoodcutting(Actor* actor, Core::World& world) :
-    Action(actor, world),
-    interval(kWoodcuttingTime) {}
+        Action(actor, world),
+        interval(kWoodcuttingTime) {}
+
+} // namespace Core::Actions

@@ -6,6 +6,8 @@
 
 #include "action.h"
 
+namespace Core::Actions {
+
 class ActionManager {
 public:
     ActionManager(Core::World& world);
@@ -17,5 +19,7 @@ private:
 
     std::unordered_map<std::string, VirtualActionFactory*> _actionMap;
 };
+
+} // namespace Core::Actions
 
 #endif // ACTION_MANAGER_H

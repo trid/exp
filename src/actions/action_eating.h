@@ -5,7 +5,9 @@ namespace Core {
 class World;
 } // namespace Core
 
-class ActionEating: public Action {
+namespace Core::Actions {
+
+class ActionEating : public Action {
 public:
     ActionEating(Actor* actor, Core::World& world);
 
@@ -19,3 +21,5 @@ private:
 
     Core::World& _world;
 };
+
+} // namespace Core::Actions

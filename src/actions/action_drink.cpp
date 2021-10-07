@@ -5,6 +5,8 @@
 
 #include "constants.h"
 
+namespace Core::Actions {
+
 bool ActionDrink::isValid() {
     return actor->getPosition() == kWellLocationName;
 }
@@ -27,6 +29,8 @@ bool ActionDrink::isFinished() {
     return time >= maxTime;
 }
 
-ActionDrink::ActionDrink(Actor* actor, Core::World& world):
-    Action(actor, world),
-    maxTime(kActionDrinkTime) {}
+ActionDrink::ActionDrink(Actor* actor, Core::World& world) :
+        Action(actor, world),
+        maxTime(kActionDrinkTime) {}
+
+} // namespace Core::Actions

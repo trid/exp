@@ -65,7 +65,7 @@ public:
 
     void removeGlobalState(std::string const &stateName);
 
-    void setAction(ActionPtr& action);
+    void setAction(Core::Actions::ActionPtr& action);
     void removeAction();
     bool hasAction();
 
@@ -91,7 +91,7 @@ private:
     std::string executingState;
     std::unordered_set <std::string> globalStates;
     std::unordered_map <std::string, StateOpt> globalStateReactors;
-    ActionPtr currentAction;
+    Core::Actions::ActionPtr currentAction;
 
     View& _view;
     Core::World& _world;

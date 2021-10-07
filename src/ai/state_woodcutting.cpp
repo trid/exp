@@ -32,7 +32,7 @@ void StateWoodcutting::exit(Actor* actor) {
 
 void StateWoodcutting::enter(Actor* actor) {
     actor->say(kStateWoodcuttingEnterMessage);
-    _world.doAction(actor, kActionCutWood);
+    _world.doAction(actor, Core::Actions::kActionCutWood);
 }
 
 StateWoodcutting::StateWoodcutting(StateManager& stateManager, Core::World& world):

@@ -6,9 +6,10 @@
 
 #include "constants.h"
 
-ActionManager::ActionManager(Core::World& world):
-    _world(world)
-{
+namespace Core::Actions {
+
+ActionManager::ActionManager(Core::World& world) :
+        _world(world) {
     _actionMap[kActionDrink] = new ActionFactory<ActionDrink>;
     _actionMap[kActionEat] = new ActionFactory<ActionEating>;
     _actionMap[kActionCutWood] = new ActionFactory<ActionWoodcutting>;
@@ -21,6 +22,8 @@ ActionManager::~ActionManager() {
     }
 }
 
-ActionPtr ActionManager::getAction(const std::string &action, Actor *actor) {
+ActionPtr ActionManager::getAction(const std::string& action, Actor* actor) {
     return ActionPtr(_actionMap[action]->createAction(actor, _world));
 }
+
+} // namespace Core::Actions

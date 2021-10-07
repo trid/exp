@@ -1,7 +1,9 @@
 #include "action.h"
 #include "../ai/actor.h"
 
-class ActionWoodcutting: public Action {
+namespace Core::Actions {
+
+class ActionWoodcutting : public Action {
 private:
     int time = 0;
     int interval = 200;
@@ -13,3 +15,5 @@ public:
     virtual int progress();
     virtual bool isFinished();
 };
+
+} // namespace Core::Actions

@@ -52,11 +52,11 @@ void Actor::updateStatus() {
 }
 
 void Actor::eat() {
-    _world.doAction(this, kActionEat);
+    _world.doAction(this, Core::Actions::kActionEat);
 }
 
 void Actor::drink() {
-    _world.doAction(this, kActionDrink);
+    _world.doAction(this, Core::Actions::kActionDrink);
 }
 
 void Actor::removeGlobalState(const string &stateName) {
@@ -139,7 +139,7 @@ void Actor::setReactor(const string &stateName, StateOpt reactionState) {
     globalStateReactors[stateName] = reactionState;
 }
 
-void Actor::setAction(ActionPtr &action) {
+void Actor::setAction(Core::Actions::ActionPtr &action) {
     if (currentAction) {
         currentAction->stop();
     }
