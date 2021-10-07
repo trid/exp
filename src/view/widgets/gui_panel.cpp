@@ -12,18 +12,20 @@
 #include "constants.h"
 #include "label.h"
 
-extern GUIPanel* g_panel;
+extern View::Widgets::GUIPanel* g_panel;
 
-class WoodUpdaterListener: public IUIMessageListener {
+namespace View::Widgets {
+
+class WoodUpdaterListener : public IUIMessageListener {
 private:
     Label& _label;
     const Core::World& _world;
 public:
-    WoodUpdaterListener(Label& label, const Core::World& world):
-        _label(label),
-        _world(world) {}
+    WoodUpdaterListener(Label& label, const Core::World& world) :
+            _label(label),
+            _world(world) {}
 
-    virtual bool listen(UIMessageData const &messageData) {
+    virtual bool listen(UIMessageData const& messageData) {
         std::stringstream ss;
         ss << kWoodLabelPrefix << _world.getWood();
         _label.setText(ss.str());
@@ -31,16 +33,16 @@ public:
     }
 };
 
-class FoodUpdaterListener: public IUIMessageListener {
+class FoodUpdaterListener : public IUIMessageListener {
 private:
     Label& _label;
     const Core::World& _world;
 public:
-    FoodUpdaterListener(Label& label, const Core::World& world):
-        _label(label),
-        _world(world) {}
+    FoodUpdaterListener(Label& label, const Core::World& world) :
+            _label(label),
+            _world(world) {}
 
-    virtual bool listen(UIMessageData const &messageData) {
+    virtual bool listen(UIMessageData const& messageData) {
         std::stringstream ss;
         ss << kFoodLabelPrefix << _world.getFood();
         _label.setText(ss.str());
@@ -48,9 +50,8 @@ public:
     }
 };
 
-GUIPanel::GUIPanel(const Core::World& world, View& view):
-    _world(world)
-{
+GUIPanel::GUIPanel(const Core::World& world, View::ViewFacade& view) :
+        _world(world) {
     g_panel = this;
 
     auto& uiManager = view.getUiManager();
@@ -87,3 +88,5 @@ void GUIPanel::showNextAgent() {
 void GUIPanel::showPrevAgent() {
     _actorView->prevActor();
 }
+
+} // namespace

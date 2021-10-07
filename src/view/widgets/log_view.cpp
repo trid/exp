@@ -1,10 +1,12 @@
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_ttf.h>
 #include "log_view.h"
-#include "../view.h"
+#include "../view_facade.h"
 #include "ui_manager.h"
 
-void LogView::draw(SDL_Renderer *renderer) {
+namespace View::Widgets {
+
+void LogView::draw(SDL_Renderer* renderer) {
     if (dirty) {
         if (surface) {
             SDL_DestroyTexture(surface);
@@ -42,7 +44,7 @@ void LogView::draw(SDL_Renderer *renderer) {
     SDL_RenderCopy(renderer, surface, nullptr, &rect);
 }
 
-void LogView::addMessage(const string &message) {
+void LogView::addMessage(const string& message) {
     messages.push_back(message);
     while (messages.size() > 10) {
         messages.pop_front();
@@ -51,12 +53,13 @@ void LogView::addMessage(const string &message) {
     dirty = true;
 }
 
-LogView::LogView(View& view, const UIManager& uiManager, int x, int y):
+LogView::LogView(View::ViewFacade& view, const UIManager& uiManager, int x, int y) :
         Widget(x, y),
         _view(view),
-        _uiManager(uiManager)
-{
+        _uiManager(uiManager) {
     textColor.r = 255;
     textColor.g = 255;
     textColor.b = 255;
 }
+
+} // namespace View::Widgets

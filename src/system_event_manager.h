@@ -6,13 +6,13 @@ namespace Core {
 
 class SystemEventManager {
 public:
-    SystemEventManager(Application& application, GUIPanel& guiPanel);
+    SystemEventManager(Application& application, View::Widgets::GUIPanel& guiPanel);
 
     void process();
 
 private:
     Application& _application;
-    GUIPanel& _guiPanel;
+    View::Widgets::GUIPanel& _guiPanel;
 };
 
 } // namespace Core

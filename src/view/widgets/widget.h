@@ -4,6 +4,8 @@
 #include <memory>
 #include <SDL2/SDL_render.h>
 
+namespace View::Widgets {
+
 class Widget {
 private:
     int x, y;
@@ -23,4 +25,6 @@ public:
 
 typedef std::shared_ptr<Widget> WidgetPtr;
 
-#endif
+} // namespace View::Widgets
+
+#endif // WIDGET_H

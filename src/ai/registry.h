@@ -39,7 +39,7 @@ public:
 public:
     ActorsRegistry(Core::Application& application);
 
-    Actor& createActor(View& view, Core::World& world, GUIPanel& guiPanel);
+    Actor& createActor(View::ViewFacade& view, Core::World& world, View::Widgets::GUIPanel& guiPanel);
     Actor* getActor(int id);
     const std::vector<Actor*>& getActors();
     void killActor(int id);

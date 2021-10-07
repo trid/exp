@@ -11,7 +11,7 @@
 #include "../ai/registry.h"
 
 #include "../view/scene_object_manager.h"
-#include "../view/view.h"
+#include "../view/view_facade.h"
 
 #include "constants.h"
 #include "script_functions.h"
@@ -20,11 +20,11 @@
 using std::cout;
 
 Core::AI::StateManager* g_stateManager = nullptr;
-View* g_view = nullptr;
-SceneObjectManager* g_sceneObjectManager = nullptr;
+View::ViewFacade* g_view = nullptr;
+View::SceneObjectManager* g_sceneObjectManager = nullptr;
 extern Core::World* g_world;
 extern Core::AI::ActorsRegistry* g_actorsRegistry;
-GUIPanel* g_panel;
+View::Widgets::GUIPanel* g_panel;
 extern Scripting::ScriptObjectManager* g_scriptObjectManager;
 
 namespace Scripting {

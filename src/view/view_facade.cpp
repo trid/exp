@@ -1,7 +1,7 @@
 #include <iostream>
 #include <sstream>
 
-#include "view.h"
+#include "view_facade.h"
 
 #include "../ai/actor.h"
 #include "../ai/registry.h"
@@ -16,22 +16,22 @@
 #include "widgets/actor_view.h"
 #include "widgets/ui_manager.h"
 
-using namespace std;
 
-extern View* g_view;
-extern SceneObjectManager* g_sceneObjectManager;
+extern View::ViewFacade* g_view;
+extern View::SceneObjectManager* g_sceneObjectManager;
 extern Core::AI::ActorsRegistry* g_actorsRegistry;
 
-View::View(const Core::Settings& settings):
-    _window(settings)
-{
+namespace View {
+
+ViewFacade::ViewFacade(const Core::Settings& settings) :
+        _window(settings) {
     background = IMG_LoadTexture(_window.getRenderer(), kGrassSpritePath);
     actor = IMG_LoadTexture(_window.getRenderer(), kActorSpritePath);
 
     g_view = this;
 }
 
-void View::draw() {
+void ViewFacade::draw() {
     auto renderer = _window.getRenderer();
     SDL_RenderClear(renderer);
 
@@ -59,19 +59,20 @@ void View::draw() {
     SDL_RenderPresent(renderer);
 }
 
-Uint32 View::getScreenPixelFormat() {
+Uint32 ViewFacade::getScreenPixelFormat() {
     return _window.getScreenPixelFormat();
 }
 
-UIManager& View::getUiManager() {
+Widgets::UIManager& ViewFacade::getUiManager() {
     return _uiManager;
 }
 
-UIMessageManager& View::getUIMessageManager() {
+UIMessageManager& ViewFacade::getUIMessageManager() {
     return _uiMessageManager;
 }
 
-Window& View::getWindow() {
+Window& ViewFacade::getWindow() {
     return _window;
 }
 
+} // namespace View

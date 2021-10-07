@@ -2,13 +2,15 @@
 #include "map_object_view.h"
 #include "../location.h"
 
+namespace View {
+
 MapObjectView::MapObjectView() {
 }
 
 MapObjectView::~MapObjectView() {
 }
 
-void MapObjectView::draw(SDL_Renderer *renderer) {
+void MapObjectView::draw(SDL_Renderer* renderer) {
     SDL_Rect rect;
     rect.x = getX();
     rect.y = getY();
@@ -23,3 +25,5 @@ int MapObjectView::getX() const {
 int MapObjectView::getY() const {
     return location->getYPos();
 }
+
+} // namespace View

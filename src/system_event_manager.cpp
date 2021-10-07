@@ -1,7 +1,7 @@
 #include <SDL2/SDL_events.h>
 #include "system_event_manager.h"
 #include "application.h"
-#include "view/view.h"
+#include "view/view_facade.h"
 
 namespace Core {
 
@@ -22,7 +22,7 @@ void SystemEventManager::process() {
     }
 }
 
-SystemEventManager::SystemEventManager(Application& application, GUIPanel& guiPanel) :
+SystemEventManager::SystemEventManager(Application& application, View::Widgets::GUIPanel& guiPanel) :
         _application(application),
         _guiPanel(guiPanel) {}
 

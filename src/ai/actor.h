@@ -8,8 +8,14 @@
 #include "../actions/action.h"
 #include "state.h"
 
+
+namespace View {
+class ViewFacade;
+
+namespace Widgets {
 class GUIPanel;
-class View;
+} // namespace Widgets
+} // namespace View
 
 namespace Core {
 class World;
@@ -21,7 +27,7 @@ class Actor {
     friend class ActorsRegistry;
 
 public:
-    explicit Actor(View& view, Core::World& world, GUIPanel& guiPanel);
+    explicit Actor(View::ViewFacade& view, Core::World& world, View::Widgets::GUIPanel& guiPanel);
 
     void update();
     void eat();
@@ -127,9 +133,9 @@ private:
     std::unordered_map<std::string, StateOpt> globalStateReactors;
     Core::Actions::ActionPtr currentAction;
 
-    View& _view;
+    View::ViewFacade& _view;
     Core::World& _world;
-    GUIPanel& _guiPanel;
+    View::Widgets::GUIPanel& _guiPanel;
 };
 
 } // namespace Core::AI

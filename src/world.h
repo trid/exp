@@ -20,7 +20,7 @@
 
 #include "view/map_object_view.h"
 #include "view/scene_object_manager.h"
-#include "view/widgets/ui_message_manager.h"
+#include "view/ui_message_manager.h"
 
 
 namespace Core {
@@ -37,10 +37,10 @@ struct Travel {
     double dx, dy;
     World& world;
 
-    Travel(AI::Actor* actor, const string& dest, SceneObjectManager& sceneObjectManager, World& world)
+    Travel(AI::Actor* actor, const string& dest, View::SceneObjectManager& sceneObjectManager, World& world)
             : actor(actor), dest(dest),
               distancePassed(0), world(world) {
-        MapObjectPtr mapObject = sceneObjectManager.getMapObject(dest);
+        View::MapObjectPtr mapObject = sceneObjectManager.getMapObject(dest);
         int xDist = mapObject->getX() - actor->getX();
         int yDist = mapObject->getY() - actor->getY();
         double angle = atan2(yDist, xDist);
@@ -59,7 +59,7 @@ typedef std::shared_ptr<Travel> TravelPtr;
 
 class World {
 public:
-    World(View& view, Application& application);
+    World(View::ViewFacade& view, Application& application);
 
     void moveActor(AI::Actor* actor, string const& dest);
 
@@ -89,7 +89,7 @@ public:
 
     void doAction(AI::Actor* actor, const string& action);
 
-    SceneObjectManager& getSceneObjectManager();
+    View::SceneObjectManager& getSceneObjectManager();
 
     MessageManager& getMessageManager();
 
@@ -107,8 +107,8 @@ private:
 
     std::list<Actions::ActionPtr> actions;
 
-    View& _view;
-    SceneObjectManager _sceneObjectManager;
+    View::ViewFacade& _view;
+    View::SceneObjectManager _sceneObjectManager;
     Actions::ActionManager _actionManager;
     AI::ActorsRegistry _actorsRegistry;
     MessageManager _messageManager;

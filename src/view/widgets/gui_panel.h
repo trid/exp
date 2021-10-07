@@ -10,17 +10,21 @@
 
 #include "widget.h"
 
-class View;
+namespace View {
+class ViewFacade;
+} // namespace View
 
 namespace Core {
 class World;
 } // namespace Core
 
+namespace View::Widgets {
+
 class GUIPanel {
 public:
-    GUIPanel(const Core::World& world, View& view);
+    GUIPanel(const Core::World& world, View::ViewFacade& view);
 
-    void addMessage(const string &message);
+    void addMessage(const string& message);
     void showNextAgent();
     void showPrevAgent();
 private:
@@ -31,5 +35,7 @@ private:
     std::shared_ptr<LogView> _logView;
     std::shared_ptr<ActorView> _actorView;
 };
+
+} // namespace View::Widgets
 
 #endif //EXP_PANEL_H

@@ -1,24 +1,24 @@
 #include "label.h"
-#include "../view.h"
+#include "../view_facade.h"
 #include "ui_manager.h"
 
+namespace View::Widgets {
 
 Label::Label(int x, int y, const UIManager& uiManager, const string& text) :
         Widget(x, y), text(text),
-        _uiManager(uiManager)
-{
+        _uiManager(uiManager) {
     textColor.r = 255;
     textColor.g = 255;
     textColor.b = 255;
     textColor.a = 0;
 }
 
-void Label::setText(const string &text) {
+void Label::setText(const string& text) {
     this->text = text;
     _dirty = true;
 }
 
-void Label::draw(SDL_Renderer *renderer) {
+void Label::draw(SDL_Renderer* renderer) {
     if (_dirty) {
         _dirty = false;
         if (renderedText) {
@@ -37,3 +37,5 @@ void Label::draw(SDL_Renderer *renderer) {
     rect.h = h;
     SDL_RenderCopy(renderer, renderedText, nullptr, &rect);
 }
+
+} // namespace View::Widgets

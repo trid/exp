@@ -11,6 +11,8 @@ namespace Core {
 class Settings;
 } // namespace Core
 
+namespace View {
+
 class Window {
 public:
     explicit Window(const Core::Settings& settings);
@@ -30,5 +32,6 @@ private:
     SDL_Renderer* _renderer;
 };
 
+} // namespace View
 
 #endif //EXP_WINDOW_H

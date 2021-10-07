@@ -4,15 +4,15 @@
 
 namespace Core {
 
-void LocationManager::createLocation(const string& type, const string& name, int xPos, int yPos,
-                                     SceneObjectManager& sceneObjectManager) {
+void LocationManager::createLocation(const std::string& type, const std::string& name, int xPos, int yPos,
+                                     View::SceneObjectManager& sceneObjectManager) {
     Location* location = new Location(_locationTypeManager.getLocationType(type), name, xPos, yPos);
     locations.push_back(location);
     locationsByName[name] = location;
     sceneObjectManager.createMapObject(location);
 }
 
-Location* LocationManager::getLocation(const string& name) {
+Location* LocationManager::getLocation(const std::string& name) {
     return locationsByName[name];
 }
 

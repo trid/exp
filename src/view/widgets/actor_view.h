@@ -1,15 +1,17 @@
 #include "widget.h"
 #include "ui_manager.h"
 
-class Label;
-
 namespace Core::AI {
 class Actor;
 }
 
-class ActorView: public Widget {
+namespace View::Widgets {
+
+class Label;
+
+class ActorView : public Widget {
 public:
-    ActorView(int x, int y, const UIManager& uiManager, View& view);
+    ActorView(int x, int y, const UIManager& uiManager, ViewFacade& view);
     virtual ~ActorView();
 
     void updateLabels();
@@ -17,7 +19,7 @@ public:
     void prevActor();
 
 
-    virtual void draw(SDL_Renderer *renderer);
+    virtual void draw(SDL_Renderer* renderer);
 private:
     Core::AI::Actor* actor = nullptr;
 
@@ -27,5 +29,7 @@ private:
     Label* placeLabel;
 
     const UIManager& _uiManager;
-    View& _view;
+    ViewFacade& _view;
 };
+
+} // namespace View::Widgets

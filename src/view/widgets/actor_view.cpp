@@ -4,21 +4,20 @@
 #include "../../ai/actor.h"
 #include "../../ai/registry.h"
 
-#include "../view.h"
+#include "../view_facade.h"
 
 #include "actor_view.h"
 #include "constants.h"
 #include "label.h"
 
-using std::stringstream;
-
 extern Core::AI::ActorsRegistry* g_actorsRegistry;
 
-ActorView::ActorView(int x, int y, const UIManager& uiManager, View& view) :
+namespace View::Widgets {
+
+ActorView::ActorView(int x, int y, const UIManager& uiManager, ViewFacade& view) :
         Widget(x, y),
         _uiManager(uiManager),
-        _view(view)
-{
+        _view(view) {
     int fontHeight = TTF_FontHeight(_uiManager.getFont());
     nameLabel = new Label(0, 0, _uiManager, kNameLabelPrefix);
     foodLabel = new Label(0, fontHeight, _uiManager, kFoodLabelPrefix);
@@ -43,13 +42,14 @@ void ActorView::prevActor() {
     updateLabels();
 }
 
-void ActorView::draw(SDL_Renderer *renderer) {
+void ActorView::draw(SDL_Renderer* renderer) {
     updateLabels();
 
-    //TODO: move it to constructor after moving UI item out from View class
+    //TODO: move it to constructor after moving UI item out from ViewFacade class
     if (!surface) {
         int fontHeight = TTF_FontHeight(_uiManager.getFont());
-        surface = SDL_CreateTexture(renderer, _view.getScreenPixelFormat(), SDL_TEXTUREACCESS_TARGET, 200, fontHeight * 4);
+        surface = SDL_CreateTexture(renderer, _view.getScreenPixelFormat(), SDL_TEXTUREACCESS_TARGET, 200,
+                                    fontHeight * 4);
         SDL_SetTextureBlendMode(surface, SDL_BLENDMODE_BLEND);
     }
 
@@ -77,7 +77,7 @@ void ActorView::updateLabels() {
         return;
     }
     nameLabel->setText(kNameLabelPrefix + actor->getName());
-    stringstream ss;
+    std::stringstream ss;
     ss << kFoodLabelPrefix << actor->getFood();
     foodLabel->setText(ss.str());
     ss.str("");
@@ -92,3 +92,5 @@ ActorView::~ActorView() {
     delete nameLabel;
     delete placeLabel;
 }
+
+} // namespace View::Widgets

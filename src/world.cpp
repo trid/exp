@@ -12,7 +12,7 @@
 
 #include "ai/actor.h"
 
-#include "view/view.h"
+#include "view/view_facade.h"
 
 Core::World* g_world;
 
@@ -55,7 +55,7 @@ WorldProcess::WorldProcess(World& world) :
 
 }
 
-World::World(View& view, Application& application) :
+World::World(View::ViewFacade& view, Application& application) :
         _view(view),
         _sceneObjectManager(view),
         _actionManager(*this),
@@ -103,7 +103,7 @@ void World::addWood(int i) {
     _view.getUIMessageManager().sendMessage(kWoodUpdatedMessage, UIMessageData());
 }
 
-SceneObjectManager& World::getSceneObjectManager() {
+View::SceneObjectManager& World::getSceneObjectManager() {
     return _sceneObjectManager;
 }
 

@@ -4,26 +4,33 @@
 #include <string>
 #include <unordered_map>
 #include <list>
+
 #include "map_object_view.h"
 
 class Location;
-class View;
 
 namespace Core {
 class Location;
 } // namespace Core
 
+namespace View {
+
+class MapObjectView;
+class ViewFacade;
+
 class SceneObjectManager {
 public:
-    SceneObjectManager(View& view);
+    SceneObjectManager(ViewFacade& view);
 
-    MapObjectView *createMapObject(Core::Location *location);
-    void removeSceneObject(const string& name);
-    MapObjectPtr getMapObject(const string& name);
+    MapObjectView* createMapObject(Core::Location* location);
+    void removeSceneObject(const std::string& name);
+    MapObjectPtr getMapObject(const std::string& name);
     void draw(SDL_Renderer* renderer);
 private:
-    std::unordered_map<string, MapObjectPtr> mapObjects;
-    std::unordered_map<string, SDL_Texture*> sprites;
+    std::unordered_map<std::string, MapObjectPtr> mapObjects;
+    std::unordered_map<std::string, SDL_Texture*> sprites;
 };
+
+} // namespace View
 
 #endif

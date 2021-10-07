@@ -15,16 +15,16 @@ class LocationManager {
 public:
     LocationManager(LocationTypeManager& locationTypeManager);
 
-    void createLocation(const string& type,
-                        const string& name,
+    void createLocation(const std::string& type,
+                        const std::string& name,
                         int xPos, int yPos,
-                        SceneObjectManager& sceneObjectManager);
-    Location* getLocation(const string& name);
+                        View::SceneObjectManager& sceneObjectManager);
+    Location* getLocation(const std::string& name);
     const std::vector<Location*>& getLocations();
 
 private:
     std::vector<Location*> locations;
-    std::unordered_map<string, Location*> locationsByName;
+    std::unordered_map<std::string, Location*> locationsByName;
 
     LocationTypeManager& _locationTypeManager;
 };

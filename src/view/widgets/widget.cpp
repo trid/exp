@@ -1,14 +1,15 @@
 #include "widget.h"
 
+namespace View::Widgets {
+
 Widget::~Widget() {
     if (surface) {
         SDL_DestroyTexture(surface);
     }
 }
 
-Widget::Widget():
-    x(0), y(0)
-{
+Widget::Widget() :
+        x(0), y(0) {
 
 }
 
@@ -21,3 +22,5 @@ void Widget::setX(int x) { Widget::x = x; }
 int Widget::getY() const { return y; }
 
 void Widget::setY(int y) { Widget::y = y; }
+
+} // namespace View::Widgets

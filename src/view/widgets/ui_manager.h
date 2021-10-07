@@ -7,15 +7,21 @@
 
 #include "SDL2/SDL_ttf.h"
 
-class View;
+namespace View {
+class ViewFacade;
+} // namespace View
+
+namespace View::Widgets {
 
 class UIManager {
 public:
     UIManager();
 
-    void draw(View& view);
+    void draw(ViewFacade& view);
     void addWidget(WidgetPtr widget);
+
     [[nodiscard]] TTF_Font* getFont() const { return font; };
+
     [[nodiscard]] TTF_Font* getConsoleFont() const { return logFont; };
 
 private:
@@ -24,5 +30,7 @@ private:
     TTF_Font* font;
     TTF_Font* logFont;
 };
+
+} // namespace View::Widgets
 
 #endif // UI_MANAGER_H

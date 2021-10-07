@@ -5,9 +5,11 @@
 
 using std::string;
 
+namespace View::Widgets {
+
 class UIManager;
 
-class Label: public Widget {
+class Label : public Widget {
 public:
     Label(int x, int y, const UIManager& uiManager, const string& text = "");
     void setText(const string& text);
@@ -20,3 +22,5 @@ private:
 
     const UIManager& _uiManager;
 };
+
+} // namespace View::Widgets

@@ -1,18 +1,19 @@
-#ifndef MAP_OBJECT_H
-#define MAP_OBJECT_H
+#ifndef MAP_OBJECT_VIEW_H
+#define MAP_OBJECT_VIEW_H
 
 #include <string>
 #include <memory>
 #include <SDL2/SDL_render.h>
 
-using std::string;
-
 namespace Core {
 class Location;
 } // namespace Core
 
+namespace View {
+
 class MapObjectView {
-friend class SceneObjectManager;
+    friend class SceneObjectManager;
+
 private:
     SDL_Texture* image;
     Core::Location* location;
@@ -25,6 +26,8 @@ public:
     int getY() const;
 };
 
-typedef std::shared_ptr<MapObjectView> MapObjectPtr;
+using MapObjectPtr = std::shared_ptr<MapObjectView>;
 
-#endif
+} // namespace View
+
+#endif // MAP_OBJECT_VIEW_H

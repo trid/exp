@@ -9,6 +9,8 @@
 #include "../settings.h"
 #include "constants.h"
 
+namespace View {
+
 Window::Window(const Core::Settings& settings) {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         std::cout << kSDLInitErrorMessage << std::endl;
@@ -40,3 +42,5 @@ int Window::getHeight() const { return _windowHeight; }
 Uint32 Window::getScreenPixelFormat() {
     return SDL_GetWindowPixelFormat(_windowImpl);
 }
+
+} // namespace View
