@@ -10,7 +10,7 @@
 namespace Core::AI {
 
 void ScriptedState::callFunction(Actor* actor, const std::string& function) {
-    _scriptContext.callFunctionInTable(_tableName, function, {actor});
+    _scriptContext.callFunctionInTable(_tableName, function, actor);
 }
 
 void ScriptedState::execute(Actor* actor) {
@@ -34,7 +34,7 @@ ScriptedState::ScriptedState(StateManager& stateManager, Scripting::ScriptContex
 }
 
 void ScriptedState::processMessage(Actor* actor, Core::Message& message) {
-    _scriptContext.callFunctionInTable(_tableName, kScriptProcessMessageMethodName, {actor, &message});
+    _scriptContext.callFunctionInTable(_tableName, kScriptProcessMessageMethodName, actor, message);
 }
 
 } // namespace Core::AI

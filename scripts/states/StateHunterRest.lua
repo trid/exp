@@ -5,23 +5,23 @@
 --
 
 function enterHunterRest(actor)
-    say(actor, "At home and going rest!")
+    actor:say("At home and going rest!")
 end
 
 function executeHunterRest(actor)
-    say(actor, "Resting from hunt!")
+    actor:say("Resting from hunt!")
     if (getFeed(actor) == 0) then
         eat(actor)
     end
     if (getStoredFood() <= 10) then
-        say(actor, "I have a hunt to do!")
-        setState(actor, "StateHunterInRoute")
-        sendTo(actor, "forest")
+        actor:say("I have a hunt to do!")
+        setState(actor, "StateHunterInRoute", g_stateManager)
+        g_world:moveActor(actor, "forest")
     end
 end
 
 function exitHunterRest(actor)
-    say(actor, "Returning from rest!")
+    actor:say("Returning from rest!")
 end
 
 StateHunterRest = {
@@ -30,6 +30,6 @@ StateHunterRest = {
     exit = exitHunterRest
 }
 
+g_stateManager:registerScriptedState("StateHunterRest", "StateHunterRest", g_scriptContext)
 print("Registered StateHunterRest\n")
-registerScriptedState("StateHunterRest", "StateHunterRest")
 

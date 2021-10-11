@@ -2,18 +2,6 @@ cmake_minimum_required(VERSION 3.20)
 
 project(exp)
 
-if (WIN32)
-	include_directories(external/lua/include)
-else()
-	include_directories(/usr/include/lua5.2)
-
-	find_package(Boost COMPONENTS system filesystem REQUIRED)
-	include_directories(${Boost_INCLUDE_DIRS})
-
-	find_package(SDL2)
-	include_directories(${SDL2_INCLUDE_DIR})
-endif (WIN32)
-
 file(GLOB ACTIONS_SOURCE_FILES src/actions/*.cpp)
 file(GLOB AI_SOURCE_FILES src/ai/*.cpp)
 file(GLOB CORE_SOURCE_FILES src/*.cpp)
@@ -29,6 +17,11 @@ include_directories(${BOOST_INCLUDEDIR})
 
 find_package(SDL2 REQUIRED)
 include_directories(SDL2Test ${SDL2_INCLUDE_DIRS})
+
+find_package(Lua51 REQUIRED)
+include_directories(/usr/local/include ${LUA_INCLUDE_DIR})
+
+include_directories(src/external)
 
 add_executable(exp ${CORE_SOURCE_FILES}
 					${ACTIONS_SOURCE_FILES}

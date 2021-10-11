@@ -119,6 +119,10 @@ LocationManager& World::getLocationManager() {
     return _locationManager;
 }
 
+AI::ActorsRegistry& World::getActorsRegistry() {
+    return _actorsRegistry;
+}
+
 
 void Travel::update(int delta) {
     distancePassed += actor->getSpeed() * delta / 1000;

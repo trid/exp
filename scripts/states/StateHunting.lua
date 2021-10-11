@@ -7,21 +7,21 @@
 --
 
 function enterHunting(actor)
-    say(actor, "Started hunt!")
+    actor:say("Started hunt!")
     doAction(actor, "hunt")
 end
 
 function executeHunting(actor)
-    say(actor, "Hunting! Yum, fresh meat!")
+    actor:say("Hunting! Yum, fresh meat!")
 
     if (getStoredFood() >= 20) then
-        say(actor, "Have enough food, returning home.")
-        setState(actor, "StateHunterInRoute")
-        sendTo(actor, "home")
+        actor:say("Have enough food, returning home.")
+        setState(actor, "StateHunterInRoute", g_stateManager)
+        g_world:moveActor(actor, "home")
     elseif (getInventory(actor) == getInventorySize(actor)) then
-        say(actor, "My bag is heavy, returning home.")
-        setState(actor, "StateHunterInRoute")
-        sendTo(actor, "home")
+        actor:say("My bag is heavy, returning home.")
+        setState(actor, "StateHunterInRoute", g_stateManager)
+        g_world:moveActor(actor, "home")
     end
 end
 
@@ -35,6 +35,6 @@ StateHunting = {
     exit = exitHunting
 }
 
+g_stateManager:registerScriptedState("StateHunting", "StateHunting", g_scriptContext)
 print("Registered StateHunting\n")
-registerScriptedState("StateHunting", "StateHunting")
 

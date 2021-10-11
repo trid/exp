@@ -8,6 +8,7 @@
 namespace Scripting {
 
 constexpr char kScriptMessagePrefix[] = "LUA: ";
+constexpr char kStateScriptsPath[] = "scripts/states/";
 
 } // namespace Scripting
 

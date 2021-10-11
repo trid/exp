@@ -12,26 +12,23 @@ createSceneObject(200, 200, "well", "well")
 
 print("Creating woodcutter\n")
 
-woodcutter = createActor()
-setName(woodcutter, "John Wood")
-setReaction(woodcutter, "NoState", "StateStart")
-setReaction(woodcutter, "thirsty", "StateWoodcutterThirsty")
-setReaction(woodcutter, "hungry", "StateWoodcutterHungry")
-moveTo(woodcutter, "home")
+woodcutter = createActor(g_actorsRegistry)
+woodcutter:setName("John Wood")
+setReaction(woodcutter, "NoState", "StateStart", g_stateManager)
+setReaction(woodcutter, "thirsty", "StateWoodcutterThirsty", g_stateManager)
+setReaction(woodcutter, "hungry", "StateWoodcutterHungry", g_stateManager)
+woodcutter:setPosition("home")
 
-woodcutterObject = getScriptObject("actor" .. getId(woodcutter))
-woodcutterMaxFoodParameter = getObjectParameter(woodcutterObject, "maxFood")
-setParameterValue(woodcutterMaxFoodParameter, 120);
-woodcutterMaxWaterParameter = getObjectParameter(woodcutterObject, "maxWater")
-setParameterValue(woodcutterMaxWaterParameter, 90);
+woodcutter:setMaxFood(120);
+woodcutter:setMaxWater(90);
 
 
 print("Creating hunter\n")
 
-hunter = createActor()
-setName(hunter, "Hunter Smith")
-setReaction(hunter, "NoState", "StateHunterStart")
-setReaction(hunter, "thirsty", "StateHunterThirsty")
-setReaction(hunter, "hungry", "StateHunterHungry")
-moveTo(hunter, "home")
+hunter = createActor(g_actorsRegistry)
+hunter:setName("Hunter Smith")
+setReaction(hunter, "NoState", "StateHunterStart", g_stateManager)
+setReaction(hunter, "thirsty", "StateHunterThirsty", g_stateManager)
+setReaction(hunter, "hungry", "StateHunterHungry", g_stateManager)
+hunter:setPosition("home")
 

@@ -4,33 +4,50 @@
 
 #include "main_script_context.h"
 
+#include <boost/filesystem.hpp>
+
+#include "../world.h"
+
+#include "../ai/actor.h"
+#include "../ai/registry.h"
+#include "../ai/state_manager.h"
+
+#include "../view/view_facade.h"
+#include "../view/widgets/gui_panel.h"
+
+#include "constants.h"
 #include "script_functions.h"
 
 namespace Scripting {
 
-MainScriptContext::MainScriptContext() :
-        ScriptContext() {
+MainScriptContext::MainScriptContext(Core::World& world,
+                                     Core::AI::StateManager& stateManager) :
+        ScriptContext(),
+        _world(world),
+        _stateManager(stateManager) {
+    getState().open_libraries(sol::lib::base);
     registerFunctions();
+    registerClasses();
+    registerGlobals();
+
+    registerScriptedStates();
 }
 
 void MainScriptContext::registerFunctions() {
-    registerFunction("print", print);
-    registerFunction("registerScriptedState", registerScriptedState);
-    registerFunction("setState", setState);
-    registerFunction("moveTo", moveTo);
+    auto& state = getState();
+    state["print"] = &print;
+    state["setState"] = &setState;
+    state["setReaction"] = &setReaction;
+    state["createActor"] = &createActor;
     registerFunction("getThirsty", getThirsty);
     registerFunction("drink", drink);
     registerFunction("getPlace", getPlace);
-    registerFunction("sendTo", sendTo);
     registerFunction("eat", eat);
     registerFunction("getFeed", getFeed);
-    registerFunction("say", say);
-    registerFunction("setName", setName);
     registerFunction("getInventory", getInventory);
     registerFunction("getInventorySize", getInventorySize);
     registerFunction("unloadWood", unloadWood);
     registerFunction("unloadFood", unloadFood);
-    registerFunction("setReaction", setReaction);
     registerFunction("setStateBreackable", setStateBreackable);
     registerFunction("hasAction", hasAction);
     registerFunction("doAction", doAction);
@@ -41,13 +58,48 @@ void MainScriptContext::registerFunctions() {
     registerFunction("getStoredFood", getStoredFood);
     registerFunction("getStoredWood", getStoredWood);
 
-    registerFunction("createActor", createActor);
-
     registerFunction("createSceneObject", createSceneObject);
+}
 
-    registerFunction("getScriptObject", getScriptObject);
-    registerFunction("getObjectParameter", getObjectParameter);
-    registerFunction("setParameterValue", setParameterValue);
+void MainScriptContext::registerClasses() {
+    auto& state = getState();
+
+    state.new_usertype<Core::AI::Actor>("Actor",
+                                        "setState", &Core::AI::Actor::setState,
+                                        "say", &Core::AI::Actor::say,
+                                        "setName", &Core::AI::Actor::setName,
+                                        "setPosition", &Core::AI::Actor::setPosition,
+                                        "setMaxFood", &Core::AI::Actor::setMaxFood,
+                                        "setMaxWater", &Core::AI::Actor::setMaxWater);
+
+    state.new_usertype<Core::AI::ActorsRegistry>("ActorsRegistry",
+                                                 "createActor", &Core::AI::ActorsRegistry::createActor);
+
+    state.new_usertype<Core::AI::StateManager>("StateManager",
+                                               "registerScriptedState", &Core::AI::StateManager::registerScriptedState);
+
+    state.new_usertype<Core::World>("World",
+                                    "moveActor", &Core::World::moveActor);
+}
+
+void MainScriptContext::registerGlobals() {
+    auto& state = getState();
+    state["g_actorsRegistry"] = std::ref(_world.getActorsRegistry());
+    state["g_scriptContext"] = std::ref(static_cast<ScriptContext&>(*this));
+    state["g_stateManager"] = std::ref(_stateManager);
+    state["g_world"] = std::ref(_world);
+}
+
+void MainScriptContext::registerScriptedStates() {
+    using boost::filesystem::path;
+    using boost::filesystem::directory_iterator;
+    using boost::filesystem::directory_entry;
+
+    path p(kStateScriptsPath);
+
+    for (auto it = directory_iterator(p); it != directory_iterator(); it++) {
+        loadScript(it->path().string());
+    }
 }
 
 } // namespace Scripting

@@ -9,16 +9,32 @@
 #include "script_context.h"
 #include "script_object_manager.h"
 
+namespace Core {
+class World;
+}
+
+namespace Core::AI {
+class ActorsRegistry;
+class StateManager;
+}
+
 namespace Scripting {
 
-class MainScriptContext : public ScriptContext {
+class MainScriptContext : public Scripting::ScriptContext {
 public:
-    MainScriptContext();
+    MainScriptContext(Core::World& world,
+                      Core::AI::StateManager& stateManager);
 
 private:
     void registerFunctions();
+    void registerClasses();
+    void registerGlobals();
+
+    void registerScriptedStates();
 
     ScriptObjectManager _scriptObjectManager;
+    Core::World& _world;
+    Core::AI::StateManager& _stateManager;
 };
 
 } // namespace Scripting

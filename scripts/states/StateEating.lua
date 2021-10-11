@@ -5,19 +5,19 @@
 --
 
 function enterEating(actor)
-    say(actor, "Oh! Food!\n")
+    actor:say("Oh! Food!\n")
     eat(actor)
 end
 
 function executeEating(actor)
-    say(actor, "Chew!\n")
+    actor:say("Chew!\n")
     if (not hasAction(actor)) then
-        setState(actor, nil)
+        setState(actor, "", g_stateManager)
     end
 end
 
 function exitEating(actor)
-    say(actor, "Not thirsty anymore")
+    actor:say("Not thirsty anymore")
 end
 
 StateEating = {
@@ -26,6 +26,6 @@ StateEating = {
     exit = exitEating
 }
 
+g_stateManager:registerScriptedState("StateEating", "StateEating", g_scriptContext)
 print("Registered StateEating\n")
-registerScriptedState("StateEating", "StateEating")
 

@@ -7,33 +7,33 @@
 --
 
 function enter(actor)
-    say(actor, "Starting my hunter's day!\n")
+    actor:say("Starting my hunter's day!\n")
 end
 
 function execute(actor)
     if (getStoredFood() >= 20) then
         if (getPlace(actor) == "home") then
-            setState(actor, "StateHunterRest")
+            setState(actor, "StateHunterRest", g_stateManager)
         else
-            setState(actor, "StateHunterInRoute")
-            sendTo(actor, "home");
+            setState(actor, "StateHunterInRoute", g_stateManager)
+            g_world:moveActor(actor, "home");
         end
     else
-        say(actor, "I'll go to forest and hunt!\n")
-        sendTo(actor, "forest");
-        setState(actor, "StateHunterInRoute")
+        actor:say("I'll go to forest and hunt!\n")
+        g_world:moveActor(actor, "forest");
+        setState(actor, "StateHunterInRoute", g_stateManager)
     end
 end
 
 function exit(actor)
-    say(actor, "Got to do something!\n")
+    actor:say("Got to do something!\n")
 end
 
-state_hunter_start = {
+StateHunterStart = {
     enter = enter,
     execute = execute,
     exit = exit
 }
 
+g_stateManager:registerScriptedState("StateHunterStart", "StateHunterStart", g_scriptContext)
 print("Registered StateHunterStart\n")
-registerScriptedState("StateHunterStart", "state_hunter_start")

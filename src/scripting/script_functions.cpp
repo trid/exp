@@ -1,6 +1,8 @@
+#include "script_functions.h"
+
 #include <iostream>
 
-#include <lua5.1/lua.hpp>
+#include "lua.hpp"
 
 #include "../constants.h"
 #include "../location_manager.h"
@@ -14,53 +16,27 @@
 #include "../view/view_facade.h"
 
 #include "constants.h"
-#include "script_functions.h"
 #include "script_object_manager.h"
 
-using std::cout;
 
-Core::AI::StateManager* g_stateManager = nullptr;
 View::ViewFacade* g_view = nullptr;
 View::SceneObjectManager* g_sceneObjectManager = nullptr;
 extern Core::World* g_world;
-extern Core::AI::ActorsRegistry* g_actorsRegistry;
 View::Widgets::GUIPanel* g_panel;
-extern Scripting::ScriptObjectManager* g_scriptObjectManager;
 
 namespace Scripting {
 
-int print(lua_State* state) {
-    char const* str = lua_tostring(state, 1);
-    cout << kScriptMessagePrefix << str;
-    return 0;
+void print(const std::string& message) {
+    std::cout << kScriptMessagePrefix << message;
 }
 
-int registerScriptedState(lua_State* state) {
-    const char* stateName = lua_tostring(state, -2);
-    const char* tableName = lua_tostring(state, -1);
-
-    g_stateManager->registerScriptedState(tableName, stateName);
-    return 0;
-}
-
-int setState(lua_State* state) {
-    auto* actor = (Core::AI::Actor*) lua_topointer(state, -2);
-    if (lua_isnil(state, -1)) {
-        actor->setState(boost::none);
+void setState(Core::AI::Actor& actor, const std::string& stateName, Core::AI::StateManager& stateManager) {
+    if (stateName.empty()) {
+        actor.setState(boost::none);
     } else {
-        const char* stateName = lua_tostring(state, -1);
-
-        auto actorState = g_stateManager->getState(stateName);
-        actor->setState(actorState);
+        auto actorState = stateManager.getState(stateName);
+        actor.setState(actorState);
     }
-    return 0;
-}
-
-int moveTo(lua_State* state) {
-    auto* actor = (Core::AI::Actor*) lua_topointer(state, -2);
-    const char* place = lua_tostring(state, -1);
-    actor->setPosition(place);
-    return 0;
 }
 
 int getThirsty(lua_State* state) {
@@ -84,15 +60,6 @@ int getPlace(lua_State* state) {
     return 1;
 }
 
-int sendTo(lua_State* state) {
-    auto* actor = (Core::AI::Actor*) lua_topointer(state, -2);
-    const char* direction = lua_tostring(state, -1);
-
-    g_world->moveActor(actor, direction);
-
-    return 0;
-}
-
 int eat(lua_State* state) {
     auto* actor = (Core::AI::Actor*) lua_topointer(state, -1);
     actor->eat();
@@ -103,24 +70,6 @@ int eat(lua_State* state) {
 int getFeed(lua_State* state) {
     auto* actor = (Core::AI::Actor*) lua_topointer(state, -1);
     lua_pushinteger(state, actor->getFood());
-
-    return 1;
-}
-
-int say(lua_State* state) {
-    auto* actor = (Core::AI::Actor*) lua_topointer(state, -2);
-    const char* message = lua_tostring(state, -1);
-
-    actor->say(message);
-
-    return 1;
-}
-
-int setName(lua_State* state) {
-    auto* actor = (Core::AI::Actor*) lua_topointer(state, -2);
-    const char* name = lua_tostring(state, -1);
-
-    actor->setName(name);
 
     return 1;
 }
@@ -153,14 +102,8 @@ int unloadFood(lua_State* state) {
     return 0;
 }
 
-int setReaction(lua_State* state) {
-    auto* actor = (Core::AI::Actor*) lua_topointer(state, -3);
-    const char* reactionName = lua_tostring(state, -2);
-    const char* stateName = lua_tostring(state, -1);
-
-    actor->setReactor(reactionName, g_stateManager->getState(stateName));
-
-    return 1;
+void setReaction(Core::AI::Actor& actor, const std::string& reactionType, const std::string& stateName, Core::AI::StateManager& stateManager) {
+    actor.setReactor(reactionType, stateManager.getState(stateName));
 }
 
 int setStateBreackable(lua_State* state) {
@@ -218,11 +161,8 @@ int getStoredWood(lua_State* state) {
 }
 
 //Actor registry
-int createActor(lua_State* state) {
-    Core::AI::Actor& actor = g_actorsRegistry->createActor(*g_view, *g_world, *g_panel);
-    lua_pushlightuserdata(state, &actor);
-
-    return 1;
+Core::AI::Actor& createActor(Core::AI::ActorsRegistry& actorsRegistry) {
+    return actorsRegistry.createActor(*g_view, *g_world, *g_panel);
 }
 
 //Scene objects
@@ -238,45 +178,6 @@ int createSceneObject(lua_State* state) {
     g_world->getLocationManager().createLocation(type, name, x, y, *g_sceneObjectManager);
 
     return 0;
-}
-
-//Script objects
-int getScriptObject(lua_State* state) {
-    const char* name = lua_tostring(state, -1);
-    lua_pushlightuserdata(state, g_scriptObjectManager->getItem(name));
-    return 1;
-}
-
-int getObjectParameter(lua_State* state) {
-    auto* actorObject = (Core::AI::ActorObject*) lua_topointer(state, -2);
-    const char* paramName = lua_tostring(state, -1);
-    lua_pushlightuserdata(state, actorObject->getParameter(paramName).get());
-    return 1;
-}
-
-int setParameterValue(lua_State* state) {
-    Core::AbstractParameter* parameter = (Core::AbstractParameter*) lua_topointer(state, -2);
-    if (lua_isnumber(state, -1)) {
-        //Small trouble in LUA: it does not care about int or string convertible to int. Same with strings. Fuck.
-        parameter->setData((int) lua_tointeger(state, -1));
-        return 0;
-    }
-    if (lua_isstring(state, -1)) {
-        parameter->setData(lua_tostring(state, -1));
-        return 0;
-    }
-    return 1;
-}
-
-int getParameterValue(lua_State* state) {
-    Core::AbstractParameter* parameter = (Core::AbstractParameter*) lua_topointer(state, -1);
-    if (parameter->getType() == typeid(int)) {
-        lua_pushinteger(state, parameter->getInt());
-    }
-    if (parameter->getType() == typeid(string)) {
-        lua_pushstring(state, parameter->getString().c_str());
-    }
-    return 1;
 }
 
 } // namespace Scripting

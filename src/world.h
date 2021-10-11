@@ -94,6 +94,7 @@ public:
     MessageManager& getMessageManager();
 
     LocationManager& getLocationManager();
+    AI::ActorsRegistry& getActorsRegistry();
 
 private:
     std::list<TravelPtr> inRoute;

@@ -7,16 +7,16 @@
 --
 
 function enterHunterInRoute(actor)
-    say(actor, "Start moving!")
+    actor:say("Start moving!")
     setStateBreackable(actor, false)
 end
 
 function executeHunterInRoute(actor)
-    say(actor, "On my way! I'm clever and fast!")
+    actor:say("On my way! I'm clever and fast!")
 end
 
 function exitHunterInRoute(actor)
-    say(actor, "Finished moving!")
+    actor:say("Finished moving!")
     setStateBreackable(actor, true)
 end
 
@@ -27,14 +27,14 @@ function processMessageHunterInRoute(actor, message)
             unloadFood(actor)
         end
         if (getPlace(actor) == "forest") then
-            say(actor, "Returned to forest!")
-            setState(actor, "StateHunting")
+            actor:say("Returned to forest!")
+            setState(actor, "StateHunting", g_stateManager)
         elseif (getPlace(actor) == "well") then
-             setState(actor, "StateDrinking")
+             setState(actor, "StateDrinking", g_stateManager)
         elseif (getPlace(actor) == "home" and getStoredFood() >= 20) then
-            setState(actor, "StateHunterRest")
+            setState(actor, "StateHunterRest", g_stateManager)
         elseif (getPlace(actor) == "home") then
-            setState(actor, "StateEating")
+            setState(actor, "StateEating", g_stateManager)
         end
     end
 end
@@ -46,5 +46,5 @@ StateHunterInRoute = {
     processMessage = processMessageHunterInRoute
 }
 
+g_stateManager:registerScriptedState("StateHunterInRoute", "StateHunterInRoute", g_scriptContext)
 print("Registered StateHunterInRoute\n")
-registerScriptedState("StateHunterInRoute", "StateHunterInRoute")

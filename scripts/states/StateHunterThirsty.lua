@@ -5,13 +5,13 @@
 --
 
 function enterHunterThirsty(actor)
-    say(actor, "I want to drink!\n")
+    actor:say("I want to drink!\n")
 end
 
 function executeHunterThirsty(actor)
-    say(actor, "I'll go to the well!\n")
-    sendTo(actor, "well");
-    setState(actor, "StateHunterInRoute")
+    actor:say("I'll go to the well!\n")
+    g_world:moveActor(actor, "well");
+    setState(actor, "StateHunterInRoute", g_stateManager)
 end
 
 function exitHunterThirsty(actor)
@@ -24,5 +24,5 @@ StateHunterThirsty = {
     exit = exitHunterThirsty
 }
 
+g_stateManager:registerScriptedState("StateHunterThirsty", "StateHunterThirsty", g_scriptContext)
 print("Registered StateHunterThirsty\n")
-registerScriptedState("StateHunterThirsty", "StateHunterThirsty")

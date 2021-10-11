@@ -5,19 +5,19 @@
 --
 
 function enterDrinking(actor)
-    say(actor, "Oh! Water!")
+    actor:say("Oh! Water!")
     drink(actor)
 end
 
 function executeDrinking(actor)
-    say(actor, "Gulp!")
+    actor:say("Gulp!")
     if (not hasAction(actor)) then
-        setState(actor, nil)
+        setState(actor, "", g_stateManager)
     end
 end
 
 function exitDrinking(actor)
-    say(actor, "Enough drinking.")
+    actor:say("Enough drinking.")
 end
 
 StateDrinking = {
@@ -26,6 +26,6 @@ StateDrinking = {
     exit = exitDrinking
 }
 
+g_stateManager:registerScriptedState("StateDrinking", "StateDrinking", g_scriptContext)
 print("Registered StateDrinking\n")
-registerScriptedState("StateDrinking", "StateDrinking")
 

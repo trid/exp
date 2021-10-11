@@ -21,14 +21,13 @@ using namespace std;
 int main(int argc, char* argv[]) {
     Core::Application app{};
     Core::Settings settings{};
-    Scripting::MainScriptContext scriptContext{};
     View::ViewFacade view{settings};
     Core::World world(view, app);
-    Core::AI::StateManager stateManager{scriptContext, world};
+    Core::AI::StateManager stateManager{world};
     View::Widgets::GUIPanel panel{world, view};
     Core::SystemEventManager systemEventManager{app, panel};
+    Scripting::MainScriptContext scriptContext{world, stateManager};
 
-    stateManager.registerScriptedStates();
     scriptContext.loadScript(Core::kInitScriptPath);
 
     while (app.isRunning()) {

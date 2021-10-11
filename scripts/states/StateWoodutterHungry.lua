@@ -5,16 +5,16 @@
 --
 
 function enterWoodcutterHungry(actor)
-    say(actor, "I want to eat something!\n")
+    actor:say("I want to eat something!\n")
 end
 
 function executeWoodcutterHungry(actor)
     if (getPlace(actor) == "home") then
-        setState(actor, "StateEating")
+        setState(actor, "StateEating", g_stateManager)
     else
-        say(actor, "I'll go to home!\n")
-        sendTo(actor, "home");
-        setState(actor, "StateWoodcutterInRoute")
+        actor:say("I'll go to home!\n")
+        g_world:moveActor(actor, "home");
+        setState(actor, "StateWoodcutterInRoute", g_stateManager)
     end
 end
 
@@ -28,5 +28,5 @@ StateWoodcutterHungry = {
     exit = exitWoodcutterHungry
 }
 
+g_stateManager:registerScriptedState("StateWoodcutterHungry", "StateWoodcutterHungry", g_scriptContext)
 print("Registered StateWoodcutterHungry\n")
-registerScriptedState("StateWoodcutterHungry", "StateWoodcutterHungry")

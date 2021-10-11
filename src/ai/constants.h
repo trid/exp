@@ -38,8 +38,6 @@ constexpr char kStateFinishedName[] = "StateFinished";
 constexpr char kStateWoodcuttingName[] = "StateWoodcutting";
 constexpr char kStateWoodcutterInRoute[] = "StateWoodcutterInRoute";
 
-constexpr char kStateScriptsPath[] = "scripts/states/";
-
 constexpr char kForestLocationName[] = "forest";
 constexpr char kHomeLocationName[] = "home";
 

@@ -7,16 +7,16 @@
 --
 
 function enterWoodcutterInRoute(actor)
-    say(actor, "Start moving!")
+    actor:say("Start moving!")
     setStateBreackable(actor, false)
 end
 
 function executeWoodcutterInRoute(actor)
-    say(actor, "On my way!")
+    actor:say("On my way!")
 end
 
 function exitWoodcutterInRoute(actor)
-    say(actor, "Finished moving!")
+    actor:say("Finished moving!")
     setStateBreackable(actor, true)
 end
 
@@ -27,22 +27,22 @@ function processMessageWoodcutterInRoute(actor, message)
             unloadWood(actor)
         end
         if (getPlace(actor) == "forest") then
-            setState(actor, "StateWoodcutting")
+            setState(actor, "StateWoodcutting", g_stateManager)
         elseif (getPlace(actor) == "home" and getThirsty(actor) == 0) then
-            setState(actor, "StateWoodcutterInRoute")
-            sendTo(actor, "well");
+            setState(actor, "StateWoodcutterInRoute", g_stateManager)
+            g_world:moveActor(actor, "well");
         elseif (getPlace(actor) == "home" and getFeed(actor) == 0) then
-            setState(actor, "StateEating")
+            setState(actor, "StateEating", g_stateManager)
         elseif (getPlace(actor) == "well") then
-            setState(actor, "StateDrinking")
+            setState(actor, "StateDrinking", g_stateManager)
         elseif (getPlace(actor) == "home" and getStoredWood() >= 300) then
-            setState(actor, "StateFinished")
+            setState(actor, "StateFinished", g_stateManager)
         elseif (getPlace(actor) == "home" and getThirsty() ~= 0 and getFeed() ~= 0) then
-            setState(actor, "StateWoodcutterInRoute")
-            sendTo(actor, "forest")
+            setState(actor, "StateWoodcutterInRoute", g_stateManager)
+            g_world:moveActor(actor, "forest")
         elseif (getPlace(actor) ~= "home" and getWood() >= 300) then
-            setState(actor, "StateWoodcutterInRoute")
-            sendTo(actor, "home")
+            setState(actor, "StateWoodcutterInRoute", g_stateManager)
+            g_world:moveActor(actor, "home")
         end
     end
 end
@@ -54,6 +54,6 @@ StateWoodcutterInRoute = {
     processMessage = processMessageWoodcutterInRoute
 }
 
+g_stateManager:registerScriptedState("StateWoodcutterInRoute", "StateWoodcutterInRoute", g_scriptContext)
 print("Registered StateWoodcutterInRoute\n")
-registerScriptedState("StateWoodcutterInRoute", "StateWoodcutterInRoute")
 

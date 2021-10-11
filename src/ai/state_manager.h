@@ -19,17 +19,16 @@ namespace Core::AI {
 
 class StateManager {
 public:
-    StateManager(Scripting::ScriptContext& scriptManager, Core::World& world);
+    explicit StateManager(Core::World& world);
 
     StateOpt getState(const std::string& name);
 
-    void registerScriptedStates();
-    void registerScriptedState(char const* tableName, char const* stateName);
+    void registerScriptedState(const std::string& tableName, const std::string& stateName,
+                               Scripting::ScriptContext& scriptContext);
 private:
     void registerStates(Core::World& world);
 
     std::unordered_map<std::string, StateUPtr> _states;
-    Scripting::ScriptContext& _scriptManager;
 };
 
 } // namespace Core::AI
