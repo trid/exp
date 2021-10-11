@@ -12,7 +12,7 @@ end
 
 function execute(actor)
     if (getStoredFood() >= 20) then
-        if (getPlace(actor) == "home") then
+        if (actor:getPosition() == "home") then
             setState(actor, "StateHunterRest", g_stateManager)
         else
             setState(actor, "StateHunterInRoute", g_stateManager)

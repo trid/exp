@@ -39,19 +39,8 @@ void MainScriptContext::registerFunctions() {
     state["setState"] = &setState;
     state["setReaction"] = &setReaction;
     state["createActor"] = &createActor;
-    registerFunction("getThirsty", getThirsty);
-    registerFunction("drink", drink);
-    registerFunction("getPlace", getPlace);
-    registerFunction("eat", eat);
-    registerFunction("getFeed", getFeed);
-    registerFunction("getInventory", getInventory);
-    registerFunction("getInventorySize", getInventorySize);
-    registerFunction("unloadWood", unloadWood);
-    registerFunction("unloadFood", unloadFood);
-    registerFunction("setStateBreackable", setStateBreackable);
-    registerFunction("hasAction", hasAction);
+
     registerFunction("doAction", doAction);
-    registerFunction("getId", getId);
 
     registerFunction("getMessageType", getMessageType);
 
@@ -70,7 +59,18 @@ void MainScriptContext::registerClasses() {
                                         "setName", &Core::AI::Actor::setName,
                                         "setPosition", &Core::AI::Actor::setPosition,
                                         "setMaxFood", &Core::AI::Actor::setMaxFood,
-                                        "setMaxWater", &Core::AI::Actor::setMaxWater);
+                                        "setMaxWater", &Core::AI::Actor::setMaxWater,
+                                        "getWater", &Core::AI::Actor::getWater,
+                                        "drink", &Core::AI::Actor::drink,
+                                        "getPosition", &Core::AI::Actor::getPosition,
+                                        "eat", &Core::AI::Actor::eat,
+                                        "getFood", &Core::AI::Actor::getFood,
+                                        "getInventory", &Core::AI::Actor::getInventory,
+                                        "getInventoryLimit", &Core::AI::Actor::getInventoryLimit,
+                                        "unloadWood", &Core::AI::Actor::unloadWood,
+                                        "unloadFood", &Core::AI::Actor::unloadFood,
+                                        "setStateBreackable", &Core::AI::Actor::setStateBreackable,
+                                        "hasAction", &Core::AI::Actor::hasAction);
 
     state.new_usertype<Core::AI::ActorsRegistry>("ActorsRegistry",
                                                  "createActor", &Core::AI::ActorsRegistry::createActor);

@@ -9,7 +9,7 @@ function enterHunterHungry(actor)
 end
 
 function executeHunterHungry(actor)
-    if (getPlace(actor) == "home") then
+    if (actor:getPosition() == "home") then
         setState(actor, "StateEating", g_stateManager)
     else
         actor:say("I'll go to home!\n")

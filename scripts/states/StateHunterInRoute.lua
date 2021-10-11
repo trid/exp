@@ -8,7 +8,7 @@
 
 function enterHunterInRoute(actor)
     actor:say("Start moving!")
-    setStateBreackable(actor, false)
+    actor:setStateBreackable(false)
 end
 
 function executeHunterInRoute(actor)
@@ -17,23 +17,23 @@ end
 
 function exitHunterInRoute(actor)
     actor:say("Finished moving!")
-    setStateBreackable(actor, true)
+    actor:setStateBreackable(true)
 end
 
 function processMessageHunterInRoute(actor, message)
     if (getMessageType(message) == "FINISHED_MOVING") then
         -- Always check if we at home and unload food
-        if (getPlace(actor) == "home") then
-            unloadFood(actor)
+        if (actor:getPosition() == "home") then
+            actor:unloadFood()
         end
-        if (getPlace(actor) == "forest") then
+        if (actor:getPosition() == "forest") then
             actor:say("Returned to forest!")
             setState(actor, "StateHunting", g_stateManager)
-        elseif (getPlace(actor) == "well") then
+        elseif (actor:getPosition() == "well") then
              setState(actor, "StateDrinking", g_stateManager)
-        elseif (getPlace(actor) == "home" and getStoredFood() >= 20) then
+        elseif (actor:getPosition() == "home" and getStoredFood() >= 20) then
             setState(actor, "StateHunterRest", g_stateManager)
-        elseif (getPlace(actor) == "home") then
+        elseif (actor:getPosition() == "home") then
             setState(actor, "StateEating", g_stateManager)
         end
     end

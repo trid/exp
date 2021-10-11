@@ -6,12 +6,12 @@
 
 function enterDrinking(actor)
     actor:say("Oh! Water!")
-    drink(actor)
+    actor:drink()
 end
 
 function executeDrinking(actor)
     actor:say("Gulp!")
-    if (not hasAction(actor)) then
+    if (not actor:hasAction()) then
         setState(actor, "", g_stateManager)
     end
 end

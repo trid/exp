@@ -39,102 +39,8 @@ void setState(Core::AI::Actor& actor, const std::string& stateName, Core::AI::St
     }
 }
 
-int getThirsty(lua_State* state) {
-    auto* actor = (Core::AI::Actor*) lua_topointer(state, -1);
-    int water = actor->getWater();
-    lua_pushinteger(state, water);
-    return 1;
-}
-
-int drink(lua_State* state) {
-    auto* actor = (Core::AI::Actor*) lua_topointer(state, -1);
-    actor->drink();
-    return 0;
-}
-
-int getPlace(lua_State* state) {
-    auto* actor = (Core::AI::Actor*) lua_topointer(state, -1);
-    const string& place = actor->getPosition();
-    lua_pushstring(state, place.c_str());
-
-    return 1;
-}
-
-int eat(lua_State* state) {
-    auto* actor = (Core::AI::Actor*) lua_topointer(state, -1);
-    actor->eat();
-
-    return 0;
-}
-
-int getFeed(lua_State* state) {
-    auto* actor = (Core::AI::Actor*) lua_topointer(state, -1);
-    lua_pushinteger(state, actor->getFood());
-
-    return 1;
-}
-
-int getInventory(lua_State* state) {
-    auto* actor = (Core::AI::Actor*) lua_topointer(state, -1);
-    lua_pushinteger(state, actor->getInventory());
-
-    return 1;
-}
-
-int getInventorySize(lua_State* state) {
-    auto* actor = (Core::AI::Actor*) lua_topointer(state, -1);
-    lua_pushinteger(state, actor->getInventoryLimit());
-
-    return 1;
-}
-
-int unloadWood(lua_State* state) {
-    auto* actor = (Core::AI::Actor*) lua_topointer(state, -1);
-    actor->unloadWood();
-
-    return 0;
-}
-
-int unloadFood(lua_State* state) {
-    auto* actor = (Core::AI::Actor*) lua_topointer(state, -1);
-    actor->unloadFood();
-
-    return 0;
-}
-
 void setReaction(Core::AI::Actor& actor, const std::string& reactionType, const std::string& stateName, Core::AI::StateManager& stateManager) {
     actor.setReactor(reactionType, stateManager.getState(stateName));
-}
-
-int setStateBreackable(lua_State* state) {
-    auto* actor = (Core::AI::Actor*) lua_topointer(state, -2);
-    bool breackable = (bool) lua_toboolean(state, -1);
-    actor->setStateBreackable(breackable);
-
-    return 1;
-}
-
-int hasAction(lua_State* state) {
-    auto* actor = (Core::AI::Actor*) lua_topointer(state, -1);
-    bool hasAction = actor->hasAction();
-    lua_pushboolean(state, hasAction);
-
-    return 1;
-}
-
-int doAction(lua_State* state) {
-    auto* actor = (Core::AI::Actor*) lua_topointer(state, -2);
-    const char* action = lua_tostring(state, -1);
-
-    g_world->doAction(actor, action);
-    return 0;
-}
-
-int getId(lua_State* state) {
-    auto* actor = (Core::AI::Actor*) lua_topointer(state, -1);
-    lua_pushinteger(state, actor->getID());
-
-    return 1;
 }
 
 // Messages
@@ -148,6 +54,15 @@ int getMessageType(lua_State* state) {
 }
 
 // World
+
+int doAction(lua_State* state) {
+    auto* actor = (Core::AI::Actor*) lua_topointer(state, -2);
+    const char* action = lua_tostring(state, -1);
+
+    g_world->doAction(actor, action);
+    return 0;
+}
+
 int getStoredFood(lua_State* state) {
     lua_pushinteger(state, g_world->getFood());
 

@@ -6,12 +6,12 @@
 
 function enterEating(actor)
     actor:say("Oh! Food!\n")
-    eat(actor)
+    actor:eat()
 end
 
 function executeEating(actor)
     actor:say("Chew!\n")
-    if (not hasAction(actor)) then
+    if (not actor:hasAction()) then
         setState(actor, "", g_stateManager)
     end
 end

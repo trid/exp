@@ -8,7 +8,7 @@
 
 function enterWoodcutterInRoute(actor)
     actor:say("Start moving!")
-    setStateBreackable(actor, false)
+    actor:setStateBreackable(false)
 end
 
 function executeWoodcutterInRoute(actor)
@@ -17,30 +17,30 @@ end
 
 function exitWoodcutterInRoute(actor)
     actor:say("Finished moving!")
-    setStateBreackable(actor, true)
+    actor:setStateBreackable(true)
 end
 
 function processMessageWoodcutterInRoute(actor, message)
     if (getMessageType(message) == "FINISHED_MOVING") then
         -- Always check if we at home and unload wood
-        if (getPlace(actor) == "home") then
-            unloadWood(actor)
+        if (actor:getPosition() == "home") then
+            actor:unloadWood()
         end
-        if (getPlace(actor) == "forest") then
+        if (actor:getPosition() == "forest") then
             setState(actor, "StateWoodcutting", g_stateManager)
-        elseif (getPlace(actor) == "home" and getThirsty(actor) == 0) then
+        elseif (actor:getPosition() == "home" and actor:getWater() == 0) then
             setState(actor, "StateWoodcutterInRoute", g_stateManager)
             g_world:moveActor(actor, "well");
-        elseif (getPlace(actor) == "home" and getFeed(actor) == 0) then
+        elseif (actor:getPosition() == "home" and actor:getFood() == 0) then
             setState(actor, "StateEating", g_stateManager)
-        elseif (getPlace(actor) == "well") then
+        elseif (actor:getPosition() == "well") then
             setState(actor, "StateDrinking", g_stateManager)
-        elseif (getPlace(actor) == "home" and getStoredWood() >= 300) then
+        elseif (actor:getPosition() == "home" and getStoredWood() >= 300) then
             setState(actor, "StateFinished", g_stateManager)
-        elseif (getPlace(actor) == "home" and getThirsty() ~= 0 and getFeed() ~= 0) then
+        elseif (actor:getPosition() == "home" and actor:getWater() ~= 0 and actor:getFood() ~= 0) then
             setState(actor, "StateWoodcutterInRoute", g_stateManager)
             g_world:moveActor(actor, "forest")
-        elseif (getPlace(actor) ~= "home" and getWood() >= 300) then
+        elseif (actor:getPosition() ~= "home" and getWood() >= 300) then
             setState(actor, "StateWoodcutterInRoute", g_stateManager)
             g_world:moveActor(actor, "home")
         end

@@ -10,8 +10,8 @@ end
 
 function executeHunterRest(actor)
     actor:say("Resting from hunt!")
-    if (getFeed(actor) == 0) then
-        eat(actor)
+    if (actor:getFood() == 0) then
+        actor:eat()
     end
     if (getStoredFood() <= 10) then
         actor:say("I have a hunt to do!")

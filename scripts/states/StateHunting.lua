@@ -18,7 +18,7 @@ function executeHunting(actor)
         actor:say("Have enough food, returning home.")
         setState(actor, "StateHunterInRoute", g_stateManager)
         g_world:moveActor(actor, "home")
-    elseif (getInventory(actor) == getInventorySize(actor)) then
+    elseif (actor:getInventory() == getInventoryLimit(actor)) then
         actor:say("My bag is heavy, returning home.")
         setState(actor, "StateHunterInRoute", g_stateManager)
         g_world:moveActor(actor, "home")
