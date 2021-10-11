@@ -39,15 +39,7 @@ void MainScriptContext::registerFunctions() {
     state["setState"] = &setState;
     state["setReaction"] = &setReaction;
     state["createActor"] = &createActor;
-
-    registerFunction("doAction", doAction);
-
-    registerFunction("getMessageType", getMessageType);
-
-    registerFunction("getStoredFood", getStoredFood);
-    registerFunction("getStoredWood", getStoredWood);
-
-    registerFunction("createSceneObject", createSceneObject);
+    state["createSceneObject"] = &createSceneObject;
 }
 
 void MainScriptContext::registerClasses() {
@@ -75,11 +67,20 @@ void MainScriptContext::registerClasses() {
     state.new_usertype<Core::AI::ActorsRegistry>("ActorsRegistry",
                                                  "createActor", &Core::AI::ActorsRegistry::createActor);
 
+    state.new_usertype<Core::LocationManager>("LocationManager",
+                                              "createLocation", &Core::LocationManager::createLocation);
+
+    state.new_usertype<Core::Message>("Message",
+                                      "messageType", &Core::Message::messageType);
+
     state.new_usertype<Core::AI::StateManager>("StateManager",
                                                "registerScriptedState", &Core::AI::StateManager::registerScriptedState);
 
     state.new_usertype<Core::World>("World",
-                                    "moveActor", &Core::World::moveActor);
+                                    "moveActor", &Core::World::moveActor,
+                                    "doAction", &Core::World::doAction,
+                                    "getStoredFood", &Core::World::getFood,
+                                    "getStoredWood", &Core::World::getWood);
 }
 
 void MainScriptContext::registerGlobals() {

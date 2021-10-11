@@ -21,7 +21,7 @@ function exitWoodcutterInRoute(actor)
 end
 
 function processMessageWoodcutterInRoute(actor, message)
-    if (getMessageType(message) == "FINISHED_MOVING") then
+    if (message.messageType == "FINISHED_MOVING") then
         -- Always check if we at home and unload wood
         if (actor:getPosition() == "home") then
             actor:unloadWood()
@@ -35,7 +35,7 @@ function processMessageWoodcutterInRoute(actor, message)
             setState(actor, "StateEating", g_stateManager)
         elseif (actor:getPosition() == "well") then
             setState(actor, "StateDrinking", g_stateManager)
-        elseif (actor:getPosition() == "home" and getStoredWood() >= 300) then
+        elseif (actor:getPosition() == "home" and g_world:getStoredWood() >= 300) then
             setState(actor, "StateFinished", g_stateManager)
         elseif (actor:getPosition() == "home" and actor:getWater() ~= 0 and actor:getFood() ~= 0) then
             setState(actor, "StateWoodcutterInRoute", g_stateManager)

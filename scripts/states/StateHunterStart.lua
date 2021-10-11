@@ -11,7 +11,7 @@ function enter(actor)
 end
 
 function execute(actor)
-    if (getStoredFood() >= 20) then
+    if (g_world:getStoredFood() >= 20) then
         if (actor:getPosition() == "home") then
             setState(actor, "StateHunterRest", g_stateManager)
         else

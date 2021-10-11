@@ -13,7 +13,7 @@ function executeHunterRest(actor)
     if (actor:getFood() == 0) then
         actor:eat()
     end
-    if (getStoredFood() <= 10) then
+    if (g_world:getStoredFood() <= 10) then
         actor:say("I have a hunt to do!")
         setState(actor, "StateHunterInRoute", g_stateManager)
         g_world:moveActor(actor, "forest")

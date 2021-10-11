@@ -21,7 +21,7 @@ function exitHunterInRoute(actor)
 end
 
 function processMessageHunterInRoute(actor, message)
-    if (getMessageType(message) == "FINISHED_MOVING") then
+    if (message.messageType == "FINISHED_MOVING") then
         -- Always check if we at home and unload food
         if (actor:getPosition() == "home") then
             actor:unloadFood()
@@ -31,7 +31,7 @@ function processMessageHunterInRoute(actor, message)
             setState(actor, "StateHunting", g_stateManager)
         elseif (actor:getPosition() == "well") then
              setState(actor, "StateDrinking", g_stateManager)
-        elseif (actor:getPosition() == "home" and getStoredFood() >= 20) then
+        elseif (actor:getPosition() == "home" and g_world:getStoredFood() >= 20) then
             setState(actor, "StateHunterRest", g_stateManager)
         elseif (actor:getPosition() == "home") then
             setState(actor, "StateEating", g_stateManager)

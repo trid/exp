@@ -8,13 +8,13 @@
 
 function enterHunting(actor)
     actor:say("Started hunt!")
-    doAction(actor, "hunt")
+    g_world:doAction(actor, "hunt")
 end
 
 function executeHunting(actor)
     actor:say("Hunting! Yum, fresh meat!")
 
-    if (getStoredFood() >= 20) then
+    if (g_world:getStoredFood() >= 20) then
         actor:say("Have enough food, returning home.")
         setState(actor, "StateHunterInRoute", g_stateManager)
         g_world:moveActor(actor, "home")

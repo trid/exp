@@ -43,56 +43,14 @@ void setReaction(Core::AI::Actor& actor, const std::string& reactionType, const 
     actor.setReactor(reactionType, stateManager.getState(stateName));
 }
 
-// Messages
-
-int getMessageType(lua_State* state) {
-    Core::Message* message = (Core::Message*) lua_topointer(state, -1);
-    char const* messageType = message->messageType.c_str();
-    lua_pushstring(state, messageType);
-
-    return 1;
-}
-
-// World
-
-int doAction(lua_State* state) {
-    auto* actor = (Core::AI::Actor*) lua_topointer(state, -2);
-    const char* action = lua_tostring(state, -1);
-
-    g_world->doAction(actor, action);
-    return 0;
-}
-
-int getStoredFood(lua_State* state) {
-    lua_pushinteger(state, g_world->getFood());
-
-    return 1;
-}
-
-int getStoredWood(lua_State* state) {
-    lua_pushinteger(state, g_world->getWood());
-
-    return 1;
-}
-
 //Actor registry
 Core::AI::Actor& createActor(Core::AI::ActorsRegistry& actorsRegistry) {
     return actorsRegistry.createActor(*g_view, *g_world, *g_panel);
 }
 
 //Scene objects
-int createSceneObject(lua_State* state) {
-    int x, y;
-    const char* name;
-    const char* type;
-    x = lua_tointeger(state, -4);
-    y = lua_tointeger(state, -3);
-    type = lua_tostring(state, -2);
-    name = lua_tostring(state, -1);
-
+void createSceneObject(const std::string& type, const std::string& name, int x, int y) {
     g_world->getLocationManager().createLocation(type, name, x, y, *g_sceneObjectManager);
-
-    return 0;
 }
 
 } // namespace Scripting
