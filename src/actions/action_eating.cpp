@@ -16,7 +16,7 @@ void ActionEating::update(int delta) {
     if (time >= maxTime) {
         time = maxTime;
         actor->setFood(actor->getMaxFood());
-        actor->removeGlobalState(Core::AI::kHungryStateName);
+        actor->removeStatus(Core::AI::kHungryStateName);
         _world.removeFood();
         stop();
     }

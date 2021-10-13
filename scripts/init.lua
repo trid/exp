@@ -14,9 +14,9 @@ print("Creating woodcutter\n")
 
 woodcutter = createActor(g_actorsRegistry)
 woodcutter:setName("John Wood")
-setReaction(woodcutter, "NoState", "StateStart", g_stateManager)
-setReaction(woodcutter, "thirsty", "StateWoodcutterThirsty", g_stateManager)
-setReaction(woodcutter, "hungry", "StateWoodcutterHungry", g_stateManager)
+setReaction(woodcutter, "NoState", "Woodcutting")
+setReaction(woodcutter, "Thirsty", "Thirsty")
+setReaction(woodcutter, "Hungry", "Hungry")
 woodcutter:setPosition("home")
 
 woodcutter:setMaxFood(120);
@@ -27,8 +27,8 @@ print("Creating hunter\n")
 
 hunter = createActor(g_actorsRegistry)
 hunter:setName("Hunter Smith")
-setReaction(hunter, "NoState", "StateHunterStart", g_stateManager)
-setReaction(hunter, "thirsty", "StateHunterThirsty", g_stateManager)
-setReaction(hunter, "hungry", "StateHunterHungry", g_stateManager)
+setReaction(hunter, "NoState", "Hunting")
+setReaction(hunter, "Thirsty", "Thirsty")
+setReaction(hunter, "Hungry", "Hungry")
 hunter:setPosition("home")
 

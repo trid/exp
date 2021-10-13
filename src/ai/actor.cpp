@@ -10,40 +10,24 @@
 #include "../view/widgets/gui_panel.h"
 
 #include "constants.h"
-#include "state.h"
+#include "behaviour_step.h"
 
 namespace Core::AI {
 
 void Actor::update() {
-    if (!globalStates.empty() && isStateBreackable() && executingState == "") {
-        StateOpt reactionState;
-        for (auto globalState: globalStates) {
-            reactionState = globalStateReactors[globalState];
-            if (reactionState) {
-                executingState = globalState;
-                setState(reactionState);
-                break;
-            }
-        }
-    }
 
-    if (!_state) {
-        setState(globalStateReactors[kNoStateStateName]);
-    } else {
-        _state->execute(this);
-    }
 }
 
 void Actor::updateStatus() {
     if (food > 0) {
         food--;
     } else {
-        addGlobalState(kHungryStateName);
+        addStatus(kHungryStateName);
     }
     if (water > 0) {
         water--;
     } else {
-        addGlobalState(kThirstyStateName);
+        addStatus(kThirstyStateName);
     }
 }
 
@@ -55,21 +39,15 @@ void Actor::drink() {
     _world.doAction(this, Core::Actions::kActionDrink);
 }
 
-void Actor::removeGlobalState(const string& stateName) {
-    globalStates.erase(stateName);
-    if (executingState == stateName) {
-        executingState = "";
-    }
+void Actor::removeStatus(const string& stateName) {
+    _statuses.erase(stateName);
 }
 
-void Actor::setState(const StateOpt& newState) {
-    if (_state) {
-        _state->exit(this);
+void Actor::setBehaviourStep(BehaviourStepOpt step) {
+    _step = step;
+    if (!step) {
+        _executingReaction = false;
     }
-    if (newState) {
-        newState->enter(this);
-    }
-    _state = newState;
 }
 
 void Actor::setTargetPosition(const string& position) {
@@ -81,9 +59,7 @@ const string& Actor::getTargetPosition() {
 }
 
 void Actor::processMessage(Core::Message& message) {
-    if (_state) {
-        _state->processMessage(this, message);
-    }
+
 }
 
 void Actor::say(const string& message) {
@@ -120,19 +96,12 @@ void Actor::setPosition(const string& position) {
     }
 }
 
-void Actor::addGlobalState(const string& stateName) {
-    globalStates.insert(stateName);
-    if (executingState == "" && isStateBreackable()) {
-        auto reaction = globalStateReactors[stateName];
-        if (reaction) {
-            executingState = stateName;
-            setState(reaction);
-        }
-    }
+void Actor::addStatus(const string& stateName) {
+    _statuses.insert(stateName);
 }
 
-void Actor::setReactor(const string& stateName, StateOpt reactionState) {
-    globalStateReactors[stateName] = reactionState;
+void Actor::setReactor(const string& stateName, const string& reactionState) {
+    _statusReactors[stateName] = reactionState;
 }
 
 void Actor::setAction(Core::Actions::ActionPtr& action) {
@@ -158,6 +127,22 @@ Actor::Actor(View::ViewFacade& view, Core::World& world, View::Widgets::GUIPanel
         _world(world),
         _guiPanel(guiPanel) {}
 
-StateOpt Actor::getState() { return _state; }
+BehaviourStepOpt Actor::getBehaviourStep() { return _step; }
+
+const std::unordered_set<std::string>& Actor::getStatuses() {
+    return _statuses;
+}
+
+bool Actor::isExecutingReaction() {
+    return _executingReaction;
+}
+
+const std::unordered_map<std::string, std::string>& Actor::getStatusReactors() {
+    return _statusReactors;
+}
+
+void Actor::setExecutingReaction(bool executingReaction) {
+    _executingReaction = executingReaction;
+}
 
 } // namespace Core::AI

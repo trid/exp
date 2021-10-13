@@ -16,7 +16,7 @@ void ActionDrink::update(int delta) {
     if (time >= maxTime) {
         time = maxTime;
         actor->setWater(actor->getMaxWater());
-        actor->removeGlobalState(Core::AI::kThirstyStateName);
+        actor->removeStatus(Core::AI::kThirstyStateName);
         actor->say(kActionDrinkExecutedMessage);
     }
 }

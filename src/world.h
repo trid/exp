@@ -49,10 +49,10 @@ struct Travel {
         distanceNeeded = (int) sqrt(xDist * xDist + yDist * yDist);
     }
 
-    //Returns true if actor finished it's way
     void update(int delta);
 
-    bool finished() { return distancePassed >= distanceNeeded; }
+    //Returns true if actor finished its way
+    [[nodiscard]] bool finished() const { return distancePassed >= distanceNeeded; }
 };
 
 typedef std::shared_ptr<Travel> TravelPtr;
@@ -61,7 +61,7 @@ class World {
 public:
     World(View::ViewFacade& view, Application& application);
 
-    void moveActor(AI::Actor* actor, string const& dest);
+    TravelPtr moveActor(AI::Actor* actor, string const& dest);
 
     void update(int delta);
 

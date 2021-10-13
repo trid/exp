@@ -8,15 +8,9 @@
 #include "../location_manager.h"
 #include "../world.h"
 
-#include "../ai/actor_object.h"
-#include "../ai/state_manager.h"
-#include "../ai/registry.h"
-
-#include "../view/scene_object_manager.h"
 #include "../view/view_facade.h"
 
 #include "constants.h"
-#include "script_object_manager.h"
 
 
 View::ViewFacade* g_view = nullptr;
@@ -32,15 +26,15 @@ void print(const std::string& message) {
 
 void setState(Core::AI::Actor& actor, const std::string& stateName, Core::AI::StateManager& stateManager) {
     if (stateName.empty()) {
-        actor.setState(boost::none);
+        actor.setBehaviourStep(boost::none);
     } else {
-        auto actorState = stateManager.getState(stateName);
-        actor.setState(actorState);
+        auto behaviour = stateManager.getBehaviour(stateName);
+        actor.setBehaviourStep(behaviour->getStartingStep());
     }
 }
 
-void setReaction(Core::AI::Actor& actor, const std::string& reactionType, const std::string& stateName, Core::AI::StateManager& stateManager) {
-    actor.setReactor(reactionType, stateManager.getState(stateName));
+void setReaction(Core::AI::Actor& actor, const std::string& reactionType, const std::string& behaviourName) {
+    actor.setReactor(reactionType, behaviourName);
 }
 
 //Actor registry

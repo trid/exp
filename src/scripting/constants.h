@@ -8,8 +8,8 @@
 namespace Scripting {
 
 constexpr char kScriptMessagePrefix[] = "LUA: ";
-constexpr char kStateScriptsPath[] = "scripts/states/";
+constexpr char kStateScriptsPath[] = "scripts/behaviours/";
 
 } // namespace Scripting
 
-#endif //EXP_CONSTANTS_H
+#endif // EXP_SCRIPTING_CONSTANTS_H

@@ -4,8 +4,7 @@
 #include <string>
 #include <unordered_map>
 
-#include "state.h"
-#include "lua5.1/lua.hpp"
+#include "behaviour.h"
 
 namespace Scripting {
 class ScriptContext;
@@ -21,14 +20,11 @@ class StateManager {
 public:
     explicit StateManager(Core::World& world);
 
-    StateOpt getState(const std::string& name);
+    BehaviourOpt getBehaviour(const std::string& name);
 
-    void registerScriptedState(const std::string& tableName, const std::string& stateName,
-                               Scripting::ScriptContext& scriptContext);
+    void registerBehaviour(const std::string& behaviourName, const sol::table& startingStep);
 private:
-    void registerStates(Core::World& world);
-
-    std::unordered_map<std::string, StateUPtr> _states;
+    std::unordered_map<std::string, Behaviour> _behaviours;
 };
 
 } // namespace Core::AI

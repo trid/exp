@@ -21,22 +21,9 @@ constexpr char kScriptExitMethodName[] = "exit";
 constexpr char kScriptEnterMethodName[] = "enter";
 constexpr char kScriptProcessMessageMethodName[] = "processMessage";
 
-constexpr char kStateFinishedEnterMessage[] = "Yup! I've finished!";
-constexpr char kStateFinishedExecuteMessage[] = "Enjoing myself.";
-constexpr char kStateFinishedExitMessage[] = "Returning to work";
-constexpr char kStateStartEnterMessage[] = "Waked up.";
-constexpr char kStateStartExecuteWorkMessage[] = "What shall I do now...";
-constexpr char kStateStartExecuteRestMessage[] = "I can rest!";
-constexpr char kStateStartExitMessage[] = "Start to do something.";
-constexpr char kStateWoodcuttingEnterMessage[] = "Start cutting wood";
-constexpr char kStateWoodcuttingExecuteMessage[] = "Cutting wood! Loving wood! Wood is like my wife!";
-constexpr char kStateWoodcuttingExitMessage[] = "Finished cutting wood";
-constexpr char kInventoryIsFullMessage[] = "Inventory is too heavy. Returning home";
-
-constexpr char kStateStartName[] = "StateStart";
-constexpr char kStateFinishedName[] = "StateFinished";
-constexpr char kStateWoodcuttingName[] = "StateWoodcutting";
-constexpr char kStateWoodcutterInRoute[] = "StateWoodcutterInRoute";
+// Behaviours
+constexpr char kRunFunctionName[] = "run";
+constexpr char kTransitionFunctionName[] = "transition";
 
 constexpr char kForestLocationName[] = "forest";
 constexpr char kHomeLocationName[] = "home";

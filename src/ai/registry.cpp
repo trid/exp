@@ -2,17 +2,17 @@
 
 #include <sstream>
 
-#include "../scripting/script_object_manager.h"
-
-#include "actor_object.h"
 #include "constants.h"
 
 Core::AI::ActorsRegistry* g_actorsRegistry = nullptr;
-extern Scripting::ScriptObjectManager* g_scriptObjectManager;
 
 namespace Core::AI {
 
-const std::vector<Actor*>& ActorsRegistry::getActors() {
+const std::vector<Actor*>& ActorsRegistry::getActors() const {
+    return actors;
+}
+
+std::vector<Actor*>& ActorsRegistry::getActors() {
     return actors;
 }
 
@@ -21,10 +21,6 @@ Actor& ActorsRegistry::createActor(View::ViewFacade& view, Core::World& world, V
     actor->id = nextId;
     nextId++;
     actors.push_back(actor);
-    ActorObject* actorObject = new ActorObject(actor);
-    std::stringstream ss;
-    ss << kTemporaryActorNamePrefix << actor->getID();
-    g_scriptObjectManager->addItem(ss.str(), actorObject);
     return *actor;
 }
 

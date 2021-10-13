@@ -18,27 +18,32 @@ Core::World* g_world;
 
 namespace Core {
 
-void World::moveActor(AI::Actor* actor, const string& dest) {
+TravelPtr World::moveActor(AI::Actor* actor, const string& dest) {
     auto route = std::make_shared<Travel>(actor, dest, _sceneObjectManager, *this);
     actor->setPosition(kPositionInRoute);
     inRoute.push_back(route);
+    return route;
 }
 
 void World::update(int delta) {
     for (TravelPtr travelPtr: inRoute) {
         travelPtr->update(delta);
     }
+
     inRoute.remove_if([](TravelPtr ptr) { return ptr->finished(); });
+
     for (Actions::ActionPtr actionPtr: actions) {
         if (actionPtr->isValid() && !actionPtr->isFinished() && actionPtr->isRunning()) {
             actionPtr->update(delta);
         }
     }
+
     for (Actions::ActionPtr actionPtr: actions) {
         if (!actionPtr->isValid() || actionPtr->isFinished() || !actionPtr->isRunning()) {
             actionPtr->getActor()->removeAction();
         }
     }
+
     actions.remove_if([](Actions::ActionPtr ptr) { return ptr->isFinished() || !ptr->isRunning() || !ptr->isValid(); });
 }
 

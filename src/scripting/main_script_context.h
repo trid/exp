@@ -7,7 +7,6 @@
 
 
 #include "script_context.h"
-#include "script_object_manager.h"
 
 namespace Core {
 class World;
@@ -32,7 +31,6 @@ private:
 
     void registerScriptedStates();
 
-    ScriptObjectManager _scriptObjectManager;
     Core::World& _world;
     Core::AI::StateManager& _stateManager;
 };

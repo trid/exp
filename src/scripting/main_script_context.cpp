@@ -46,7 +46,7 @@ void MainScriptContext::registerClasses() {
     auto& state = getState();
 
     state.new_usertype<Core::AI::Actor>("Actor",
-                                        "setState", &Core::AI::Actor::setState,
+                                        "setState", &Core::AI::Actor::setBehaviourStep,
                                         "say", &Core::AI::Actor::say,
                                         "setName", &Core::AI::Actor::setName,
                                         "setPosition", &Core::AI::Actor::setPosition,
@@ -62,7 +62,8 @@ void MainScriptContext::registerClasses() {
                                         "unloadWood", &Core::AI::Actor::unloadWood,
                                         "unloadFood", &Core::AI::Actor::unloadFood,
                                         "setStateBreackable", &Core::AI::Actor::setStateBreackable,
-                                        "hasAction", &Core::AI::Actor::hasAction);
+                                        "hasAction", &Core::AI::Actor::hasAction,
+                                        "addStatus", &Core::AI::Actor::addStatus);
 
     state.new_usertype<Core::AI::ActorsRegistry>("ActorsRegistry",
                                                  "createActor", &Core::AI::ActorsRegistry::createActor);
@@ -74,7 +75,10 @@ void MainScriptContext::registerClasses() {
                                       "messageType", &Core::Message::messageType);
 
     state.new_usertype<Core::AI::StateManager>("StateManager",
-                                               "registerScriptedState", &Core::AI::StateManager::registerScriptedState);
+                                               "registerBehaviour", &Core::AI::StateManager::registerBehaviour);
+
+    state.new_usertype<Core::Travel>("Travel",
+                                           "finished", &Core::Travel::finished);
 
     state.new_usertype<Core::World>("World",
                                     "moveActor", &Core::World::moveActor,

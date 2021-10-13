@@ -12,7 +12,7 @@ void print(const std::string& message);
 
 // Actors
 void setState(Core::AI::Actor& actor, const std::string& stateName, Core::AI::StateManager& stateManager);
-void setReaction(Core::AI::Actor& actor, const std::string& reactionType, const std::string& stateName, Core::AI::StateManager& stateManager);
+void setReaction(Core::AI::Actor& actor, const std::string& reactionType, const std::string& behaviourName);
 int getId(lua_State* state);
 
 // Actors registry

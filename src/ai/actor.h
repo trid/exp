@@ -6,7 +6,7 @@
 #include <unordered_set>
 #include "../message_manager.h"
 #include "../actions/action.h"
-#include "state.h"
+#include "behaviour_step.h"
 
 
 namespace View {
@@ -60,8 +60,8 @@ public:
     const std::string& getPosition() const { return position; }
 
     void setPosition(const std::string& position);
-    StateOpt getState();
-    void setState(const StateOpt& state);
+    BehaviourStepOpt getBehaviourStep();
+    void setBehaviourStep(BehaviourStepOpt step);
     void setTargetPosition(const std::string& position);
     const std::string& getTargetPosition();
 
@@ -100,16 +100,21 @@ public:
 
     void setStateBreackable(bool stateBreackable) { Actor::stateBreackable = stateBreackable; }
 
-    void addGlobalState(const std::string& stateName);
-    void setReactor(const std::string& stateName, StateOpt reactionState);
+    void addStatus(const std::string& stateName);
+    void removeStatus(std::string const& stateName);
+    const std::unordered_set<std::string>& getStatuses();
+    const std::unordered_map<std::string, std::string>& getStatusReactors();
 
-    void removeGlobalState(std::string const& stateName);
+    void setReactor(const std::string& stateName, const std::string& reactionState);
 
     void setAction(Core::Actions::ActionPtr& action);
     void removeAction();
     bool hasAction();
 
     void updateStatus();
+
+    bool isExecutingReaction();
+    void setExecutingReaction(bool executingReaction);
 private:
     int id;
     int food = 90;
@@ -119,7 +124,7 @@ private:
 
     std::string position = "";
     std::string target = "";
-    StateOpt _state = boost::none;
+    BehaviourStepOpt _step = boost::none;
     std::string name;
     int inventory = 0;
     int inventoryLimit = 20;
@@ -128,9 +133,9 @@ private:
     //Actor position
     double x, y;
     bool stateBreackable = true;
-    std::string executingState;
-    std::unordered_set<std::string> globalStates;
-    std::unordered_map<std::string, StateOpt> globalStateReactors;
+    bool _executingReaction = false;
+    std::unordered_set<std::string> _statuses;
+    std::unordered_map<std::string, std::string> _statusReactors;
     Core::Actions::ActionPtr currentAction;
 
     View::ViewFacade& _view;

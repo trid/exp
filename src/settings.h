@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "lua5.1/lua.hpp"
+#include "lua.hpp"
 
 #include "scripting/script_context.h"
 #include "scripting/settings_reader.h"

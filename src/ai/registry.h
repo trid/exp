@@ -41,7 +41,8 @@ public:
 
     Actor& createActor(View::ViewFacade& view, Core::World& world, View::Widgets::GUIPanel& guiPanel);
     Actor* getActor(int id);
-    const std::vector<Actor*>& getActors();
+    const std::vector<Actor*>& getActors() const;
+    std::vector<Actor*>& getActors();
     void killActor(int id);
     void update();
 
