@@ -14,7 +14,6 @@
 
 #include "view/view_facade.h"
 
-Core::World* g_world;
 
 namespace Core {
 
@@ -67,7 +66,6 @@ World::World(View::ViewFacade& view, Application& application) :
         _actorsRegistry(application),
         _messageManager(_actorsRegistry),
         _locationManager(_locationTypeManager) {
-    g_world = this;
     ProcessPtr ptr(new WorldProcess(*this));
     application.addProcess(ptr);
 

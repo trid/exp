@@ -15,7 +15,6 @@
 
 View::ViewFacade* g_view = nullptr;
 View::SceneObjectManager* g_sceneObjectManager = nullptr;
-extern Core::World* g_world;
 View::Widgets::GUIPanel* g_panel;
 
 namespace Scripting {
@@ -38,13 +37,13 @@ void setReaction(Core::AI::Actor& actor, const std::string& reactionType, const 
 }
 
 //Actor registry
-Core::AI::Actor& createActor(Core::AI::ActorsRegistry& actorsRegistry) {
-    return actorsRegistry.createActor(*g_view, *g_world, *g_panel);
+Core::AI::Actor& createActor(Core::AI::ActorsRegistry& actorsRegistry, Core::World& world) {
+    return actorsRegistry.createActor(*g_view, world, *g_panel);
 }
 
 //Scene objects
-void createSceneObject(const std::string& type, const std::string& name, int x, int y) {
-    g_world->getLocationManager().createLocation(type, name, x, y, *g_sceneObjectManager);
+void createSceneObject(const std::string& type, const std::string& name, int x, int y, Core::World& world) {
+    world.getLocationManager().createLocation(type, name, x, y, *g_sceneObjectManager);
 }
 
 } // namespace Scripting

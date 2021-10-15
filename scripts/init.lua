@@ -6,13 +6,13 @@
 
 print("Loading scene objects\n")
 
-createSceneObject("campfire", "home", 400, 300)
-createSceneObject("forest", "forest", 500, 0)
-createSceneObject("well", "well", 200, 200)
+createSceneObject("campfire", "home", 400, 300, g_world)
+createSceneObject("forest", "forest", 500, 0, g_world)
+createSceneObject("well", "well", 200, 200, g_world)
 
 print("Creating woodcutter\n")
 
-woodcutter = createActor(g_actorsRegistry)
+woodcutter = createActor(g_actorsRegistry, g_world)
 woodcutter:setName("John Wood")
 setReaction(woodcutter, "NoState", "Woodcutting")
 setReaction(woodcutter, "Thirsty", "Thirsty")
@@ -25,7 +25,7 @@ woodcutter:setMaxWater(90);
 
 print("Creating hunter\n")
 
-hunter = createActor(g_actorsRegistry)
+hunter = createActor(g_actorsRegistry, g_world)
 hunter:setName("Hunter Smith")
 setReaction(hunter, "NoState", "Hunting")
 setReaction(hunter, "Thirsty", "Thirsty")

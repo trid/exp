@@ -16,9 +16,9 @@ void setReaction(Core::AI::Actor& actor, const std::string& reactionType, const 
 int getId(lua_State* state);
 
 // Actors registry
-Core::AI::Actor& createActor(Core::AI::ActorsRegistry& actorsRegistry);
+Core::AI::Actor& createActor(Core::AI::ActorsRegistry& actorsRegistry, Core::World& world);
 
 // Locations
-void createSceneObject(const std::string& type, const std::string& name, int x, int y);
+void createSceneObject(const std::string& type, const std::string& name, int x, int y, Core::World& world);
 
 } // namespace Scripting
