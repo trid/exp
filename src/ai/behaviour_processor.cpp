@@ -22,7 +22,7 @@ void BehaviourProcessor::update() {
 }
 
 void BehaviourProcessor::processActor(Actors::Actor& actor) {
-    if (!actor.getStatuses().empty() && actor.isStateBreackable() && !actor.isExecutingReaction()) {
+    if (!actor.getStatuses().empty() && !actor.isExecutingReaction()) {
         processReaction(actor);
     }
 

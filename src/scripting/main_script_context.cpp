@@ -59,7 +59,6 @@ void MainScriptContext::registerClasses() {
                                         "getInventoryLimit", &Core::AI::Actors::Actor::getInventoryLimit,
                                         "unloadWood", &Core::AI::Actors::Actor::unloadWood,
                                         "unloadFood", &Core::AI::Actors::Actor::unloadFood,
-                                        "setStateBreackable", &Core::AI::Actors::Actor::setStateBreackable,
                                         "hasAction", &Core::AI::Actors::Actor::hasAction,
                                         "addStatus", &Core::AI::Actors::Actor::addStatus);
 
