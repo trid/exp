@@ -16,7 +16,7 @@ namespace Core {
 
 TravelPtr World::moveActor(AI::Actors::Actor* actor, const string& dest) {
     auto route = std::make_shared<Travel>(actor, dest, _worldMap, *this);
-    actor->setPosition(kPositionInRoute);
+    actor->setPosition(*this, kPositionInRoute);
     inRoute.push_back(route);
     return route;
 }
@@ -132,7 +132,7 @@ void Travel::update(int delta) {
     if (distancePassed >= distanceNeeded) {
         Message message;
         message.messageType = kFinishedMovingMessage;
-        actor->setPosition(dest);
+        actor->setPosition(world, dest);
         world.getMessageManager().dispatchMessage(actor->getID(), message);
     }
 }

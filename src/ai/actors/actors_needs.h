@@ -11,7 +11,7 @@ class World;
 
 namespace Core::AI::Actors {
 
-class ActorsNeeds {
+class ActorNeeds {
 public:
     [[nodiscard]] int getFood() const;
     void setFood(int food);

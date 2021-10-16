@@ -32,14 +32,6 @@ void Actor::setBehaviourStep(BehaviourStepOpt step) {
     }
 }
 
-void Actor::setTargetPosition(const string& position) {
-    target = position;
-}
-
-const string& Actor::getTargetPosition() {
-    return target;
-}
-
 void Actor::processMessage(Core::Message& message) {
 
 }
@@ -67,15 +59,6 @@ void Actor::unloadFood() {
 
 int Actor::getInventoryLimit() {
     return inventoryLimit;
-}
-
-void Actor::setPosition(const string& position) {
-    this->position = position;
-    if (position != Core::kPositionInRoute) {
-        const auto mapObject = _world.getWorldMap().getLocation(position);
-        x = mapObject->getXPos();
-        y = mapObject->getYPos();
-    }
 }
 
 void Actor::addStatus(const string& stateName) {
