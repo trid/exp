@@ -2,22 +2,20 @@
 
 namespace Core {
 
-Location::Location(LocationType* type, const std::string& name, int xPos, int yPos) : type(type), name(name), xPos(xPos),
-                                                                                      yPos(yPos) {}
+Location::Location(const LocationType& type, const std::string& name, int xPos, int yPos) : _type(type), _name(name), _xPos(xPos),
+                                                                                            _yPos(yPos) {}
 
-LocationType* Location::getType() const { return type; }
+const LocationType& Location::getType() const { return _type; }
 
-void Location::setType(LocationType* type) { Location::type = type; }
+const std::string& Location::getName() const { return _name; }
 
-const std::string& Location::getName() const { return name; }
+void Location::setName(std::string& name) { Location::_name = name; }
 
-void Location::setName(std::string& name) { Location::name = name; }
+int Location::getXPos() const { return _xPos; }
 
-int Location::getXPos() const { return xPos; }
+int Location::getYPos() const { return _yPos; }
 
-int Location::getYPos() const { return yPos; }
+void Location::setXPos(int xPos) { Location::_xPos = xPos; }
 
-void Location::setXPos(int xPos) { Location::xPos = xPos; }
-
-void Location::setYPos(int yPos) { Location::yPos = yPos; }
+void Location::setYPos(int yPos) { Location::_yPos = yPos; }
 }

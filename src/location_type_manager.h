@@ -12,7 +12,7 @@ class LocationTypeManager {
 public:
     LocationTypeManager();
 
-    LocationType* getLocationType(std::string const& name) { return types[name]; }
+    const LocationType& getLocationType(std::string const& name) const;
 
 private:
     std::unordered_map<std::string, LocationType*> types;

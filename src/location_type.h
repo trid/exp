@@ -15,9 +15,9 @@ private:
 public:
     explicit LocationType(const std::string& name);
 
-    const std::string& getName();
+    const std::string& getName() const;
 
-    const std::unordered_set <std::string>& getActions();
+    const std::unordered_set <std::string>& getActions() const;
 };
 
 } // namespace Core

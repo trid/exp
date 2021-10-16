@@ -3,8 +3,6 @@
 
 #include <string>
 
-#include "lua.hpp"
-
 #include "scripting/script_context.h"
 #include "scripting/settings_reader.h"
 

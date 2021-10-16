@@ -3,14 +3,13 @@
 
 #include <string>
 #include <unordered_map>
-#include <list>
+#include <vector>
 
 #include "map_object_view.h"
 
-class Location;
-
 namespace Core {
 class Location;
+class World;
 } // namespace Core
 
 namespace View {
@@ -20,15 +19,14 @@ class ViewFacade;
 
 class SceneObjectManager {
 public:
-    SceneObjectManager(ViewFacade& view);
+    explicit SceneObjectManager(ViewFacade& view, Core::World& world);
 
-    MapObjectView* createMapObject(Core::Location* location);
-    void removeSceneObject(const std::string& name);
-    MapObjectPtr getMapObject(const std::string& name);
     void draw(SDL_Renderer* renderer);
 private:
-    std::unordered_map<std::string, MapObjectPtr> mapObjects;
-    std::unordered_map<std::string, SDL_Texture*> sprites;
+    std::vector<MapObjectUPtr> _mapObjects;
+    std::unordered_map<std::string, SDL_Texture*> _sprites;
+    void loadSprites(ViewFacade& view);
+    void createObjects(Core::World& world);
 };
 
 } // namespace View

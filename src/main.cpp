@@ -23,15 +23,15 @@ using namespace std;
 int main(int argc, char* argv[]) {
     Core::Application app{};
     Core::Settings settings{};
-    View::ViewFacade view{settings};
-    Core::World world(view, app);
+    Core::GlobalMessageManager messageManager;
+    Core::World world(app, messageManager);
     Core::AI::StateManager stateManager{world};
+    Scripting::MainScriptContext scriptContext{world, stateManager};
+    scriptContext.loadScript(Core::kInitScriptPath);
+    View::ViewFacade view{settings, messageManager, world};
     View::Widgets::GUIPanel panel{world, view};
     Core::SystemEventManager systemEventManager{app, panel};
-    Scripting::MainScriptContext scriptContext{world, stateManager};
     Core::AI::BehaviourProcessor behaviourProcessor{stateManager, world.getActorsRegistry().getActors()};
-
-    scriptContext.loadScript(Core::kInitScriptPath);
 
     app.addProcess(std::make_shared<Core::AI::BehaviourProcessorProcess>(behaviourProcessor));
 

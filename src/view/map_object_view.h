@@ -12,21 +12,20 @@ class Location;
 namespace View {
 
 class MapObjectView {
-    friend class SceneObjectManager;
-
-private:
-    SDL_Texture* image;
-    Core::Location* location;
 public:
-    MapObjectView();
-    ~MapObjectView();
+    explicit MapObjectView(const Core::Location& location, SDL_Texture* image);
+
     void draw(SDL_Renderer* renderer);
 
-    int getX() const;
-    int getY() const;
+    [[nodiscard]] int getX() const;
+    [[nodiscard]] int getY() const;
+
+private:
+    SDL_Texture* _image;
+    const Core::Location& _location;
 };
 
-using MapObjectPtr = std::shared_ptr<MapObjectView>;
+using MapObjectUPtr = std::unique_ptr<MapObjectView>;
 
 } // namespace View
 

@@ -10,17 +10,17 @@
 
 #include "actions/action_manager.h"
 #include "application.h"
-#include "location_manager.h"
 #include "location_type_manager.h"
 #include "process.h"
 #include "message_manager.h"
+#include "world_map.h"
 
 #include "ai/actor.h"
 #include "ai/registry.h"
 
 #include "view/map_object_view.h"
 #include "view/scene_object_manager.h"
-#include "view/ui_message_manager.h"
+#include "global_message_manager.h"
 
 
 namespace Core {
@@ -37,17 +37,7 @@ struct Travel {
     double dx, dy;
     World& world;
 
-    Travel(AI::Actor* actor, const string& dest, View::SceneObjectManager& sceneObjectManager, World& world)
-            : actor(actor), dest(dest),
-              distancePassed(0), world(world) {
-        View::MapObjectPtr mapObject = sceneObjectManager.getMapObject(dest);
-        int xDist = mapObject->getX() - actor->getX();
-        int yDist = mapObject->getY() - actor->getY();
-        double angle = atan2(yDist, xDist);
-        dx = cos(angle) * actor->getSpeed() / 1000;
-        dy = sin(angle) * actor->getSpeed() / 1000;
-        distanceNeeded = (int) sqrt(xDist * xDist + yDist * yDist);
-    }
+    Travel(AI::Actor* actor, const string& dest, const WorldMap& worldMap, World& world);
 
     void update(int delta);
 
@@ -59,7 +49,7 @@ typedef std::shared_ptr<Travel> TravelPtr;
 
 class World {
 public:
-    World(View::ViewFacade& view, Application& application);
+    World(Application& application, GlobalMessageManager& appMessageManager);
 
     TravelPtr moveActor(AI::Actor* actor, string const& dest);
 
@@ -89,13 +79,14 @@ public:
 
     void doAction(AI::Actor* actor, const string& action);
 
-    View::SceneObjectManager& getSceneObjectManager();
-
     MessageManager& getMessageManager();
 
-    LocationManager& getLocationManager();
     AI::ActorsRegistry& getActorsRegistry();
 
+    const WorldMap& getWorldMap() const;
+    WorldMap& getWorldMap();
+
+    const LocationTypeManager& getLocationTypeManager() const;
 private:
     std::list<TravelPtr> inRoute;
     int wood = 0;
@@ -108,13 +99,12 @@ private:
 
     std::list<Actions::ActionPtr> actions;
 
-    View::ViewFacade& _view;
-    View::SceneObjectManager _sceneObjectManager;
     Actions::ActionManager _actionManager;
     AI::ActorsRegistry _actorsRegistry;
     MessageManager _messageManager;
     LocationTypeManager _locationTypeManager;
-    LocationManager _locationManager;
+    WorldMap _worldMap;
+    GlobalMessageManager& _appMessageManager;
 };
 
 class WorldProcess : public Process {

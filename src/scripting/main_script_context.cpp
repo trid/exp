@@ -68,9 +68,6 @@ void MainScriptContext::registerClasses() {
     state.new_usertype<Core::AI::ActorsRegistry>("ActorsRegistry",
                                                  "createActor", &Core::AI::ActorsRegistry::createActor);
 
-    state.new_usertype<Core::LocationManager>("LocationManager",
-                                              "createLocation", &Core::LocationManager::createLocation);
-
     state.new_usertype<Core::Message>("Message",
                                       "messageType", &Core::Message::messageType);
 

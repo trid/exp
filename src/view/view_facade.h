@@ -9,21 +9,26 @@
 #include "map_object_view.h"
 #include "window.h"
 #include "widgets/ui_manager.h"
-#include "ui_message_manager.h"
+#include "../global_message_manager.h"
 #include "../settings.h"
+#include "scene_object_manager.h"
 
 class Label;
 class LogView;
 class ActorView;
 
+namespace Core {
+class World;
+}
+
 namespace View {
 
 class ViewFacade {
 public:
-    explicit ViewFacade(const Core::Settings& settings);
+    explicit ViewFacade(const Core::Settings& settings, Core::GlobalMessageManager& globalMessageManager, Core::World& world);
 
     Widgets::UIManager& getUiManager();
-    UIMessageManager& getUIMessageManager();
+    Core::GlobalMessageManager& getUIMessageManager();
 
     Uint32 getScreenPixelFormat();
 
@@ -36,10 +41,9 @@ private:
     SDL_Texture* background;
     SDL_Texture* actor;
 
-    std::list <MapObjectPtr> mapObjects;
-
     Widgets::UIManager _uiManager;
-    UIMessageManager _uiMessageManager;
+    Core::GlobalMessageManager& _globalMessageManager;
+    SceneObjectManager _sceneObjectManager;
 };
 
 } // View

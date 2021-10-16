@@ -6,11 +6,12 @@
 #include "../world.h"
 #include "../actions/constants.h"
 #include "../view/view_facade.h"
-#include "../view/scene_object_manager.h"
 #include "../view/widgets/gui_panel.h"
 
 #include "constants.h"
 #include "behaviour_step.h"
+
+extern View::Widgets::GUIPanel* g_panel;
 
 namespace Core::AI {
 
@@ -64,7 +65,7 @@ void Actor::processMessage(Core::Message& message) {
 
 void Actor::say(const string& message) {
     std::cout << name << ": " << message << std::endl;
-    _guiPanel.addMessage(name + ": " + message);
+    g_panel->addMessage(name + ": " + message);
 }
 
 void Actor::addItem() {
@@ -90,9 +91,9 @@ int Actor::getInventoryLimit() {
 void Actor::setPosition(const string& position) {
     this->position = position;
     if (position != Core::kPositionInRoute) {
-        View::MapObjectPtr mapObject = _world.getSceneObjectManager().getMapObject(position);
-        x = mapObject->getX();
-        y = mapObject->getY();
+        const auto mapObject = _world.getWorldMap().getLocation(position);
+        x = mapObject->getXPos();
+        y = mapObject->getYPos();
     }
 }
 

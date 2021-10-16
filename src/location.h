@@ -1,7 +1,10 @@
 #ifndef LOCATION_H
 #define LOCATION_H
 
+#include <memory>
 #include <string>
+
+#include <boost/optional.hpp>
 
 namespace Core {
 
@@ -9,10 +12,9 @@ class LocationType;
 
 class Location {
 public:
-    Location(LocationType* type, const std::string& name, int xPos, int yPos);
+    Location(const LocationType& type, const std::string& name, int xPos, int yPos);
 
-    [[nodiscard]] LocationType* getType() const;
-    void setType(LocationType* type);
+    [[nodiscard]] const LocationType& getType() const;
     [[nodiscard]] const std::string& getName() const;
     void setName(std::string& name);
 
@@ -22,10 +24,13 @@ public:
     void setYPos(int yPos);
 
 private:
-    LocationType* type;
-    std::string name;
-    int xPos, yPos;
+    const LocationType& _type;
+    std::string _name;
+    int _xPos, _yPos;
 };
+
+using LocationUPtr = std::unique_ptr<Location>;
+using LocationOpt = boost::optional<Location&>;
 
 } // namespace Core
 

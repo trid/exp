@@ -5,7 +5,6 @@
 #include "lua.hpp"
 
 #include "../constants.h"
-#include "../location_manager.h"
 #include "../world.h"
 
 #include "../view/view_facade.h"
@@ -14,7 +13,6 @@
 
 
 View::ViewFacade* g_view = nullptr;
-View::SceneObjectManager* g_sceneObjectManager = nullptr;
 View::Widgets::GUIPanel* g_panel;
 
 namespace Scripting {
@@ -43,7 +41,8 @@ Core::AI::Actor& createActor(Core::AI::ActorsRegistry& actorsRegistry, Core::Wor
 
 //Scene objects
 void createSceneObject(const std::string& type, const std::string& name, int x, int y, Core::World& world) {
-    world.getLocationManager().createLocation(type, name, x, y, *g_sceneObjectManager);
+    const auto& locationType = world.getLocationTypeManager().getLocationType(name);
+    world.getWorldMap().addLocation(locationType, name, x, y);
 }
 
 } // namespace Scripting

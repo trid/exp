@@ -28,4 +28,6 @@ LocationTypeManager::LocationTypeManager() {
     }
 }
 
+const LocationType& LocationTypeManager::getLocationType(const std::string& name) const { return *types.at(name); }
+
 } // namespace Core

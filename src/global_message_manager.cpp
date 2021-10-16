@@ -1,15 +1,17 @@
-#include "ui_message_manager.h"
+#include "global_message_manager.h"
 
 #include <iostream>
 
 using std::cout;
 using std::endl;
 
-void UIMessageData::addParameter(string const& name, Variant const &data){
+namespace Core {
+
+void MessageData::addParameter(string const& name, Variant const& data) {
     this->data[name] = VariantPtr(new Variant(data));
 }
 
-Variant const & UIMessageData::getParameter(const string &name) {
+Variant const& MessageData::getParameter(const string& name) {
     VariantPtr param = data[name];
     if (!param) {
         return nonVariant;
@@ -17,15 +19,15 @@ Variant const & UIMessageData::getParameter(const string &name) {
     return *param;
 }
 
-void UIMessageManager::addListener(const string &name, IUIMessageListenerPtr listener) {
+void GlobalMessageManager::addListener(const string& name, IUIMessageListenerPtr listener) {
     listeners[name] = std::move(listener);
 }
 
-void UIMessageManager::removeListener(const string &name) {
+void GlobalMessageManager::removeListener(const string& name) {
     listeners.erase(name);
 }
 
-void UIMessageManager::sendMessage(const string &name, const UIMessageData &data) {
+void GlobalMessageManager::sendMessage(const string& name, const MessageData& data) {
     if (listeners[name]) {
         listeners[name]->listen(data);
     } else {
@@ -35,3 +37,5 @@ void UIMessageManager::sendMessage(const string &name, const UIMessageData &data
         cout << listeners.size() << endl;
     }
 }
+
+} // namespace Core

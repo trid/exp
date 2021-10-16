@@ -4,7 +4,6 @@
 
 #include "application.h"
 #include "constants.h"
-#include "location_manager.h"
 #include "location_type.h"
 
 #include "actions/action_manager.h"
@@ -12,13 +11,11 @@
 
 #include "ai/actor.h"
 
-#include "view/view_facade.h"
-
 
 namespace Core {
 
 TravelPtr World::moveActor(AI::Actor* actor, const string& dest) {
-    auto route = std::make_shared<Travel>(actor, dest, _sceneObjectManager, *this);
+    auto route = std::make_shared<Travel>(actor, dest, _worldMap, *this);
     actor->setPosition(kPositionInRoute);
     inRoute.push_back(route);
     return route;
@@ -59,13 +56,11 @@ WorldProcess::WorldProcess(World& world) :
 
 }
 
-World::World(View::ViewFacade& view, Application& application) :
-        _view(view),
-        _sceneObjectManager(view),
+World::World(Application& application, GlobalMessageManager& appMessageManager) :
         _actionManager(*this),
         _actorsRegistry(application),
         _messageManager(_actorsRegistry),
-        _locationManager(_locationTypeManager) {
+        _appMessageManager(appMessageManager) {
     ProcessPtr ptr(new WorldProcess(*this));
     application.addProcess(ptr);
 
@@ -77,8 +72,8 @@ World::World(View::ViewFacade& view, Application& application) :
 }
 
 std::unordered_set<std::string> const& World::getActions(AI::Actor* actor) {
-    Location* location = _locationManager.getLocation(actor->getPosition());
-    return location->getType()->getActions();
+    const auto location = _worldMap.getLocation(actor->getPosition());
+    return location->getType().getActions();
 }
 
 void World::doAction(AI::Actor* actor, const string& action) {
@@ -92,22 +87,18 @@ void World::doAction(AI::Actor* actor, const string& action) {
 
 void World::removeFood() {
     food--;
-    _view.getUIMessageManager().sendMessage(kFoodUpdatedMessage, UIMessageData());
+    _appMessageManager.sendMessage(kFoodUpdatedMessage, MessageData());
 }
 
 void World::addFood(int i) {
     food += i;
-    _view.getUIMessageManager().sendMessage(kFoodUpdatedMessage, UIMessageData());
+    _appMessageManager.sendMessage(kFoodUpdatedMessage, MessageData());
 }
 
 void World::addWood(int i) {
     wood += i;
 
-    _view.getUIMessageManager().sendMessage(kWoodUpdatedMessage, UIMessageData());
-}
-
-View::SceneObjectManager& World::getSceneObjectManager() {
-    return _sceneObjectManager;
+    _appMessageManager.sendMessage(kWoodUpdatedMessage, MessageData());
 }
 
 MessageManager& World::getMessageManager() {
@@ -118,12 +109,20 @@ int World::getFood() const {
     return food;
 }
 
-LocationManager& World::getLocationManager() {
-    return _locationManager;
-}
-
 AI::ActorsRegistry& World::getActorsRegistry() {
     return _actorsRegistry;
+}
+
+const WorldMap& World::getWorldMap() const {
+    return _worldMap;
+}
+
+WorldMap& World::getWorldMap() {
+    return _worldMap;
+}
+
+const LocationTypeManager& World::getLocationTypeManager() const {
+    return _locationTypeManager;
 }
 
 
@@ -136,6 +135,18 @@ void Travel::update(int delta) {
         actor->setPosition(dest);
         world.getMessageManager().dispatchMessage(actor->getID(), message);
     }
+}
+
+Travel::Travel(AI::Actor* actor, const string& dest, const WorldMap& worldMap, World& world)
+        : actor(actor), dest(dest),
+          distancePassed(0), world(world) {
+    const auto location = worldMap.getLocation(dest);
+    int xDist = location->getXPos() - actor->getX();
+    int yDist = location->getYPos() - actor->getY();
+    double angle = atan2(yDist, xDist);
+    dx = cos(angle) * actor->getSpeed() / 1000;
+    dy = sin(angle) * actor->getSpeed() / 1000;
+    distanceNeeded = (int) sqrt(xDist * xDist + yDist * yDist);
 }
 
 } // namespace Core

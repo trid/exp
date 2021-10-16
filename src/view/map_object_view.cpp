@@ -4,26 +4,23 @@
 
 namespace View {
 
-MapObjectView::MapObjectView() {
-}
-
-MapObjectView::~MapObjectView() {
+MapObjectView::MapObjectView(const Core::Location& location, SDL_Texture* image): _location(location), _image(image) {
 }
 
 void MapObjectView::draw(SDL_Renderer* renderer) {
     SDL_Rect rect;
     rect.x = getX();
     rect.y = getY();
-    SDL_QueryTexture(image, nullptr, nullptr, &rect.w, &rect.h);
-    SDL_RenderCopy(renderer, image, nullptr, &rect);
+    SDL_QueryTexture(_image, nullptr, nullptr, &rect.w, &rect.h);
+    SDL_RenderCopy(renderer, _image, nullptr, &rect);
 }
 
 int MapObjectView::getX() const {
-    return location->getXPos();
+    return _location.getXPos();
 }
 
 int MapObjectView::getY() const {
-    return location->getYPos();
+    return _location.getYPos();
 }
 
 } // namespace View

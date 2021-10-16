@@ -23,8 +23,10 @@ extern Core::AI::ActorsRegistry* g_actorsRegistry;
 
 namespace View {
 
-ViewFacade::ViewFacade(const Core::Settings& settings) :
-        _window(settings) {
+ViewFacade::ViewFacade(const Core::Settings& settings, Core::GlobalMessageManager& globalMessageManager, Core::World& world) :
+        _window(settings),
+        _globalMessageManager(globalMessageManager),
+        _sceneObjectManager(*this, world) {
     background = IMG_LoadTexture(_window.getRenderer(), kGrassSpritePath);
     actor = IMG_LoadTexture(_window.getRenderer(), kActorSpritePath);
 
@@ -40,11 +42,7 @@ void ViewFacade::draw() {
     SDL_RenderCopy(renderer, background, nullptr, nullptr);
 
     //Scene objects before actors
-    g_sceneObjectManager->draw(renderer);
-
-    for (MapObjectPtr ptr: mapObjects) {
-        ptr->draw(renderer);
-    }
+    _sceneObjectManager.draw(renderer);
 
     rect.w = 100;
     rect.h = 104;
@@ -67,8 +65,8 @@ Widgets::UIManager& ViewFacade::getUiManager() {
     return _uiManager;
 }
 
-UIMessageManager& ViewFacade::getUIMessageManager() {
-    return _uiMessageManager;
+Core::GlobalMessageManager& ViewFacade::getUIMessageManager() {
+    return _globalMessageManager;
 }
 
 Window& ViewFacade::getWindow() {

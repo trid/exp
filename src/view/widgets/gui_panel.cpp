@@ -16,7 +16,7 @@ extern View::Widgets::GUIPanel* g_panel;
 
 namespace View::Widgets {
 
-class WoodUpdaterListener : public IUIMessageListener {
+class WoodUpdaterListener : public Core::MessageListener {
 private:
     Label& _label;
     const Core::World& _world;
@@ -25,7 +25,7 @@ public:
             _label(label),
             _world(world) {}
 
-    virtual bool listen(UIMessageData const& messageData) {
+    virtual bool listen(Core::MessageData const& messageData) {
         std::stringstream ss;
         ss << kWoodLabelPrefix << _world.getWood();
         _label.setText(ss.str());
@@ -33,7 +33,7 @@ public:
     }
 };
 
-class FoodUpdaterListener : public IUIMessageListener {
+class FoodUpdaterListener : public Core::MessageListener {
 private:
     Label& _label;
     const Core::World& _world;
@@ -42,7 +42,7 @@ public:
             _label(label),
             _world(world) {}
 
-    virtual bool listen(UIMessageData const& messageData) {
+    virtual bool listen(Core::MessageData const& messageData) {
         std::stringstream ss;
         ss << kFoodLabelPrefix << _world.getFood();
         _label.setText(ss.str());
@@ -72,7 +72,7 @@ GUIPanel::GUIPanel(const Core::World& world, View::ViewFacade& view) :
     auto woodUpdater = std::make_unique<WoodUpdaterListener>(*_woodLabel, world);
     auto foodUpdater = std::make_unique<FoodUpdaterListener>(*_foodLabel, world);
 
-    UIMessageManager& uiMessageManager = view.getUIMessageManager();
+    auto& uiMessageManager = view.getUIMessageManager();
     uiMessageManager.addListener(Core::kWoodUpdatedMessage, std::move(woodUpdater));
     uiMessageManager.addListener(Core::kFoodUpdatedMessage, std::move(foodUpdater));
 }
