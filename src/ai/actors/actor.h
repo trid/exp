@@ -69,10 +69,6 @@ public:
 
     double getSpeed() { return speed; }
 
-    bool isStateBreackable() const { return stateBreackable; }
-
-    void setStateBreackable(bool stateBreackable) { Actor::stateBreackable = stateBreackable; }
-
     void addStatus(const std::string& stateName);
     void removeStatus(std::string const& stateName);
     const std::unordered_set<std::string>& getStatuses();
@@ -99,7 +95,6 @@ private:
     double speed = 120;
     //Actor position
     double x = 0.0, y = 0.0;
-    bool stateBreackable = true;
     bool _executingReaction = false;
     std::unordered_set<std::string> _statuses;
     std::unordered_map<std::string, std::string> _statusReactors;
