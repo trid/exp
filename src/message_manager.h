@@ -5,9 +5,9 @@
 
 namespace Core {
 
-namespace AI {
+namespace AI::Actors {
 class ActorsRegistry;
-}
+} // namespace AI::Actors
 
 class Message {
 public:
@@ -17,12 +17,12 @@ public:
 
 class MessageManager {
 public:
-    explicit MessageManager(AI::ActorsRegistry& actorRegistry);
+    explicit MessageManager(AI::Actors::ActorsRegistry& actorRegistry);
 
     void dispatchMessage(int actorId, Message& message);
 
 private:
-    AI::ActorsRegistry& _actorRegistry;
+    AI::Actors::ActorsRegistry& _actorRegistry;
 };
 
 } // namespace Core

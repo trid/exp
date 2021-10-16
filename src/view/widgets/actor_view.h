@@ -1,9 +1,9 @@
 #include "widget.h"
 #include "ui_manager.h"
 
-namespace Core::AI {
+namespace Core::AI::Actors {
 class Actor;
-}
+} // namespace Core::AI::Actors
 
 namespace View::Widgets {
 
@@ -21,7 +21,7 @@ public:
 
     virtual void draw(SDL_Renderer* renderer);
 private:
-    Core::AI::Actor* actor = nullptr;
+    Core::AI::Actors::Actor* actor = nullptr;
 
     Label* nameLabel;
     Label* foodLabel;

@@ -1,8 +1,8 @@
 #include <sstream>
 #include <SDL2/SDL_ttf.h>
 
-#include "../../ai/actor.h"
-#include "../../ai/registry.h"
+#include "../../ai/actors/actor.h"
+#include "../../ai/actors/registry.h"
 
 #include "../view_facade.h"
 
@@ -10,7 +10,7 @@
 #include "constants.h"
 #include "label.h"
 
-extern Core::AI::ActorsRegistry* g_actorsRegistry;
+extern Core::AI::Actors::ActorsRegistry* g_actorsRegistry;
 
 namespace View::Widgets {
 

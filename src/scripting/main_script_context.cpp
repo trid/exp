@@ -8,8 +8,8 @@
 
 #include "../world.h"
 
-#include "../ai/actor.h"
-#include "../ai/registry.h"
+#include "../ai/actors/actor.h"
+#include "../ai/actors/registry.h"
 #include "../ai/state_manager.h"
 
 #include "../view/view_facade.h"
@@ -45,28 +45,26 @@ void MainScriptContext::registerFunctions() {
 void MainScriptContext::registerClasses() {
     auto& state = getState();
 
-    state.new_usertype<Core::AI::Actor>("Actor",
-                                        "setState", &Core::AI::Actor::setBehaviourStep,
-                                        "say", &Core::AI::Actor::say,
-                                        "setName", &Core::AI::Actor::setName,
-                                        "setPosition", &Core::AI::Actor::setPosition,
-                                        "setMaxFood", &Core::AI::Actor::setMaxFood,
-                                        "setMaxWater", &Core::AI::Actor::setMaxWater,
-                                        "getWater", &Core::AI::Actor::getWater,
-                                        "drink", &Core::AI::Actor::drink,
-                                        "getPosition", &Core::AI::Actor::getPosition,
-                                        "eat", &Core::AI::Actor::eat,
-                                        "getFood", &Core::AI::Actor::getFood,
-                                        "getInventory", &Core::AI::Actor::getInventory,
-                                        "getInventoryLimit", &Core::AI::Actor::getInventoryLimit,
-                                        "unloadWood", &Core::AI::Actor::unloadWood,
-                                        "unloadFood", &Core::AI::Actor::unloadFood,
-                                        "setStateBreackable", &Core::AI::Actor::setStateBreackable,
-                                        "hasAction", &Core::AI::Actor::hasAction,
-                                        "addStatus", &Core::AI::Actor::addStatus);
+    state.new_usertype<Core::AI::Actors::Actor>("Actor",
+                                        "setState", &Core::AI::Actors::Actor::setBehaviourStep,
+                                        "say", &Core::AI::Actors::Actor::say,
+                                        "setName", &Core::AI::Actors::Actor::setName,
+                                        "setPosition", &Core::AI::Actors::Actor::setPosition,
+                                        "setMaxFood", &Core::AI::Actors::Actor::setMaxFood,
+                                        "setMaxWater", &Core::AI::Actors::Actor::setMaxWater,
+                                        "getWater", &Core::AI::Actors::Actor::getWater,
+                                        "getPosition", &Core::AI::Actors::Actor::getPosition,
+                                        "getFood", &Core::AI::Actors::Actor::getFood,
+                                        "getInventory", &Core::AI::Actors::Actor::getInventory,
+                                        "getInventoryLimit", &Core::AI::Actors::Actor::getInventoryLimit,
+                                        "unloadWood", &Core::AI::Actors::Actor::unloadWood,
+                                        "unloadFood", &Core::AI::Actors::Actor::unloadFood,
+                                        "setStateBreackable", &Core::AI::Actors::Actor::setStateBreackable,
+                                        "hasAction", &Core::AI::Actors::Actor::hasAction,
+                                        "addStatus", &Core::AI::Actors::Actor::addStatus);
 
-    state.new_usertype<Core::AI::ActorsRegistry>("ActorsRegistry",
-                                                 "createActor", &Core::AI::ActorsRegistry::createActor);
+    state.new_usertype<Core::AI::Actors::ActorsRegistry>("ActorsRegistry",
+                                                 "createActor", &Core::AI::Actors::ActorsRegistry::createActor);
 
     state.new_usertype<Core::Message>("Message",
                                       "messageType", &Core::Message::messageType);

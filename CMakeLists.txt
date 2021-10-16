@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.20)
 project(exp)
 
 file(GLOB ACTIONS_SOURCE_FILES src/actions/*.cpp)
+file(GLOB ACTORS_SOURCE_FILES src/ai/actors/*.cpp)
 file(GLOB AI_SOURCE_FILES src/ai/*.cpp)
 file(GLOB CORE_SOURCE_FILES src/*.cpp)
 file(GLOB SCRIPTING_SOURCE_FILES src/scripting/*.cpp)
@@ -25,6 +26,7 @@ include_directories(src/external)
 
 add_executable(exp ${CORE_SOURCE_FILES}
 					${ACTIONS_SOURCE_FILES}
+				    ${ACTORS_SOURCE_FILES}
 					${AI_SOURCE_FILES}
 					${SCRIPTING_SOURCE_FILES}
 					${VIEW_SOURCE_FILES}

@@ -3,8 +3,8 @@
 
 #include "view_facade.h"
 
-#include "../ai/actor.h"
-#include "../ai/registry.h"
+#include "../ai/actors/actor.h"
+#include "../ai/actors/registry.h"
 #include "../world.h"
 #include "../settings.h"
 
@@ -19,7 +19,7 @@
 
 extern View::ViewFacade* g_view;
 extern View::SceneObjectManager* g_sceneObjectManager;
-extern Core::AI::ActorsRegistry* g_actorsRegistry;
+extern Core::AI::Actors::ActorsRegistry* g_actorsRegistry;
 
 namespace View {
 
@@ -46,7 +46,7 @@ void ViewFacade::draw() {
 
     rect.w = 100;
     rect.h = 104;
-    for (Core::AI::Actor* actorItem: g_actorsRegistry->getActors()) {
+    for (Core::AI::Actors::Actor* actorItem: g_actorsRegistry->getActors()) {
         rect.x = actorItem->getX();
         rect.y = actorItem->getY();
         SDL_RenderCopy(renderer, actor, nullptr, &rect);

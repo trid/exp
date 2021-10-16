@@ -11,16 +11,17 @@
 
 namespace Core::AI {
 
+namespace Actors {
 class Actor;
-
+} // namespace Actors
 
 
 class BehaviourStep {
 public:
     explicit BehaviourStep(const sol::table& step);
 
-    void runStep(Actor& actor);
-    boost::optional<BehaviourStep> getTransition(Actor& actor);
+    void runStep(Actors::Actor& actor);
+    boost::optional<BehaviourStep> getTransition(Actors::Actor& actor);
 private:
     sol::table step;
 };

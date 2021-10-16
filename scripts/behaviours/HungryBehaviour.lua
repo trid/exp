@@ -17,7 +17,7 @@ GoEatingStep = {
 EatStep = {
     run = function(actor)
         actor:say("Food!")
-        actor:eat()
+        g_world:doAction(actor, "eat")
     end,
 
     transition = function(actor)

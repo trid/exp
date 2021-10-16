@@ -4,10 +4,11 @@
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
-#include "../message_manager.h"
-#include "../actions/action.h"
-#include "behaviour_step.h"
+#include "../../message_manager.h"
+#include "../../actions/action.h"
+#include "../behaviour_step.h"
 
+#include "actors_needs.h"
 
 namespace View {
 class ViewFacade;
@@ -21,39 +22,11 @@ namespace Core {
 class World;
 } // namespace Core
 
-namespace Core::AI {
+namespace Core::AI::Actors {
 
-class Actor {
-    friend class ActorsRegistry;
-
+class Actor: public ActorsNeeds {
 public:
-    explicit Actor(View::ViewFacade& view, Core::World& world, View::Widgets::GUIPanel& guiPanel);
-
-    void update();
-    void eat();
-    void drink();
-
-    int getFood() const { return food; }
-
-    void setFood(int food) { this->food = food; }
-
-    int getWater() const { return water; }
-
-    void setWater(int water) { this->water = water; }
-
-    int getMaxFood() { return maxFood; }
-
-    void setMaxFood(int maxFood) {
-        this->maxFood = maxFood;
-        food = maxFood;
-    }
-
-    int getMaxWater() { return maxWater; }
-
-    void setMaxWater(int maxWater) {
-        this->maxWater = maxWater;
-        water = maxWater;
-    }
+    explicit Actor(int id, View::ViewFacade& view, Core::World& world, View::Widgets::GUIPanel& guiPanel);
 
     int getID() const { return id; }
 
@@ -111,16 +84,10 @@ public:
     void removeAction();
     bool hasAction();
 
-    void updateStatus();
-
     bool isExecutingReaction();
     void setExecutingReaction(bool executingReaction);
 private:
     int id;
-    int food = 90;
-    int water = 60;
-    int maxFood = 90;
-    int maxWater = 60;
 
     std::string position = "";
     std::string target = "";
@@ -131,7 +98,7 @@ private:
     //Pixels per second
     double speed = 120;
     //Actor position
-    double x, y;
+    double x = 0.0, y = 0.0;
     bool stateBreackable = true;
     bool _executingReaction = false;
     std::unordered_set<std::string> _statuses;
@@ -143,6 +110,6 @@ private:
     View::Widgets::GUIPanel& _guiPanel;
 };
 
-} // namespace Core::AI
+} // namespace Core::AI::Actors
 
 #endif // ACTOR_H

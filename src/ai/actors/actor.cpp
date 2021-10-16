@@ -2,43 +2,24 @@
 
 #include <iostream>
 
-#include "../constants.h"
-#include "../world.h"
-#include "../actions/constants.h"
-#include "../view/view_facade.h"
-#include "../view/widgets/gui_panel.h"
+#include "../../constants.h"
+#include "../../world.h"
+#include "../../actions/constants.h"
+#include "../../view/view_facade.h"
+#include "../../view/widgets/gui_panel.h"
 
-#include "constants.h"
-#include "behaviour_step.h"
+#include "../constants.h"
+#include "../behaviour_step.h"
 
 extern View::Widgets::GUIPanel* g_panel;
 
-namespace Core::AI {
+namespace Core::AI::Actors {
 
-void Actor::update() {
-
-}
-
-void Actor::updateStatus() {
-    if (food > 0) {
-        food--;
-    } else {
-        addStatus(kHungryStateName);
-    }
-    if (water > 0) {
-        water--;
-    } else {
-        addStatus(kThirstyStateName);
-    }
-}
-
-void Actor::eat() {
-    _world.doAction(this, Core::Actions::kActionEat);
-}
-
-void Actor::drink() {
-    _world.doAction(this, Core::Actions::kActionDrink);
-}
+Actor::Actor(int id, View::ViewFacade& view, Core::World& world, View::Widgets::GUIPanel& guiPanel) :
+        id(id),
+        _view(view),
+        _world(world),
+        _guiPanel(guiPanel) {}
 
 void Actor::removeStatus(const string& stateName) {
     _statuses.erase(stateName);
@@ -123,11 +104,6 @@ bool Actor::hasAction() {
     return currentAction != nullptr;
 }
 
-Actor::Actor(View::ViewFacade& view, Core::World& world, View::Widgets::GUIPanel& guiPanel) :
-        _view(view),
-        _world(world),
-        _guiPanel(guiPanel) {}
-
 BehaviourStepOpt Actor::getBehaviourStep() { return _step; }
 
 const std::unordered_set<std::string>& Actor::getStatuses() {
@@ -146,4 +122,4 @@ void Actor::setExecutingReaction(bool executingReaction) {
     _executingReaction = executingReaction;
 }
 
-} // namespace Core::AI
+} // namespace Core::AI::Actors

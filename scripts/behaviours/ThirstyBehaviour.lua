@@ -16,7 +16,7 @@ GoDrinkingStep = {
 DrinkStep = {
     run = function(actor)
         actor:say("Oh fresh water!")
-        actor:drink()
+        g_world:doAction(actor, "drink")
     end,
 
     transition = function(actor)

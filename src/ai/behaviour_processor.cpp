@@ -4,13 +4,13 @@
 
 #include "behaviour_processor.h"
 
-#include "actor.h"
+#include "actors/actor.h"
 #include "constants.h"
 #include "state_manager.h"
 
 namespace Core::AI {
 
-BehaviourProcessor::BehaviourProcessor(StateManager& stateManager, std::vector<Actor*>& actors) :
+BehaviourProcessor::BehaviourProcessor(StateManager& stateManager, std::vector<Actors::Actor*>& actors) :
         _stateManager(stateManager),
         _actors(actors) {}
 
@@ -21,7 +21,7 @@ void BehaviourProcessor::update() {
     }
 }
 
-void BehaviourProcessor::processActor(Actor& actor) {
+void BehaviourProcessor::processActor(Actors::Actor& actor) {
     if (!actor.getStatuses().empty() && actor.isStateBreackable() && !actor.isExecutingReaction()) {
         processReaction(actor);
     }
@@ -37,7 +37,7 @@ void BehaviourProcessor::processActor(Actor& actor) {
     updateBehaviour(actor);
 }
 
-void BehaviourProcessor::processReaction(Actor& actor) {
+void BehaviourProcessor::processReaction(Actors::Actor& actor) {
     for (const auto& globalState: actor.getStatuses()) {
         const auto& reactionStateName = actor.getStatusReactors().at(globalState);
         auto reactionBehaviour = _stateManager.getBehaviour(reactionStateName);
@@ -49,7 +49,7 @@ void BehaviourProcessor::processReaction(Actor& actor) {
     }
 }
 
-void BehaviourProcessor::updateBehaviour(Actor& actor) {
+void BehaviourProcessor::updateBehaviour(Actors::Actor& actor) {
     boost::optional<BehaviourStep> step = actor.getBehaviourStep();
     while (step) {
         step = step->getTransition(actor);
@@ -60,7 +60,7 @@ void BehaviourProcessor::updateBehaviour(Actor& actor) {
     }
 }
 
-void BehaviourProcessor::setBehaviourStep(Actor& actor, BehaviourStep step) {
+void BehaviourProcessor::setBehaviourStep(Actors::Actor& actor, BehaviourStep step) {
     actor.setBehaviourStep(step);
     step.runStep(actor);
 }

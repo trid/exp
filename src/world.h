@@ -9,35 +9,35 @@
 #include <unordered_set>
 
 #include "actions/action_manager.h"
-#include "application.h"
-#include "location_type_manager.h"
-#include "process.h"
-#include "message_manager.h"
-#include "world_map.h"
 
-#include "ai/actor.h"
-#include "ai/registry.h"
+#include "ai/actors/registry.h"
+
+#include "application.h"
+#include "global_message_manager.h"
+#include "location_type_manager.h"
+#include "message_manager.h"
+#include "process.h"
+#include "world_map.h"
 
 #include "view/map_object_view.h"
 #include "view/scene_object_manager.h"
-#include "global_message_manager.h"
 
 
 namespace Core {
 
-namespace AI {
+namespace AI::Actors {
 class Actor;
-} // namespace AI
+} // namespace AI::Actors
 
 struct Travel {
-    AI::Actor* actor;
+    AI::Actors::Actor* actor;
     string dest;
     double distancePassed;
     double distanceNeeded;
     double dx, dy;
     World& world;
 
-    Travel(AI::Actor* actor, const string& dest, const WorldMap& worldMap, World& world);
+    Travel(AI::Actors::Actor* actor, const string& dest, const WorldMap& worldMap, World& world);
 
     void update(int delta);
 
@@ -51,7 +51,7 @@ class World {
 public:
     World(Application& application, GlobalMessageManager& appMessageManager);
 
-    TravelPtr moveActor(AI::Actor* actor, string const& dest);
+    TravelPtr moveActor(AI::Actors::Actor* actor, string const& dest);
 
     void update(int delta);
 
@@ -75,13 +75,13 @@ public:
 
     void removeFood();
 
-    std::unordered_set<string> const& getActions(AI::Actor* actor);
+    std::unordered_set<string> const& getActions(AI::Actors::Actor* actor);
 
-    void doAction(AI::Actor* actor, const string& action);
+    void doAction(AI::Actors::Actor* actor, const string& action);
 
     MessageManager& getMessageManager();
 
-    AI::ActorsRegistry& getActorsRegistry();
+    AI::Actors::ActorsRegistry& getActorsRegistry();
 
     const WorldMap& getWorldMap() const;
     WorldMap& getWorldMap();
@@ -100,7 +100,7 @@ private:
     std::list<Actions::ActionPtr> actions;
 
     Actions::ActionManager _actionManager;
-    AI::ActorsRegistry _actorsRegistry;
+    AI::Actors::ActorsRegistry _actorsRegistry;
     MessageManager _messageManager;
     LocationTypeManager _locationTypeManager;
     WorldMap _worldMap;

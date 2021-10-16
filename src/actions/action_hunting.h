@@ -1,5 +1,8 @@
 #include "action.h"
-#include "../ai/actor.h"
+
+namespace Core::AI::Actors {
+class Actor;
+}
 
 namespace Core::Actions {
 
@@ -8,7 +11,7 @@ private:
     int time = 0;
     int interval;
 public:
-    explicit ActionHunting(AI::Actor* actor, Core::World& world);
+    explicit ActionHunting(AI::Actors::Actor* actor, Core::World& world);
 
     virtual bool isValid();
     virtual void update(int delta);

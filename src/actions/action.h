@@ -9,7 +9,7 @@ namespace Core {
 class World;
 } // namespace Core
 
-namespace Core::AI {
+namespace Core::AI::Actors {
 class Actor;
 } // namespace Core::AI
 
@@ -19,7 +19,7 @@ class Action {
 private:
     bool running = true;
 protected:
-    AI::Actor* actor;
+    AI::Actors::Actor* actor;
 public:
     virtual bool isValid() = 0;
     virtual void update(int delta) = 0;
@@ -30,19 +30,19 @@ public:
 
     void stop();
 
-    AI::Actor* getActor();
+    AI::Actors::Actor* getActor();
 
-    Action(AI::Actor* actor, Core::World&);
+    Action(AI::Actors::Actor* actor, Core::World&);
 };
 
 class VirtualActionFactory {
 public:
-    virtual Action* createAction(AI::Actor* actor, Core::World& world) = 0;
+    virtual Action* createAction(AI::Actors::Actor* actor, Core::World& world) = 0;
 };
 
 template<class T>
 class ActionFactory : public VirtualActionFactory {
-    Action* createAction(AI::Actor* actor, Core::World& world) override { return new T(actor, world); }
+    Action* createAction(AI::Actors::Actor* actor, Core::World& world) override { return new T(actor, world); }
 };
 
 typedef shared_ptr<Action> ActionPtr;

@@ -4,14 +4,14 @@
 
 #include "behaviour_step.h"
 
-#include "actor.h"
+#include "actors/actor.h"
 #include "constants.h"
 
 namespace Core::AI {
 
 BehaviourStep::BehaviourStep(const sol::table& step) : step(step) {}
 
-void BehaviourStep::runStep(Actor& actor) {
+void BehaviourStep::runStep(Actors::Actor& actor) {
     sol::optional<sol::function> runFunctionOpt = step[kRunFunctionName];
     if (runFunctionOpt) {
         auto& runFunction = *runFunctionOpt;
@@ -23,7 +23,7 @@ void BehaviourStep::runStep(Actor& actor) {
     }
 }
 
-boost::optional<BehaviourStep> BehaviourStep::getTransition(Actor& actor) {
+boost::optional<BehaviourStep> BehaviourStep::getTransition(Actors::Actor& actor) {
     sol::function transitionFunction = step[kTransitionFunctionName];
     sol::optional<sol::table> transitionStep;
 
