@@ -12,7 +12,7 @@
 namespace Core::AI {
 
 namespace Actors {
-class Actor;
+class Agent;
 } // namespace Actors
 
 class BehaviourStep;
@@ -20,17 +20,17 @@ class StateManager;
 
 class BehaviourProcessor {
 public:
-    explicit BehaviourProcessor(StateManager& stateManager, std::vector<Actors::Actor*>& actors);
+    explicit BehaviourProcessor(StateManager& stateManager, std::vector<Actors::Agent*>& actors);
 
     void update();
 private:
-    void processActor(Actors::Actor& actor);
-    void processReaction(Actors::Actor& actor);
-    void updateBehaviour(Actors::Actor& actor);
-    void setBehaviourStep(Actors::Actor& actor, BehaviourStep step);
+    void processActor(Actors::Agent& actor);
+    void processReaction(Actors::Agent& actor);
+    void updateBehaviour(Actors::Agent& actor);
+    void setBehaviourStep(Actors::Agent& actor, BehaviourStep step);
 
     StateManager& _stateManager;
-    std::vector<Actors::Actor*>& _actors;
+    std::vector<Actors::Agent*>& _actors;
 };
 
 class BehaviourProcessorProcess: public Process {

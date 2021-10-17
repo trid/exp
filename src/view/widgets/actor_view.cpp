@@ -1,7 +1,7 @@
 #include <sstream>
 #include <SDL2/SDL_ttf.h>
 
-#include "../../ai/actors/actor.h"
+#include "../../ai/actors/agent.h"
 #include "../../ai/actors/registry.h"
 
 #include "../view_facade.h"
@@ -10,7 +10,7 @@
 #include "constants.h"
 #include "label.h"
 
-extern Core::AI::Actors::ActorsRegistry* g_actorsRegistry;
+extern Core::AI::Actors::AgentsRegistry* g_actorsRegistry;
 
 namespace View::Widgets {
 
@@ -24,20 +24,20 @@ ActorView::ActorView(int x, int y, const UIManager& uiManager, ViewFacade& view)
     waterLabel = new Label(0, fontHeight * 2, _uiManager, kWaterLabelPrefix);
     placeLabel = new Label(0, fontHeight * 3, _uiManager, kLocationLabelPrefix);
     if (g_actorsRegistry) {
-        actor = g_actorsRegistry->getActor(0);
+        actor = g_actorsRegistry->getAgent(0);
     }
 }
 
 void ActorView::nextActor() {
     if (actor->getID() != g_actorsRegistry->getLastId()) {
-        actor = g_actorsRegistry->getActor(actor->getID() + 1);
+        actor = g_actorsRegistry->getAgent(actor->getID() + 1);
     }
     updateLabels();
 }
 
 void ActorView::prevActor() {
     if (actor->getID() > 0) {
-        actor = g_actorsRegistry->getActor(actor->getID() - 1);
+        actor = g_actorsRegistry->getAgent(actor->getID() - 1);
     }
     updateLabels();
 }
@@ -71,7 +71,7 @@ void ActorView::draw(SDL_Renderer* renderer) {
 
 void ActorView::updateLabels() {
     if (!actor && g_actorsRegistry) {
-        actor = g_actorsRegistry->getActor(0);
+        actor = g_actorsRegistry->getAgent(0);
     }
     if (!actor) {
         return;

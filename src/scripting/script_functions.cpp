@@ -21,7 +21,7 @@ void print(const std::string& message) {
     std::cout << kScriptMessagePrefix << message;
 }
 
-void setState(Core::AI::Actors::Actor& actor, const std::string& stateName, Core::AI::StateManager& stateManager) {
+void setState(Core::AI::Actors::Agent& actor, const std::string& stateName, Core::AI::StateManager& stateManager) {
     if (stateName.empty()) {
         actor.setBehaviourStep(boost::none);
     } else {
@@ -30,13 +30,13 @@ void setState(Core::AI::Actors::Actor& actor, const std::string& stateName, Core
     }
 }
 
-void setReaction(Core::AI::Actors::Actor& actor, const std::string& reactionType, const std::string& behaviourName) {
+void setReaction(Core::AI::Actors::Agent& actor, const std::string& reactionType, const std::string& behaviourName) {
     actor.setReactor(reactionType, behaviourName);
 }
 
-//Actor registry
-Core::AI::Actors::Actor& createActor(Core::AI::Actors::ActorsRegistry& actorsRegistry, Core::World& world) {
-    return actorsRegistry.createActor(*g_view, world, *g_panel);
+//Agent registry
+Core::AI::Actors::Agent& createActor(Core::AI::Actors::AgentsRegistry& actorsRegistry, Core::World& world) {
+    return actorsRegistry.createAgent(world, *g_panel);
 }
 
 //Scene objects

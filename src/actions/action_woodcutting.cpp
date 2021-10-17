@@ -26,7 +26,7 @@ bool ActionWoodcutting::isFinished() {
     return false;
 }
 
-ActionWoodcutting::ActionWoodcutting(AI::Actors::Actor* actor, Core::World& world) :
+ActionWoodcutting::ActionWoodcutting(AI::Actors::Agent* actor, Core::World& world) :
         Action(actor, world),
         interval(kWoodcuttingTime) {}
 

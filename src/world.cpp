@@ -9,12 +9,12 @@
 #include "actions/action_manager.h"
 #include "actions/constants.h"
 
-#include "ai/actors/actor.h"
+#include "ai/actors/agent.h"
 
 
 namespace Core {
 
-TravelPtr World::moveActor(AI::Actors::Actor* actor, const string& dest) {
+TravelPtr World::moveActor(AI::Actors::Agent* actor, const string& dest) {
     auto route = std::make_shared<Travel>(actor, dest, _worldMap, *this);
     actor->setPosition(*this, kPositionInRoute);
     inRoute.push_back(route);
@@ -71,12 +71,12 @@ World::World(Application& application, GlobalMessageManager& appMessageManager) 
     wellActions.emplace(Actions::kActionDrink);
 }
 
-std::unordered_set<std::string> const& World::getActions(AI::Actors::Actor* actor) {
+std::unordered_set<std::string> const& World::getActions(AI::Actors::Agent* actor) {
     const auto location = _worldMap.getLocation(actor->getPosition());
     return location->getType().getActions();
 }
 
-void World::doAction(AI::Actors::Actor* actor, const string& action) {
+void World::doAction(AI::Actors::Agent* actor, const string& action) {
     const auto& placeActions = getActions(actor);
     if (placeActions.find(action) != placeActions.end()) {
         Actions::ActionPtr actionInstance = _actionManager.getAction(action, actor);
@@ -109,7 +109,7 @@ int World::getFood() const {
     return food;
 }
 
-AI::Actors::ActorsRegistry& World::getActorsRegistry() {
+AI::Actors::AgentsRegistry& World::getActorsRegistry() {
     return _actorsRegistry;
 }
 
@@ -137,7 +137,7 @@ void Travel::update(int delta) {
     }
 }
 
-Travel::Travel(AI::Actors::Actor* actor, const string& dest, const WorldMap& worldMap, World& world)
+Travel::Travel(AI::Actors::Agent* actor, const string& dest, const WorldMap& worldMap, World& world)
         : actor(actor), dest(dest),
           distancePassed(0), world(world) {
     const auto location = worldMap.getLocation(dest);

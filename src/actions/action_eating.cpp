@@ -30,7 +30,7 @@ bool ActionEating::isFinished() {
     return time >= maxTime;
 }
 
-ActionEating::ActionEating(AI::Actors::Actor* actor, Core::World& world) :
+ActionEating::ActionEating(AI::Actors::Agent* actor, Core::World& world) :
         Action(actor, world),
         maxTime(kActionEatTime),
         _world(world) {

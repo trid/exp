@@ -22,7 +22,7 @@ ActionManager::~ActionManager() {
     }
 }
 
-ActionPtr ActionManager::getAction(const std::string& action, AI::Actors::Actor* actor) {
+ActionPtr ActionManager::getAction(const std::string& action, AI::Actors::Agent* actor) {
     return ActionPtr(_actionMap[action]->createAction(actor, _world));
 }
 

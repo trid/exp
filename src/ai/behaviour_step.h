@@ -12,7 +12,7 @@
 namespace Core::AI {
 
 namespace Actors {
-class Actor;
+class Agent;
 } // namespace Actors
 
 
@@ -20,8 +20,8 @@ class BehaviourStep {
 public:
     explicit BehaviourStep(const sol::table& step);
 
-    void runStep(Actors::Actor& actor);
-    boost::optional<BehaviourStep> getTransition(Actors::Actor& actor);
+    void runStep(Actors::Agent& actor);
+    boost::optional<BehaviourStep> getTransition(Actors::Agent& actor);
 private:
     sol::table step;
 };

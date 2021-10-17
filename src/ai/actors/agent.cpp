@@ -1,4 +1,4 @@
-#include "actor.h"
+#include "agent.h"
 
 #include <iostream>
 
@@ -15,93 +15,92 @@ extern View::Widgets::GUIPanel* g_panel;
 
 namespace Core::AI::Actors {
 
-Actor::Actor(int id, View::ViewFacade& view, Core::World& world, View::Widgets::GUIPanel& guiPanel) :
+Agent::Agent(int id, Core::World& world, View::Widgets::GUIPanel& guiPanel) :
         id(id),
-        _view(view),
         _world(world),
         _guiPanel(guiPanel) {}
 
-void Actor::removeStatus(const string& stateName) {
+void Agent::removeStatus(const string& stateName) {
     _statuses.erase(stateName);
 }
 
-void Actor::setBehaviourStep(BehaviourStepOpt step) {
+void Agent::setBehaviourStep(BehaviourStepOpt step) {
     _step = step;
     if (!step) {
         _executingReaction = false;
     }
 }
 
-void Actor::processMessage(Core::Message& message) {
+void Agent::processMessage(Core::Message& message) {
 
 }
 
-void Actor::say(const string& message) {
+void Agent::say(const string& message) {
     std::cout << name << ": " << message << std::endl;
     g_panel->addMessage(name + ": " + message);
 }
 
-void Actor::addItem() {
+void Agent::addItem() {
     if (inventory < inventoryLimit) {
         inventory++;
     }
 }
 
-void Actor::unloadWood() {
+void Agent::unloadWood() {
     _world.addWood(inventory);
     inventory = 0;
 }
 
-void Actor::unloadFood() {
+void Agent::unloadFood() {
     _world.addFood(inventory);
     inventory = 0;
 }
 
-int Actor::getInventoryLimit() {
+int Agent::getInventoryLimit() {
     return inventoryLimit;
 }
 
-void Actor::addStatus(const string& stateName) {
+void Agent::addStatus(const string& stateName) {
     _statuses.insert(stateName);
 }
 
-void Actor::setReactor(const string& stateName, const string& reactionState) {
+void Agent::setReactor(const string& stateName, const string& reactionState) {
     _statusReactors[stateName] = reactionState;
 }
 
-void Actor::setAction(Core::Actions::ActionPtr& action) {
+void Agent::setAction(Core::Actions::ActionPtr& action) {
     if (currentAction) {
         currentAction->stop();
     }
     currentAction = action;
 }
 
-void Actor::removeAction() {
+void Agent::removeAction() {
     if (currentAction) {
         currentAction->stop();
         currentAction = nullptr;
     }
 }
 
-bool Actor::hasAction() {
+bool Agent::hasAction() {
     return currentAction != nullptr;
 }
 
-BehaviourStepOpt Actor::getBehaviourStep() { return _step; }
+BehaviourStepOpt Agent::getBehaviourStep() { return _step; }
 
-const std::unordered_set<std::string>& Actor::getStatuses() {
+const std::unordered_set<std::string>& Agent::getStatuses() {
     return _statuses;
 }
 
-bool Actor::isExecutingReaction() {
+bool Agent::isExecutingReaction() {
     return _executingReaction;
 }
 
-const std::unordered_map<std::string, std::string>& Actor::getStatusReactors() {
+const std::unordered_map<std::string, std::string>& Agent::getStatusReactors() {
     return _statusReactors;
 }
 
-void Actor::setExecutingReaction(bool executingReaction) {
+void Agent::setExecutingReaction(bool executingReaction) {
     _executingReaction = executingReaction;
 }
 

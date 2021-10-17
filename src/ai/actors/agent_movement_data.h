@@ -2,8 +2,8 @@
 // Created by TriD on 17.10.2021.
 //
 
-#ifndef EXP_ACTOR_MOVEMENT_DATA_H
-#define EXP_ACTOR_MOVEMENT_DATA_H
+#ifndef EXP_AGENT_MOVEMENT_DATA_H
+#define EXP_AGENT_MOVEMENT_DATA_H
 
 #include <string>
 
@@ -13,7 +13,7 @@ class World;
 
 namespace Core::AI::Actors {
 
-class ActorMovementData {
+class AgentMovementData {
 public:
     [[nodiscard]] const std::string& getPosition() const;
     void setPosition(World& world, const std::string& position);
@@ -38,7 +38,7 @@ private:
     //Pixels per second
     double _speed = 120;
 
-    //Actor position
+    //Agent position
     double _x = 0.0;
     double _y = 0.0;
 };
@@ -46,4 +46,4 @@ private:
 } // namespace Core::AI::Actors
 
 
-#endif //EXP_ACTOR_MOVEMENT_DATA_H
+#endif //EXP_AGENT_MOVEMENT_DATA_H

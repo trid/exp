@@ -2,8 +2,8 @@
 // Created by TriD on 17.10.2021.
 //
 
-#ifndef EXP_ACTORS_NEEDS_H
-#define EXP_ACTORS_NEEDS_H
+#ifndef EXP_AGENT_NEEDS_H
+#define EXP_AGENT_NEEDS_H
 
 namespace Core {
 class World;
@@ -11,7 +11,7 @@ class World;
 
 namespace Core::AI::Actors {
 
-class ActorNeeds {
+class AgentNeeds {
 public:
     [[nodiscard]] int getFood() const;
     void setFood(int food);
@@ -34,4 +34,4 @@ private:
 } // namespace AI::Actors
 
 
-#endif //EXP_ACTORS_NEEDS_H
+#endif //EXP_AGENT_NEEDS_H

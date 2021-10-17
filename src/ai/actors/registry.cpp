@@ -4,45 +4,45 @@
 
 #include "../constants.h"
 
-Core::AI::Actors::ActorsRegistry* g_actorsRegistry = nullptr;
+Core::AI::Actors::AgentsRegistry* g_actorsRegistry = nullptr;
 
 namespace Core::AI::Actors {
 
-const std::vector<Actor*>& ActorsRegistry::getActors() const {
+const std::vector<Agent*>& AgentsRegistry::getActors() const {
     return actors;
 }
 
-std::vector<Actor*>& ActorsRegistry::getActors() {
+std::vector<Agent*>& AgentsRegistry::getActors() {
     return actors;
 }
 
-Actor& ActorsRegistry::createActor(View::ViewFacade& view, Core::World& world, View::Widgets::GUIPanel& guiPanel) {
-    Actor* actor = new Actor(nextId, view, world, guiPanel);
+Agent& AgentsRegistry::createAgent(Core::World& world, View::Widgets::GUIPanel& guiPanel) {
+    Agent* actor = new Agent(nextId, world, guiPanel);
     nextId++;
     actors.push_back(actor);
     return *actor;
 }
 
-void ActorsRegistry::update() {
+void AgentsRegistry::update() {
 
 }
 
-Actor* ActorsRegistry::getActor(int id) {
-    return (actors.empty()) ? (Actor*) nullptr : actors[id];
+Agent* AgentsRegistry::getAgent(int id) {
+    return (actors.empty()) ? (Agent*) nullptr : actors[id];
 }
 
-void ActorsRegistry::ActorRegistryProcess::update(int delta) {
+void AgentsRegistry::ActorRegistryProcess::update(int delta) {
     _actorsRegistry.update();
 }
 
-bool ActorsRegistry::ActorRegistryProcess::finished() {
+bool AgentsRegistry::ActorRegistryProcess::finished() {
     return false;
 }
 
-ActorsRegistry::ActorRegistryProcess::ActorRegistryProcess(ActorsRegistry& actorsRegistry) : _actorsRegistry(
+AgentsRegistry::ActorRegistryProcess::ActorRegistryProcess(AgentsRegistry& actorsRegistry) : _actorsRegistry(
         actorsRegistry) {}
 
-ActorsRegistry::ActorsRegistry(Core::Application& application) {
+AgentsRegistry::AgentsRegistry(Core::Application& application) {
     g_actorsRegistry = this;
 
     Core::ProcessPtr ptr(new ActorRegistryProcess(*this));
@@ -50,17 +50,17 @@ ActorsRegistry::ActorsRegistry(Core::Application& application) {
     application.addProcess(Core::ProcessPtr(new ActorStatusUpdateProcess(*this)));
 }
 
-void ActorsRegistry::ActorStatusUpdateProcess::update(int delta) {
+void AgentsRegistry::ActorStatusUpdateProcess::update(int delta) {
     time += delta;
     if (time > interval) {
         time -= interval;
-        for (Actor* actor: _actorRegistry.getActors()) {
+        for (Agent* actor: _actorRegistry.getActors()) {
             updateNeeds(actor);
         }
     }
 }
 
-void ActorsRegistry::ActorStatusUpdateProcess::updateNeeds(Actor* actor) const {
+void AgentsRegistry::ActorStatusUpdateProcess::updateNeeds(Agent* actor) const {
     int food = actor->getFood();
     if (food > 0) {
         actor->setFood(food - 1);
@@ -76,11 +76,11 @@ void ActorsRegistry::ActorStatusUpdateProcess::updateNeeds(Actor* actor) const {
     }
 }
 
-bool ActorsRegistry::ActorStatusUpdateProcess::finished() {
+bool AgentsRegistry::ActorStatusUpdateProcess::finished() {
     return false;
 }
 
-ActorsRegistry::ActorStatusUpdateProcess::ActorStatusUpdateProcess(ActorsRegistry& actorRegistry) : _actorRegistry(
+AgentsRegistry::ActorStatusUpdateProcess::ActorStatusUpdateProcess(AgentsRegistry& actorRegistry) : _actorRegistry(
         actorRegistry) {}
 
 } // namespace Core::AI::Actors

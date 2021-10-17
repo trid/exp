@@ -2,30 +2,30 @@
 #define ACTOR_REGISTRY_H
 
 #include "vector"
-#include "actor.h"
+#include "agent.h"
 #include "../../process.h"
 #include "../../application.h"
 
 namespace Core::AI::Actors {
 
-class Actor;
+class Agent;
 
-class ActorsRegistry {
+class AgentsRegistry {
 public:
     class ActorRegistryProcess : public Core::Process {
     public:
-        explicit ActorRegistryProcess(ActorsRegistry& actorsRegistry);
+        explicit ActorRegistryProcess(AgentsRegistry& actorsRegistry);
 
         void update(int delta) override;
         bool finished() override;
 
     private:
-        ActorsRegistry& _actorsRegistry;
+        AgentsRegistry& _actorsRegistry;
     };
 
     class ActorStatusUpdateProcess : public Core::Process {
     public:
-        explicit ActorStatusUpdateProcess(ActorsRegistry& actorRegistry);
+        explicit ActorStatusUpdateProcess(AgentsRegistry& actorRegistry);
 
         void update(int delta) override;
         bool finished() override;
@@ -33,23 +33,23 @@ public:
         int time = 0;
         int interval = 500;
 
-        ActorsRegistry& _actorRegistry;
-        void updateNeeds(Actor* actor) const;
+        AgentsRegistry& _actorRegistry;
+        void updateNeeds(Agent* actor) const;
     };
 
 public:
-    explicit ActorsRegistry(Core::Application& application);
+    explicit AgentsRegistry(Core::Application& application);
 
-    Actor& createActor(View::ViewFacade& view, Core::World& world, View::Widgets::GUIPanel& guiPanel);
-    Actor* getActor(int id);
-    [[nodiscard]] const std::vector<Actor*>& getActors() const;
-    std::vector<Actor*>& getActors();
+    Agent& createAgent(Core::World& world, View::Widgets::GUIPanel& guiPanel);
+    Agent* getAgent(int id);
+    [[nodiscard]] const std::vector<Agent*>& getActors() const;
+    std::vector<Agent*>& getActors();
     void update();
 
     int getLastId() { return actors.back()->getID(); }
 
 private:
-    std::vector<Actor*> actors;
+    std::vector<Agent*> actors;
     int nextId = 0;
 };
 

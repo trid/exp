@@ -26,18 +26,18 @@
 namespace Core {
 
 namespace AI::Actors {
-class Actor;
+class Agent;
 } // namespace AI::Actors
 
 struct Travel {
-    AI::Actors::Actor* actor;
+    AI::Actors::Agent* actor;
     string dest;
     double distancePassed;
     double distanceNeeded;
     double dx, dy;
     World& world;
 
-    Travel(AI::Actors::Actor* actor, const string& dest, const WorldMap& worldMap, World& world);
+    Travel(AI::Actors::Agent* actor, const string& dest, const WorldMap& worldMap, World& world);
 
     void update(int delta);
 
@@ -51,7 +51,7 @@ class World {
 public:
     World(Application& application, GlobalMessageManager& appMessageManager);
 
-    TravelPtr moveActor(AI::Actors::Actor* actor, string const& dest);
+    TravelPtr moveActor(AI::Actors::Agent* actor, string const& dest);
 
     void update(int delta);
 
@@ -75,13 +75,13 @@ public:
 
     void removeFood();
 
-    std::unordered_set<string> const& getActions(AI::Actors::Actor* actor);
+    std::unordered_set<string> const& getActions(AI::Actors::Agent* actor);
 
-    void doAction(AI::Actors::Actor* actor, const string& action);
+    void doAction(AI::Actors::Agent* actor, const string& action);
 
     MessageManager& getMessageManager();
 
-    AI::Actors::ActorsRegistry& getActorsRegistry();
+    AI::Actors::AgentsRegistry& getActorsRegistry();
 
     const WorldMap& getWorldMap() const;
     WorldMap& getWorldMap();
@@ -100,7 +100,7 @@ private:
     std::list<Actions::ActionPtr> actions;
 
     Actions::ActionManager _actionManager;
-    AI::Actors::ActorsRegistry _actorsRegistry;
+    AI::Actors::AgentsRegistry _actorsRegistry;
     MessageManager _messageManager;
     LocationTypeManager _locationTypeManager;
     WorldMap _worldMap;

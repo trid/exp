@@ -8,7 +8,7 @@
 
 #include "../world.h"
 
-#include "../ai/actors/actor.h"
+#include "../ai/actors/agent.h"
 #include "../ai/actors/registry.h"
 #include "../ai/state_manager.h"
 
@@ -38,32 +38,32 @@ void MainScriptContext::registerFunctions() {
     state["print"] = &print;
     state["setState"] = &setState;
     state["setReaction"] = &setReaction;
-    state["createActor"] = &createActor;
+    state["createAgent"] = &createActor;
     state["createSceneObject"] = &createSceneObject;
 }
 
 void MainScriptContext::registerClasses() {
     auto& state = getState();
 
-    state.new_usertype<Core::AI::Actors::Actor>("Actor",
-                                        "setState", &Core::AI::Actors::Actor::setBehaviourStep,
-                                        "say", &Core::AI::Actors::Actor::say,
-                                        "setName", &Core::AI::Actors::Actor::setName,
-                                        "setPosition", &Core::AI::Actors::Actor::setPosition,
-                                        "setMaxFood", &Core::AI::Actors::Actor::setMaxFood,
-                                        "setMaxWater", &Core::AI::Actors::Actor::setMaxWater,
-                                        "getWater", &Core::AI::Actors::Actor::getWater,
-                                        "getPosition", &Core::AI::Actors::Actor::getPosition,
-                                        "getFood", &Core::AI::Actors::Actor::getFood,
-                                        "getInventory", &Core::AI::Actors::Actor::getInventory,
-                                        "getInventoryLimit", &Core::AI::Actors::Actor::getInventoryLimit,
-                                        "unloadWood", &Core::AI::Actors::Actor::unloadWood,
-                                        "unloadFood", &Core::AI::Actors::Actor::unloadFood,
-                                        "hasAction", &Core::AI::Actors::Actor::hasAction,
-                                        "addStatus", &Core::AI::Actors::Actor::addStatus);
+    state.new_usertype<Core::AI::Actors::Agent>("Agent",
+                                                "setState", &Core::AI::Actors::Agent::setBehaviourStep,
+                                                "say", &Core::AI::Actors::Agent::say,
+                                                "setName", &Core::AI::Actors::Agent::setName,
+                                                "setPosition", &Core::AI::Actors::Agent::setPosition,
+                                                "setMaxFood", &Core::AI::Actors::Agent::setMaxFood,
+                                                "setMaxWater", &Core::AI::Actors::Agent::setMaxWater,
+                                                "getWater", &Core::AI::Actors::Agent::getWater,
+                                                "getPosition", &Core::AI::Actors::Agent::getPosition,
+                                                "getFood", &Core::AI::Actors::Agent::getFood,
+                                                "getInventory", &Core::AI::Actors::Agent::getInventory,
+                                                "getInventoryLimit", &Core::AI::Actors::Agent::getInventoryLimit,
+                                                "unloadWood", &Core::AI::Actors::Agent::unloadWood,
+                                                "unloadFood", &Core::AI::Actors::Agent::unloadFood,
+                                                "hasAction", &Core::AI::Actors::Agent::hasAction,
+                                                "addStatus", &Core::AI::Actors::Agent::addStatus);
 
-    state.new_usertype<Core::AI::Actors::ActorsRegistry>("ActorsRegistry",
-                                                 "createActor", &Core::AI::Actors::ActorsRegistry::createActor);
+    state.new_usertype<Core::AI::Actors::AgentsRegistry>("AgentsRegistry",
+                                                         "createAgent", &Core::AI::Actors::AgentsRegistry::createAgent);
 
     state.new_usertype<Core::Message>("Message",
                                       "messageType", &Core::Message::messageType);

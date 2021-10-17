@@ -1,5 +1,5 @@
 #include "action.h"
-#include "../ai/actors/actor.h"
+#include "../ai/actors/agent.h"
 
 namespace Core {
 class World;
@@ -9,7 +9,7 @@ namespace Core::Actions {
 
 class ActionEating : public Action {
 public:
-    ActionEating(AI::Actors::Actor* actor, Core::World& world);
+    ActionEating(AI::Actors::Agent* actor, Core::World& world);
 
     bool isValid() override;
     void update(int delta) override;

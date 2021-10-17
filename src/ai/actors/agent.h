@@ -8,8 +8,8 @@
 #include "../../actions/action.h"
 #include "../behaviour_step.h"
 
-#include "actors_needs.h"
-#include "actor_movement_data.h"
+#include "agent_needs.h"
+#include "agent_movement_data.h"
 
 namespace View {
 class ViewFacade;
@@ -25,9 +25,9 @@ class World;
 
 namespace Core::AI::Actors {
 
-class Actor: public ActorNeeds, public ActorMovementData {
+class Agent: public AgentNeeds, public AgentMovementData {
 public:
-    explicit Actor(int id, View::ViewFacade& view, Core::World& world, View::Widgets::GUIPanel& guiPanel);
+    explicit Agent(int id, Core::World& world, View::Widgets::GUIPanel& guiPanel);
 
     int getID() const { return id; }
 
@@ -36,11 +36,11 @@ public:
 
     const std::string& getName() const { return name; }
 
-    void setName(const std::string& name) { Actor::name = name; }
+    void setName(const std::string& name) { Agent::name = name; }
 
     int getInventory() const { return inventory; }
 
-    void setInventory(int inventory) { Actor::inventory = inventory; }
+    void setInventory(int inventory) { Agent::inventory = inventory; }
 
     void say(const std::string& message);
     void processMessage(Core::Message& message);
@@ -75,7 +75,6 @@ private:
     std::unordered_map<std::string, std::string> _statusReactors;
     Core::Actions::ActionPtr currentAction;
 
-    View::ViewFacade& _view;
     Core::World& _world;
     View::Widgets::GUIPanel& _guiPanel;
 };
