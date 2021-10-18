@@ -29,24 +29,15 @@ void Agent::say(const string& message) {
     g_panel->addMessage(name + ": " + message);
 }
 
-void Agent::addItem() {
-    if (inventory < inventoryLimit) {
-        inventory++;
-    }
-}
 
 void Agent::unloadWood() {
-    _world.addWood(inventory);
-    inventory = 0;
+    _world.addWood(getInventory());
+    setInventory(0);
 }
 
 void Agent::unloadFood() {
-    _world.addFood(inventory);
-    inventory = 0;
-}
-
-int Agent::getInventoryLimit() {
-    return inventoryLimit;
+    _world.addFood(getInventory());
+    setInventory(0);
 }
 
 } // namespace Core::AI::Actors
