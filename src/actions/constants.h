@@ -22,6 +22,9 @@ constexpr char kActionHunt[] = "hunt";
 constexpr char kActionCutWood[] = "cut_wood";
 constexpr char kActionDrink[] = "drink";
 
+constexpr char kItemFood[] = "food";
+constexpr char kItemWood[] = "wood";
+
 } // namespace Core::Actions
 
 #endif //EXP_ACTIONS_CONSTANTS_H

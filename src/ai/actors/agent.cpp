@@ -31,13 +31,13 @@ void Agent::say(const string& message) {
 
 
 void Agent::unloadWood() {
-    _world.addWood(getInventory());
-    setInventory(0);
+    _world.addWood(getItemsCount(Actions::kItemWood));
+    removeAllItems(Actions::kItemWood);
 }
 
 void Agent::unloadFood() {
-    _world.addFood(getInventory());
-    setInventory(0);
+    _world.addFood(getItemsCount(Actions::kItemFood));
+    removeAllItems(Actions::kItemFood);
 }
 
 } // namespace Core::AI::Actors

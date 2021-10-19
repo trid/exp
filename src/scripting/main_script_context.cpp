@@ -55,7 +55,7 @@ void MainScriptContext::registerClasses() {
                                                 "getWater", &Core::AI::Actors::Agent::getWater,
                                                 "getPosition", &Core::AI::Actors::Agent::getPosition,
                                                 "getFood", &Core::AI::Actors::Agent::getFood,
-                                                "getInventory", &Core::AI::Actors::Agent::getInventory,
+                                                "getInventory", &Core::AI::Actors::Agent::getAllItemsCount,
                                                 "getInventoryLimit", &Core::AI::Actors::Agent::getInventoryLimit,
                                                 "unloadWood", &Core::AI::Actors::Agent::unloadWood,
                                                 "unloadFood", &Core::AI::Actors::Agent::unloadFood,

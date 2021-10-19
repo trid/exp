@@ -14,7 +14,7 @@ void ActionWoodcutting::update(int delta) {
     time += delta;
     if (time >= interval) {
         time -= interval;
-        actor->addItem();
+        actor->addItem(kItemWood);
     }
 }
 

@@ -15,7 +15,7 @@ void ActionHunting::update(int delta) {
     time += delta;
     if (time >= interval) {
         time -= interval;
-        actor->addItem();
+        actor->addItem(kItemFood);
     }
 }
 

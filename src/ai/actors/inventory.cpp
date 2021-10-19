@@ -4,22 +4,42 @@
 
 #include "inventory.h"
 
+#include <numeric>
 
 namespace Core::AI::Actors {
 
-void Inventory::addItem() {
-    if (_inventory < _inventoryLimit) {
-        _inventory++;
+void Inventory::addItem(const std::string& item) {
+    if (getAllItemsCount() < _inventoryLimit) {
+        _inventory[item]++;
     }
 }
 
-int Inventory::getInventoryLimit() {
+int Inventory::getInventoryLimit() const {
     return _inventoryLimit;
 }
 
-int Inventory::getInventory() const { return _inventory; }
+int Inventory::getAllItemsCount() {
+    int amount = std::accumulate(_inventory.begin(), _inventory.end(), 0,
+                                 [](auto& op1, auto& op2) { return op1 + op2.second; });
+    return amount;
+}
 
-void Inventory::setInventory(int inventory) { _inventory = inventory; }
+int Inventory::getItemsCount(const std::string& item) const {
+    const auto it = _inventory.find(item);
+    if (it != _inventory.end()) {
+        return it->second;
+    }
+    return 0;
+}
+
+void Inventory::removeItems(const std::string& item, int amount) {
+    auto existing = _inventory[item];
+    _inventory[item] = existing > amount ? existing - amount : 0;
+}
+
+void Inventory::removeAllItems(const std::string& item) {
+    _inventory[item] = 0;
+}
 
 
 }

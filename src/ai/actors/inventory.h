@@ -5,19 +5,24 @@
 #ifndef EXP_INVENTORY_H
 #define EXP_INVENTORY_H
 
+#include <string>
+#include <unordered_map>
+
 namespace Core::AI::Actors {
 
 class Inventory {
 public:
-    void addItem();
+    void addItem(const std::string& item);
 
-    [[nodiscard]] int getInventory() const;
-    void setInventory(int inventory);
+    int getItemsCount(const std::string& item) const;
+    int getAllItemsCount();
+    void removeItems(const std::string& item, int amount);
+    void removeAllItems(const std::string& item);
 
-    int getInventoryLimit();
+    int getInventoryLimit() const;
 
 private:
-    int _inventory = 0;
+    std::unordered_map<std::string, int> _inventory;
     int _inventoryLimit = 20;
 };
 
