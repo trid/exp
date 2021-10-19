@@ -41,7 +41,7 @@ Core::AI::Actors::Agent& createActor(Core::AI::Actors::AgentsRegistry& actorsReg
 
 //Scene objects
 void createSceneObject(const std::string& type, const std::string& name, int x, int y, Core::World& world) {
-    const auto& locationType = world.getLocationTypeManager().getLocationType(name);
+    const auto& locationType = world.getLocationTypeManager().getLocationType(type);
     world.getWorldMap().addLocation(locationType, name, x, y);
 }
 
