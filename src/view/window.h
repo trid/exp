@@ -16,14 +16,17 @@ namespace View {
 class Window {
 public:
     explicit Window(const Core::Settings& settings);
+    ~Window();
 
-    SDL_Renderer* getRenderer() { return _renderer; }
+    [[nodiscard]] SDL_Renderer* getRenderer() const { return _renderer; }
 
     [[nodiscard]] int getWidth() const;
     [[nodiscard]] int getHeight() const;
 
     Uint32 getScreenPixelFormat();
 
+    void startDrawing();
+    void endDrawing();
 private:
     int _windowWidth;
     int _windowHeight;

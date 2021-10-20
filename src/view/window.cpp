@@ -43,4 +43,18 @@ Uint32 Window::getScreenPixelFormat() {
     return SDL_GetWindowPixelFormat(_windowImpl);
 }
 
+void Window::startDrawing() {
+    SDL_RenderClear(_renderer);
+}
+
+void Window::endDrawing() {
+    SDL_RenderPresent(_renderer);
+}
+
+Window::~Window() {
+    SDL_DestroyRenderer(_renderer);
+    SDL_DestroyWindow(_windowImpl);
+    SDL_Quit();
+}
+
 } // namespace View

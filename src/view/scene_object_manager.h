@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "map_object_view.h"
+#include "window.h"
 
 namespace Core {
 class Location;
@@ -21,7 +22,7 @@ class SceneObjectManager {
 public:
     explicit SceneObjectManager(ViewFacade& view, Core::World& world);
 
-    void draw(SDL_Renderer* renderer);
+    void draw(const Window& window);
 private:
     std::vector<MapObjectUPtr> _mapObjects;
     std::unordered_map<std::string, SDL_Texture*> _sprites;

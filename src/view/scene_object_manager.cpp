@@ -48,9 +48,9 @@ void SceneObjectManager::createObjects(Core::World& world) {
     }
 }
 
-void SceneObjectManager::draw(SDL_Renderer* renderer) {
+void SceneObjectManager::draw(const Window& window) {
     for (auto& object: _mapObjects) {
-        object->draw(renderer);
+        object->draw(window.getRenderer());
     }
 }
 

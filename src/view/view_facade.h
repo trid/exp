@@ -3,15 +3,19 @@
 
 #include <list>
 #include <string>
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
+
+#include "image.h"
 #include "map_object_view.h"
+#include "scene_object_manager.h"
 #include "window.h"
 #include "widgets/ui_manager.h"
+
 #include "../global_message_manager.h"
 #include "../settings.h"
-#include "scene_object_manager.h"
 
 class Label;
 class LogView;
@@ -38,8 +42,8 @@ public:
 private:
     Window _window;
 
-    SDL_Texture* background;
-    SDL_Texture* actor;
+    Image _background;
+    Image _actor;
 
     Widgets::UIManager _uiManager;
     Core::GlobalMessageManager& _globalMessageManager;
