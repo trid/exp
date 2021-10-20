@@ -22,10 +22,12 @@ namespace View {
 
 ViewFacade::ViewFacade(const Core::Settings& settings, Core::GlobalMessageManager& globalMessageManager, Core::World& world) :
         _window(settings),
+        _background(kGrassSpritePath, _window),
+        _actor(kActorSpritePath, _window),
         _globalMessageManager(globalMessageManager),
         _sceneObjectManager(*this, world),
-        _background(kGrassSpritePath, _window),
-        _actor(kActorSpritePath, _window) {
+        _guiPanel(world, *this, _uiManager)
+         {
 }
 
 void ViewFacade::draw() {
@@ -51,16 +53,16 @@ Uint32 ViewFacade::getScreenPixelFormat() {
     return _window.getScreenPixelFormat();
 }
 
-Widgets::UIManager& ViewFacade::getUiManager() {
-    return _uiManager;
-}
-
 Core::GlobalMessageManager& ViewFacade::getUIMessageManager() {
     return _globalMessageManager;
 }
 
 Window& ViewFacade::getWindow() {
     return _window;
+}
+
+View::Widgets::GUIPanel& ViewFacade::getGUIPanel() {
+    return _guiPanel;
 }
 
 } // namespace View

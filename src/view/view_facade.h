@@ -12,6 +12,7 @@
 #include "map_object_view.h"
 #include "scene_object_manager.h"
 #include "window.h"
+#include "widgets/gui_panel.h"
 #include "widgets/ui_manager.h"
 
 #include "../global_message_manager.h"
@@ -31,7 +32,6 @@ class ViewFacade {
 public:
     explicit ViewFacade(const Core::Settings& settings, Core::GlobalMessageManager& globalMessageManager, Core::World& world);
 
-    Widgets::UIManager& getUiManager();
     Core::GlobalMessageManager& getUIMessageManager();
 
     Uint32 getScreenPixelFormat();
@@ -39,6 +39,7 @@ public:
     void draw();
 
     Window& getWindow();
+    View::Widgets::GUIPanel& getGUIPanel();
 private:
     Window _window;
 
@@ -47,6 +48,7 @@ private:
 
     Widgets::UIManager _uiManager;
     Core::GlobalMessageManager& _globalMessageManager;
+    Widgets::GUIPanel _guiPanel;
     SceneObjectManager _sceneObjectManager;
 };
 

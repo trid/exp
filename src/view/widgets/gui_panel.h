@@ -6,7 +6,6 @@
 #define EXP_PANEL_H
 
 #include "actor_view.h"
-#include "log_view.h"
 
 #include "widget.h"
 
@@ -20,11 +19,13 @@ class World;
 
 namespace View::Widgets {
 
+class LogView;
+
 class GUIPanel {
 public:
-    GUIPanel(const Core::World& world, View::ViewFacade& view);
+    GUIPanel(const Core::World& world, View::ViewFacade& view, UIManager& uiManager);
 
-    void addMessage(const string& message);
+    void addMessage(const std::string& message);
     void showNextAgent();
     void showPrevAgent();
 private:

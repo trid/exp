@@ -1,11 +1,12 @@
+#ifndef LOG_VIEW_H
+#define LOG_VIEW_H
+
 #include "widget.h"
 #include "../view_facade.h"
 
 #include <list>
 #include <string>
 
-using std::list;
-using std::string;
 
 namespace View::Widgets {
 
@@ -16,7 +17,7 @@ public:
 
     void addMessage(const string& message);
 private:
-    list<string> messages;
+    std::list<std::string> messages;
     bool dirty = true;
     SDL_Color textColor;
 
@@ -25,3 +26,5 @@ private:
 };
 
 } // namespace View::Widgets
+
+#endif // LOG_VIEW_H

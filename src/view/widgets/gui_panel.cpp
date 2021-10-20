@@ -9,52 +9,53 @@
 #include "../../constants.h"
 #include "../../world.h"
 
+#include "../view_facade.h"
+
 #include "constants.h"
 #include "label.h"
+#include "log_view.h"
 
 extern View::Widgets::GUIPanel* g_panel;
 
 namespace View::Widgets {
 
 class WoodUpdaterListener : public Core::MessageListener {
-private:
-    Label& _label;
-    const Core::World& _world;
 public:
     WoodUpdaterListener(Label& label, const Core::World& world) :
             _label(label),
             _world(world) {}
 
-    virtual bool listen(Core::MessageData const& messageData) {
+    bool listen(Core::MessageData const& messageData) override {
         std::stringstream ss;
         ss << kWoodLabelPrefix << _world.getWood();
         _label.setText(ss.str());
         return true;
     }
-};
-
-class FoodUpdaterListener : public Core::MessageListener {
 private:
     Label& _label;
     const Core::World& _world;
+};
+
+class FoodUpdaterListener : public Core::MessageListener {
 public:
     FoodUpdaterListener(Label& label, const Core::World& world) :
             _label(label),
             _world(world) {}
 
-    virtual bool listen(Core::MessageData const& messageData) {
+    bool listen(Core::MessageData const& messageData) override {
         std::stringstream ss;
         ss << kFoodLabelPrefix << _world.getFood();
         _label.setText(ss.str());
         return true;
     }
+private:
+    Label& _label;
+    const Core::World& _world;
 };
 
-GUIPanel::GUIPanel(const Core::World& world, View::ViewFacade& view) :
+GUIPanel::GUIPanel(const Core::World& world, View::ViewFacade& view, UIManager& uiManager) :
         _world(world) {
     g_panel = this;
-
-    auto& uiManager = view.getUiManager();
 
     int fontHeight = TTF_FontHeight(uiManager.getFont());
     int consoleFontHeight = TTF_FontHeight(uiManager.getConsoleFont());

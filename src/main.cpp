@@ -1,7 +1,5 @@
 #define SDL_MAIN_HANDLED
 
-#include <iostream>
-
 #include "application.h"
 #include "constants.h"
 #include "location_type_manager.h"
@@ -15,7 +13,6 @@
 #include "scripting/main_script_context.h"
 
 #include "view/view_facade.h"
-#include "view/widgets/gui_panel.h"
 
 using namespace std;
 
@@ -29,8 +26,7 @@ int main(int argc, char* argv[]) {
     Scripting::MainScriptContext scriptContext{world, stateManager};
     scriptContext.loadScript(Core::kInitScriptPath);
     View::ViewFacade view{settings, messageManager, world};
-    View::Widgets::GUIPanel panel{world, view};
-    Core::SystemEventManager systemEventManager{app, panel};
+    Core::SystemEventManager systemEventManager{app, view.getGUIPanel()};
     Core::AI::BehaviourProcessor behaviourProcessor{stateManager, world.getActorsRegistry().getActors()};
 
     app.addProcess(std::make_shared<Core::AI::BehaviourProcessorProcess>(behaviourProcessor));

@@ -1,3 +1,6 @@
+#ifndef ACTOR_VIEW_H
+#define ACTOR_VIEW_H
+
 #include "widget.h"
 #include "ui_manager.h"
 
@@ -33,3 +36,5 @@ private:
 };
 
 } // namespace View::Widgets
+
+#endif // ACTOR_VIEW_H
