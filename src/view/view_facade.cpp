@@ -49,7 +49,7 @@ void ViewFacade::draw() {
     _window.endDrawing();
 }
 
-Uint32 ViewFacade::getScreenPixelFormat() {
+Uint32 ViewFacade::getScreenPixelFormat() const {
     return _window.getScreenPixelFormat();
 }
 

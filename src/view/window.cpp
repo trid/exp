@@ -39,7 +39,7 @@ int Window::getWidth() const { return _windowWidth; }
 
 int Window::getHeight() const { return _windowHeight; }
 
-Uint32 Window::getScreenPixelFormat() {
+Uint32 Window::getScreenPixelFormat() const {
     return SDL_GetWindowPixelFormat(_windowImpl);
 }
 

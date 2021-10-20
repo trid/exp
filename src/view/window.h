@@ -23,7 +23,7 @@ public:
     [[nodiscard]] int getWidth() const;
     [[nodiscard]] int getHeight() const;
 
-    Uint32 getScreenPixelFormat();
+    Uint32 getScreenPixelFormat() const;
 
     void startDrawing();
     void endDrawing();

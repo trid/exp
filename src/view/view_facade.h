@@ -34,7 +34,7 @@ public:
 
     Core::GlobalMessageManager& getUIMessageManager();
 
-    Uint32 getScreenPixelFormat();
+    Uint32 getScreenPixelFormat() const;
 
     void draw();
 
