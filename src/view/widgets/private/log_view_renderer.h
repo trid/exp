@@ -31,6 +31,11 @@ private:
     SDL_Color _textColor{255, 255, 255, 255};
     bool _dirty = true;
     SDL_Texture* _surface = nullptr;
+    void updateSurface(const std::deque<std::string>& messages, const Window& window, SDL_Renderer* renderer);
+    void drawMessages(int x, int y, SDL_Renderer* renderer) const;
+    void
+    drawMessagesToSurface(const std::deque<std::string>& messages, SDL_Renderer* renderer, int height,
+                          int startHeight) const;
 };
 
 }
