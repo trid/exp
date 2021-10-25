@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <SDL2/SDL_render.h>
+#include "../window.h"
 
 namespace View::Widgets {
 
@@ -15,7 +16,7 @@ public:
     Widget();
     Widget(int x, int y);
     virtual ~Widget();
-    virtual void draw(SDL_Renderer*) = 0;
+    virtual void draw(View::Window&) = 0;
 
     int getX() const;
     void setX(int x);

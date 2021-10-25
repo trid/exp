@@ -62,7 +62,7 @@ GUIPanel::GUIPanel(const Core::World& world, View::ViewFacade& view, UIManager& 
 
     _woodLabel = std::make_shared<Label>(0, 0, uiManager, std::string(kWoodLabelPrefix) + "0");
     _foodLabel = std::make_shared<Label>(0, fontHeight, uiManager, std::string(kFoodLabelPrefix) + "0");
-    _logView = std::make_shared<LogView>(view, uiManager, 0, view.getWindow().getHeight() - consoleFontHeight * 10);
+    _logView = std::make_shared<LogView>(uiManager, 0, view.getWindow().getHeight() - consoleFontHeight * 10);
     _actorView = std::make_shared<ActorView>(view.getWindow().getWidth() - kActorDataViewWidth, 0, uiManager, view);
 
     uiManager.addWidget(_woodLabel);

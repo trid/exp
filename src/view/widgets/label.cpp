@@ -18,14 +18,14 @@ void Label::setText(const string& text) {
     _dirty = true;
 }
 
-void Label::draw(SDL_Renderer* renderer) {
+void Label::draw(Window& window) {
     if (_dirty) {
         _dirty = false;
         if (renderedText) {
             SDL_DestroyTexture(renderedText);
         }
         SDL_Surface* renderedSurface = TTF_RenderText_Solid(_uiManager.getFont(), text.c_str(), textColor);
-        renderedText = SDL_CreateTextureFromSurface(renderer, renderedSurface);
+        renderedText = SDL_CreateTextureFromSurface(window.getRenderer(), renderedSurface);
         SDL_FreeSurface(renderedSurface);
     }
     SDL_Rect rect;
@@ -35,7 +35,7 @@ void Label::draw(SDL_Renderer* renderer) {
     rect.y = getY();
     rect.w = w;
     rect.h = h;
-    SDL_RenderCopy(renderer, renderedText, nullptr, &rect);
+    SDL_RenderCopy(window.getRenderer(), renderedText, nullptr, &rect);
 }
 
 } // namespace View::Widgets

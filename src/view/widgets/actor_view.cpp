@@ -42,8 +42,10 @@ void ActorView::prevActor() {
     updateLabels();
 }
 
-void ActorView::draw(SDL_Renderer* renderer) {
+void ActorView::draw(Window& window) {
     updateLabels();
+
+    auto* renderer = window.getRenderer();
 
     //TODO: move it to constructor after moving UI item out from ViewFacade class
     if (!surface) {
@@ -56,10 +58,10 @@ void ActorView::draw(SDL_Renderer* renderer) {
     SDL_SetRenderTarget(renderer, surface);
     SDL_SetRenderDrawColor(renderer, 10, 10, 50, 100);
     SDL_RenderClear(renderer);
-    nameLabel->draw(renderer);
-    foodLabel->draw(renderer);
-    waterLabel->draw(renderer);
-    placeLabel->draw(renderer);
+    nameLabel->draw(window);
+    foodLabel->draw(window);
+    waterLabel->draw(window);
+    placeLabel->draw(window);
     SDL_SetRenderTarget(renderer, nullptr);
     SDL_Rect rect;
     rect.x = getX();

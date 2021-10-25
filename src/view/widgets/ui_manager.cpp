@@ -12,7 +12,7 @@ UIManager::UIManager() {
 
 void UIManager::draw(ViewFacade& view) {
     for (WidgetPtr widgetPtr: widgets) {
-        widgetPtr->draw(view.getWindow().getRenderer());
+        widgetPtr->draw(view.getWindow());
     }
 }
 

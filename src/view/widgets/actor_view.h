@@ -22,7 +22,7 @@ public:
     void prevActor();
 
 
-    virtual void draw(SDL_Renderer* renderer);
+    virtual void draw(Window& window);
 private:
     Core::AI::Actors::Agent* actor = nullptr;
 
