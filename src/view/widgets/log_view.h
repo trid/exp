@@ -15,7 +15,7 @@ namespace View::Widgets {
 
 class LogView : public Widget {
 public:
-    LogView(const UIManager& uiManager, int x, int y);
+    LogView(UIManager& uiManager, int x, int y);
     void draw(Window& window) override;
 
     void addMessage(const string& message);

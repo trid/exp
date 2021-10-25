@@ -1,12 +1,15 @@
 #include "label.h"
+
+#include "../fonts_cache.h"
 #include "../view_facade.h"
+
+#include "constants.h"
 #include "ui_manager.h"
 
 namespace View::Widgets {
 
-Label::Label(int x, int y, const UIManager& uiManager, const string& text) :
-        Widget(x, y), text(text),
-        _uiManager(uiManager) {
+Label::Label(int x, int y, UIManager& uiManager, const string& text) :
+        Widget(x, y), text(text), _font(uiManager.getFontsCache().getFont(kFontPath, 20)) {
     textColor.r = 255;
     textColor.g = 255;
     textColor.b = 255;
@@ -24,7 +27,7 @@ void Label::draw(Window& window) {
         if (renderedText) {
             SDL_DestroyTexture(renderedText);
         }
-        SDL_Surface* renderedSurface = TTF_RenderText_Solid(_uiManager.getFont(), text.c_str(), textColor);
+        SDL_Surface* renderedSurface = TTF_RenderText_Solid(_font.getImpl(), text.c_str(), textColor);
         renderedText = SDL_CreateTextureFromSurface(window.getRenderer(), renderedSurface);
         SDL_FreeSurface(renderedSurface);
     }

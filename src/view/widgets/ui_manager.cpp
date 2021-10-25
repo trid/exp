@@ -1,13 +1,13 @@
 #include "../view_facade.h"
 
 #include "constants.h"
+#include "ui_manager.h"
+
 
 namespace View::Widgets {
 
 UIManager::UIManager() {
-    TTF_Init();
-    font = TTF_OpenFont(kFontPath, 20);
-    logFont = TTF_OpenFont(kFontPath, 14);
+
 }
 
 void UIManager::draw(ViewFacade& view) {
@@ -18,6 +18,10 @@ void UIManager::draw(ViewFacade& view) {
 
 void UIManager::addWidget(WidgetPtr widget) {
     widgets.push_back(WidgetPtr(widget));
+}
+
+FontsCache& UIManager::getFontsCache() {
+    return _fontsCache;
 }
 
 } // namespace View::Widgets

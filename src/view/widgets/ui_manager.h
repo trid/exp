@@ -6,6 +6,7 @@
 #include "widget.h"
 
 #include "SDL2/SDL_ttf.h"
+#include "../fonts_cache.h"
 
 namespace View {
 class ViewFacade;
@@ -20,15 +21,11 @@ public:
     void draw(ViewFacade& view);
     void addWidget(WidgetPtr widget);
 
-    [[nodiscard]] TTF_Font* getFont() const { return font; };
-
-    [[nodiscard]] TTF_Font* getConsoleFont() const { return logFont; };
-
+    FontsCache& getFontsCache();
 private:
     std::vector<WidgetPtr> widgets;
 
-    TTF_Font* font;
-    TTF_Font* logFont;
+    FontsCache _fontsCache;
 };
 
 } // namespace View::Widgets

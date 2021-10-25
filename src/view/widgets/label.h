@@ -3,6 +3,7 @@
 #include <SDL2/SDL_ttf.h>
 #include "widget.h"
 #include "../window.h"
+#include "../font.h"
 
 using std::string;
 
@@ -12,7 +13,7 @@ class UIManager;
 
 class Label : public Widget {
 public:
-    Label(int x, int y, const UIManager& uiManager, const string& text = "");
+    Label(int x, int y, UIManager& uiManager, const string& text = "");
     void setText(const string& text);
     void draw(View::Window& window) override;
 private:
@@ -21,7 +22,7 @@ private:
     SDL_Texture* renderedText = nullptr;
     SDL_Color textColor;
 
-    const UIManager& _uiManager;
+    Font _font;
 };
 
 } // namespace View::Widgets

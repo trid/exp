@@ -14,7 +14,7 @@ class Label;
 
 class ActorView : public Widget {
 public:
-    ActorView(int x, int y, const UIManager& uiManager, ViewFacade& view);
+    ActorView(int x, int y, UIManager& uiManager, ViewFacade& view);
     virtual ~ActorView();
 
     void updateLabels();
@@ -26,12 +26,13 @@ public:
 private:
     Core::AI::Actors::Agent* actor = nullptr;
 
+    Font _font;
+
     Label* nameLabel;
     Label* foodLabel;
     Label* waterLabel;
     Label* placeLabel;
 
-    const UIManager& _uiManager;
     ViewFacade& _view;
 };
 

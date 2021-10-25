@@ -3,8 +3,14 @@
 #include "log_view.h"
 #include "../view_facade.h"
 #include "ui_manager.h"
+#include "constants.h"
 
 namespace View::Widgets {
+
+LogView::LogView(UIManager& uiManager, int x, int y) :
+        Widget(x, y),
+        _renderer(uiManager.getFontsCache().getFont(kFontPath, 14)) {
+}
 
 void LogView::draw(Window& window) {
     _renderer.draw(getX(), getY(), _messages, window);
@@ -17,11 +23,6 @@ void LogView::addMessage(const string& message) {
     }
 
     _renderer.enforceUpdate();
-}
-
-LogView::LogView(const UIManager& uiManager, int x, int y) :
-        Widget(x, y),
-        _renderer(uiManager) {
 }
 
 } // namespace View::Widgets

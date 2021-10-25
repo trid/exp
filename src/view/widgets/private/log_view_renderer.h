@@ -10,6 +10,7 @@
 
 #include <deque>
 #include <string>
+#include "../../font.h"
 
 namespace View {
 class Window;
@@ -21,12 +22,12 @@ class UIManager;
 
 class LogViewRenderer {
 public:
-    explicit LogViewRenderer(const UIManager& uiManager);
+    explicit LogViewRenderer(Font uiManager);
 
     void draw(int x, int y, const std::deque<std::string>& messages, Window& window);
     void enforceUpdate();
 private:
-    const UIManager& _uiManager;
+    Font _font;
 
     SDL_Color _textColor{255, 255, 255, 255};
     bool _dirty = true;
@@ -34,8 +35,7 @@ private:
     void updateSurface(const std::deque<std::string>& messages, const Window& window, SDL_Renderer* renderer);
     void drawMessages(int x, int y, SDL_Renderer* renderer) const;
     void
-    drawMessagesToSurface(const std::deque<std::string>& messages, SDL_Renderer* renderer, int height,
-                          int startHeight) const;
+    drawMessagesToSurface(const std::deque<std::string>& messages, SDL_Renderer* renderer, int height) const;
 };
 
 }

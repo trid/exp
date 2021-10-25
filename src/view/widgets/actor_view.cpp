@@ -14,15 +14,15 @@ extern Core::AI::Actors::AgentsRegistry* g_actorsRegistry;
 
 namespace View::Widgets {
 
-ActorView::ActorView(int x, int y, const UIManager& uiManager, ViewFacade& view) :
+ActorView::ActorView(int x, int y, UIManager& uiManager, ViewFacade& view) :
         Widget(x, y),
-        _uiManager(uiManager),
-        _view(view) {
-    int fontHeight = TTF_FontHeight(_uiManager.getFont());
-    nameLabel = new Label(0, 0, _uiManager, kNameLabelPrefix);
-    foodLabel = new Label(0, fontHeight, _uiManager, kFoodLabelPrefix);
-    waterLabel = new Label(0, fontHeight * 2, _uiManager, kWaterLabelPrefix);
-    placeLabel = new Label(0, fontHeight * 3, _uiManager, kLocationLabelPrefix);
+        _view(view),
+        _font(uiManager.getFontsCache().getFont(kFontPath, 20)) {
+    int fontHeight = _font.getSize();
+    nameLabel = new Label(0, 0, uiManager, kNameLabelPrefix);
+    foodLabel = new Label(0, fontHeight, uiManager, kFoodLabelPrefix);
+    waterLabel = new Label(0, fontHeight * 2, uiManager, kWaterLabelPrefix);
+    placeLabel = new Label(0, fontHeight * 3, uiManager, kLocationLabelPrefix);
     if (g_actorsRegistry) {
         actor = g_actorsRegistry->getAgent(0);
     }
@@ -49,7 +49,7 @@ void ActorView::draw(Window& window) {
 
     //TODO: move it to constructor after moving UI item out from ViewFacade class
     if (!surface) {
-        int fontHeight = TTF_FontHeight(_uiManager.getFont());
+        int fontHeight = _font.getSize();
         surface = SDL_CreateTexture(renderer, _view.getScreenPixelFormat(), SDL_TEXTUREACCESS_TARGET, 200,
                                     fontHeight * 4);
         SDL_SetTextureBlendMode(surface, SDL_BLENDMODE_BLEND);

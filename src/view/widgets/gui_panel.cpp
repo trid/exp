@@ -57,8 +57,8 @@ GUIPanel::GUIPanel(const Core::World& world, View::ViewFacade& view, UIManager& 
         _world(world) {
     g_panel = this;
 
-    int fontHeight = TTF_FontHeight(uiManager.getFont());
-    int consoleFontHeight = TTF_FontHeight(uiManager.getConsoleFont());
+    int fontHeight = uiManager.getFontsCache().getFont(kFontPath, 20).getSize();
+    int consoleFontHeight = uiManager.getFontsCache().getFont(kFontPath, 14).getSize();
 
     _woodLabel = std::make_shared<Label>(0, 0, uiManager, std::string(kWoodLabelPrefix) + "0");
     _foodLabel = std::make_shared<Label>(0, fontHeight, uiManager, std::string(kFoodLabelPrefix) + "0");

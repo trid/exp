@@ -10,7 +10,7 @@
 
 namespace View::Widgets {
 
-LogViewRenderer::LogViewRenderer(const UIManager& uiManager) : _uiManager(uiManager) {}
+LogViewRenderer::LogViewRenderer(Font font) : _font(font) {}
 
 void LogViewRenderer::draw(int x, int y, const std::deque<std::string>& messages, Window& window) {
     auto* renderer = window.getRenderer();
@@ -34,8 +34,7 @@ LogViewRenderer::updateSurface(const std::deque<std::string>& messages, const Wi
     if (_surface) {
         SDL_DestroyTexture(_surface);
     }
-    int height = TTF_FontHeight(_uiManager.getConsoleFont());
-    int startHeight = 0;
+    int height = _font.getSize();
     int surfaceHeight = height * 10;
     _surface = SDL_CreateTexture(renderer, window.getScreenPixelFormat(), SDL_TEXTUREACCESS_TARGET,
                                  window.getWidth(), surfaceHeight);
@@ -45,24 +44,25 @@ LogViewRenderer::updateSurface(const std::deque<std::string>& messages, const Wi
     SDL_SetRenderDrawColor(renderer, 10, 10, 50, 100);
     SDL_RenderClear(renderer);
 
-    drawMessagesToSurface(messages, renderer, height, startHeight);
+    drawMessagesToSurface(messages, renderer, height);
 
     SDL_SetRenderTarget(renderer, nullptr);
 }
 
-void LogViewRenderer::drawMessagesToSurface(const std::deque<std::string>& messages, SDL_Renderer* renderer, int height,
-                                            int startHeight) const {
+void LogViewRenderer::drawMessagesToSurface(const std::deque<std::string>& messages, SDL_Renderer* renderer,
+                                            int height) const {
+    int currentHeight = 0;
     for (const auto& str: messages) {
-        SDL_Surface* renderedSurface = TTF_RenderText_Solid(_uiManager.getConsoleFont(), str.c_str(), _textColor);
+        SDL_Surface* renderedSurface = TTF_RenderText_Solid(_font.getImpl(), str.c_str(), _textColor);
         SDL_Texture* renderedText = SDL_CreateTextureFromSurface(renderer, renderedSurface);
         SDL_FreeSurface(renderedSurface);
         SDL_Rect rect;
         rect.x = 0;
-        rect.y = startHeight;
+        rect.y = currentHeight;
         SDL_QueryTexture(renderedText, nullptr, nullptr, &rect.w, &rect.h);
         SDL_RenderCopy(renderer, renderedText, nullptr, &rect);
         SDL_DestroyTexture(renderedText);
-        startHeight += height;
+        currentHeight += height;
     }
 }
 
