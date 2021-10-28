@@ -4,41 +4,22 @@
 #include <memory>
 #include <string>
 #include <unordered_map>
+#include <variant>
 
-using std::shared_ptr;
-using std::string;
-using std::unordered_map;
+#include <boost/optional.hpp>
+
 
 namespace Core {
 
-union VariantUnion {
-    int asInt;
-    double asFloat;
-    char asChar;
-    void* asPointer;
-};
-
-class Variant {
-public:
-    VariantUnion data;
-    bool exists = false;
-
-    Variant(const VariantUnion& data) : data(data), exists(true) {}
-
-    Variant() : data(VariantUnion()), exists(false) {}
-};
-
-typedef shared_ptr<Variant> VariantPtr;
+using MessageParameter = std::variant<int, std::string>;
 
 class MessageData {
-private:
-    unordered_map<string, VariantPtr> data;
-    Variant nonVariant;
 public:
-    MessageData() {}
+    void addParameter(const std::string& name, MessageParameter&& parameter);
+    boost::optional<const MessageParameter&> getParameter(const std::string& name) const;
 
-    void addParameter(const string& name, const Variant& data);
-    Variant const& getParameter(const string& name);
+private:
+    std::unordered_map<std::string, MessageParameter> _data;
 };
 
 class MessageListener {
@@ -53,11 +34,11 @@ public:
     GlobalMessageManager() = default;
     GlobalMessageManager(const GlobalMessageManager&) = delete;
 
-    void addListener(const string& name, IUIMessageListenerPtr listener);
-    void removeListener(const string& name);
-    void sendMessage(const string& name, const MessageData& data);
+    void addListener(const std::string& name, IUIMessageListenerPtr listener);
+    void removeListener(const std::string& name);
+    void sendMessage(const std::string& name, const MessageData& data);
 private:
-    unordered_map<string, IUIMessageListenerPtr> listeners;
+    std::unordered_map<std::string, IUIMessageListenerPtr> listeners;
 };
 
 } // namespace Core

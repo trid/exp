@@ -27,7 +27,7 @@ namespace Core::AI::Actors {
 
 class Agent: public AgentNeeds, public AgentMovementData, public Actor, public Inventory {
 public:
-    explicit Agent(int id, Core::World& world, View::Widgets::GUIPanel& guiPanel);
+    explicit Agent(int id, Core::World& world);
 
     int getID() const { return id; }
 
@@ -47,7 +47,6 @@ private:
     std::string name;
 
     Core::World& _world;
-    View::Widgets::GUIPanel& _guiPanel;
 };
 
 } // namespace Core::AI::Actors

@@ -31,8 +31,8 @@ void SceneObjectManager::loadSprites(ViewFacade& view) {
     auto locationTypes = pt.get_child(kLocationKey);
 
     for (auto& loc: locationTypes) {
-        const string& type = loc.second.get<string>(kLocationTypeKey);
-        const string& image = loc.second.get<string>(kSpriteNameKey);
+        const auto& type = loc.second.get<std::string>(kLocationTypeKey);
+        const auto& image = loc.second.get<std::string>(kSpriteNameKey);
         std::stringstream ss;
         ss << kImageResourcesPath << image;
         _sprites[type] = IMG_LoadTexture(view.getWindow().getRenderer(), ss.str().c_str());

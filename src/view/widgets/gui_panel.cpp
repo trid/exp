@@ -15,7 +15,6 @@
 #include "label.h"
 #include "log_view.h"
 
-extern View::Widgets::GUIPanel* g_panel;
 
 namespace View::Widgets {
 
@@ -53,10 +52,21 @@ private:
     const Core::World& _world;
 };
 
+class AgentPhraseListener : public Core::MessageListener {
+public:
+    explicit AgentPhraseListener(LogView& logView) :
+            _logView(logView) {}
+
+    bool listen(Core::MessageData const& messageData) override {
+        _logView.addMessage(std::get<std::string>(*messageData.getParameter(Core::kAgentPhraseMessageKey)));
+        return true;
+    }
+private:
+    LogView& _logView;
+};
+
 GUIPanel::GUIPanel(const Core::World& world, View::ViewFacade& view, UIManager& uiManager) :
         _world(world) {
-    g_panel = this;
-
     int fontHeight = uiManager.getFontsCache().getFont(kFontPath, 20).getSize();
     int consoleFontHeight = uiManager.getFontsCache().getFont(kFontPath, 14).getSize();
 
@@ -72,10 +82,12 @@ GUIPanel::GUIPanel(const Core::World& world, View::ViewFacade& view, UIManager& 
 
     auto woodUpdater = std::make_unique<WoodUpdaterListener>(*_woodLabel, world);
     auto foodUpdater = std::make_unique<FoodUpdaterListener>(*_foodLabel, world);
+    auto agentPhraseListener = std::make_unique<AgentPhraseListener>(*_logView);
 
     auto& uiMessageManager = view.getUIMessageManager();
     uiMessageManager.addListener(Core::kWoodUpdatedMessage, std::move(woodUpdater));
     uiMessageManager.addListener(Core::kFoodUpdatedMessage, std::move(foodUpdater));
+    uiMessageManager.addListener(Core::kAgentPhraseMessage, std::move(agentPhraseListener));
 }
 
 void GUIPanel::addMessage(const string& message) {

@@ -7,27 +7,27 @@ using std::endl;
 
 namespace Core {
 
-void MessageData::addParameter(string const& name, Variant const& data) {
-    this->data[name] = VariantPtr(new Variant(data));
+void MessageData::addParameter(std::string const& name, MessageParameter&& parameter) {
+    _data[name] = std::move(parameter);
 }
 
-Variant const& MessageData::getParameter(const string& name) {
-    VariantPtr param = data[name];
-    if (!param) {
-        return nonVariant;
+boost::optional<const MessageParameter&> MessageData::getParameter(const std::string& name) const {
+    auto it = _data.find(name);
+    if (it != _data.end()) {
+        return it->second;
     }
-    return *param;
+    return boost::none;
 }
 
-void GlobalMessageManager::addListener(const string& name, IUIMessageListenerPtr listener) {
+void GlobalMessageManager::addListener(const std::string& name, IUIMessageListenerPtr listener) {
     listeners[name] = std::move(listener);
 }
 
-void GlobalMessageManager::removeListener(const string& name) {
+void GlobalMessageManager::removeListener(const std::string& name) {
     listeners.erase(name);
 }
 
-void GlobalMessageManager::sendMessage(const string& name, const MessageData& data) {
+void GlobalMessageManager::sendMessage(const std::string& name, const MessageData& data) {
     if (listeners[name]) {
         listeners[name]->listen(data);
     } else {

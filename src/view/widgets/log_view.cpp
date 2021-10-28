@@ -16,7 +16,7 @@ void LogView::draw(Window& window) {
     _renderer.draw(getX(), getY(), _messages, window);
 }
 
-void LogView::addMessage(const string& message) {
+void LogView::addMessage(const std::string& message) {
     _messages.push_back(message);
     while (_messages.size() > 10) {
         _messages.pop_front();

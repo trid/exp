@@ -18,7 +18,7 @@ public:
     LogView(UIManager& uiManager, int x, int y);
     void draw(Window& window) override;
 
-    void addMessage(const string& message);
+    void addMessage(const std::string& message);
 private:
     std::deque<std::string> _messages;
 

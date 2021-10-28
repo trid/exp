@@ -31,13 +31,13 @@ class Agent;
 
 struct Travel {
     AI::Actors::Agent* actor;
-    string dest;
+    std::string dest;
     double distancePassed;
     double distanceNeeded;
     double dx, dy;
     World& world;
 
-    Travel(AI::Actors::Agent* actor, const string& dest, const WorldMap& worldMap, World& world);
+    Travel(AI::Actors::Agent* actor, const std::string& dest, const WorldMap& worldMap, World& world);
 
     void update(int delta);
 
@@ -51,7 +51,7 @@ class World {
 public:
     World(Application& application, GlobalMessageManager& appMessageManager);
 
-    TravelPtr moveActor(AI::Actors::Agent* actor, string const& dest);
+    TravelPtr moveActor(AI::Actors::Agent* actor, std::string const& dest);
 
     void update(int delta);
 
@@ -75,9 +75,9 @@ public:
 
     void removeFood();
 
-    std::unordered_set<string> const& getActions(AI::Actors::Agent* actor);
+    std::unordered_set<std::string> const& getActions(AI::Actors::Agent* actor);
 
-    void doAction(AI::Actors::Agent* actor, const string& action);
+    void doAction(AI::Actors::Agent* actor, const std::string& action);
 
     MessageManager& getMessageManager();
 
@@ -88,15 +88,17 @@ public:
     WorldMap& getWorldMap();
 
     const LocationTypeManager& getLocationTypeManager() const;
+
+    GlobalMessageManager& getGlobalMessageManager();
 private:
     std::list<TravelPtr> inRoute;
     int wood = 0;
     int food = 0;
 
     //TODO: Remove me with hardcoded actions
-    std::unordered_set<string> homeActions;
-    std::unordered_set<string> forestActions;
-    std::unordered_set<string> wellActions;
+    std::unordered_set<std::string> homeActions;
+    std::unordered_set<std::string> forestActions;
+    std::unordered_set<std::string> wellActions;
 
     std::list<Actions::ActionPtr> actions;
 
@@ -105,7 +107,7 @@ private:
     MessageManager _messageManager;
     LocationTypeManager _locationTypeManager;
     WorldMap _worldMap;
-    GlobalMessageManager& _appMessageManager;
+    GlobalMessageManager& _globalMessageManager;
 };
 
 class WorldProcess : public Process {

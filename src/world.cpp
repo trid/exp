@@ -14,7 +14,7 @@
 
 namespace Core {
 
-TravelPtr World::moveActor(AI::Actors::Agent* actor, const string& dest) {
+TravelPtr World::moveActor(AI::Actors::Agent* actor, const std::string& dest) {
     auto route = std::make_shared<Travel>(actor, dest, _worldMap, *this);
     actor->setPosition(*this, kPositionInRoute);
     inRoute.push_back(route);
@@ -60,7 +60,7 @@ World::World(Application& application, GlobalMessageManager& appMessageManager) 
         _actionManager(*this),
         _actorsRegistry(application),
         _messageManager(_actorsRegistry),
-        _appMessageManager(appMessageManager) {
+        _globalMessageManager(appMessageManager) {
     ProcessPtr ptr(new WorldProcess(*this));
     application.addProcess(ptr);
 
@@ -76,7 +76,7 @@ std::unordered_set<std::string> const& World::getActions(AI::Actors::Agent* acto
     return location->getType().getActions();
 }
 
-void World::doAction(AI::Actors::Agent* actor, const string& action) {
+void World::doAction(AI::Actors::Agent* actor, const std::string& action) {
     const auto& placeActions = getActions(actor);
     if (placeActions.find(action) != placeActions.end()) {
         Actions::ActionPtr actionInstance = _actionManager.getAction(action, actor);
@@ -87,18 +87,18 @@ void World::doAction(AI::Actors::Agent* actor, const string& action) {
 
 void World::removeFood() {
     food--;
-    _appMessageManager.sendMessage(kFoodUpdatedMessage, MessageData());
+    _globalMessageManager.sendMessage(kFoodUpdatedMessage, MessageData());
 }
 
 void World::addFood(int i) {
     food += i;
-    _appMessageManager.sendMessage(kFoodUpdatedMessage, MessageData());
+    _globalMessageManager.sendMessage(kFoodUpdatedMessage, MessageData());
 }
 
 void World::addWood(int i) {
     wood += i;
 
-    _appMessageManager.sendMessage(kWoodUpdatedMessage, MessageData());
+    _globalMessageManager.sendMessage(kWoodUpdatedMessage, MessageData());
 }
 
 MessageManager& World::getMessageManager() {
@@ -129,6 +129,10 @@ const LocationTypeManager& World::getLocationTypeManager() const {
     return _locationTypeManager;
 }
 
+GlobalMessageManager& World::getGlobalMessageManager() {
+    return _globalMessageManager;
+}
+
 
 void Travel::update(int delta) {
     distancePassed += actor->getSpeed() * delta / 1000;
@@ -141,7 +145,7 @@ void Travel::update(int delta) {
     }
 }
 
-Travel::Travel(AI::Actors::Agent* actor, const string& dest, const WorldMap& worldMap, World& world)
+Travel::Travel(AI::Actors::Agent* actor, const std::string& dest, const WorldMap& worldMap, World& world)
         : actor(actor), dest(dest),
           distancePassed(0), world(world) {
     const auto location = worldMap.getLocation(dest);

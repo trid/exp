@@ -11,22 +11,22 @@
 #include "../constants.h"
 #include "../behaviour_step.h"
 
-extern View::Widgets::GUIPanel* g_panel;
 
 namespace Core::AI::Actors {
 
-Agent::Agent(int id, Core::World& world, View::Widgets::GUIPanel& guiPanel) :
+Agent::Agent(int id, Core::World& world) :
         id(id),
-        _world(world),
-        _guiPanel(guiPanel) {}
+        _world(world) {}
 
 void Agent::processMessage(Core::Message& message) {
 
 }
 
-void Agent::say(const string& message) {
+void Agent::say(const std::string& message) {
     std::cout << name << ": " << message << std::endl;
-    g_panel->addMessage(name + ": " + message);
+    MessageData messageData;
+    messageData.addParameter(kAgentPhraseMessageKey, name + ": " + message);
+    _world.getGlobalMessageManager().sendMessage(kAgentPhraseMessage, messageData);
 }
 
 

@@ -25,6 +25,9 @@ constexpr char kPositionInRoute[] = "In route";
 constexpr char kFoodUpdatedMessage[] = "FOOD_UPDATED_MESSAGE";
 constexpr char kWoodUpdatedMessage[] = "WOOD_UPDATED_MESSAGE";
 constexpr char kFinishedMovingMessage[] = "FINISHED_MOVING";
+constexpr char kAgentPhraseMessage[] = "AGENT_PHRASE";
+
+constexpr char kAgentPhraseMessageKey[] = "message";
 
 // Settings
 constexpr char kScreenWidthParameterKey[] = "screen_width";
