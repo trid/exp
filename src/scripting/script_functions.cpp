@@ -12,9 +12,6 @@
 #include "constants.h"
 
 
-View::ViewFacade* g_view = nullptr;
-View::Widgets::GUIPanel* g_panel;
-
 namespace Scripting {
 
 void print(const std::string& message) {
@@ -36,7 +33,7 @@ void setReaction(Core::AI::Actors::Agent& actor, const std::string& reactionType
 
 //Agent registry
 Core::AI::Actors::Agent& createActor(Core::AI::Actors::AgentsRegistry& actorsRegistry, Core::World& world) {
-    return actorsRegistry.createAgent(world, *g_panel);
+    return actorsRegistry.createAgent(world);
 }
 
 //Scene objects

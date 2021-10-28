@@ -16,7 +16,7 @@ std::vector<Agent*>& AgentsRegistry::getActors() {
     return actors;
 }
 
-Agent& AgentsRegistry::createAgent(Core::World& world, View::Widgets::GUIPanel& guiPanel) {
+Agent& AgentsRegistry::createAgent(Core::World& world) {
     Agent* actor = new Agent(nextId, world);
     nextId++;
     actors.push_back(actor);

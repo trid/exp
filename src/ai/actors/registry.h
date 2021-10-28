@@ -40,7 +40,7 @@ public:
 public:
     explicit AgentsRegistry(Core::Application& application);
 
-    [[nodiscard]] Agent& createAgent(Core::World& world, View::Widgets::GUIPanel& guiPanel);
+    Agent& createAgent(Core::World& world);
     [[nodiscard]] boost::optional<Agent&> getAgent(int id);
     [[nodiscard]] boost::optional<const Agent&> getAgent(int id) const;
     [[nodiscard]] const std::vector<Agent*>& getActors() const;
