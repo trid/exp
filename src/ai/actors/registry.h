@@ -40,13 +40,14 @@ public:
 public:
     explicit AgentsRegistry(Core::Application& application);
 
-    Agent& createAgent(Core::World& world, View::Widgets::GUIPanel& guiPanel);
-    Agent* getAgent(int id);
+    [[nodiscard]] Agent& createAgent(Core::World& world, View::Widgets::GUIPanel& guiPanel);
+    [[nodiscard]] boost::optional<Agent&> getAgent(int id);
+    [[nodiscard]] boost::optional<const Agent&> getAgent(int id) const;
     [[nodiscard]] const std::vector<Agent*>& getActors() const;
-    std::vector<Agent*>& getActors();
+    [[nodiscard]] std::vector<Agent*>& getActors();
     void update();
 
-    int getLastId() { return actors.back()->getID(); }
+    [[nodiscard]] int getLastId() const;
 
 private:
     std::vector<Agent*> actors;

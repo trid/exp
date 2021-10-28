@@ -81,7 +81,8 @@ public:
 
     MessageManager& getMessageManager();
 
-    AI::Actors::AgentsRegistry& getActorsRegistry();
+    AI::Actors::AgentsRegistry& getAgentsRegistry();
+    const AI::Actors::AgentsRegistry& getAgentsRegistry() const;
 
     const WorldMap& getWorldMap() const;
     WorldMap& getWorldMap();

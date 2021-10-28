@@ -13,7 +13,7 @@
 
 #include "widgets/label.h"
 #include "widgets/log_view.h"
-#include "widgets/actor_view.h"
+#include "widgets/actor_info_view.h"
 #include "widgets/ui_manager.h"
 
 extern Core::AI::Actors::AgentsRegistry* g_actorsRegistry;

@@ -5,8 +5,10 @@
 namespace Core {
 
 void MessageManager::dispatchMessage(int actorId, Message& message) {
-    AI::Actors::Agent* actor = _actorRegistry.getAgent(actorId);
-    actor->processMessage(message);
+    auto actor = _actorRegistry.getAgent(actorId);
+    if (actor) {
+        actor->processMessage(message);
+    }
 }
 
 MessageManager::MessageManager(AI::Actors::AgentsRegistry& actorRegistry) :

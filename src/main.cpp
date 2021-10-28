@@ -27,7 +27,7 @@ int main(int argc, char* argv[]) {
     scriptContext.loadScript(Core::kInitScriptPath);
     View::ViewFacade view{settings, messageManager, world};
     Core::SystemEventManager systemEventManager{app, view.getGUIPanel()};
-    Core::AI::BehaviourProcessor behaviourProcessor{stateManager, world.getActorsRegistry().getActors()};
+    Core::AI::BehaviourProcessor behaviourProcessor{stateManager, world.getAgentsRegistry().getActors()};
 
     app.addProcess(std::make_shared<Core::AI::BehaviourProcessorProcess>(behaviourProcessor));
 

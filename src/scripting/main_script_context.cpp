@@ -83,7 +83,7 @@ void MainScriptContext::registerClasses() {
 
 void MainScriptContext::registerGlobals() {
     auto& state = getState();
-    state["g_actorsRegistry"] = std::ref(_world.getActorsRegistry());
+    state["g_actorsRegistry"] = std::ref(_world.getAgentsRegistry());
     state["g_scriptContext"] = std::ref(static_cast<ScriptContext&>(*this));
     state["g_stateManager"] = std::ref(_stateManager);
     state["g_world"] = std::ref(_world);

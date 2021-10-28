@@ -5,7 +5,7 @@
 #ifndef EXP_PANEL_H
 #define EXP_PANEL_H
 
-#include "actor_view.h"
+#include "actor_info_view.h"
 
 #include "widget.h"
 
@@ -34,7 +34,7 @@ private:
     std::shared_ptr<Label> _foodLabel;
     std::shared_ptr<Label> _woodLabel;
     std::shared_ptr<LogView> _logView;
-    std::shared_ptr<ActorView> _actorView;
+    std::shared_ptr<ActorInfoView> _actorView;
 };
 
 } // namespace View::Widgets

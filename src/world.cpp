@@ -109,7 +109,11 @@ int World::getFood() const {
     return food;
 }
 
-AI::Actors::AgentsRegistry& World::getActorsRegistry() {
+AI::Actors::AgentsRegistry& World::getAgentsRegistry() {
+    return _actorsRegistry;
+}
+
+const AI::Actors::AgentsRegistry& World::getAgentsRegistry() const {
     return _actorsRegistry;
 }
 

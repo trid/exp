@@ -27,8 +27,12 @@ void AgentsRegistry::update() {
 
 }
 
-Agent* AgentsRegistry::getAgent(int id) {
-    return (actors.empty()) ? (Agent*) nullptr : actors[id];
+boost::optional<Agent&> AgentsRegistry::getAgent(int id) {
+    return (actors.size() > id) ? boost::optional<Agent&>(*actors[id]) : boost::none;
+}
+
+boost::optional<const Agent&> AgentsRegistry::getAgent(int id) const {
+    return (actors.size() > id) ? boost::optional<const Agent&>(*actors[id]) : boost::none;
 }
 
 void AgentsRegistry::ActorRegistryProcess::update(int delta) {
@@ -49,6 +53,8 @@ AgentsRegistry::AgentsRegistry(Core::Application& application) {
     application.addProcess(ptr);
     application.addProcess(Core::ProcessPtr(new ActorStatusUpdateProcess(*this)));
 }
+
+int AgentsRegistry::getLastId() const { return actors.back()->getID(); }
 
 void AgentsRegistry::ActorStatusUpdateProcess::update(int delta) {
     time += delta;
