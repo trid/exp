@@ -16,6 +16,7 @@ LabelRenderer::LabelRenderer(int x, int y, std::string&& text, Font&& font) :
 
 void LabelRenderer::setText(std::string&& text) {
     _text = text;
+    _dirty = true;
 }
 
 void LabelRenderer::draw(Window& window) {
