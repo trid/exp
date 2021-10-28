@@ -1,3 +1,6 @@
+#ifndef ACTION_EATING_H
+#define ACTION_EATING_H
+
 #include "action.h"
 #include "../ai/actors/agent.h"
 
@@ -23,3 +26,5 @@ private:
 };
 
 } // namespace Core::Actions
+
+#endif // ACTION_EATING_H

@@ -1,3 +1,6 @@
+#ifndef ACTION_DRINK_H
+#define ACTION_DRINK_H
+
 #include "action.h"
 
 namespace Core {
@@ -20,3 +23,5 @@ public:
 };
 
 } // namespace Core::Actions
+
+#endif // ACTION_DRINK_H

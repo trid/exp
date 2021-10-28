@@ -1,3 +1,6 @@
+#ifndef SCRIPT_FUNCTIONS_H
+#define SCRIPT_FUNCTIONS_H
+
 #include "lua.hpp"
 #include "../ai/state_manager.h"
 
@@ -22,3 +25,5 @@ Core::AI::Actors::Agent& createActor(Core::AI::Actors::AgentsRegistry& actorsReg
 void createSceneObject(const std::string& type, const std::string& name, int x, int y, Core::World& world);
 
 } // namespace Scripting
+
+#endif // SCRIPT_FUNCTIONS_H

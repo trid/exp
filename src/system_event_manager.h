@@ -1,3 +1,6 @@
+#ifndef SYSTEM_EVENT_MANAGER_H
+#define SYSTEM_EVENT_MANAGER_H
+
 #include "application.h"
 #include "view/widgets/gui_panel.h"
 
@@ -16,3 +19,5 @@ private:
 };
 
 } // namespace Core
+
+#endif // SYSTEM_EVENT_MANAGER_H

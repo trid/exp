@@ -1,3 +1,6 @@
+#ifndef ACTION_WOODCUTTING_H
+#define ACTION_WOODCUTTING_H
+
 #include "action.h"
 #include "../ai/actors/agent.h"
 
@@ -17,3 +20,5 @@ public:
 };
 
 } // namespace Core::Actions
+
+#endif // ACTION_WOODCUTTING_H

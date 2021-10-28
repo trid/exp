@@ -1,3 +1,6 @@
+#ifndef ACTION_HUNTING_H
+#define ACTION_HUNTING_H
+
 #include "action.h"
 
 namespace Core::AI::Actors {
@@ -20,3 +23,5 @@ public:
 };
 
 } // namespace Core::Actions
+
+#endif // ACTION_HUNTING_H
