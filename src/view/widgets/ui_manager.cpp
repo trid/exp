@@ -10,9 +10,9 @@ UIManager::UIManager() {
 
 }
 
-void UIManager::draw(ViewFacade& view) {
+void UIManager::draw(Window& window) {
     for (WidgetPtr widgetPtr: widgets) {
-        widgetPtr->draw(view.getWindow());
+        widgetPtr->draw(window);
     }
 }
 

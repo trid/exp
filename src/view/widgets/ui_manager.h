@@ -18,7 +18,7 @@ class UIManager {
 public:
     UIManager();
 
-    void draw(ViewFacade& view);
+    void draw(Window& window);
     void addWidget(WidgetPtr widget);
 
     FontsCache& getFontsCache();

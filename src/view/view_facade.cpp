@@ -44,7 +44,7 @@ void ViewFacade::draw() {
         _actor.draw(x, y,_window);
     }
 
-    _uiManager.draw(*this);
+    _uiManager.draw(_window);
 
     _window.endDrawing();
 }
