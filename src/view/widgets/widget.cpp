@@ -2,12 +2,6 @@
 
 namespace View::Widgets {
 
-Widget::~Widget() {
-    if (surface) {
-        SDL_DestroyTexture(surface);
-    }
-}
-
 Widget::Widget() :
         x(0), y(0) {
 

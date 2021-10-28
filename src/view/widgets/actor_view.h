@@ -1,6 +1,7 @@
 #ifndef ACTOR_VIEW_H
 #define ACTOR_VIEW_H
 
+#include "private/render_target.h"
 #include "widget.h"
 #include "ui_manager.h"
 
@@ -34,6 +35,8 @@ private:
     Label* placeLabel;
 
     ViewFacade& _view;
+
+    RenderTarget _renderTarget;
 };
 
 } // namespace View::Widgets

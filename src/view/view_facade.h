@@ -1,5 +1,5 @@
-#ifndef VIEW_H
-#define VIEW_H
+#ifndef VIEW_FACADE_H
+#define VIEW_FACADE_H
 
 #include <list>
 #include <string>
@@ -54,4 +54,4 @@ private:
 
 } // View
 
-#endif
+#endif // VIEW_FACADE_H

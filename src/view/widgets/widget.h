@@ -8,20 +8,18 @@
 namespace View::Widgets {
 
 class Widget {
-private:
-    int x, y;
-protected:
-    SDL_Texture* surface = nullptr;
 public:
     Widget();
     Widget(int x, int y);
-    virtual ~Widget();
+    virtual ~Widget() = default;
     virtual void draw(View::Window&) = 0;
 
-    int getX() const;
+    [[nodiscard]] int getX() const;
     void setX(int x);
-    int getY() const;
+    [[nodiscard]] int getY() const;
     void setY(int y);
+private:
+    int x, y;
 };
 
 typedef std::shared_ptr<Widget> WidgetPtr;

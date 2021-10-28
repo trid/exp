@@ -16,8 +16,12 @@ namespace View::Widgets {
 
 ActorView::ActorView(int x, int y, UIManager& uiManager, ViewFacade& view) :
         Widget(x, y),
+        _font(uiManager.getFontsCache().getFont(kFontPath, 20)),
         _view(view),
-        _font(uiManager.getFontsCache().getFont(kFontPath, 20)) {
+        _renderTarget(x, y, kActorDataViewWidth, _font.getSize() * 4, view.getWindow())
+{
+    _renderTarget.setBackgroundColor(10, 10, 50, 100);
+
     int fontHeight = _font.getSize();
     nameLabel = new Label(0, 0, uiManager, kNameLabelPrefix);
     foodLabel = new Label(0, fontHeight, uiManager, kFoodLabelPrefix);
@@ -45,30 +49,14 @@ void ActorView::prevActor() {
 void ActorView::draw(Window& window) {
     updateLabels();
 
-    auto* renderer = window.getRenderer();
+    _renderTarget.startDrawing(window);
 
-    //TODO: move it to constructor after moving UI item out from ViewFacade class
-    if (!surface) {
-        int fontHeight = _font.getSize();
-        surface = SDL_CreateTexture(renderer, _view.getScreenPixelFormat(), SDL_TEXTUREACCESS_TARGET, 200,
-                                    fontHeight * 4);
-        SDL_SetTextureBlendMode(surface, SDL_BLENDMODE_BLEND);
-    }
-
-    SDL_SetRenderTarget(renderer, surface);
-    SDL_SetRenderDrawColor(renderer, 10, 10, 50, 100);
-    SDL_RenderClear(renderer);
     nameLabel->draw(window);
     foodLabel->draw(window);
     waterLabel->draw(window);
     placeLabel->draw(window);
-    SDL_SetRenderTarget(renderer, nullptr);
-    SDL_Rect rect;
-    rect.x = getX();
-    rect.y = getY();
-    SDL_QueryTexture(surface, nullptr, nullptr, &rect.w, &rect.h);
 
-    SDL_RenderCopy(renderer, surface, nullptr, &rect);
+    _renderTarget.endDrawing(window);
 }
 
 void ActorView::updateLabels() {

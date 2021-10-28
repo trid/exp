@@ -1,9 +1,14 @@
 #include <string>
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
-#include "widget.h"
+
 #include "../window.h"
 #include "../font.h"
+
+#include "widget.h"
+
+#include "private/label_renderer.h"
 
 using std::string;
 
@@ -13,16 +18,11 @@ class UIManager;
 
 class Label : public Widget {
 public:
-    Label(int x, int y, UIManager& uiManager, const string& text = "");
-    void setText(const string& text);
+    Label(int x, int y, UIManager& uiManager, string&& text = "");
+    void setText(string&& text);
     void draw(View::Window& window) override;
 private:
-    string text;
-    bool _dirty = true;
-    SDL_Texture* renderedText = nullptr;
-    SDL_Color textColor;
-
-    Font _font;
+    LabelRenderer _labelRenderer;
 };
 
 } // namespace View::Widgets
