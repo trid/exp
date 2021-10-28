@@ -11,13 +11,6 @@
 #include "agent_movement_data.h"
 #include "inventory.h"
 
-namespace View {
-class ViewFacade;
-
-namespace Widgets {
-class GUIPanel;
-} // namespace Widgets
-} // namespace View
 
 namespace Core {
 class World;
