@@ -6,6 +6,7 @@
 
 #include <boost/filesystem.hpp>
 
+#include "../travel.h"
 #include "../world.h"
 
 #include "../ai/actors/agent.h"

@@ -5,6 +5,8 @@
 #include "application.h"
 #include "constants.h"
 #include "location_type.h"
+#include "travel.h"
+#include "world_process.h"
 
 #include "actions/action_manager.h"
 #include "actions/constants.h"
@@ -43,25 +45,12 @@ void World::update(int delta) {
     actions.remove_if([](Actions::ActionPtr ptr) { return ptr->isFinished() || !ptr->isRunning() || !ptr->isValid(); });
 }
 
-void WorldProcess::update(int delta) {
-    _world.update(delta);
-}
-
-bool WorldProcess::finished() {
-    return false;
-}
-
-WorldProcess::WorldProcess(World& world) :
-        _world(world) {
-
-}
-
 World::World(Application& application, GlobalMessageManager& appMessageManager) :
         _actionManager(*this),
         _actorsRegistry(application),
         _messageManager(_actorsRegistry),
         _globalMessageManager(appMessageManager) {
-    ProcessPtr ptr(new WorldProcess(*this));
+    ProcessPtr ptr = std::make_shared<WorldProcess>(*this);
     application.addProcess(ptr);
 
     homeActions.emplace(Actions::kActionEat);
@@ -152,30 +141,6 @@ boost::optional<const std::string&> World::getAgentsLocation(const AI::Actors::A
     }
 
     return boost::none;
-}
-
-
-void Travel::update(int delta) {
-    distancePassed += actor->getSpeed() * delta / 1000;
-    actor->updatePosition(dx * delta, dy * delta);
-    if (distancePassed >= distanceNeeded) {
-        Message message;
-        message.messageType = kFinishedMovingMessage;
-        actor->setPosition(world, dest);
-        world.getMessageManager().dispatchMessage(actor->getID(), message);
-    }
-}
-
-Travel::Travel(AI::Actors::Agent* actor, const std::string& dest, const WorldMap& worldMap, World& world)
-        : actor(actor), dest(dest),
-          distancePassed(0), world(world) {
-    const auto location = worldMap.getLocation(dest);
-    int xDist = location->getXPos() - actor->getX();
-    int yDist = location->getYPos() - actor->getY();
-    double angle = atan2(yDist, xDist);
-    dx = cos(angle) * actor->getSpeed() / 1000;
-    dy = sin(angle) * actor->getSpeed() / 1000;
-    distanceNeeded = (int) sqrt(xDist * xDist + yDist * yDist);
 }
 
 } // namespace Core

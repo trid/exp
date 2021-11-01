@@ -29,21 +29,7 @@ namespace AI::Actors {
 class Agent;
 } // namespace AI::Actors
 
-struct Travel {
-    AI::Actors::Agent* actor;
-    std::string dest;
-    double distancePassed;
-    double distanceNeeded;
-    double dx, dy;
-    World& world;
-
-    Travel(AI::Actors::Agent* actor, const std::string& dest, const WorldMap& worldMap, World& world);
-
-    void update(int delta);
-
-    //Returns true if actor finished its way
-    [[nodiscard]] bool finished() const { return distancePassed >= distanceNeeded; }
-};
+struct Travel;
 
 typedef std::shared_ptr<Travel> TravelPtr;
 
@@ -110,18 +96,6 @@ private:
     LocationTypeManager _locationTypeManager;
     WorldMap _worldMap;
     GlobalMessageManager& _globalMessageManager;
-};
-
-class WorldProcess : public Process {
-public:
-    WorldProcess(World& world);
-
-    virtual void update(int delta);
-
-    virtual bool finished();
-
-private:
-    World& _world;
 };
 
 } // namespace Core
