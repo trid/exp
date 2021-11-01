@@ -90,6 +90,8 @@ public:
     const LocationTypeManager& getLocationTypeManager() const;
 
     GlobalMessageManager& getGlobalMessageManager();
+
+    boost::optional<const std::string&> getAgentsLocation(const AI::Actors::AgentMovementData& agent) const;
 private:
     std::list<TravelPtr> inRoute;
     int wood = 0;

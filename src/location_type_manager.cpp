@@ -19,11 +19,17 @@ LocationTypeManager::LocationTypeManager() {
 
     for (auto& loc: locationTypes) {
         auto subtree = loc.second;
-        const std::string& name = subtree.get<std::string>(kLocationNameKey);
-        LocationType* locationType = new LocationType(name);
+        auto name = subtree.get<std::string>(kLocationNameKey);
+
+        std::unordered_set<std::string> actions;
         for (auto action: subtree.get_child(kLocationActionsKey)) {
-            locationType->actions.emplace(action.second.data());
+            actions.emplace(action.second.data());
         }
+
+        int width = subtree.get<int>(kLocationWidthKey);
+        int height = subtree.get<int>(kLocationHeightKey);
+
+        auto* locationType = new LocationType(std::move(name), std::move(actions), width, height);
         types[locationType->getName()] = locationType;
     }
 }

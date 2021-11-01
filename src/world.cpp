@@ -133,6 +133,27 @@ GlobalMessageManager& World::getGlobalMessageManager() {
     return _globalMessageManager;
 }
 
+boost::optional<const std::string&> World::getAgentsLocation(const AI::Actors::AgentMovementData& agent) const {
+    // TODO: Change for something that works faster than O(n)
+
+    auto isInLocation = [&agent](const auto& locationIter) {
+        const auto& location = locationIter.second;
+        if (agent.getX() < location->getXPos()) return false;
+        if (agent.getY() < location->getYPos()) return false;
+        if (agent.getX() > location->getXPos() + location->getType().getWidth()) return false;
+        if (agent.getY() > location->getYPos() + location->getType().getHeight()) return false;
+        return true;
+    };
+
+    const auto& locations = _worldMap.getLocations();
+    auto it = std::find_if(locations.begin(), locations.end(), isInLocation);
+    if (it != locations.end()) {
+        return it->first;
+    }
+
+    return boost::none;
+}
+
 
 void Travel::update(int delta) {
     distancePassed += actor->getSpeed() * delta / 1000;

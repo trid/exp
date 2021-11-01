@@ -15,6 +15,7 @@
 namespace Core::AI::Actors {
 
 Agent::Agent(int id, Core::World& world) :
+        AgentMovementData(world),
         id(id),
         _world(world) {}
 

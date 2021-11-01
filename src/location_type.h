@@ -7,17 +7,20 @@
 namespace Core {
 
 class LocationType {
-    friend class LocationTypeManager;
-
-private:
-    std::string name;
-    std::unordered_set <std::string> actions;
 public:
-    explicit LocationType(const std::string& name);
+    explicit LocationType(std::string&& name, std::unordered_set<std::string>&& actions, int width, int height);
 
     const std::string& getName() const;
-
     const std::unordered_set <std::string>& getActions() const;
+
+    int getWidth() const;
+    int getHeight() const;
+private:
+    std::string _name;
+    std::unordered_set <std::string> _actions;
+
+    int _width;
+    int _height;
 };
 
 } // namespace Core

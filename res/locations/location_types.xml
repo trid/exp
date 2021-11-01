@@ -7,6 +7,12 @@
             <action>eat</action>
             <action>rest</action>
         </actions>
+        <width>
+            320
+        </width>
+        <height>
+            240
+        </height>
     </location>
     <location>
         <name>
@@ -17,6 +23,12 @@
             <action>rest</action>
             <action>build_home</action>
         </actions>
+        <width>
+            64
+        </width>
+        <height>
+            64
+        </height>
     </location>
     <location>
         <name>
@@ -26,6 +38,12 @@
             <action>hunt</action>
             <action>cut_wood</action>
         </actions>
+        <width>
+            100
+        </width>
+        <height>
+            128
+        </height>
     </location>
     <location>
         <name>
@@ -34,5 +52,11 @@
         <actions>
             <action>drink</action>
         </actions>
+        <width>
+            66
+        </width>
+        <height>
+            72
+        </height>
     </location>
 </types>

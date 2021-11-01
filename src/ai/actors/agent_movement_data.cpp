@@ -9,10 +9,14 @@
 
 namespace Core::AI::Actors {
 
-const std::string& AgentMovementData::getPosition() const { return _position; }
+AgentMovementData::AgentMovementData(const World& world) : _world(world) {}
+
+const std::string& AgentMovementData::getPosition() const {
+    auto location = _world.getAgentsLocation(*this);
+    return location.get_value_or(kPositionInRoute);
+}
 
 void AgentMovementData::setPosition(World& world, const std::string& position) {
-    _position = position;
     if (position != Core::kPositionInRoute) {
         const auto mapObject = world.getWorldMap().getLocation(position);
         _x = mapObject->getXPos();

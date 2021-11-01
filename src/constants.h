@@ -12,6 +12,8 @@ constexpr char kLocationTypesPath[] = "res/locations/location_types.xml";
 constexpr char kLocationTypesKey[] = "types";
 constexpr char kLocationNameKey[] = "name";
 constexpr char kLocationActionsKey[] = "actions";
+constexpr char kLocationWidthKey[] = "width";
+constexpr char kLocationHeightKey[] = "height";
 
 // Scripting
 constexpr char kInitScriptPath[] = "scripts/init.lua";
@@ -19,7 +21,7 @@ constexpr char kSettingsScriptPath[] = "scripts/settings.lua";
 constexpr char kSettingsKey[] = "settings";
 
 // World
-constexpr char kPositionInRoute[] = "In route";
+const std::string kPositionInRoute{"In route"};
 
 // Messages
 constexpr char kFoodUpdatedMessage[] = "FOOD_UPDATED_MESSAGE";
