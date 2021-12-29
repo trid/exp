@@ -5,6 +5,8 @@
 #ifndef EXP_BEHAVIOUR_STEP_H
 #define EXP_BEHAVIOUR_STEP_H
 
+#include <limits>
+
 #include <boost/optional.hpp>
 
 #include "sol/sol.hpp"

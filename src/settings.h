@@ -1,6 +1,7 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
+#include <limits>
 #include <string>
 
 #include "scripting/script_context.h"

@@ -5,6 +5,8 @@
 #ifndef EXP_CONSTANTS_H
 #define EXP_CONSTANTS_H
 
+#include <string>
+
 namespace Core {
 
 // Location type manager

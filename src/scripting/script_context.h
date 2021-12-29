@@ -1,6 +1,7 @@
 #ifndef SCRIPT_MANAGER_H
 #define SCRIPT_MANAGER_H
 
+#include <limits>
 #include <string>
 #include <vector>
 
