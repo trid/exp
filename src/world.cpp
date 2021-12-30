@@ -30,19 +30,21 @@ void World::update(int delta) {
 
     inRoute.remove_if([](TravelPtr ptr) { return ptr->finished(); });
 
-    for (Actions::ActionPtr actionPtr: actions) {
-        if (actionPtr->isValid() && !actionPtr->isFinished() && actionPtr->isRunning()) {
-            actionPtr->update(delta);
-        }
+
+    for (Actions::ActionPtr& actionPtr: actions) {
+        actionPtr->update(delta);
     }
 
-    for (Actions::ActionPtr actionPtr: actions) {
+    for (Actions::ActionPtr& actionPtr: actions) {
         if (!actionPtr->isValid() || actionPtr->isFinished() || !actionPtr->isRunning()) {
+            // TODO: Check what is happening here
             actionPtr->getActor()->removeAction();
         }
     }
 
-    actions.remove_if([](Actions::ActionPtr ptr) { return ptr->isFinished() || !ptr->isRunning() || !ptr->isValid(); });
+    actions.remove_if([](auto& action) {
+        return !action->isValid() || action->isFinished() || !action->isRunning();
+    });
 }
 
 World::World(Application& application, GlobalMessageManager& appMessageManager) :

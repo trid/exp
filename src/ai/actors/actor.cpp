@@ -25,7 +25,7 @@ void Actor::setReactor(const std::string& stateName, const std::string& reaction
     _statusReactors[stateName] = reactionState;
 }
 
-void Actor::setAction(Core::Actions::ActionPtr& action) {
+void Actor::setAction(Core::Actions::ActionPtr action) {
     if (_currentAction) {
         _currentAction->stop();
     }

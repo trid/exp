@@ -3,8 +3,6 @@
 
 #include <memory>
 
-using std::shared_ptr;
-
 namespace Core {
 class World;
 } // namespace Core
@@ -45,7 +43,7 @@ class ActionFactory : public VirtualActionFactory {
     Action* createAction(AI::Actors::Agent* actor, Core::World& world) override { return new T(actor, world); }
 };
 
-typedef shared_ptr<Action> ActionPtr;
+typedef std::shared_ptr<Action> ActionPtr;
 
 } // namespace Core::Actions
 

@@ -10,16 +10,10 @@ namespace Core::Actions {
 
 ActionManager::ActionManager(Core::World& world) :
         _world(world) {
-    _actionMap[kActionDrink] = new ActionFactory<ActionDrink>;
-    _actionMap[kActionEat] = new ActionFactory<ActionEating>;
-    _actionMap[kActionCutWood] = new ActionFactory<ActionWoodcutting>;
-    _actionMap[kActionHunt] = new ActionFactory<ActionHunting>;
-}
-
-ActionManager::~ActionManager() {
-    for (auto item: _actionMap) {
-        delete item.second;
-    }
+    _actionMap[kActionDrink] = std::make_unique<ActionFactory<ActionDrink>>();
+    _actionMap[kActionEat] = std::make_unique<ActionFactory<ActionEating>>();
+    _actionMap[kActionCutWood] = std::make_unique<ActionFactory<ActionWoodcutting>>();
+    _actionMap[kActionHunt] = std::make_unique<ActionFactory<ActionHunting>>();
 }
 
 ActionPtr ActionManager::getAction(const std::string& action, AI::Actors::Agent* actor) {

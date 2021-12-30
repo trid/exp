@@ -10,14 +10,13 @@ namespace Core::Actions {
 
 class ActionManager {
 public:
-    ActionManager(Core::World& world);
-    ~ActionManager();
+    explicit ActionManager(Core::World& world);
 
     ActionPtr getAction(const std::string& action, AI::Actors::Agent* actor);
 private:
     Core::World& _world;
 
-    std::unordered_map<std::string, VirtualActionFactory*> _actionMap;
+    std::unordered_map<std::string, std::unique_ptr<VirtualActionFactory>> _actionMap;
 };
 
 } // namespace Core::Actions

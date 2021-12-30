@@ -25,7 +25,7 @@ public:
 
     void setReactor(const std::string& stateName, const std::string& reactionState);
 
-    void setAction(Core::Actions::ActionPtr& action);
+    void setAction(Core::Actions::ActionPtr action);
     void removeAction();
     bool hasAction();
     bool isExecutingReaction() const;
