@@ -9,44 +9,29 @@
 
 namespace Core::AI::Actors {
 
-AgentMovementData::AgentMovementData(const World& world) : _world(world) {}
-
-const std::string& AgentMovementData::getPosition() const {
-    auto location = _world.getAgentsLocation(*this);
-    return location.get_value_or(kPositionInRoute);
-}
-
-void AgentMovementData::setPosition(World& world, const std::string& position) {
-    if (position != Core::kPositionInRoute) {
-        const auto mapObject = world.getWorldMap().getLocation(position);
-        _x = mapObject->getXPos();
-        _y = mapObject->getYPos();
-    }
-}
-
-void AgentMovementData::setTargetPosition(const std::string& position) {
+void AgentPositioningData::setTargetPosition(const std::string& position) {
     _target = position;
 }
 
-const std::string& AgentMovementData::getTargetPosition() {
+const std::string& AgentPositioningData::getTargetPosition() {
     return _target;
 }
 
-void AgentMovementData::updatePosition(double dx, double dy) {
+void AgentPositioningData::updatePosition(double dx, double dy) {
     _x += dx;
     _y += dy;
 }
 
-int AgentMovementData::getX() const { return static_cast<int>(_x); }
+int AgentPositioningData::getX() const { return static_cast<int>(_x); }
 
-void AgentMovementData::setX(int x) { _x = x; }
+void AgentPositioningData::setX(int x) { _x = x; }
 
-int AgentMovementData::getY() const { return static_cast<int>(_y); }
+int AgentPositioningData::getY() const { return static_cast<int>(_y); }
 
-void AgentMovementData::setY(int y) { _y = y; }
+void AgentPositioningData::setY(int y) { _y = y; }
 
-double AgentMovementData::getSpeed() const { return _speed; }
+double AgentPositioningData::getSpeed() const { return _speed; }
 
-void AgentMovementData::setSpeed(double speed) { _speed = speed; }
+void AgentPositioningData::setSpeed(double speed) { _speed = speed; }
 
 } // namespace Core::AI::Actors

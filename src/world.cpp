@@ -18,7 +18,6 @@ namespace Core {
 
 TravelPtr World::moveActor(AI::Actors::Agent* actor, const std::string& dest) {
     auto route = std::make_shared<Travel>(actor, dest, _worldMap, *this);
-    actor->setPosition(*this, kPositionInRoute);
     inRoute.push_back(route);
     return route;
 }
@@ -63,8 +62,12 @@ World::World(Application& application, GlobalMessageManager& appMessageManager) 
 }
 
 std::unordered_set<std::string> const& World::getActions(AI::Actors::Agent* actor) {
-    const auto location = _worldMap.getLocation(actor->getPosition());
-    return location->getType().getActions();
+    const auto locationName = getAgentsLocation(*actor);
+    if (locationName) {
+        const auto location = _worldMap.getLocation(*locationName);
+        return location->getType().getActions();
+    }
+    return _worldMap.getLocation(kPositionInRoute)->getType().getActions();
 }
 
 void World::doAction(AI::Actors::Agent* actor, const std::string& action) {
@@ -124,7 +127,7 @@ GlobalMessageManager& World::getGlobalMessageManager() {
     return _globalMessageManager;
 }
 
-boost::optional<const std::string&> World::getAgentsLocation(const AI::Actors::AgentMovementData& agent) const {
+boost::optional<const std::string&> World::getAgentsLocation(const AI::Actors::AgentPositioningData& agent) const {
     // TODO: Change for something that works faster than O(n)
 
     auto isInLocation = [&agent](const auto& locationIter) {
@@ -143,6 +146,36 @@ boost::optional<const std::string&> World::getAgentsLocation(const AI::Actors::A
     }
 
     return boost::none;
+}
+
+void World::setFood(int food) {
+    World::food = food;
+}
+
+int World::getWood() const {
+    return wood;
+}
+
+void World::setWood(int wood) {
+    World::wood = wood;
+}
+
+void World::unloadWood(AI::Actors::Agent& agent) {
+    addWood(agent.getItemsCount(Actions::kItemWood));
+    agent.removeAllItems(Actions::kItemWood);
+}
+
+void World::unloadFood(AI::Actors::Agent& agent) {
+    addFood(agent.getItemsCount(Actions::kItemFood));
+    agent.removeAllItems(Actions::kItemFood);
+}
+
+void World::setAgentLocation(AI::Actors::Agent& agent, const std::string& position) const {
+    const auto mapObject = _worldMap.getLocation(position);
+    if (mapObject) {
+        agent.setX(mapObject->getXPos());
+        agent.setY(mapObject->getYPos());
+    }
 }
 
 } // namespace Core

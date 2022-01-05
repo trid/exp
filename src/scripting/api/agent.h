@@ -7,6 +7,7 @@
 
 #include <memory>
 #include <string>
+#include <boost/optional.hpp>
 
 namespace Core {
 class World;
@@ -26,7 +27,7 @@ public:
     int getWater();
     int getFood();
 
-    const std::string& getPosition();
+    boost::optional<const std::string&> getPosition();
 
     int getInventory();
     int getInventoryLimit();

@@ -42,24 +42,20 @@ public:
     void update(int delta);
 
     int getFood() const;
+    [[maybe_unused]] void setFood(int food);
 
-    void setFood(int food) {
-        World::food = food;
-    }
-
-    int getWood() const {
-        return wood;
-    }
-
-    void setWood(int wood) {
-        World::wood = wood;
-    }
+    int getWood() const;
+    [[maybe_unused]] void setWood(int wood);
 
     void addWood(int i);
-
     void addFood(int i);
 
+    void unloadWood(AI::Actors::Agent& agent);
+    void unloadFood(AI::Actors::Agent& agent);
+
     void removeFood();
+
+    void setAgentLocation(AI::Actors::Agent& agent, const std::string& position) const;
 
     std::unordered_set<std::string> const& getActions(AI::Actors::Agent* actor);
 
@@ -77,7 +73,7 @@ public:
 
     GlobalMessageManager& getGlobalMessageManager();
 
-    boost::optional<const std::string&> getAgentsLocation(const AI::Actors::AgentMovementData& agent) const;
+    boost::optional<const std::string&> getAgentsLocation(const AI::Actors::AgentPositioningData& agent) const;
 private:
     std::list<TravelPtr> inRoute;
     int wood = 0;

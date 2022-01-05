@@ -5,6 +5,7 @@
 #include "main_script_context.h"
 
 #include <boost/filesystem.hpp>
+#include <boost/optional/optional_io.hpp>
 
 #include "../travel.h"
 #include "../world.h"
@@ -50,7 +51,6 @@ void MainScriptContext::registerClasses() {
     state.new_usertype<Core::AI::Actors::Agent>("AgentPrivate",
                                                 "say", &Core::AI::Actors::Agent::say,
                                                 "setName", &Core::AI::Actors::Agent::setName,
-                                                "setPosition", &Core::AI::Actors::Agent::setPosition,
                                                 "setMaxFood", &Core::AI::Actors::Agent::setMaxFood,
                                                 "setMaxWater", &Core::AI::Actors::Agent::setMaxWater);
 
@@ -85,7 +85,8 @@ void MainScriptContext::registerClasses() {
                                     "moveActor", &Core::World::moveActor,
                                     "doAction", &Core::World::doAction,
                                     "getStoredFood", &Core::World::getFood,
-                                    "getStoredWood", &Core::World::getWood);
+                                    "getStoredWood", &Core::World::getWood,
+                                    "setAgentLocation", &Core::World::setAgentLocation);
 }
 
 void MainScriptContext::registerGlobals() {

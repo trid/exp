@@ -10,9 +10,6 @@ class Agent;
 namespace Core::Actions {
 
 class ActionHunting : public Action {
-private:
-    int time = 0;
-    int interval;
 public:
     explicit ActionHunting(AI::Actors::Agent* actor, Core::World& world);
 
@@ -20,6 +17,12 @@ public:
     virtual void update(int delta);
     virtual int progress();
     virtual bool isFinished();
+
+private:
+    int _time = 0;
+    int _interval;
+
+    const Core::World& _world;
 };
 
 } // namespace Core::Actions

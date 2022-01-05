@@ -13,14 +13,15 @@
 
 
 namespace Core {
+class GlobalMessageManager;
 class World;
 } // namespace Core
 
 namespace Core::AI::Actors {
 
-class Agent: public AgentNeeds, public AgentMovementData, public Actor, public Inventory {
+class Agent: public AgentNeeds, public AgentPositioningData, public Actor, public Inventory {
 public:
-    explicit Agent(int id, Core::World& world);
+    explicit Agent(int id, Core::GlobalMessageManager& globalMessageBus);
 
     int getID() const { return id; }
 
@@ -31,15 +32,12 @@ public:
     void say(const std::string& message);
     void processMessage(Core::Message& message);
 
-    void unloadWood();
-    void unloadFood();
-
 private:
     int id;
 
     std::string name;
 
-    Core::World& _world;
+    Core::GlobalMessageManager& _globalMessageBus;
 };
 
 } // namespace Core::AI::Actors

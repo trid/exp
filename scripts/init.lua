@@ -17,7 +17,7 @@ woodcutter:setName("John Wood")
 setReaction(woodcutter, "NoState", "Woodcutting")
 setReaction(woodcutter, "Thirsty", "Thirsty")
 setReaction(woodcutter, "Hungry", "Hungry")
-woodcutter:setPosition(g_world, "home")
+g_world:setAgentLocation(woodcutter, "home")
 
 woodcutter:setMaxFood(120);
 woodcutter:setMaxWater(90);
@@ -30,5 +30,5 @@ hunter:setName("Hunter Smith")
 setReaction(hunter, "NoState", "Hunting")
 setReaction(hunter, "Thirsty", "Thirsty")
 setReaction(hunter, "Hungry", "Hungry")
-hunter:setPosition(g_world, "home")
+g_world:setAgentLocation(hunter, "home")
 

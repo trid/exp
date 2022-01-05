@@ -19,8 +19,8 @@ public:
     int progress() override;
     bool isFinished() override;
 private:
-    int time = 0;
-    int maxTime;
+    int _time = 0;
+    int _maxTime;
 
     Core::World& _world;
 };

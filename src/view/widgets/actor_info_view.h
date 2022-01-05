@@ -8,6 +8,10 @@
 
 #include "private/render_target.h"
 
+namespace Core {
+class World;
+} // namespace Core
+
 namespace Core::AI::Actors {
 class Agent;
 class AgentsRegistry;
@@ -20,7 +24,7 @@ class Label;
 class ActorInfoView : public Widget {
 public:
     ActorInfoView(int x, int y, UIManager& uiManager, ViewFacade& view,
-                  const Core::AI::Actors::AgentsRegistry& agentsRegistry);
+                  const Core::World& world);
 
     void updateLabels();
     void nextActor();
@@ -41,7 +45,7 @@ private:
 
     RenderTarget _renderTarget;
 
-    const Core::AI::Actors::AgentsRegistry& _agentsRegistry;
+    const Core::World& _world;
 };
 
 } // namespace View::Widgets

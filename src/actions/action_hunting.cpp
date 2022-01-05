@@ -3,18 +3,21 @@
 #include "../ai/constants.h"
 #include "../ai/actors/agent.h"
 
+#include "../world.h"
+
 #include "constants.h"
 
 namespace Core::Actions {
 
 bool ActionHunting::isValid() {
-    return actor->getPosition() == Core::AI::kForestLocationName;
+    const auto& location = _world.getAgentsLocation(*actor);
+    return location && *location == Core::AI::kForestLocationName;
 }
 
 void ActionHunting::update(int delta) {
-    time += delta;
-    if (time >= interval) {
-        time -= interval;
+    _time += delta;
+    if (_time >= _interval) {
+        _time -= _interval;
         actor->addItem(kItemFood);
     }
 }
@@ -29,6 +32,7 @@ bool ActionHunting::isFinished() {
 
 ActionHunting::ActionHunting(AI::Actors::Agent* actor, Core::World& world) :
         Action(actor, world),
-        interval(kActionHuntTime) {}
+        _interval(kActionHuntTime),
+        _world(world) {}
 
 } // namespace Core::Actions

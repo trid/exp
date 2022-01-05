@@ -3,18 +3,21 @@
 #include "../ai/constants.h"
 #include "../ai/actors/agent.h"
 
+#include "../world.h"
+
 #include "constants.h"
 
 namespace Core::Actions {
 
 bool ActionDrink::isValid() {
-    return actor->getPosition() == kWellLocationName;
+    const auto& location = _world.getAgentsLocation(*actor);
+    return location && *location == kWellLocationName;
 }
 
 void ActionDrink::update(int delta) {
-    time += delta;
-    if (time >= maxTime) {
-        time = maxTime;
+    _time += delta;
+    if (_time >= _maxTime) {
+        _time = _maxTime;
         actor->setWater(actor->getMaxWater());
         actor->removeStatus(Core::AI::kThirstyStateName);
         actor->say(kActionDrinkExecutedMessage);
@@ -22,15 +25,16 @@ void ActionDrink::update(int delta) {
 }
 
 int ActionDrink::progress() {
-    return time * 100 / maxTime;
+    return _time * 100 / _maxTime;
 }
 
 bool ActionDrink::isFinished() {
-    return time >= maxTime;
+    return _time >= _maxTime;
 }
 
 ActionDrink::ActionDrink(AI::Actors::Agent* actor, Core::World& world) :
         Action(actor, world),
-        maxTime(kActionDrinkTime) {}
+        _maxTime(kActionDrinkTime),
+        _world(world) {}
 
 } // namespace Core::Actions

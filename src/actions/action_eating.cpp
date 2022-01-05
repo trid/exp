@@ -1,20 +1,22 @@
 #include "action_eating.h"
 
-#include "../world.h"
 #include "../ai/constants.h"
+
+#include "../world.h"
 
 #include "constants.h"
 
 namespace Core::Actions {
 
 bool ActionEating::isValid() {
-    return actor->getPosition() == Core::AI::kHomeLocationName;
+    const auto& location = _world.getAgentsLocation(*actor);
+    return location && *location == Core::AI::kHomeLocationName;
 }
 
 void ActionEating::update(int delta) {
-    time += delta;
-    if (time >= maxTime) {
-        time = maxTime;
+    _time += delta;
+    if (_time >= _maxTime) {
+        _time = _maxTime;
         actor->setFood(actor->getMaxFood());
         actor->removeStatus(Core::AI::kHungryStateName);
         _world.removeFood();
@@ -23,16 +25,16 @@ void ActionEating::update(int delta) {
 }
 
 int ActionEating::progress() {
-    return time * 100 / maxTime;;
+    return _time * 100 / _maxTime;;
 }
 
 bool ActionEating::isFinished() {
-    return time >= maxTime;
+    return _time >= _maxTime;
 }
 
 ActionEating::ActionEating(AI::Actors::Agent* actor, Core::World& world) :
         Action(actor, world),
-        maxTime(kActionEatTime),
+        _maxTime(kActionEatTime),
         _world(world) {
 
 }

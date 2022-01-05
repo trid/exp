@@ -10,9 +10,6 @@ class World;
 namespace Core::Actions {
 
 class ActionDrink : public Action {
-private:
-    int time = 0;
-    int maxTime;
 public:
     ActionDrink(AI::Actors::Agent* actor, Core::World& world);
 
@@ -20,6 +17,12 @@ public:
     void update(int delta) override;
     int progress() override;
     bool isFinished() override;
+
+private:
+    int _time = 0;
+    int _maxTime;
+
+    const Core::World& _world;
 };
 
 } // namespace Core::Actions

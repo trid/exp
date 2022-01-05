@@ -17,7 +17,7 @@ void Travel::update(int delta) {
     if (distancePassed >= distanceNeeded) {
         Message message;
         message.messageType = kFinishedMovingMessage;
-        actor->setPosition(world, dest);
+        world.setAgentLocation(*actor, dest);
         world.getMessageManager().dispatchMessage(actor->getID(), message);
     }
 }

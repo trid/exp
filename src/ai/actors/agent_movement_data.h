@@ -13,13 +13,8 @@ class World;
 
 namespace Core::AI::Actors {
 
-class AgentMovementData {
+class AgentPositioningData {
 public:
-    AgentMovementData(const World& world);
-
-    [[nodiscard]] const std::string& getPosition() const;
-    void setPosition(World& world, const std::string& position);
-
     void setTargetPosition(const std::string& position);
     const std::string& getTargetPosition();
 
@@ -34,7 +29,7 @@ public:
     [[nodiscard]] double getSpeed() const;
     void setSpeed(double speed);
 private:
-    std::string _target = "";
+    std::string _target;
 
     //Pixels per second
     double _speed = 120;
@@ -42,8 +37,6 @@ private:
     //Agent position
     double _x = 0.0;
     double _y = 0.0;
-
-    const World& _world;
 };
 
 } // namespace Core::AI::Actors

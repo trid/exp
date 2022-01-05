@@ -2,18 +2,21 @@
 
 #include "../ai/constants.h"
 
+#include "../world.h"
+
 #include "constants.h"
 
 namespace Core::Actions {
 
 bool ActionWoodcutting::isValid() {
-    return actor->getPosition() == Core::AI::kForestLocationName;
+    const auto& location = _world.getAgentsLocation(*actor);
+    return location && *location == Core::AI::kForestLocationName;
 }
 
 void ActionWoodcutting::update(int delta) {
-    time += delta;
-    if (time >= interval) {
-        time -= interval;
+    _time += delta;
+    if (_time >= _interval) {
+        _time -= _interval;
         actor->addItem(kItemWood);
     }
 }
@@ -28,6 +31,7 @@ bool ActionWoodcutting::isFinished() {
 
 ActionWoodcutting::ActionWoodcutting(AI::Actors::Agent* actor, Core::World& world) :
         Action(actor, world),
-        interval(kWoodcuttingTime) {}
+        _interval(kWoodcuttingTime),
+        _world(world) {}
 
 } // namespace Core::Actions

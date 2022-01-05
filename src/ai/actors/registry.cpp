@@ -3,6 +3,7 @@
 #include <sstream>
 
 #include "../constants.h"
+#include "../world.h"
 
 Core::AI::Actors::AgentsRegistry* g_actorsRegistry = nullptr;
 
@@ -17,7 +18,7 @@ std::vector<Agent*>& AgentsRegistry::getActors() {
 }
 
 Agent& AgentsRegistry::createAgent(Core::World& world) {
-    Agent* actor = new Agent(nextId, world);
+    auto* actor = new Agent(nextId, world.getGlobalMessageManager());
     nextId++;
     actors.push_back(actor);
     return *actor;
