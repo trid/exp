@@ -18,8 +18,6 @@ namespace Core::AI {
 
 class StateManager {
 public:
-    explicit StateManager(Core::World& world);
-
     BehaviourOpt getBehaviour(const std::string& name);
 
     void registerBehaviour(const std::string& behaviourName, const sol::table& startingStep);

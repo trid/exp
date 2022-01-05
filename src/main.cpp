@@ -22,12 +22,12 @@ int main(int argc, char* argv[]) {
     Core::Settings settings{};
     Core::GlobalMessageManager messageManager;
     Core::World world(app, messageManager);
-    Core::AI::StateManager stateManager{world};
+    Core::AI::StateManager stateManager{};
     Scripting::MainScriptContext scriptContext{world, stateManager};
     scriptContext.loadScript(Core::kInitScriptPath);
     View::ViewFacade view{settings, messageManager, world};
     Core::SystemEventManager systemEventManager{app, view.getGUIPanel()};
-    Core::AI::BehaviourProcessor behaviourProcessor{stateManager, world.getAgentsRegistry().getActors()};
+    Core::AI::BehaviourProcessor behaviourProcessor{stateManager, world};
 
     app.addProcess(std::make_shared<Core::AI::BehaviourProcessorProcess>(behaviourProcessor));
 

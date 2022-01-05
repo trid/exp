@@ -18,6 +18,7 @@
 
 #include "constants.h"
 #include "script_functions.h"
+#include "api/agent.h"
 
 namespace Scripting {
 
@@ -46,22 +47,27 @@ void MainScriptContext::registerFunctions() {
 void MainScriptContext::registerClasses() {
     auto& state = getState();
 
-    state.new_usertype<Core::AI::Actors::Agent>("Agent",
-                                                "setState", &Core::AI::Actors::Agent::setBehaviourStep,
+    state.new_usertype<Core::AI::Actors::Agent>("AgentPrivate",
                                                 "say", &Core::AI::Actors::Agent::say,
                                                 "setName", &Core::AI::Actors::Agent::setName,
                                                 "setPosition", &Core::AI::Actors::Agent::setPosition,
                                                 "setMaxFood", &Core::AI::Actors::Agent::setMaxFood,
-                                                "setMaxWater", &Core::AI::Actors::Agent::setMaxWater,
-                                                "getWater", &Core::AI::Actors::Agent::getWater,
-                                                "getPosition", &Core::AI::Actors::Agent::getPosition,
-                                                "getFood", &Core::AI::Actors::Agent::getFood,
-                                                "getInventory", &Core::AI::Actors::Agent::getAllItemsCount,
-                                                "getInventoryLimit", &Core::AI::Actors::Agent::getInventoryLimit,
-                                                "unloadWood", &Core::AI::Actors::Agent::unloadWood,
-                                                "unloadFood", &Core::AI::Actors::Agent::unloadFood,
-                                                "hasAction", &Core::AI::Actors::Agent::hasAction,
-                                                "addStatus", &Core::AI::Actors::Agent::addStatus);
+                                                "setMaxWater", &Core::AI::Actors::Agent::setMaxWater);
+
+    state.new_usertype<Scripting::API::Agent>("Agent",
+                                              "say", &Scripting::API::Agent::say,
+                                              "getWater", &Scripting::API::Agent::getWater,
+                                              "getPosition", &Scripting::API::Agent::getPosition,
+                                              "getFood", &Scripting::API::Agent::getFood,
+                                              "getInventory", &Scripting::API::Agent::getInventory,
+                                              "getInventoryLimit", &Scripting::API::Agent::getInventoryLimit,
+                                              "unloadWood", &Scripting::API::Agent::unloadWood,
+                                              "unloadFood", &Scripting::API::Agent::unloadFood,
+                                              "hasAction", &Scripting::API::Agent::hasAction,
+                                              "addStatus", &Scripting::API::Agent::addStatus,
+                                              "move", &Scripting::API::Agent::move,
+                                              "doAction", &Scripting::API::Agent::doAction,
+                                              "clearState", &Scripting::API::Agent::clearState);
 
     state.new_usertype<Core::AI::Actors::AgentsRegistry>("AgentsRegistry",
                                                          "createAgent", &Core::AI::Actors::AgentsRegistry::createAgent);

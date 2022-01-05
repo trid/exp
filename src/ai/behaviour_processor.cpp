@@ -4,19 +4,22 @@
 
 #include "behaviour_processor.h"
 
+#include "../scripting/api/agent.h"
+
 #include "actors/agent.h"
+
 #include "constants.h"
 #include "state_manager.h"
 
 namespace Core::AI {
 
-BehaviourProcessor::BehaviourProcessor(StateManager& stateManager, std::vector<Actors::Agent*>& actors) :
+BehaviourProcessor::BehaviourProcessor(StateManager& stateManager, World& world) :
         _stateManager(stateManager),
-        _actors(actors) {}
+        _world(world) {}
 
 
 void BehaviourProcessor::update() {
-    for (auto& actor: _actors) {
+    for (auto& actor: _world.getAgentsRegistry().getActors()) {
         processActor(*actor);
     }
 }
@@ -52,7 +55,7 @@ void BehaviourProcessor::processReaction(Actors::Agent& actor) {
 void BehaviourProcessor::updateBehaviour(Actors::Agent& actor) {
     boost::optional<BehaviourStep> step = actor.getBehaviourStep();
     while (step) {
-        step = step->getTransition(actor);
+        step = step->getTransition(Scripting::API::Agent(_world, actor.getID()));
 
         if (step) {
             setBehaviourStep(actor, *step);
@@ -62,7 +65,7 @@ void BehaviourProcessor::updateBehaviour(Actors::Agent& actor) {
 
 void BehaviourProcessor::setBehaviourStep(Actors::Agent& actor, BehaviourStep step) {
     actor.setBehaviourStep(step);
-    step.runStep(actor);
+    step.runStep(Scripting::API::Agent(_world, actor.getID()));
 }
 
 BehaviourProcessorProcess::BehaviourProcessorProcess(BehaviourProcessor& behaviourProcessor) : _behaviourProcessor(

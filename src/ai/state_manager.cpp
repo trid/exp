@@ -2,9 +2,6 @@
 
 namespace Core::AI {
 
-StateManager::StateManager(Core::World& world) {
-}
-
 BehaviourOpt StateManager::getBehaviour(const std::string& name) {
     auto it = _behaviours.find(name);
     if (it != _behaviours.end()) {

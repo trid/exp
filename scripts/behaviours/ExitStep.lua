@@ -6,7 +6,7 @@
 ExitStep = {
     run = function(actor)
         actor:say("Job's done!")
-        setState(actor, "", g_stateManager)
+        actor:clearState()
     end,
 
     transition = function(actor)

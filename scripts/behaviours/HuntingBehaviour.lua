@@ -30,7 +30,7 @@ GoHuntingStep = {
 HuntStep = {
     run = function(actor)
         actor:say("Start hunting! Hope I will not be a pray!")
-        g_world:doAction(actor, "hunt")
+        actor:doAction("hunt")
     end,
 
     transition = function(actor)

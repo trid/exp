@@ -31,7 +31,7 @@ GoWoodcuttingStep = {
 CutWoodStep = {
     run = function(actor)
         actor:say("Start cutting wood! Hope it will not kill me!")
-        g_world:doAction(actor, "cut_wood")
+        actor:doAction("cut_wood")
     end,
 
     transition = function(actor)

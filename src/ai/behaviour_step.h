@@ -11,19 +11,18 @@
 
 #include "sol/sol.hpp"
 
-namespace Core::AI {
-
-namespace Actors {
+namespace Scripting::API {
 class Agent;
-} // namespace Actors
+} // namespace Scripting::API
 
+namespace Core::AI {
 
 class BehaviourStep {
 public:
     explicit BehaviourStep(const sol::table& step);
 
-    void runStep(Actors::Agent& actor);
-    boost::optional<BehaviourStep> getTransition(Actors::Agent& actor);
+    void runStep(Scripting::API::Agent&& actor);
+    boost::optional<BehaviourStep> getTransition(Scripting::API::Agent&& actor);
 private:
     sol::table step;
 };

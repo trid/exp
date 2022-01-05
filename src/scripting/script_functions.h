@@ -6,6 +6,7 @@
 
 namespace Core::AI::Actors {
 class AgentsRegistry;
+class Agent;
 }
 
 namespace Scripting {

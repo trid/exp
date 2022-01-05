@@ -17,7 +17,7 @@ end
 
 function GoToLocationStep.run(self, actor)
     actor:say("Direction " .. self.location .. "!")
-    self.movementStatus = g_world:moveActor(actor, self.location)
+    self.movementStatus = actor:move(self.location)
 end
 
 function GoToLocationStep.transition(self, actor)

@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "../process.h"
+#include "../world.h"
 
 namespace Core::AI {
 
@@ -20,7 +21,7 @@ class StateManager;
 
 class BehaviourProcessor {
 public:
-    explicit BehaviourProcessor(StateManager& stateManager, std::vector<Actors::Agent*>& actors);
+    explicit BehaviourProcessor(StateManager& stateManager, World& world);
 
     void update();
 private:
@@ -30,7 +31,7 @@ private:
     void setBehaviourStep(Actors::Agent& actor, BehaviourStep step);
 
     StateManager& _stateManager;
-    std::vector<Actors::Agent*>& _actors;
+    World& _world;
 };
 
 class BehaviourProcessorProcess: public Process {
