@@ -7,7 +7,7 @@ namespace Core {
 
 class Process {
 public:
-    virtual void update(int delta) = 0;
+    virtual void update(unsigned int delta) = 0;
     virtual bool finished() = 0;
 };
 

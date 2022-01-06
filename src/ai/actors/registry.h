@@ -4,7 +4,10 @@
 #include "vector"
 #include "agent.h"
 #include "../../process.h"
-#include "../../application.h"
+
+namespace Core {
+class TimedProcessController;
+} // namespace Core
 
 namespace Core::AI::Actors {
 
@@ -16,7 +19,7 @@ public:
     public:
         explicit ActorRegistryProcess(AgentsRegistry& actorsRegistry);
 
-        void update(int delta) override;
+        void update(unsigned int delta) override;
         bool finished() override;
 
     private:
@@ -27,7 +30,7 @@ public:
     public:
         explicit ActorStatusUpdateProcess(AgentsRegistry& actorRegistry);
 
-        void update(int delta) override;
+        void update(unsigned int delta) override;
         bool finished() override;
     private:
         int time = 0;
@@ -38,7 +41,7 @@ public:
     };
 
 public:
-    explicit AgentsRegistry(Core::Application& application);
+    explicit AgentsRegistry(TimedProcessController& timedProcessController);
 
     Agent& createAgent(Core::World& world);
     [[nodiscard]] boost::optional<Agent&> getAgent(int id);

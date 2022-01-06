@@ -38,7 +38,7 @@ class BehaviourProcessorProcess: public Process {
 public:
     explicit BehaviourProcessorProcess(BehaviourProcessor& behaviourProcessor);
 
-    void update(int delta) override;
+    void update(unsigned int delta) override;
     bool finished() override;
 private:
     BehaviourProcessor& _behaviourProcessor;

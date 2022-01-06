@@ -2,9 +2,9 @@
 
 #include <iostream>
 
-#include "application.h"
 #include "constants.h"
 #include "location_type.h"
+#include "timed_process_controller.h"
 #include "travel.h"
 #include "world_process.h"
 
@@ -35,17 +35,17 @@ void World::update(int delta) {
     });
 }
 
-World::World(Application& application, GlobalMessageManager& appMessageManager, WorldMap& worldMap) :
+World::World(TimedProcessController& timedProcessController, GlobalMessageManager& appMessageManager, WorldMap& worldMap) :
         WorldInventory(appMessageManager),
         AgentLocator(worldMap),
         MovementUpdater(worldMap, *this, _messageManager),
         _actionManager(*this),
-        _actorsRegistry(application),
+        _actorsRegistry(timedProcessController),
         _messageManager(_actorsRegistry),
         _globalMessageManager(appMessageManager),
         _worldMap(worldMap) {
     ProcessPtr ptr = std::make_shared<WorldProcess>(*this);
-    application.addProcess(ptr);
+    timedProcessController.addProcess(ptr);
 }
 
 std::unordered_set<std::string> const& World::getActions(AI::Actors::Agent* actor) {

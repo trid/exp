@@ -5,6 +5,7 @@
 #include "location_type_manager.h"
 #include "settings.h"
 #include "system_event_manager.h"
+#include "timed_process_controller.h"
 #include "world.h"
 
 #include "ai/state_manager.h"
@@ -19,10 +20,11 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
     Core::Application app{};
+    Core::TimedProcessController timedProcessController;
     Core::Settings settings{};
     Core::GlobalMessageManager messageManager;
     Core::WorldMap worldMap;
-    Core::World world(app, messageManager, worldMap);
+    Core::World world(timedProcessController, messageManager, worldMap);
     Core::AI::StateManager stateManager{};
     Scripting::MainScriptContext scriptContext{world, stateManager};
     scriptContext.loadScript(Core::kInitScriptPath);
@@ -30,10 +32,11 @@ int main(int argc, char* argv[]) {
     Core::SystemEventManager systemEventManager{app, view.getGUIPanel()};
     Core::AI::BehaviourProcessor behaviourProcessor{stateManager, world};
 
-    app.addProcess(std::make_shared<Core::AI::BehaviourProcessorProcess>(behaviourProcessor));
+    timedProcessController.addProcess(std::make_shared<Core::AI::BehaviourProcessorProcess>(behaviourProcessor));
 
     while (app.isRunning()) {
         app.update();
+        timedProcessController.update();
         systemEventManager.process();
         view.draw();
     }

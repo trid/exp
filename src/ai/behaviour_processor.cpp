@@ -71,7 +71,7 @@ void BehaviourProcessor::setBehaviourStep(Actors::Agent& actor, BehaviourStep st
 BehaviourProcessorProcess::BehaviourProcessorProcess(BehaviourProcessor& behaviourProcessor) : _behaviourProcessor(
         behaviourProcessor) {}
 
-void BehaviourProcessorProcess::update(int delta) {
+void BehaviourProcessorProcess::update(unsigned int delta) {
     _behaviourProcessor.update();
 }
 

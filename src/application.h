@@ -2,9 +2,6 @@
 #define APPLICATION_H
 
 #include <list>
-#include <SDL2/SDL_timer.h>
-
-#include "process.h"
 
 namespace Core {
 
@@ -18,13 +15,8 @@ public:
 
     void update();
 
-    void addProcess(ProcessPtr ptr);
-
 private:
     bool running = true;
-    std::list<ProcessPtr> processes;
-
-    int lastTime;
 };
 
 } // namespace Core

@@ -13,7 +13,7 @@ WorldProcess::WorldProcess(World& world) :
 
 }
 
-void WorldProcess::update(int delta) {
+void WorldProcess::update(unsigned int delta) {
     _world.update(delta);
 }
 

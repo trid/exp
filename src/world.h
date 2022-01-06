@@ -32,9 +32,11 @@ namespace AI::Actors {
 class Agent;
 } // namespace AI::Actors
 
+class TimedProcessController;
+
 class World: public WorldInventory, public AgentLocator, public MovementUpdater {
 public:
-    World(Application& application, GlobalMessageManager& appMessageManager, WorldMap& worldMap);
+    World(TimedProcessController& timedProcessController, GlobalMessageManager& appMessageManager, WorldMap& worldMap);
 
     void update(int delta);
 

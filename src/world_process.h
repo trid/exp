@@ -15,7 +15,7 @@ class WorldProcess : public Process {
 public:
     explicit WorldProcess(World& world);
 
-    void update(int delta) override;
+    void update(unsigned int delta) override;
 
     bool finished() override;
 
