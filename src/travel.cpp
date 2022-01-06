@@ -4,7 +4,9 @@
 
 #include "travel.h"
 
+#include "agent_locator.h"
 #include "constants.h"
+#include "message_manager.h"
 #include "world.h"
 
 #include "ai/actors/agent.h"
@@ -17,14 +19,16 @@ void Travel::update(int delta) {
     if (distancePassed >= distanceNeeded) {
         Message message;
         message.messageType = kFinishedMovingMessage;
-        world.setAgentLocation(*actor, dest);
-        world.getMessageManager().dispatchMessage(actor->getID(), message);
+        _agentLocator.setAgentLocation(*actor, dest);
+        _messageBus.dispatchMessage(actor->getID(), message);
     }
 }
 
-Travel::Travel(AI::Actors::Agent* actor, const std::string& dest, const WorldMap& worldMap, World& world)
+Travel::Travel(AI::Actors::Agent* actor, const std::string& dest, const WorldMap& worldMap, const AgentLocator& locator,
+               MessageManager& messageBus)
         : actor(actor), dest(dest),
-          distancePassed(0), world(world) {
+          distancePassed(0), _agentLocator(locator),
+          _messageBus(messageBus) {
     const auto location = worldMap.getLocation(dest);
     int xDist = location->getXPos() - actor->getX();
     int yDist = location->getYPos() - actor->getY();

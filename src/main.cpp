@@ -21,7 +21,8 @@ int main(int argc, char* argv[]) {
     Core::Application app{};
     Core::Settings settings{};
     Core::GlobalMessageManager messageManager;
-    Core::World world(app, messageManager);
+    Core::WorldMap worldMap;
+    Core::World world(app, messageManager, worldMap);
     Core::AI::StateManager stateManager{};
     Scripting::MainScriptContext scriptContext{world, stateManager};
     scriptContext.loadScript(Core::kInitScriptPath);

@@ -34,7 +34,7 @@ add_executable(exp ${CORE_SOURCE_FILES}
 		            ${SCRIPTING_API_SOURCE_FILES}
 					${VIEW_SOURCE_FILES}
 					${WIDGETS_SOURCE_FILES}
-		            ${WIDGETS_PRIVATE_SOURCE_FILES} src/scripting/api/agent.cpp src/scripting/api/agent.h)
+		            ${WIDGETS_PRIVATE_SOURCE_FILES})
 target_link_libraries(exp lua5.1)
 target_link_libraries(exp ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSTEM_LIBRARY})
 

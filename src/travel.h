@@ -13,7 +13,12 @@ namespace AI::Actors {
 class Agent;
 } // namespace AI::Actors
 
+class AgentLocator;
+
+class MessageManager;
+
 class World;
+
 class WorldMap;
 
 struct Travel {
@@ -22,9 +27,11 @@ struct Travel {
     double distancePassed;
     double distanceNeeded;
     double dx, dy;
-    World& world;
+    const AgentLocator& _agentLocator;
+    MessageManager& _messageBus;
 
-    Travel(AI::Actors::Agent* actor, const std::string& dest, const WorldMap& worldMap, World& world);
+    Travel(AI::Actors::Agent* actor, const std::string& dest, const WorldMap& worldMap, const AgentLocator& locator,
+           MessageManager& messageBus);
 
     void update(int delta);
 

@@ -16,19 +16,8 @@
 
 namespace Core {
 
-TravelPtr World::moveActor(AI::Actors::Agent* actor, const std::string& dest) {
-    auto route = std::make_shared<Travel>(actor, dest, _worldMap, *this);
-    inRoute.push_back(route);
-    return route;
-}
-
 void World::update(int delta) {
-    for (TravelPtr travelPtr: inRoute) {
-        travelPtr->update(delta);
-    }
-
-    inRoute.remove_if([](TravelPtr ptr) { return ptr->finished(); });
-
+    MovementUpdater::update(delta);
 
     for (Actions::ActionPtr& actionPtr: actions) {
         actionPtr->update(delta);
@@ -46,19 +35,17 @@ void World::update(int delta) {
     });
 }
 
-World::World(Application& application, GlobalMessageManager& appMessageManager) :
+World::World(Application& application, GlobalMessageManager& appMessageManager, WorldMap& worldMap) :
+        WorldInventory(appMessageManager),
+        AgentLocator(worldMap),
+        MovementUpdater(worldMap, *this, _messageManager),
         _actionManager(*this),
         _actorsRegistry(application),
         _messageManager(_actorsRegistry),
-        _globalMessageManager(appMessageManager) {
+        _globalMessageManager(appMessageManager),
+        _worldMap(worldMap) {
     ProcessPtr ptr = std::make_shared<WorldProcess>(*this);
     application.addProcess(ptr);
-
-    homeActions.emplace(Actions::kActionEat);
-    homeActions.emplace(Actions::kActionRest);
-    forestActions.emplace(Actions::kActionHunt);
-    forestActions.emplace(Actions::kActionCutWood);
-    wellActions.emplace(Actions::kActionDrink);
 }
 
 std::unordered_set<std::string> const& World::getActions(AI::Actors::Agent* actor) {
@@ -79,28 +66,8 @@ void World::doAction(AI::Actors::Agent* actor, const std::string& action) {
     }
 }
 
-void World::removeFood() {
-    food--;
-    _globalMessageManager.sendMessage(kFoodUpdatedMessage, MessageData());
-}
-
-void World::addFood(int i) {
-    food += i;
-    _globalMessageManager.sendMessage(kFoodUpdatedMessage, MessageData());
-}
-
-void World::addWood(int i) {
-    wood += i;
-
-    _globalMessageManager.sendMessage(kWoodUpdatedMessage, MessageData());
-}
-
 MessageManager& World::getMessageManager() {
     return _messageManager;
-}
-
-int World::getFood() const {
-    return food;
 }
 
 AI::Actors::AgentsRegistry& World::getAgentsRegistry() {
@@ -125,57 +92,6 @@ const LocationTypeManager& World::getLocationTypeManager() const {
 
 GlobalMessageManager& World::getGlobalMessageManager() {
     return _globalMessageManager;
-}
-
-boost::optional<const std::string&> World::getAgentsLocation(const AI::Actors::AgentPositioningData& agent) const {
-    // TODO: Change for something that works faster than O(n)
-
-    auto isInLocation = [&agent](const auto& locationIter) {
-        const auto& location = locationIter.second;
-        if (agent.getX() < location->getXPos()) return false;
-        if (agent.getY() < location->getYPos()) return false;
-        if (agent.getX() > location->getXPos() + location->getType().getWidth()) return false;
-        if (agent.getY() > location->getYPos() + location->getType().getHeight()) return false;
-        return true;
-    };
-
-    const auto& locations = _worldMap.getLocations();
-    auto it = std::find_if(locations.begin(), locations.end(), isInLocation);
-    if (it != locations.end()) {
-        return it->first;
-    }
-
-    return boost::none;
-}
-
-void World::setFood(int food) {
-    World::food = food;
-}
-
-int World::getWood() const {
-    return wood;
-}
-
-void World::setWood(int wood) {
-    World::wood = wood;
-}
-
-void World::unloadWood(AI::Actors::Agent& agent) {
-    addWood(agent.getItemsCount(Actions::kItemWood));
-    agent.removeAllItems(Actions::kItemWood);
-}
-
-void World::unloadFood(AI::Actors::Agent& agent) {
-    addFood(agent.getItemsCount(Actions::kItemFood));
-    agent.removeAllItems(Actions::kItemFood);
-}
-
-void World::setAgentLocation(AI::Actors::Agent& agent, const std::string& position) const {
-    const auto mapObject = _worldMap.getLocation(position);
-    if (mapObject) {
-        agent.setX(mapObject->getXPos());
-        agent.setY(mapObject->getYPos());
-    }
 }
 
 } // namespace Core
