@@ -6,7 +6,7 @@
 #define EXP_MOVEMENT_UPDATER_H
 
 #include <memory>
-#include <vector>
+#include <unordered_map>
 
 namespace Core {
 
@@ -29,7 +29,7 @@ public:
 
     void update(int delta);
 private:
-    std::vector<TravelPtr> _inRoute;
+    std::unordered_map<int, TravelPtr> _inRoute;
 
     const WorldMap& _worldMap;
     const AgentLocator& _agentLocator;

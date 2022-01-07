@@ -12,7 +12,7 @@ file(GLOB VIEW_SOURCE_FILES src/view/*.cpp)
 file(GLOB WIDGETS_SOURCE_FILES src/view/widgets/*.cpp)
 file(GLOB WIDGETS_PRIVATE_SOURCE_FILES src/view/widgets/private/*.cpp)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
 
 set(Boost_USE_STATIC_LIBS ON)
 find_package(Boost COMPONENTS system filesystem)

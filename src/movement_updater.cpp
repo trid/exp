@@ -6,6 +6,8 @@
 
 #include <algorithm>
 
+#include "ai/actors/agent.h"
+
 #include "travel.h"
 
 namespace Core {
@@ -17,18 +19,17 @@ MovementUpdater::MovementUpdater(const WorldMap& worldMap, const AgentLocator& l
                                  _messageBus(messageBus) {}
 
 TravelPtr MovementUpdater::moveActor(AI::Actors::Agent* actor, const std::string& dest) {
-    auto route = std::make_shared<Travel>(actor, dest, _worldMap, _agentLocator, _messageBus);
-    _inRoute.push_back(route);
+    auto route = std::make_shared<Travel>(*actor, dest, _worldMap, _agentLocator, _messageBus);
+    _inRoute[actor->getID()] = route;
     return route;
 }
 
 void MovementUpdater::update(int delta) {
-    for (TravelPtr travelPtr: _inRoute) {
-        travelPtr->update(delta);
+    for (auto& iter: _inRoute) {
+        iter.second->update(delta);
     }
 
-    auto iter = std::remove_if(_inRoute.begin(), _inRoute.end(), [](TravelPtr ptr) { return ptr->finished(); });
-    _inRoute.erase(iter, _inRoute.end());
+    std::erase_if(_inRoute, [](const auto& iter) { return iter.second->finished(); });
 }
 
 } // namespace Core

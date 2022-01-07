@@ -6,6 +6,7 @@
 #define EXP_TRAVEL_H
 
 #include <string>
+#include "location_type_manager.h"
 
 namespace Core {
 
@@ -14,29 +15,27 @@ class Agent;
 } // namespace AI::Actors
 
 class AgentLocator;
-
 class MessageManager;
-
 class World;
-
 class WorldMap;
 
-struct Travel {
-    AI::Actors::Agent* actor;
-    std::string dest;
-    double distancePassed;
-    double distanceNeeded;
-    double dx, dy;
-    const AgentLocator& _agentLocator;
-    MessageManager& _messageBus;
-
-    Travel(AI::Actors::Agent* actor, const std::string& dest, const WorldMap& worldMap, const AgentLocator& locator,
-           MessageManager& messageBus);
+class Travel {
+public:
+    Travel(AI::Actors::Agent& agent, const std::string& dest, const WorldMap& worldMap,
+           const AgentLocator& locator, MessageManager& messageBus);
 
     void update(int delta);
 
     //Returns true if actor finished its way
-    [[nodiscard]] bool finished() const { return distancePassed >= distanceNeeded; }
+    [[nodiscard]] bool finished() const;
+
+private:
+    AI::Actors::Agent& _agent;
+    std::string _dest;
+    double _dx, _dy;
+    const AgentLocator& _agentLocator;
+    MessageManager& _messageBus;
+
 };
 
 } // namespace Core
