@@ -52,7 +52,8 @@ void MainScriptContext::registerClasses() {
                                                 "say", &Core::AI::Actors::Agent::say,
                                                 "setName", &Core::AI::Actors::Agent::setName,
                                                 "setMaxFood", &Core::AI::Actors::Agent::setMaxFood,
-                                                "setMaxWater", &Core::AI::Actors::Agent::setMaxWater);
+                                                "setMaxWater", &Core::AI::Actors::Agent::setMaxWater,
+                                                "setType", &Core::AI::Actors::Agent::setType);
 
     state.new_usertype<Scripting::API::Agent>("Agent",
                                               "say", &Scripting::API::Agent::say,

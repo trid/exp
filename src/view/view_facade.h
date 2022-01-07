@@ -49,7 +49,7 @@ private:
     Window _window;
 
     Image _background;
-    Image _actor;
+    std::unordered_map<std::string, Image> _actors;
 
     Widgets::UIManager _uiManager;
     Core::GlobalMessageManager& _globalMessageManager;

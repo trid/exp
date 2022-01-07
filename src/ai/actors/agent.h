@@ -23,19 +23,24 @@ class Agent: public AgentNeeds, public AgentPositioningData, public Actor, publi
 public:
     explicit Agent(int id, Core::GlobalMessageManager& globalMessageBus);
 
-    int getID() const { return id; }
+    int getID() const;
 
-    const std::string& getName() const { return name; }
+    const std::string& getName() const;
 
-    void setName(const std::string& name) { Agent::name = name; }
+    void setName(const std::string& name);
 
     void say(const std::string& message);
     void processMessage(Core::Message& message);
 
-private:
-    int id;
+    void setType(const std::string& type);
+    const std::string& getType();
 
-    std::string name;
+private:
+    int _id;
+
+    std::string _name;
+    // TODO decide some better way to differentiate agent's color
+    std::string _type;
 
     Core::GlobalMessageManager& _globalMessageBus;
 };

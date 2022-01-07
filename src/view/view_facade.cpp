@@ -22,12 +22,13 @@ namespace View {
 ViewFacade::ViewFacade(const Core::Settings& settings, Core::GlobalMessageManager& globalMessageManager, Core::World& world) :
         _window(settings),
         _background(kGrassSpritePath, _window),
-        _actor(kActorSpritePath, _window),
         _globalMessageManager(globalMessageManager),
         _sceneObjectManager(*this, world),
         _guiPanel(world, *this, _uiManager),
         _agentsRegistry(world.getAgentsRegistry())
          {
+     _actors.emplace(std::piecewise_construct, std::forward_as_tuple(kActorGreenType), std::forward_as_tuple(kActorGreenSpritePath, _window));
+     _actors.emplace(std::piecewise_construct, std::forward_as_tuple(kActorBlueType), std::forward_as_tuple(kActorBlueSpritePath, _window));
 }
 
 void ViewFacade::draw() {
@@ -41,7 +42,7 @@ void ViewFacade::draw() {
     for (Core::AI::Actors::Agent* actorItem: _agentsRegistry.getActors()) {
         int x = actorItem->getX();
         int y = actorItem->getY();
-        _actor.draw(x, y,_window);
+        _actors.at(actorItem->getType()).draw(x, y,_window);
     }
 
     _uiManager.draw(_window);
