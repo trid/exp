@@ -6,7 +6,6 @@
 #include "../timed_process_controller.h"
 #include "../world.h"
 
-Core::AI::Actors::AgentsRegistry* g_actorsRegistry = nullptr;
 
 namespace Core::AI::Actors {
 
@@ -25,10 +24,6 @@ Agent& AgentsRegistry::createAgent(Core::World& world) {
     return *actor;
 }
 
-void AgentsRegistry::update() {
-
-}
-
 boost::optional<Agent&> AgentsRegistry::getAgent(int id) {
     return (actors.size() > id) ? boost::optional<Agent&>(*actors[id]) : boost::none;
 }
@@ -37,23 +32,8 @@ boost::optional<const Agent&> AgentsRegistry::getAgent(int id) const {
     return (actors.size() > id) ? boost::optional<const Agent&>(*actors[id]) : boost::none;
 }
 
-void AgentsRegistry::ActorRegistryProcess::update(unsigned int delta) {
-    _actorsRegistry.update();
-}
-
-bool AgentsRegistry::ActorRegistryProcess::finished() {
-    return false;
-}
-
-AgentsRegistry::ActorRegistryProcess::ActorRegistryProcess(AgentsRegistry& actorsRegistry) : _actorsRegistry(
-        actorsRegistry) {}
-
 AgentsRegistry::AgentsRegistry(TimedProcessController& timedProcessController) {
-    g_actorsRegistry = this;
-
-    Core::ProcessPtr ptr(new ActorRegistryProcess(*this));
-    timedProcessController.addProcess(ptr);
-    timedProcessController.addProcess(Core::ProcessPtr(new ActorStatusUpdateProcess(*this)));
+    timedProcessController.addProcess(std::make_shared<ActorStatusUpdateProcess>(*this));
 }
 
 int AgentsRegistry::getLastId() const { return actors.back()->getID(); }

@@ -15,17 +15,6 @@ class Agent;
 
 class AgentsRegistry {
 public:
-    class ActorRegistryProcess : public Core::Process {
-    public:
-        explicit ActorRegistryProcess(AgentsRegistry& actorsRegistry);
-
-        void update(unsigned int delta) override;
-        bool finished() override;
-
-    private:
-        AgentsRegistry& _actorsRegistry;
-    };
-
     class ActorStatusUpdateProcess : public Core::Process {
     public:
         explicit ActorStatusUpdateProcess(AgentsRegistry& actorRegistry);
@@ -48,7 +37,6 @@ public:
     [[nodiscard]] boost::optional<const Agent&> getAgent(int id) const;
     [[nodiscard]] const std::vector<Agent*>& getActors() const;
     [[nodiscard]] std::vector<Agent*>& getActors();
-    void update();
 
     [[nodiscard]] int getLastId() const;
 

@@ -16,7 +16,6 @@
 #include "widgets/actor_info_view.h"
 #include "widgets/ui_manager.h"
 
-extern Core::AI::Actors::AgentsRegistry* g_actorsRegistry;
 
 namespace View {
 
@@ -26,7 +25,8 @@ ViewFacade::ViewFacade(const Core::Settings& settings, Core::GlobalMessageManage
         _actor(kActorSpritePath, _window),
         _globalMessageManager(globalMessageManager),
         _sceneObjectManager(*this, world),
-        _guiPanel(world, *this, _uiManager)
+        _guiPanel(world, *this, _uiManager),
+        _agentsRegistry(world.getAgentsRegistry())
          {
 }
 
@@ -38,7 +38,7 @@ void ViewFacade::draw() {
     //Scene objects before actors
     _sceneObjectManager.draw(_window);
 
-    for (Core::AI::Actors::Agent* actorItem: g_actorsRegistry->getActors()) {
+    for (Core::AI::Actors::Agent* actorItem: _agentsRegistry.getActors()) {
         int x = actorItem->getX();
         int y = actorItem->getY();
         _actor.draw(x, y,_window);

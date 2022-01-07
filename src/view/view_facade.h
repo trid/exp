@@ -19,7 +19,9 @@
 #include "../settings.h"
 
 class Label;
+
 class LogView;
+
 class ActorView;
 
 namespace Core {
@@ -30,7 +32,8 @@ namespace View {
 
 class ViewFacade {
 public:
-    explicit ViewFacade(const Core::Settings& settings, Core::GlobalMessageManager& globalMessageManager, Core::World& world);
+    explicit ViewFacade(const Core::Settings& settings, Core::GlobalMessageManager& globalMessageManager,
+                        Core::World& world);
 
     Core::GlobalMessageManager& getUIMessageManager();
 
@@ -39,7 +42,9 @@ public:
     void draw();
 
     Window& getWindow();
+
     View::Widgets::GUIPanel& getGUIPanel();
+
 private:
     Window _window;
 
@@ -50,6 +55,7 @@ private:
     Core::GlobalMessageManager& _globalMessageManager;
     Widgets::GUIPanel _guiPanel;
     SceneObjectManager _sceneObjectManager;
+    const Core::AI::Actors::AgentsRegistry& _agentsRegistry;
 };
 
 } // View
