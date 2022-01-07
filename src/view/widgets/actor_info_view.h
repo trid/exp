@@ -23,8 +23,7 @@ class Label;
 
 class ActorInfoView : public Widget {
 public:
-    ActorInfoView(int x, int y, UIManager& uiManager, ViewFacade& view,
-                  const Core::World& world);
+    ActorInfoView(int x, int y, const Core::World& world, UIManager& uiManager, ViewFacade& view);
 
     void updateLabels();
     void nextActor();
@@ -40,8 +39,6 @@ private:
     std::unique_ptr<Label> _foodLabel;
     std::unique_ptr<Label> _waterLabel;
     std::unique_ptr<Label> _placeLabel;
-
-    ViewFacade& _view;
 
     RenderTarget _renderTarget;
 

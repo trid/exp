@@ -15,11 +15,9 @@
 
 namespace View::Widgets {
 
-ActorInfoView::ActorInfoView(int x, int y, UIManager& uiManager, ViewFacade& view,
-                             const Core::World& world) :
+ActorInfoView::ActorInfoView(int x, int y, const Core::World& world, UIManager& uiManager, ViewFacade& view) :
         Widget(x, y),
         _font(uiManager.getFontsCache().getFont(kFontPath, 20)),
-        _view(view),
         _renderTarget(x, y, kActorDataViewWidth, _font.getSize() * 4, view.getWindow()),
         _world(world)
 {

@@ -7,7 +7,7 @@
 
 namespace View::Widgets {
 
-LogView::LogView(UIManager& uiManager, int x, int y) :
+LogView::LogView(int x, int y, UIManager& uiManager) :
         Widget(x, y),
         _renderer(uiManager.getFontsCache().getFont(kFontPath, 14)) {
 }
