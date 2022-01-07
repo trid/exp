@@ -1,10 +1,5 @@
 #include "global_message_manager.h"
 
-#include <iostream>
-
-using std::cout;
-using std::endl;
-
 namespace Core {
 
 void MessageData::addParameter(std::string const& name, MessageParameter&& parameter) {
@@ -30,11 +25,6 @@ void GlobalMessageManager::removeListener(const std::string& name) {
 void GlobalMessageManager::sendMessage(const std::string& name, const MessageData& data) {
     if (listeners[name]) {
         listeners[name]->listen(data);
-    } else {
-        for (auto& listener: listeners) {
-            cout << listener.first << endl;
-        }
-        cout << listeners.size() << endl;
     }
 }
 
