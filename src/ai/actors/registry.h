@@ -15,21 +15,6 @@ class Agent;
 
 class AgentsRegistry {
 public:
-    class ActorStatusUpdateProcess : public Core::Process {
-    public:
-        explicit ActorStatusUpdateProcess(AgentsRegistry& actorRegistry);
-
-        void update(unsigned int delta) override;
-        bool finished() override;
-    private:
-        int time = 0;
-        int interval = 500;
-
-        AgentsRegistry& _actorRegistry;
-        void updateNeeds(Agent* actor) const;
-    };
-
-public:
     explicit AgentsRegistry(TimedProcessController& timedProcessController);
 
     Agent& createAgent(Core::World& world);

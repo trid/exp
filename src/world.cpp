@@ -12,6 +12,7 @@
 #include "actions/constants.h"
 
 #include "ai/actors/agent.h"
+#include "ai/actors/agents_updater.h"
 
 
 namespace Core {
@@ -46,6 +47,7 @@ World::World(TimedProcessController& timedProcessController, GlobalMessageManage
         _worldMap(worldMap) {
     ProcessPtr ptr = std::make_shared<WorldProcess>(*this);
     timedProcessController.addProcess(ptr);
+    timedProcessController.addProcess(std::make_shared<AI::Actors::AgentNeedsUpdater>(_actorsRegistry));
 }
 
 std::unordered_set<std::string> const& World::getActions(AI::Actors::Agent* actor) {
