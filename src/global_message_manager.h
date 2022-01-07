@@ -27,18 +27,18 @@ public:
     virtual bool listen(MessageData const& messageData) = 0;
 };
 
-using IUIMessageListenerPtr = std::unique_ptr<MessageListener>;
+using MessageListenerPtr = std::unique_ptr<MessageListener>;
 
 class GlobalMessageManager {
 public:
     GlobalMessageManager() = default;
     GlobalMessageManager(const GlobalMessageManager&) = delete;
 
-    void addListener(const std::string& name, IUIMessageListenerPtr listener);
+    void addListener(const std::string& name, MessageListenerPtr listener);
     void removeListener(const std::string& name);
     void sendMessage(const std::string& name, const MessageData& data);
 private:
-    std::unordered_map<std::string, IUIMessageListenerPtr> listeners;
+    std::unordered_map<std::string, MessageListenerPtr> listeners;
 };
 
 } // namespace Core

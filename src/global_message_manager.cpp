@@ -19,7 +19,7 @@ boost::optional<const MessageParameter&> MessageData::getParameter(const std::st
     return boost::none;
 }
 
-void GlobalMessageManager::addListener(const std::string& name, IUIMessageListenerPtr listener) {
+void GlobalMessageManager::addListener(const std::string& name, MessageListenerPtr listener) {
     listeners[name] = std::move(listener);
 }
 
