@@ -30,6 +30,7 @@ public:
         _label.setText(ss.str());
         return true;
     }
+
 private:
     Label& _label;
     const Core::World& _world;
@@ -47,6 +48,7 @@ public:
         _label.setText(ss.str());
         return true;
     }
+
 private:
     Label& _label;
     const Core::World& _world;
@@ -61,6 +63,7 @@ public:
         _logView.addMessage(std::get<std::string>(*messageData.getParameter(Core::kAgentPhraseMessageKey)));
         return true;
     }
+
 private:
     LogView& _logView;
 };
@@ -72,8 +75,9 @@ GUIPanel::GUIPanel(const Core::World& world, View::ViewFacade& view, UIManager& 
 
     _woodLabel = std::make_shared<Label>(0, 0, uiManager, std::string(kWoodLabelPrefix) + "0");
     _foodLabel = std::make_shared<Label>(0, fontHeight, uiManager, std::string(kFoodLabelPrefix) + "0");
-    _logView = std::make_shared<LogView>(uiManager, 0, view.getWindow().getHeight() - consoleFontHeight * 10);
-    _actorView = std::make_shared<ActorInfoView>(view.getWindow().getWidth() - kActorDataViewWidth, 0, uiManager, view, world);
+    _logView = std::make_shared<LogView>(0, view.getWindow().getHeight() - consoleFontHeight * 10, uiManager);
+    _actorView = std::make_shared<ActorInfoView>(view.getWindow().getWidth() - kActorDataViewWidth, 0, world, uiManager,
+                                                 view);
 
     uiManager.addWidget(_woodLabel);
     uiManager.addWidget(_foodLabel);
