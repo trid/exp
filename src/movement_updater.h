@@ -15,7 +15,6 @@ class Agent;
 }
 
 class AgentLocator;
-class MessageManager;
 struct Travel;
 class WorldMap;
 
@@ -23,7 +22,7 @@ typedef std::shared_ptr<Travel> TravelPtr;
 
 class MovementUpdater {
 public:
-    MovementUpdater(const WorldMap& worldMap, const AgentLocator& locator, MessageManager& messageBus);
+    MovementUpdater(const WorldMap& worldMap, const AgentLocator& locator);
 
     TravelPtr moveActor(AI::Actors::Agent* actor, std::string const& dest);
 
@@ -33,7 +32,6 @@ private:
 
     const WorldMap& _worldMap;
     const AgentLocator& _agentLocator;
-    MessageManager& _messageBus;
 };
 
 } // namespace Core

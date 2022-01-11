@@ -10,14 +10,12 @@
 
 namespace Core {
 
-MovementUpdater::MovementUpdater(const WorldMap& worldMap, const AgentLocator& locator,
-                                 MessageManager& messageBus) :
+MovementUpdater::MovementUpdater(const WorldMap& worldMap, const AgentLocator& locator) :
                                  _worldMap(worldMap),
-                                 _agentLocator(locator),
-                                 _messageBus(messageBus) {}
+                                 _agentLocator(locator) {}
 
 TravelPtr MovementUpdater::moveActor(AI::Actors::Agent* actor, const std::string& dest) {
-    auto route = std::make_shared<Travel>(*actor, dest, _worldMap, _agentLocator, _messageBus);
+    auto route = std::make_shared<Travel>(*actor, dest, _worldMap, _agentLocator);
     _inRoute[actor->getID()] = route;
     return route;
 }

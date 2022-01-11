@@ -7,7 +7,6 @@
 #include "agent_locator.h"
 #include "constants.h"
 #include "location_type.h"
-#include "message_manager.h"
 #include "world.h"
 
 #include "ai/actors/agent.h"
@@ -25,11 +24,10 @@ std::pair<double, double> normalize(double x, double y) {
 }
 
 Travel::Travel(AI::Actors::Agent& agent, const std::string& dest, const WorldMap& worldMap,
-               const AgentLocator& locator, MessageManager& messageBus)
+               const AgentLocator& locator)
         : _agent(agent),
           _dest(dest),
-          _agentLocator(locator),
-          _messageBus(messageBus) {
+          _agentLocator(locator) {
     const auto location = worldMap.getLocation(dest);
     const auto& locationType = location->getType();
 
@@ -45,13 +43,6 @@ Travel::Travel(AI::Actors::Agent& agent, const std::string& dest, const WorldMap
 
 void Travel::update(int delta) {
     _agent.updatePosition(_dx * delta, _dy * delta);
-
-    const auto location = _agentLocator.getAgentsLocation(_agent);
-    if (location && *location == _dest) {
-        Message message;
-        message.messageType = kFinishedMovingMessage;
-        _messageBus.dispatchMessage(_agent.getID(), message);
-    }
 }
 
 bool Travel::finished() const {

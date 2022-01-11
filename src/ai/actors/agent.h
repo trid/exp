@@ -5,8 +5,6 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "../../message_manager.h"
-
 #include "actor.h"
 #include "agent_needs.h"
 #include "agent_movement_data.h"
@@ -31,7 +29,6 @@ public:
     void setName(const std::string& name);
 
     void say(const std::string& message);
-    void processMessage(Core::Message& message);
 
     void setType(const std::string& type);
     const std::string& getType();

@@ -16,7 +16,6 @@
 #include "application.h"
 #include "global_message_manager.h"
 #include "location_type_manager.h"
-#include "message_manager.h"
 #include "movement_updater.h"
 #include "process.h"
 #include "world_map.h"
@@ -44,8 +43,6 @@ public:
 
     void doAction(AI::Actors::Agent* actor, const std::string& action);
 
-    MessageManager& getMessageManager();
-
     AI::Actors::AgentsRegistry& getAgentsRegistry();
     const AI::Actors::AgentsRegistry& getAgentsRegistry() const;
 
@@ -61,7 +58,6 @@ private:
 
     Actions::ActionManager _actionManager;
     AI::Actors::AgentsRegistry _actorsRegistry;
-    MessageManager _messageManager;
     LocationTypeManager _locationTypeManager;
     WorldMap& _worldMap;
     GlobalMessageManager& _globalMessageManager;

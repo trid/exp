@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "../../constants.h"
+#include "../../message_data.h"
 #include "../../world.h"
 
 namespace Core::AI::Actors {
@@ -11,10 +12,6 @@ Agent::Agent(int id, Core::GlobalMessageManager& globalMessageBus) :
         AgentPositioningData(),
         _id(id),
         _globalMessageBus(globalMessageBus) {}
-
-void Agent::processMessage(Core::Message& message) {
-
-}
 
 void Agent::say(const std::string& message) {
     std::cout << _name << ": " << message << std::endl;

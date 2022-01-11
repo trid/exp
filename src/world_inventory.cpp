@@ -5,6 +5,7 @@
 #include "world_inventory.h"
 
 #include "constants.h"
+#include "message_data.h"
 
 #include "ai/actors/agent.h"
 #include "actions/constants.h"

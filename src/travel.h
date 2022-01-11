@@ -16,14 +16,13 @@ class Agent;
 } // namespace AI::Actors
 
 class AgentLocator;
-class MessageManager;
 class World;
 class WorldMap;
 
 class Travel {
 public:
     Travel(AI::Actors::Agent& agent, const std::string& dest, const WorldMap& worldMap,
-           const AgentLocator& locator, MessageManager& messageBus);
+           const AgentLocator& locator);
 
     void update(int delta);
 
@@ -35,7 +34,6 @@ private:
     std::string _dest;
     double _dx, _dy;
     const AgentLocator& _agentLocator;
-    MessageManager& _messageBus;
 
 };
 

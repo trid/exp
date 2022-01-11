@@ -11,16 +11,9 @@
 
 namespace Core {
 
+class MessageData;
+
 using MessageParameter = std::variant<int, std::string>;
-
-class MessageData {
-public:
-    void addParameter(const std::string& name, MessageParameter&& parameter);
-    boost::optional<const MessageParameter&> getParameter(const std::string& name) const;
-
-private:
-    std::unordered_map<std::string, MessageParameter> _data;
-};
 
 class MessageListener {
 public:

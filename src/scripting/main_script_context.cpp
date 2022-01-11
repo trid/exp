@@ -74,9 +74,6 @@ void MainScriptContext::registerClasses() {
     state.new_usertype<Core::AI::Actors::AgentsRegistry>("AgentsRegistry",
                                                          "createAgent", &Core::AI::Actors::AgentsRegistry::createAgent);
 
-    state.new_usertype<Core::Message>("Message",
-                                      "messageType", &Core::Message::messageType);
-
     state.new_usertype<Core::AI::StateManager>("StateManager",
                                                "registerBehaviour", &Core::AI::StateManager::registerBehaviour);
 

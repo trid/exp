@@ -7,6 +7,7 @@
 #include <sstream>
 
 #include "../../constants.h"
+#include "../../message_data.h"
 #include "../../world.h"
 
 #include "../view_facade.h"

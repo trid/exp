@@ -40,10 +40,9 @@ void World::update(int delta) {
 World::World(TimedProcessController& timedProcessController, GlobalMessageManager& appMessageManager, WorldMap& worldMap) :
         WorldInventory(appMessageManager),
         AgentLocator(worldMap),
-        MovementUpdater(worldMap, *this, _messageManager),
+        MovementUpdater(worldMap, *this),
         _actionManager(*this),
         _actorsRegistry(timedProcessController),
-        _messageManager(_actorsRegistry),
         _globalMessageManager(appMessageManager),
         _worldMap(worldMap) {
     ProcessPtr ptr = std::make_shared<WorldProcess>(*this);
@@ -67,10 +66,6 @@ void World::doAction(AI::Actors::Agent* actor, const std::string& action) {
         actor->setAction(actionInstance);
         _actions.push_back(actionInstance);
     }
-}
-
-MessageManager& World::getMessageManager() {
-    return _messageManager;
 }
 
 AI::Actors::AgentsRegistry& World::getAgentsRegistry() {
