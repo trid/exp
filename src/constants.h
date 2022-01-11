@@ -36,6 +36,7 @@ constexpr char kAgentPhraseMessageKey[] = "message";
 // Settings
 constexpr char kScreenWidthParameterKey[] = "screen_width";
 constexpr char kScreenHeightParameterKey[] = "screen_height";
+constexpr char kWindowNameParameterKey[] = "window_name";
 
 #endif //EXP_CONSTANTS_H
 

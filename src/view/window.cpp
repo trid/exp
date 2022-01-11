@@ -19,7 +19,8 @@ Window::Window(const Core::Settings& settings) {
     }
     _windowWidth = settings.getScreenWidth();
     _windowHeight = settings.getScreenHeight();
-    _windowImpl = SDL_CreateWindow(kWindowTitle, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, _windowWidth,
+    _windowImpl = SDL_CreateWindow(settings.getWindowName().c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+                                   _windowWidth,
                                    _windowHeight, SDL_WINDOW_SHOWN);
     if (_windowImpl == nullptr) {
         std::cout << kSDLCreateWindowError << std::endl;

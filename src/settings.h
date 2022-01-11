@@ -16,9 +16,13 @@ public:
     [[nodiscard]] int getScreenWidth() const;
     [[nodiscard]] int getScreenHeight() const;
 
+    [[nodiscard]] const std::string& getWindowName() const;
+
 private:
     int _screenWidth;
     int _screenHeight;
+
+    std::string _windowName;
 };
 
 } // namespace Core

@@ -18,7 +18,6 @@ constexpr char kImageResourcesPath[] = "res/img/";
 constexpr char kSDLInitErrorMessage[] = "SDL_Init error";
 constexpr char kSDLCreateWindowError[] = "SDL_CreateWindow error";
 constexpr char kSDLCreateRendererError[] = "SDL_CreateRenderer error";
-constexpr char kWindowTitle[] = "My Oh So Cool Application";
 constexpr char kGrassSpritePath[] = "res/img/grass.jpg";
 constexpr char kActorGreenSpritePath[] = "res/img/actor_green.png";
 constexpr char kActorBlueSpritePath[] = "res/img/actor_blue.png";
