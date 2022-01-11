@@ -15,9 +15,6 @@ namespace Core::AI::Actors {
 
 class AgentPositioningData {
 public:
-    void setTargetPosition(const std::string& position);
-    const std::string& getTargetPosition();
-
     void updatePosition(double dx, double dy);
 
     [[nodiscard]] int getX() const;
@@ -28,9 +25,8 @@ public:
 
     [[nodiscard]] double getSpeed() const;
     void setSpeed(double speed);
-private:
-    std::string _target;
 
+private:
     //Pixels per second
     double _speed = 120;
 

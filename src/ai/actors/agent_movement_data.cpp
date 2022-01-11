@@ -8,13 +8,6 @@
 
 namespace Core::AI::Actors {
 
-void AgentPositioningData::setTargetPosition(const std::string& position) {
-    _target = position;
-}
-
-const std::string& AgentPositioningData::getTargetPosition() {
-    return _target;
-}
 
 void AgentPositioningData::updatePosition(double dx, double dy) {
     _x += dx;
