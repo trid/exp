@@ -1,20 +1,15 @@
 #include <iostream>
-#include <sstream>
 
 #include "view_facade.h"
 
 #include "../ai/actors/agent.h"
 #include "../ai/actors/registry.h"
 #include "../world.h"
-#include "../settings.h"
 
 #include "constants.h"
-#include "image.h"
 
 #include "widgets/label.h"
 #include "widgets/log_view.h"
-#include "widgets/actor_info_view.h"
-#include "widgets/ui_manager.h"
 
 
 namespace View {

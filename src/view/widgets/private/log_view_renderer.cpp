@@ -6,7 +6,6 @@
 
 #include "../../window.h"
 
-#include "../ui_manager.h"
 
 namespace View::Widgets {
 

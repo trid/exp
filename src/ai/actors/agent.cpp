@@ -4,12 +4,6 @@
 
 #include "../../constants.h"
 #include "../../world.h"
-#include "../../actions/constants.h"
-#include "../../view/view_facade.h"
-
-#include "../constants.h"
-#include "../behaviour_step.h"
-
 
 namespace Core::AI::Actors {
 

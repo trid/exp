@@ -5,8 +5,6 @@
 #include <string>
 #include <vector>
 
-#include "lua.hpp"
-
 #include "../external/sol/sol.hpp"
 
 namespace Scripting {

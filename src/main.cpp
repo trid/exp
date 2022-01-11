@@ -2,7 +2,6 @@
 
 #include "application.h"
 #include "constants.h"
-#include "location_type_manager.h"
 #include "settings.h"
 #include "system_event_manager.h"
 #include "timed_process_controller.h"

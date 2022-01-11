@@ -2,8 +2,9 @@
 #define WIDGET_H
 
 #include <memory>
-#include <SDL2/SDL_render.h>
+
 #include "../window.h"
+
 
 namespace View::Widgets {
 

@@ -5,7 +5,7 @@
 #ifndef EXP_WINDOW_H
 #define EXP_WINDOW_H
 
-#include "SDL2/SDL.h"
+#include <SDL2/SDL.h>
 
 namespace Core {
 class Settings;

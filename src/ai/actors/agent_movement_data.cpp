@@ -5,7 +5,6 @@
 #include "agent_movement_data.h"
 
 #include "../../constants.h"
-#include "../../world.h"
 
 namespace Core::AI::Actors {
 

@@ -1,5 +1,5 @@
-#include <SDL2/SDL_image.h>
 #include "map_object_view.h"
+
 #include "../location.h"
 
 namespace View {

@@ -10,7 +10,7 @@
 namespace Core::Actions {
 
 bool ActionDrink::isValid() {
-    const auto& location = _world.getAgentsLocation(*actor);
+    const auto& location = _world.getAgentsLocation(*_actor);
     return location && *location == kWellLocationName;
 }
 
@@ -18,9 +18,9 @@ void ActionDrink::update(int delta) {
     _time += delta;
     if (_time >= _maxTime) {
         _time = _maxTime;
-        actor->setWater(actor->getMaxWater());
-        actor->removeStatus(Core::AI::kThirstyStateName);
-        actor->say(kActionDrinkExecutedMessage);
+        _actor->setWater(_actor->getMaxWater());
+        _actor->removeStatus(Core::AI::kThirstyStateName);
+        _actor->say(kActionDrinkExecutedMessage);
     }
 }
 

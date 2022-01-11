@@ -9,7 +9,7 @@
 namespace Core::Actions {
 
 bool ActionEating::isValid() {
-    const auto& location = _world.getAgentsLocation(*actor);
+    const auto& location = _world.getAgentsLocation(*_actor);
     return location && *location == Core::AI::kHomeLocationName;
 }
 
@@ -17,8 +17,8 @@ void ActionEating::update(int delta) {
     _time += delta;
     if (_time >= _maxTime) {
         _time = _maxTime;
-        actor->setFood(actor->getMaxFood());
-        actor->removeStatus(Core::AI::kHungryStateName);
+        _actor->setFood(_actor->getMaxFood());
+        _actor->removeStatus(Core::AI::kHungryStateName);
         _world.removeFood();
         stop();
     }

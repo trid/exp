@@ -2,7 +2,8 @@
 
 namespace Core {
 
-Location::Location(const LocationType& type, const std::string& name, int xPos, int yPos) : _type(type), _name(name), _xPos(xPos),
+Location::Location(const LocationType& type, const std::string& name, int xPos, int yPos) : _type(type), _name(name),
+                                                                                            _xPos(xPos),
                                                                                             _yPos(yPos) {}
 
 const LocationType& Location::getType() const { return _type; }

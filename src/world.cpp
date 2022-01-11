@@ -20,20 +20,21 @@ namespace Core {
 void World::update(int delta) {
     MovementUpdater::update(delta);
 
-    for (Actions::ActionPtr& actionPtr: actions) {
+    for (Actions::ActionPtr& actionPtr: _actions) {
         actionPtr->update(delta);
     }
 
-    for (Actions::ActionPtr& actionPtr: actions) {
+    for (Actions::ActionPtr& actionPtr: _actions) {
         if (!actionPtr->isValid() || actionPtr->isFinished() || !actionPtr->isRunning()) {
             // TODO: Check what is happening here
             actionPtr->getActor()->removeAction();
         }
     }
 
-    actions.remove_if([](auto& action) {
+    auto iter = std::remove_if(_actions.begin(), _actions.end(), [](auto& action) {
         return !action->isValid() || action->isFinished() || !action->isRunning();
     });
+    _actions.erase(iter, _actions.end());
 }
 
 World::World(TimedProcessController& timedProcessController, GlobalMessageManager& appMessageManager, WorldMap& worldMap) :
@@ -64,7 +65,7 @@ void World::doAction(AI::Actors::Agent* actor, const std::string& action) {
     if (placeActions.find(action) != placeActions.end()) {
         Actions::ActionPtr actionInstance = _actionManager.getAction(action, actor);
         actor->setAction(actionInstance);
-        actions.push_back(actionInstance);
+        _actions.push_back(actionInstance);
     }
 }
 

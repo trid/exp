@@ -6,10 +6,8 @@ void Application::update() {
 
 }
 
-Application::Application() {}
+void Application::finish() { _running = false; }
 
-void Application::finish() { running = false; }
-
-bool Application::isRunning() const { return running; }
+bool Application::isRunning() const { return _running; }
 
 } // namespace Core

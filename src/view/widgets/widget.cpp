@@ -1,5 +1,6 @@
 #include "widget.h"
 
+
 namespace View::Widgets {
 
 Widget::Widget() :

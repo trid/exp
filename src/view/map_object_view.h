@@ -3,6 +3,7 @@
 
 #include <string>
 #include <memory>
+
 #include <SDL2/SDL_render.h>
 
 namespace Core {

@@ -57,7 +57,7 @@ public:
     GlobalMessageManager& getGlobalMessageManager();
 
 private:
-    std::list<Actions::ActionPtr> actions;
+    std::vector<Actions::ActionPtr> _actions;
 
     Actions::ActionManager _actionManager;
     AI::Actors::AgentsRegistry _actorsRegistry;

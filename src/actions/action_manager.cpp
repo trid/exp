@@ -1,9 +1,9 @@
 #include "action_manager.h"
+
 #include "action_drink.h"
 #include "action_eating.h"
 #include "action_woodcutting.h"
 #include "action_hunting.h"
-
 #include "constants.h"
 
 namespace Core::Actions {

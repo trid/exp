@@ -38,7 +38,7 @@ public:
     void removeListener(const std::string& name);
     void sendMessage(const std::string& name, const MessageData& data);
 private:
-    std::unordered_map<std::string, MessageListenerPtr> listeners;
+    std::unordered_map<std::string, MessageListenerPtr> _listeners;
 };
 
 } // namespace Core

@@ -1,5 +1,5 @@
 #include "message_manager.h"
-#include "ai/actors/agent.h"
+
 #include "ai/actors/registry.h"
 
 namespace Core {

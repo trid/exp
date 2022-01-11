@@ -1,7 +1,6 @@
 #ifndef SCRIPT_FUNCTIONS_H
 #define SCRIPT_FUNCTIONS_H
 
-#include "lua.hpp"
 #include "../ai/state_manager.h"
 
 namespace Core::AI::Actors {

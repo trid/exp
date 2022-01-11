@@ -7,6 +7,7 @@
 
 #include <memory>
 #include <string>
+
 #include <boost/optional.hpp>
 
 namespace Core {

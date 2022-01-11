@@ -19,6 +19,7 @@
 
 #include "constants.h"
 #include "script_functions.h"
+
 #include "api/agent.h"
 
 namespace Scripting {

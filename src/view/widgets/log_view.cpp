@@ -1,9 +1,8 @@
-#include <SDL2/SDL_render.h>
-#include <SDL2/SDL_ttf.h>
 #include "log_view.h"
-#include "../view_facade.h"
+
 #include "ui_manager.h"
 #include "constants.h"
+
 
 namespace View::Widgets {
 

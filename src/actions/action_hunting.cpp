@@ -10,7 +10,7 @@
 namespace Core::Actions {
 
 bool ActionHunting::isValid() {
-    const auto& location = _world.getAgentsLocation(*actor);
+    const auto& location = _world.getAgentsLocation(*_actor);
     return location && *location == Core::AI::kForestLocationName;
 }
 
@@ -18,7 +18,7 @@ void ActionHunting::update(int delta) {
     _time += delta;
     if (_time >= _interval) {
         _time -= _interval;
-        actor->addItem(kItemFood);
+        _actor->addItem(kItemFood);
     }
 }
 

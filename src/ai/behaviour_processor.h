@@ -8,7 +8,10 @@
 #include <vector>
 
 #include "../process.h"
-#include "../world.h"
+
+namespace Core {
+class World;
+} // namespace Core
 
 namespace Core::AI {
 

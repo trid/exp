@@ -6,6 +6,7 @@
 #define EXP_TRAVEL_H
 
 #include <string>
+
 #include "location_type_manager.h"
 
 namespace Core {

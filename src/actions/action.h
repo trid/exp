@@ -14,10 +14,6 @@ class Agent;
 namespace Core::Actions {
 
 class Action {
-private:
-    bool running = true;
-protected:
-    AI::Actors::Agent* actor;
 public:
     virtual bool isValid() = 0;
     virtual void update(int delta) = 0;
@@ -31,6 +27,12 @@ public:
     AI::Actors::Agent* getActor();
 
     Action(AI::Actors::Agent* actor, Core::World&);
+
+private:
+    bool _running = true;
+
+protected:
+    AI::Actors::Agent* _actor;
 };
 
 class VirtualActionFactory {

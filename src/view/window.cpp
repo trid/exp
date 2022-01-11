@@ -7,6 +7,7 @@
 #include <iostream>
 
 #include "../settings.h"
+
 #include "constants.h"
 
 namespace View {

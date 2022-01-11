@@ -1,9 +1,11 @@
 #ifndef ACTOR_REGISTRY_H
 #define ACTOR_REGISTRY_H
 
-#include "vector"
-#include "agent.h"
+#include <vector>
+
 #include "../../process.h"
+
+#include "agent.h"
 
 namespace Core {
 class TimedProcessController;

@@ -4,8 +4,6 @@
 
 #include "movement_updater.h"
 
-#include <algorithm>
-
 #include "ai/actors/agent.h"
 
 #include "travel.h"

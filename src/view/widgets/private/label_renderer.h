@@ -9,6 +9,7 @@
 #include <string>
 
 #include <SDL2/SDL_render.h>
+
 #include "../../font.h"
 
 namespace View {

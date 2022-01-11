@@ -2,12 +2,8 @@
 
 #include <iostream>
 
-#include "lua.hpp"
-
 #include "../constants.h"
 #include "../world.h"
-
-#include "../view/view_facade.h"
 
 #include "constants.h"
 

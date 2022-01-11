@@ -24,10 +24,11 @@ public:
 
     void draw(const Window& window);
 private:
-    std::vector<MapObjectUPtr> _mapObjects;
-    std::unordered_map<std::string, SDL_Texture*> _sprites;
     void loadSprites(ViewFacade& view);
     void createObjects(Core::World& world);
+
+    std::vector<MapObjectUPtr> _mapObjects;
+    std::unordered_map<std::string, SDL_Texture*> _sprites;
 };
 
 } // namespace View

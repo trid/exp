@@ -1,22 +1,18 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
-#include <list>
-
 namespace Core {
 
 class Application {
 public:
-    Application();
-
     void finish();
 
-    bool isRunning() const;
+    [[nodiscard]] bool isRunning() const;
 
     void update();
 
 private:
-    bool running = true;
+    bool _running = true;
 };
 
 } // namespace Core

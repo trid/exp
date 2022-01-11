@@ -2,13 +2,13 @@
 
 namespace Core::Actions {
 
-bool Action::isRunning() const { return running; }
+bool Action::isRunning() const { return _running; }
 
-void Action::stop() { running = false; }
+void Action::stop() { _running = false; }
 
-AI::Actors::Agent* Action::getActor() { return actor; }
+AI::Actors::Agent* Action::getActor() { return _actor; }
 
-Action::Action(AI::Actors::Agent* actor, World&) : actor(actor) {}
+Action::Action(AI::Actors::Agent* actor, World&) : _actor(actor) {}
 
 
 } // namespace Core::Actions

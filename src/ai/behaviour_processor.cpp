@@ -4,6 +4,8 @@
 
 #include "behaviour_processor.h"
 
+#include "../world.h"
+
 #include "../scripting/api/agent.h"
 
 #include "actors/agent.h"

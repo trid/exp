@@ -8,15 +8,15 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
+#include "../global_message_manager.h"
+#include "../settings.h"
+
 #include "image.h"
 #include "map_object_view.h"
 #include "scene_object_manager.h"
 #include "window.h"
 #include "widgets/gui_panel.h"
 #include "widgets/ui_manager.h"
-
-#include "../global_message_manager.h"
-#include "../settings.h"
 
 class Label;
 

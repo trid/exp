@@ -5,7 +5,6 @@
 
 #include "widget.h"
 
-#include "SDL2/SDL_ttf.h"
 #include "../fonts_cache.h"
 
 namespace View {

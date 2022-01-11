@@ -13,10 +13,10 @@ class ActionHunting : public Action {
 public:
     explicit ActionHunting(AI::Actors::Agent* actor, Core::World& world);
 
-    virtual bool isValid();
-    virtual void update(int delta);
-    virtual int progress();
-    virtual bool isFinished();
+    bool isValid() override;
+    void update(int delta) override;
+    int progress() override;
+    bool isFinished() override;
 
 private:
     int _time = 0;
