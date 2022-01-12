@@ -38,6 +38,9 @@ constexpr char kScreenWidthParameterKey[] = "screen_width";
 constexpr char kScreenHeightParameterKey[] = "screen_height";
 constexpr char kWindowNameParameterKey[] = "window_name";
 
+// Update
+constexpr unsigned int kTimePerUpdateMillis = 30;
+
 #endif //EXP_CONSTANTS_H
 
 } // namespace Core

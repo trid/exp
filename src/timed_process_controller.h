@@ -22,6 +22,7 @@ private:
     std::vector<ProcessPtr> _processes;
 
     unsigned int _lastTick;
+    unsigned int _lag{0};
 };
 
 } // namespace Core
