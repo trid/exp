@@ -8,12 +8,14 @@
 #include <vector>
 
 #include "process.h"
+#include "timer.h"
+
 
 namespace Core {
 
 class TimedProcessController {
 public:
-    TimedProcessController();
+    TimedProcessController(Timer& timer);
 
     void addProcess(ProcessPtr ptr);
     void update();
@@ -21,7 +23,7 @@ public:
 private:
     std::vector<ProcessPtr> _processes;
 
-    unsigned int _lastTick;
+    Timer& _timer;
     unsigned int _lag{0};
 };
 

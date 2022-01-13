@@ -19,7 +19,9 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
     Core::Application app{};
-    Core::TimedProcessController timedProcessController;
+    Core::Timer timer;
+    timer.setMultiplier(4);
+    Core::TimedProcessController timedProcessController{timer};
     Core::Settings settings{};
     Core::GlobalMessageManager messageManager;
     Core::WorldMap worldMap;

@@ -6,25 +6,19 @@
 
 #include <algorithm>
 
-#include <SDL2/SDL_timer.h>
-
 #include "constants.h"
+
 
 namespace Core {
 
-TimedProcessController::TimedProcessController() : _lastTick(SDL_GetTicks()) {
-
-}
+TimedProcessController::TimedProcessController(Timer& timer) : _timer(timer) {}
 
 void TimedProcessController::addProcess(Core::ProcessPtr ptr) {
     _processes.push_back(ptr);
 }
 
 void TimedProcessController::update() {
-    auto currentTime = SDL_GetTicks();
-    auto delta = currentTime - _lastTick;
-    _lastTick = currentTime;
-    _lag += delta;
+    _lag += _timer.refresh();
 
     while (_lag >= kTimePerUpdateMillis) {
         for (ProcessPtr process: _processes) {
