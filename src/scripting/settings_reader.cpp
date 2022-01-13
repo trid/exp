@@ -36,8 +36,8 @@ void SettingsReader::pushSettingNameToStack(const std::string& name) const {
     lua_gettable(state, -2);
 }
 
-SettingsReader::SettingsReader() {
-    _settingsScriptContext.loadScript(Core::kSettingsScriptPath);
+SettingsReader::SettingsReader(const std::string& settingsPath) {
+    _settingsScriptContext.loadScript(settingsPath);
 }
 
 void SettingsReader::cleanStack() const {

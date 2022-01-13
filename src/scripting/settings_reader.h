@@ -11,7 +11,7 @@ namespace Scripting {
 
 class SettingsReader {
 public:
-    SettingsReader();
+    explicit SettingsReader(const std::string& settingsPath);
 
     [[nodiscard]] int getIntParameter(const std::string& name) const;
     [[nodiscard]] bool getBoolParameter(const std::string& name) const;
