@@ -26,7 +26,7 @@ private:
     sol::table _startingStep;
 };
 
-using BehaviourOpt = boost::optional<Behaviour&>;
+using BehaviourOpt = boost::optional<const Behaviour&>;
 
 } // namespace Core::AI
 

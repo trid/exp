@@ -24,7 +24,7 @@ class StateManager;
 
 class BehaviourProcessor {
 public:
-    explicit BehaviourProcessor(StateManager& stateManager, World& world);
+    explicit BehaviourProcessor(const StateManager& stateManager, World& world);
 
     void update();
 private:
@@ -33,7 +33,7 @@ private:
     void updateBehaviour(Actors::Agent& actor);
     void setBehaviourStep(Actors::Agent& actor, BehaviourStep step);
 
-    StateManager& _stateManager;
+    const StateManager& _stateManager;
     World& _world;
 };
 

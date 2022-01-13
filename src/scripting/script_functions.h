@@ -14,7 +14,7 @@ namespace Scripting {
 void print(const std::string& message);
 
 // Actors
-void setState(Core::AI::Actors::Agent& actor, const std::string& stateName, Core::AI::StateManager& stateManager);
+void setState(Core::AI::Actors::Agent& actor, const std::string& stateName, const Core::AI::StateManager& stateManager);
 void setReaction(Core::AI::Actors::Agent& actor, const std::string& reactionType, const std::string& behaviourName);
 int getId(lua_State* state);
 

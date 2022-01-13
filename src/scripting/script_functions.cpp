@@ -14,7 +14,7 @@ void print(const std::string& message) {
     std::cout << kScriptMessagePrefix << message;
 }
 
-void setState(Core::AI::Actors::Agent& actor, const std::string& stateName, Core::AI::StateManager& stateManager) {
+void setState(Core::AI::Actors::Agent& actor, const std::string& stateName, const Core::AI::StateManager& stateManager) {
     if (stateName.empty()) {
         actor.setBehaviourStep(boost::none);
     } else {

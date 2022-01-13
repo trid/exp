@@ -18,7 +18,7 @@ namespace Core::AI {
 
 class StateManager {
 public:
-    BehaviourOpt getBehaviour(const std::string& name);
+    BehaviourOpt getBehaviour(const std::string& name) const;
 
     void registerBehaviour(const std::string& behaviourName, const sol::table& startingStep);
 private:

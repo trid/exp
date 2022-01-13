@@ -15,7 +15,7 @@
 
 namespace Core::AI {
 
-BehaviourProcessor::BehaviourProcessor(StateManager& stateManager, World& world) :
+BehaviourProcessor::BehaviourProcessor(const StateManager& stateManager, World& world) :
         _stateManager(stateManager),
         _world(world) {}
 
