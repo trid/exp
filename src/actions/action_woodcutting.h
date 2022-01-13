@@ -9,10 +9,10 @@ class ActionWoodcutting : public Action {
 public:
     explicit ActionWoodcutting(AI::Actors::Agent* actor, Core::World& world);
 
-    bool isValid() override;
+    [[nodiscard]] bool isValid() const override;
     void update(int delta) override;
     int progress() override;
-    bool isFinished() override;
+    [[nodiscard]] bool isFinished() const override;
 
 private:
     int _time = 0;

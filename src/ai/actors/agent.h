@@ -31,7 +31,7 @@ public:
     void say(const std::string& message);
 
     void setType(const std::string& type);
-    const std::string& getType();
+    const std::string& getType() const;
 
 private:
     int _id;

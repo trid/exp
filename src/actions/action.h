@@ -15,10 +15,10 @@ namespace Core::Actions {
 
 class Action {
 public:
-    virtual bool isValid() = 0;
+    [[nodiscard]] virtual bool isValid() const = 0;
     virtual void update(int delta) = 0;
     virtual int progress() = 0;
-    virtual bool isFinished() = 0;
+    [[nodiscard]] virtual bool isFinished() const = 0;
 
     [[nodiscard]] bool isRunning() const;
 

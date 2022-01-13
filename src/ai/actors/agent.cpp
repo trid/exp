@@ -30,7 +30,7 @@ const std::string& Agent::getName() const { return _name; }
 
 void Agent::setName(const std::string& name) { _name = name; }
 
-const std::string& Agent::getType() {
+const std::string& Agent::getType() const {
     return _type;
 }
 

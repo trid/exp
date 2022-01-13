@@ -17,7 +17,7 @@ void WorldProcess::update(unsigned int delta) {
     _world.update(delta);
 }
 
-bool WorldProcess::finished() {
+bool WorldProcess::finished() const {
     return false;
 }
 

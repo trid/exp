@@ -21,8 +21,8 @@ class BehaviourStep {
 public:
     explicit BehaviourStep(const sol::table& step);
 
-    void runStep(Scripting::API::Agent&& actor);
-    boost::optional<BehaviourStep> getTransition(Scripting::API::Agent&& actor);
+    void runStep(Scripting::API::Agent&& actor) const;
+    boost::optional<BehaviourStep> getTransition(Scripting::API::Agent&& actor) const;
 private:
     sol::table step;
 };

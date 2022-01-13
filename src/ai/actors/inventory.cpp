@@ -18,7 +18,7 @@ int Inventory::getInventoryLimit() const {
     return _inventoryLimit;
 }
 
-int Inventory::getAllItemsCount() {
+int Inventory::getAllItemsCount() const {
     int amount = std::accumulate(_inventory.begin(), _inventory.end(), 0,
                                  [](int op1, auto& op2) { return op1 + op2.second; });
     return amount;

@@ -12,7 +12,7 @@ namespace Core::AI {
 
 BehaviourStep::BehaviourStep(const sol::table& step) : step(step) {}
 
-void BehaviourStep::runStep(Scripting::API::Agent&& actor) {
+void BehaviourStep::runStep(Scripting::API::Agent&& actor) const {
     sol::optional<sol::function> runFunctionOpt = step[kRunFunctionName];
     if (runFunctionOpt) {
         auto& runFunction = *runFunctionOpt;
@@ -24,7 +24,7 @@ void BehaviourStep::runStep(Scripting::API::Agent&& actor) {
     }
 }
 
-boost::optional<BehaviourStep> BehaviourStep::getTransition(Scripting::API::Agent&& actor) {
+boost::optional<BehaviourStep> BehaviourStep::getTransition(Scripting::API::Agent&& actor) const {
     sol::function transitionFunction = step[kTransitionFunctionName];
     sol::optional<sol::table> transitionStep;
 

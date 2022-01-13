@@ -20,7 +20,7 @@ class Behaviour {
 public:
     Behaviour(const std::string& name, const sol::table& startingStep);
 
-    BehaviourStep getStartingStep();
+    BehaviourStep getStartingStep() const;
 private:
     const std::string _name;
     sol::table _startingStep;

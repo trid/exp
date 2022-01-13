@@ -18,7 +18,7 @@ public:
     explicit Window(const Core::Settings& settings);
     ~Window();
 
-    [[nodiscard]] SDL_Renderer* getRenderer() const { return _renderer; }
+    [[nodiscard]] SDL_Renderer* getRenderer() const;
 
     [[nodiscard]] int getWidth() const;
     [[nodiscard]] int getHeight() const;

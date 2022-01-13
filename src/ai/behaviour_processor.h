@@ -42,7 +42,7 @@ public:
     explicit BehaviourProcessorProcess(BehaviourProcessor& behaviourProcessor);
 
     void update(unsigned int delta) override;
-    bool finished() override;
+    bool finished() const override;
 private:
     BehaviourProcessor& _behaviourProcessor;
 };

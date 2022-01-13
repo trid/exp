@@ -17,7 +17,7 @@ public:
 
     void update(unsigned int delta) override;
 
-    bool finished() override;
+    bool finished() const override;
 
 private:
     World& _world;

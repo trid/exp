@@ -77,7 +77,7 @@ void BehaviourProcessorProcess::update(unsigned int delta) {
     _behaviourProcessor.update();
 }
 
-bool BehaviourProcessorProcess::finished() {
+bool BehaviourProcessorProcess::finished() const {
     return false;
 }
 

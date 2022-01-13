@@ -39,13 +39,13 @@ void Actor::removeAction() {
     }
 }
 
-bool Actor::hasAction() {
+bool Actor::hasAction() const {
     return _currentAction != nullptr;
 }
 
 BehaviourStepOpt Actor::getBehaviourStep() { return _step; }
 
-const std::unordered_set<std::string>& Actor::getStatuses() {
+const std::unordered_set<std::string>& Actor::getStatuses() const {
     return _statuses;
 }
 
@@ -53,7 +53,7 @@ bool Actor::isExecutingReaction() const {
     return _executingReaction;
 }
 
-const std::unordered_map<std::string, std::string>& Actor::getStatusReactors() {
+const std::unordered_map<std::string, std::string>& Actor::getStatusReactors() const {
     return _statusReactors;
 }
 

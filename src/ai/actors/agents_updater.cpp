@@ -37,7 +37,7 @@ void AgentNeedsUpdater::updateNeeds(Agent* actor) const {
     }
 }
 
-bool AgentNeedsUpdater::finished() {
+bool AgentNeedsUpdater::finished() const {
     return false;
 }
 

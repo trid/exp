@@ -9,7 +9,7 @@ namespace Core::AI {
 Behaviour::Behaviour(const std::string& name, const sol::table& startingStep) : _name(name),
                                                                                 _startingStep(startingStep) {}
 
-BehaviourStep Behaviour::getStartingStep() {
+BehaviourStep Behaviour::getStartingStep() const {
     return BehaviourStep(_startingStep);
 }
 

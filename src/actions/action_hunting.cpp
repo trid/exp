@@ -9,7 +9,7 @@
 
 namespace Core::Actions {
 
-bool ActionHunting::isValid() {
+bool ActionHunting::isValid() const {
     const auto& location = _world.getAgentsLocation(*_actor);
     return location && *location == Core::AI::kForestLocationName;
 }
@@ -26,7 +26,7 @@ int ActionHunting::progress() {
     return 0;
 }
 
-bool ActionHunting::isFinished() {
+bool ActionHunting::isFinished() const {
     return false;
 }
 

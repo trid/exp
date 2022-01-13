@@ -14,24 +14,24 @@ void Agent::say(const std::string& message) {
     _world.getAgentsRegistry().getActors()[_id]->say(message);
 }
 
-int Agent::getWater() {
+int Agent::getWater() const {
     return _world.getAgentsRegistry().getActors()[_id]->getWater();
 }
 
-int Agent::getFood() {
+int Agent::getFood() const {
     return _world.getAgentsRegistry().getActors()[_id]->getFood();
 }
 
-boost::optional<const std::string&> Agent::getPosition() {
+boost::optional<const std::string&> Agent::getPosition() const {
     const auto& actor = _world.getAgentsRegistry().getActors()[_id];
     return _world.getAgentsLocation(*actor);
 }
 
-int Agent::getInventory() {
+int Agent::getInventory() const {
     return _world.getAgentsRegistry().getActors()[_id]->getAllItemsCount();
 }
 
-int Agent::getInventoryLimit() {
+int Agent::getInventoryLimit() const {
     return _world.getAgentsRegistry().getActors()[_id]->getInventoryLimit();
 }
 
@@ -45,7 +45,7 @@ void Agent::unloadFood() {
     _world.unloadFood(*agent);
 }
 
-bool Agent::hasAction() {
+bool Agent::hasAction() const {
     return _world.getAgentsRegistry().getActors()[_id]->hasAction();
 }
 

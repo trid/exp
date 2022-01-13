@@ -16,7 +16,7 @@ public:
     explicit AgentNeedsUpdater(AgentsRegistry& actorRegistry);
 
     void update(unsigned int delta) override;
-    bool finished() override;
+    bool finished() const override;
 
 private:
     void updateNeeds(Agent* actor) const;

@@ -15,7 +15,7 @@ public:
     void addItem(const std::string& item);
 
     int getItemsCount(const std::string& item) const;
-    int getAllItemsCount();
+    int getAllItemsCount() const;
     void removeItems(const std::string& item, int amount);
     void removeAllItems(const std::string& item);
 

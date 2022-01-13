@@ -20,14 +20,14 @@ public:
 
     void addStatus(const std::string& stateName);
     void removeStatus(std::string const& stateName);
-    const std::unordered_set<std::string>& getStatuses();
-    const std::unordered_map<std::string, std::string>& getStatusReactors();
+    const std::unordered_set<std::string>& getStatuses() const;
+    const std::unordered_map<std::string, std::string>& getStatusReactors() const;
 
     void setReactor(const std::string& stateName, const std::string& reactionState);
 
     void setAction(Core::Actions::ActionPtr action);
     void removeAction();
-    bool hasAction();
+    bool hasAction() const;
     bool isExecutingReaction() const;
     void setExecutingReaction(bool executingReaction);
 private:

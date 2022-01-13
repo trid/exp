@@ -9,7 +9,7 @@
 
 namespace Core::Actions {
 
-bool ActionDrink::isValid() {
+bool ActionDrink::isValid() const {
     const auto& location = _world.getAgentsLocation(*_actor);
     return location && *location == kWellLocationName;
 }
@@ -28,7 +28,7 @@ int ActionDrink::progress() {
     return _time * 100 / _maxTime;
 }
 
-bool ActionDrink::isFinished() {
+bool ActionDrink::isFinished() const {
     return _time >= _maxTime;
 }
 

@@ -59,4 +59,6 @@ Window::~Window() {
     SDL_Quit();
 }
 
+SDL_Renderer* Window::getRenderer() const { return _renderer; }
+
 } // namespace View

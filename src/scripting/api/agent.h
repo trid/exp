@@ -25,17 +25,17 @@ public:
 
     void say(const std::string& message);
 
-    int getWater();
-    int getFood();
+    [[nodiscard]] int getWater() const;
+    [[nodiscard]] int getFood() const;
 
-    boost::optional<const std::string&> getPosition();
+    [[nodiscard]] boost::optional<const std::string&> getPosition() const;
 
-    int getInventory();
-    int getInventoryLimit();
+    [[nodiscard]] int getInventory() const;
+    [[nodiscard]] int getInventoryLimit() const;
     void unloadWood();
     void unloadFood();
 
-    bool hasAction();
+    [[nodiscard]] bool hasAction() const;
     void addStatus(const std::string& status);
     void clearState();
 

@@ -8,7 +8,7 @@
 
 namespace Core::Actions {
 
-bool ActionEating::isValid() {
+bool ActionEating::isValid() const {
     const auto& location = _world.getAgentsLocation(*_actor);
     return location && *location == Core::AI::kHomeLocationName;
 }
@@ -28,7 +28,7 @@ int ActionEating::progress() {
     return _time * 100 / _maxTime;;
 }
 
-bool ActionEating::isFinished() {
+bool ActionEating::isFinished() const {
     return _time >= _maxTime;
 }
 
