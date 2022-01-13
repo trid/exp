@@ -7,6 +7,7 @@
 #include <boost/filesystem.hpp>
 #include <boost/optional/optional_io.hpp>
 
+#include "../location_type.h"
 #include "../travel.h"
 #include "../world.h"
 

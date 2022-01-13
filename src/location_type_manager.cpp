@@ -29,11 +29,11 @@ LocationTypeManager::LocationTypeManager() {
         int width = subtree.get<int>(kLocationWidthKey);
         int height = subtree.get<int>(kLocationHeightKey);
 
-        auto* locationType = new LocationType(std::move(name), std::move(actions), width, height);
-        types[locationType->getName()] = locationType;
+        auto locationType = std::make_unique<LocationType>(std::move(name), std::move(actions), width, height);
+        _types.emplace(locationType->getName(), std::move(locationType));
     }
 }
 
-const LocationType& LocationTypeManager::getLocationType(const std::string& name) const { return *types.at(name); }
+const LocationType& LocationTypeManager::getLocationType(const std::string& name) const { return *_types.at(name); }
 
 } // namespace Core
