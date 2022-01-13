@@ -14,8 +14,21 @@ Image::Image(const std::string& filePath, const Window& window) {
     _texture = IMG_LoadTexture(window.getRenderer(), filePath.c_str());
 }
 
+Image::Image(Image&& other)  noexcept {
+    _texture = other._texture;
+    other._texture = nullptr;
+}
+
 Image::~Image() {
-    SDL_DestroyTexture(_texture);
+    if (_texture) {
+        SDL_DestroyTexture(_texture);
+    }
+}
+
+Image& Image::operator=(Image&& other) noexcept {
+    _texture = other._texture;
+    other._texture = nullptr;
+    return *this;
 }
 
 void Image::draw(int x, int y, int w, int h, Window& window) {

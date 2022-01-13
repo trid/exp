@@ -17,7 +17,7 @@ void LogView::draw(Window& window) {
 
 void LogView::addMessage(const std::string& message) {
     _messages.push_back(message);
-    while (_messages.size() > 10) {
+    while (_messages.size() > kMaxLogMessages) {
         _messages.pop_front();
     }
 

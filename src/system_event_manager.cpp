@@ -19,11 +19,16 @@ void SystemEventManager::process() {
                 _guiPanel.showNextAgent();
             }
         }
+        if (e.type == SDL_MOUSEBUTTONDOWN) {
+            _uiManager.onMouseButtonDown(e.button.x, e.button.y, e.button.button);
+        }
     }
 }
 
-SystemEventManager::SystemEventManager(Application& application, View::Widgets::GUIPanel& guiPanel) :
+SystemEventManager::SystemEventManager(Application& application, View::Widgets::UIManager& uiManager,
+                                       View::Widgets::GUIPanel& guiPanel) :
         _application(application),
+        _uiManager(uiManager),
         _guiPanel(guiPanel) {}
 
 } // namespace Core

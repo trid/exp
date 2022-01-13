@@ -14,12 +14,15 @@
 
 namespace View {
 
-ViewFacade::ViewFacade(const Core::Settings& settings, Core::GlobalMessageManager& globalMessageManager, Core::World& world) :
+ViewFacade::ViewFacade(const Core::Settings& settings, Core::GlobalMessageManager& globalMessageManager,
+                       Core::World& world,
+                       Core::Timer& timer) :
         _window(settings),
         _background(kGrassSpritePath, _window),
         _globalMessageManager(globalMessageManager),
         _sceneObjectManager(*this, world),
         _guiPanel(world, *this, _uiManager),
+        _speedControlPanel(*this, timer),
         _agentsRegistry(world.getAgentsRegistry())
          {
      _actors.emplace(std::piecewise_construct, std::forward_as_tuple(kActorGreenType), std::forward_as_tuple(kActorGreenSpritePath, _window));
@@ -59,6 +62,10 @@ Window& ViewFacade::getWindow() {
 
 View::Widgets::GUIPanel& ViewFacade::getGUIPanel() {
     return _guiPanel;
+}
+
+View::Widgets::UIManager& ViewFacade::getUIManager() {
+    return _uiManager;
 }
 
 } // namespace View

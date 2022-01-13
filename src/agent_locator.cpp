@@ -6,6 +6,8 @@
 
 #include "ai/actors/agent.h"
 
+#include "utils/rect_utils.h"
+
 #include "location_type.h"
 #include "world_map.h"
 
@@ -27,11 +29,10 @@ AgentLocator::getAgentsLocation(const AI::Actors::AgentPositioningData& agent) c
 
     auto isInLocation = [&agent](const auto& locationIter) {
         const auto& location = locationIter.second;
-        if (agent.getX() < location->getXPos()) return false;
-        if (agent.getY() < location->getYPos()) return false;
-        if (agent.getX() > location->getXPos() + location->getType().getWidth()) return false;
-        if (agent.getY() > location->getYPos() + location->getType().getHeight()) return false;
-        return true;
+        const auto& locationType = location->getType();
+        return Utils::isInRect(agent.getX(), agent.getY(), Utils::Rect<int>{location->getXPos(), location->getYPos(),
+                                                                            locationType.getWidth(),
+                                                                            locationType.getHeight()});
     };
 
     const auto& locations = _worldMap.getLocations();

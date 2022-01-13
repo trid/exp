@@ -20,7 +20,6 @@ using namespace std;
 int main(int argc, char* argv[]) {
     Core::Application app{};
     Core::Timer timer;
-    timer.setMultiplier(4);
     Core::TimedProcessController timedProcessController{timer};
     Core::Settings settings{};
     Core::GlobalMessageManager messageManager;
@@ -29,8 +28,8 @@ int main(int argc, char* argv[]) {
     Core::AI::StateManager stateManager{};
     Scripting::MainScriptContext scriptContext{world, stateManager};
     scriptContext.loadScript(Core::kInitScriptPath);
-    View::ViewFacade view{settings, messageManager, world};
-    Core::SystemEventManager systemEventManager{app, view.getGUIPanel()};
+    View::ViewFacade view{settings, messageManager, world, timer};
+    Core::SystemEventManager systemEventManager{app, view.getUIManager(), view.getGUIPanel()};
     Core::AI::BehaviourProcessor behaviourProcessor{stateManager, world};
 
     timedProcessController.addProcess(std::make_shared<Core::AI::BehaviourProcessorProcess>(behaviourProcessor));

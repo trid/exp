@@ -8,6 +8,7 @@ file(GLOB AI_SOURCE_FILES src/ai/*.cpp)
 file(GLOB CORE_SOURCE_FILES src/*.cpp)
 file(GLOB SCRIPTING_SOURCE_FILES src/scripting/*.cpp)
 file(GLOB SCRIPTING_API_SOURCE_FILES src/scripting/api/*.cpp)
+file(GLOB UTILS_SOURCE_FILES src/utils/*.cpp)
 file(GLOB VIEW_SOURCE_FILES src/view/*.cpp)
 file(GLOB WIDGETS_SOURCE_FILES src/view/widgets/*.cpp)
 file(GLOB WIDGETS_PRIVATE_SOURCE_FILES src/view/widgets/private/*.cpp)
@@ -32,6 +33,7 @@ add_executable(exp ${CORE_SOURCE_FILES}
 					${AI_SOURCE_FILES}
 					${SCRIPTING_SOURCE_FILES}
 		            ${SCRIPTING_API_SOURCE_FILES}
+		            ${UTILS_SOURCE_FILES}
 					${VIEW_SOURCE_FILES}
 					${WIDGETS_SOURCE_FILES}
 		            ${WIDGETS_PRIVATE_SOURCE_FILES})

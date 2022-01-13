@@ -3,6 +3,7 @@
 
 #include <vector>
 
+#include "button.h"
 #include "widget.h"
 
 #include "../fonts_cache.h"
@@ -19,10 +20,14 @@ public:
 
     void draw(Window& window);
     void addWidget(WidgetPtr widget);
+    void addButton(ButtonPtr button);
+
+    void onMouseButtonDown(unsigned int x, unsigned int y, unsigned int button);
 
     FontsCache& getFontsCache();
 private:
-    std::vector<WidgetPtr> widgets;
+    std::vector<WidgetPtr> _widgets;
+    std::vector<ClickablePtr> _clickables;
 
     FontsCache _fontsCache;
 };

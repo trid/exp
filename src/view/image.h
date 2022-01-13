@@ -16,7 +16,12 @@ class Window;
 class Image {
 public:
     explicit Image(const std::string& filePath, const Window& window);
+    Image(const Image&) = delete;
+    Image(Image&& other) noexcept;
     ~Image();
+
+    Image& operator=(const Image&) = delete;
+    Image& operator=(Image&& other) noexcept;
 
     void draw(int x, int y, int w, int h, Window& window);
     void draw(int x, int y, Window& window);
