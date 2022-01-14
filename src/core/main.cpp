@@ -33,7 +33,7 @@ int main(int argc, char* argv[]) {
     Core::SystemEventManager systemEventManager{app, view.getUIManager(), view.getGUIPanel()};
     Core::AI::BehaviourProcessor behaviourProcessor{stateManager, world};
 
-    timedProcessController.addProcess(std::make_shared<Core::AI::BehaviourProcessorProcess>(behaviourProcessor));
+    timedProcessController.addProcess(std::make_unique<Core::AI::BehaviourProcessorProcess>(behaviourProcessor));
 
     while (app.isRunning()) {
         app.update();

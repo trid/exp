@@ -41,9 +41,9 @@ World::World(TimedProcessController& timedProcessController, GlobalMessageBus& a
         _actorsRegistry(timedProcessController),
         _globalMessageManager(appMessageManager),
         _worldMap(worldMap) {
-    ProcessPtr ptr = std::make_shared<WorldProcess>(*this);
-    timedProcessController.addProcess(ptr);
-    timedProcessController.addProcess(std::make_shared<AI::Agents::AgentNeedsUpdater>(_actorsRegistry));
+    ProcessPtr ptr = std::make_unique<WorldProcess>(*this);
+    timedProcessController.addProcess(std::move(ptr));
+    timedProcessController.addProcess(std::make_unique<AI::Agents::AgentNeedsUpdater>(_actorsRegistry));
 }
 
 std::unordered_set<std::string> const& World::getActions(const AI::Agents::Agent& actor) {

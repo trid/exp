@@ -13,15 +13,15 @@ namespace Core {
 
 TimedProcessController::TimedProcessController(Timer& timer) : _timer(timer) {}
 
-void TimedProcessController::addProcess(Core::ProcessPtr ptr) {
-    _processes.push_back(ptr);
+void TimedProcessController::addProcess(ProcessPtr&& ptr) {
+    _processes.push_back(std::move(ptr));
 }
 
 void TimedProcessController::update() {
     _lag += _timer.refresh();
 
     while (_lag >= kTimePerUpdateMillis) {
-        for (ProcessPtr process: _processes) {
+        for (auto& process: _processes) {
             process->update(kTimePerUpdateMillis);
         }
 

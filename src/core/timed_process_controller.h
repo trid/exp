@@ -17,7 +17,7 @@ class TimedProcessController {
 public:
     TimedProcessController(Timer& timer);
 
-    void addProcess(ProcessPtr ptr);
+    void addProcess(ProcessPtr&& ptr);
     void update();
 
 private:
