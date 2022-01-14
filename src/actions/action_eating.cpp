@@ -19,7 +19,7 @@ void ActionEating::update(int delta) {
         _time = _maxTime;
         _actor->setFood(_actor->getMaxFood());
         _actor->removeStatus(Core::AI::kHungryStateName);
-        _world.removeFood();
+        _world.removeResource(kItemFood, 1);
         stop();
     }
 }

@@ -35,14 +35,9 @@ int Agent::getInventoryLimit() const {
     return _world.getAgentsRegistry().getActors()[_id]->getInventoryLimit();
 }
 
-void Agent::unloadWood() {
+void Agent::unloadResource(const std::string& resource) {
     auto& agent = _world.getAgentsRegistry().getActors()[_id];
-    _world.unloadWood(*agent);
-}
-
-void Agent::unloadFood() {
-    auto& agent = _world.getAgentsRegistry().getActors()[_id];
-    _world.unloadFood(*agent);
+    _world.unloadResource(*agent, resource);
 }
 
 bool Agent::hasAction() const {

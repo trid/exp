@@ -32,8 +32,7 @@ public:
 
     [[nodiscard]] int getInventory() const;
     [[nodiscard]] int getInventoryLimit() const;
-    void unloadWood();
-    void unloadFood();
+    void unloadResource(const std::string& resource);
 
     [[nodiscard]] bool hasAction() const;
     void addStatus(const std::string& status);

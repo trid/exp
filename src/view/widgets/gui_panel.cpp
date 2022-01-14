@@ -10,6 +10,8 @@
 #include "../../message_data.h"
 #include "../../world.h"
 
+#include "../../actions/constants.h"
+
 #include "../view_facade.h"
 
 #include "constants.h"
@@ -27,7 +29,7 @@ public:
 
     bool listen(Core::MessageData const& messageData) override {
         std::stringstream ss;
-        ss << kWoodLabelPrefix << _world.getWood();
+        ss << kWoodLabelPrefix << _world.getResourceCount(Core::Actions::kItemWood);
         _label.setText(ss.str());
         return true;
     }
@@ -45,7 +47,7 @@ public:
 
     bool listen(Core::MessageData const& messageData) override {
         std::stringstream ss;
-        ss << kFoodLabelPrefix << _world.getFood();
+        ss << kFoodLabelPrefix << _world.getResourceCount(Core::Actions::kItemFood);
         _label.setText(ss.str());
         return true;
     }
@@ -91,8 +93,8 @@ GUIPanel::GUIPanel(const Core::World& world, View::ViewFacade& view, UIManager& 
     auto agentPhraseListener = std::make_unique<AgentPhraseListener>(*_logView);
 
     auto& uiMessageManager = view.getUIMessageManager();
-    uiMessageManager.addListener(Core::kWoodUpdatedMessage, std::move(woodUpdater));
-    uiMessageManager.addListener(Core::kFoodUpdatedMessage, std::move(foodUpdater));
+    uiMessageManager.addListener(Core::kResourceUpdatedMessage, std::move(woodUpdater));
+    uiMessageManager.addListener(Core::kResourceUpdatedMessage, std::move(foodUpdater));
     uiMessageManager.addListener(Core::kAgentPhraseMessage, std::move(agentPhraseListener));
 }
 

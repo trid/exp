@@ -28,10 +28,9 @@ public:
     GlobalMessageManager(const GlobalMessageManager&) = delete;
 
     void addListener(const std::string& name, MessageListenerPtr listener);
-    void removeListener(const std::string& name);
     void sendMessage(const std::string& name, const MessageData& data);
 private:
-    std::unordered_map<std::string, MessageListenerPtr> _listeners;
+    std::unordered_map<std::string, std::vector<MessageListenerPtr>> _listeners;
 };
 
 } // namespace Core

@@ -3,16 +3,15 @@
 namespace Core {
 
 void GlobalMessageManager::addListener(const std::string& name, MessageListenerPtr listener) {
-    _listeners[name] = std::move(listener);
-}
-
-void GlobalMessageManager::removeListener(const std::string& name) {
-    _listeners.erase(name);
+    _listeners[name].push_back(std::move(listener));
 }
 
 void GlobalMessageManager::sendMessage(const std::string& name, const MessageData& data) {
-    if (_listeners[name]) {
-        _listeners[name]->listen(data);
+    auto iter = _listeners.find(name);
+    if (iter != _listeners.end()) {
+        for (auto& item: iter->second) {
+            item->listen(data);
+        }
     }
 }
 

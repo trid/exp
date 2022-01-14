@@ -5,6 +5,8 @@
 #ifndef EXP_WORLD_INVENTORY_H
 #define EXP_WORLD_INVENTORY_H
 
+#include <unordered_map>
+
 #include "global_message_manager.h"
 
 namespace Core::AI::Actors {
@@ -19,23 +21,15 @@ class WorldInventory {
 public:
     explicit WorldInventory(GlobalMessageManager& globalMessageManager);
 
-    [[nodiscard]] int getFood() const;
-    void setFood(int food);
+    unsigned int getResourceCount(const std::string& resource) const;
+    void setResourceCount(const std::string& resource, unsigned int amount);
 
-    [[nodiscard]] int getWood() const;
-    void setWood(int wood);
+    void removeResource(const std::string& resource, unsigned int amount);
 
-    void addWood(int i);
-    void addFood(int i);
-
-    void unloadWood(AI::Actors::Agent& agent);
-    void unloadFood(AI::Actors::Agent& agent);
-
-    void removeFood();
+    void unloadResource(AI::Actors::Agent& agent, const std::string& resource);
 
 private:
-    int _wood = 0;
-    int _food = 0;
+    std::unordered_map<std::string, unsigned int> _resources;
 
     GlobalMessageManager& _globalMessageManager;
 };

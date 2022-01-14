@@ -5,7 +5,7 @@
 
 HuntingStartStep = {
     transition = function(actor)
-        if g_world:getStoredFood() < 50 then
+        if g_world:getStoredResource("food") < 50 then
             actor:say("Need to collect some food.")
             return GoHuntingStep
         end
@@ -43,7 +43,7 @@ HuntStep = {
 UnloadFoodStep = {
     run = function(actor)
         actor:say("Unloading my load of food")
-        actor:unloadFood()
+        actor:unloadResource("food")
     end,
 
     transition = function(actor)

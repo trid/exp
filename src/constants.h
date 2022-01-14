@@ -26,8 +26,7 @@ constexpr char kSettingsKey[] = "settings";
 const std::string kPositionInRoute{"In route"};
 
 // Messages
-constexpr char kFoodUpdatedMessage[] = "FOOD_UPDATED_MESSAGE";
-constexpr char kWoodUpdatedMessage[] = "WOOD_UPDATED_MESSAGE";
+constexpr char kResourceUpdatedMessage[] = "RESOURCE_UPDATED_MESSAGE";
 constexpr char kFinishedMovingMessage[] = "FINISHED_MOVING";
 constexpr char kAgentPhraseMessage[] = "AGENT_PHRASE";
 

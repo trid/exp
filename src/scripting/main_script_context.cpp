@@ -63,8 +63,7 @@ void MainScriptContext::registerClasses() {
                                               "getFood", &Scripting::API::Agent::getFood,
                                               "getInventory", &Scripting::API::Agent::getInventory,
                                               "getInventoryLimit", &Scripting::API::Agent::getInventoryLimit,
-                                              "unloadWood", &Scripting::API::Agent::unloadWood,
-                                              "unloadFood", &Scripting::API::Agent::unloadFood,
+                                              "unloadResource", &Scripting::API::Agent::unloadResource,
                                               "hasAction", &Scripting::API::Agent::hasAction,
                                               "addStatus", &Scripting::API::Agent::addStatus,
                                               "move", &Scripting::API::Agent::move,
@@ -83,8 +82,7 @@ void MainScriptContext::registerClasses() {
     state.new_usertype<Core::World>("World",
                                     "moveActor", &Core::World::moveActor,
                                     "doAction", &Core::World::doAction,
-                                    "getStoredFood", &Core::World::getFood,
-                                    "getStoredWood", &Core::World::getWood,
+                                    "getStoredResource", &Core::World::getResourceCount,
                                     "setAgentLocation", &Core::World::setAgentLocation);
 }
 

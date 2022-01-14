@@ -6,7 +6,7 @@
 
 CutWoodStartStep = {
     transition = function(actor)
-        if g_world:getStoredWood() < 300 then
+        if g_world:getStoredResource("wood") < 300 then
             actor:say("Need to collect some wood.")
             return GoWoodcuttingStep
         end
@@ -44,7 +44,7 @@ CutWoodStep = {
 UnloadWoodStep = {
     run = function(actor)
         actor:say("Unloading my heavy wood")
-        actor:unloadWood()
+        actor:unloadResource("wood")
     end,
 
     transition = function(actor)

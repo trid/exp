@@ -15,45 +15,27 @@ namespace Core {
 WorldInventory::WorldInventory(GlobalMessageManager& globalMessageManager) : _globalMessageManager(
         globalMessageManager) {}
 
-void WorldInventory::removeFood() {
-    _food--;
-    _globalMessageManager.sendMessage(kFoodUpdatedMessage, MessageData());
+unsigned int WorldInventory::getResourceCount(const std::string& resource) const {
+    auto iter = _resources.find(resource);
+    if (iter != _resources.end()) {
+        return iter->second;
+    }
+    return 0;
 }
 
-void WorldInventory::addFood(int i) {
-    _food += i;
-    _globalMessageManager.sendMessage(kFoodUpdatedMessage, MessageData());
+void WorldInventory::setResourceCount(const std::string& resource, unsigned int amount) {
+    _resources[resource] = amount;
 }
 
-void WorldInventory::addWood(int i) {
-    _wood += i;
-    _globalMessageManager.sendMessage(kWoodUpdatedMessage, MessageData());
+void WorldInventory::removeResource(const std::string& resource, unsigned int amount) {
+    auto currentAmount = _resources[resource];
+    _resources[resource] = currentAmount >= amount ? currentAmount - amount : 0;
 }
 
-int WorldInventory::getFood() const {
-    return _food;
-}
-
-void WorldInventory::setFood(int food) {
-    _food = food;
-}
-
-int WorldInventory::getWood() const {
-    return _wood;
-}
-
-void WorldInventory::setWood(int wood) {
-    _wood = wood;
-}
-
-void WorldInventory::unloadWood(AI::Actors::Agent& agent) {
-    addWood(agent.getItemsCount(Actions::kItemWood));
-    agent.removeAllItems(Actions::kItemWood);
-}
-
-void WorldInventory::unloadFood(AI::Actors::Agent& agent) {
-    addFood(agent.getItemsCount(Actions::kItemFood));
-    agent.removeAllItems(Actions::kItemFood);
+void WorldInventory::unloadResource(AI::Actors::Agent& agent, const std::string& resource) {
+    _resources[resource] += agent.getItemsCount(resource);
+    agent.removeAllItems(resource);
+    _globalMessageManager.sendMessage(kResourceUpdatedMessage, MessageData{});
 }
 
 } // namespace Core
