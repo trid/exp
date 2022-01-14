@@ -12,7 +12,7 @@ createSceneObject("well", "well", 200, 200, g_world)
 
 print("Creating woodcutter\n")
 
-woodcutter = createAgent(g_actorsRegistry, g_world)
+woodcutter = g_actorsRegistry:createAgent(g_world)
 woodcutter:setName("John Wood")
 woodcutter:setType("green")
 setReaction(woodcutter, "NoState", "Woodcutting")
@@ -26,7 +26,7 @@ woodcutter:setMaxWater(90);
 
 print("Creating hunter\n")
 
-hunter = createAgent(g_actorsRegistry, g_world)
+hunter = g_actorsRegistry:createAgent(g_world)
 hunter:setName("Hunter Smith")
 hunter:setType("blue")
 setReaction(hunter, "NoState", "Hunting")

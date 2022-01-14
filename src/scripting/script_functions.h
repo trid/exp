@@ -18,9 +18,6 @@ void setState(Core::AI::Actors::Agent& actor, const std::string& stateName, cons
 void setReaction(Core::AI::Actors::Agent& actor, const std::string& reactionType, const std::string& behaviourName);
 int getId(lua_State* state);
 
-// Actors registry
-Core::AI::Actors::Agent& createActor(Core::AI::Actors::AgentsRegistry& actorsRegistry, Core::World& world);
-
 // Locations
 void createSceneObject(const std::string& type, const std::string& name, int x, int y, Core::World& world);
 

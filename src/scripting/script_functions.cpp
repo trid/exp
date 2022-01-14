@@ -27,11 +27,6 @@ void setReaction(Core::AI::Actors::Agent& actor, const std::string& reactionType
     actor.setReactor(reactionType, behaviourName);
 }
 
-//Agent registry
-Core::AI::Actors::Agent& createActor(Core::AI::Actors::AgentsRegistry& actorsRegistry, Core::World& world) {
-    return actorsRegistry.createAgent(world);
-}
-
 //Scene objects
 void createSceneObject(const std::string& type, const std::string& name, int x, int y, Core::World& world) {
     const auto& locationType = world.getLocationTypeManager().getLocationType(type);

@@ -43,7 +43,6 @@ void MainScriptContext::registerFunctions() {
     state["print"] = &print;
     state["setState"] = &setState;
     state["setReaction"] = &setReaction;
-    state["createAgent"] = &createActor;
     state["createSceneObject"] = &createSceneObject;
 }
 
