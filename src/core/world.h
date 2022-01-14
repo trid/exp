@@ -21,7 +21,7 @@
 #include "world_inventory.h"
 
 #include "../view/map_object_view.h"
-#include "../view/scene_object_manager.h"
+#include "../view/scene_object_renderer.h"
 
 
 namespace Core {

@@ -1,4 +1,4 @@
-#include "scene_object_manager.h"
+#include "scene_object_renderer.h"
 
 #include <sstream>
 
@@ -19,12 +19,12 @@ using boost::property_tree::xml_parser::trim_whitespace;
 
 namespace View {
 
-SceneObjectManager::SceneObjectManager(ViewFacade& view, Core::World& world) {
+SceneObjectRenderer::SceneObjectRenderer(ViewFacade& view, Core::World& world) {
     loadSprites(view);
     createObjects(world);
 }
 
-void SceneObjectManager::loadSprites(ViewFacade& view) {
+void SceneObjectRenderer::loadSprites(ViewFacade& view) {
     ptree pt;
     read_xml(kLocationsImagesDataPath, pt, trim_whitespace);
 
@@ -35,22 +35,22 @@ void SceneObjectManager::loadSprites(ViewFacade& view) {
         const auto& image = loc.second.get<std::string>(kSpriteNameKey);
         std::stringstream ss;
         ss << kImageResourcesPath << image;
-        _sprites[type] = IMG_LoadTexture(view.getWindow().getRenderer(), ss.str().c_str());
+        _sprites.emplace(type, Image(ss.str(), view.getWindow()));
     }
 }
 
-void SceneObjectManager::createObjects(Core::World& world) {
+void SceneObjectRenderer::createObjects(Core::World& world) {
     auto& locations = world.getWorldMap().getLocations();
 
     for (auto& item: locations) {
         const auto& location = *item.second;
-        _mapObjects.push_back(std::make_unique<MapObjectView>(location, _sprites[location.getType().getName()]));
+        _mapObjects.push_back(std::make_unique<MapObjectView>(location, _sprites.at(location.getType().getName())));
     }
 }
 
-void SceneObjectManager::draw(const Window& window) {
+void SceneObjectRenderer::draw(const Window& window) {
     for (auto& object: _mapObjects) {
-        object->draw(window.getRenderer());
+        object->draw(window);
     }
 }
 

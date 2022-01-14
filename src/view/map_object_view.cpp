@@ -2,17 +2,15 @@
 
 #include "../core/location.h"
 
+#include "image.h"
+
 namespace View {
 
-MapObjectView::MapObjectView(const Core::Location& location, SDL_Texture* image): _location(location), _image(image) {
+MapObjectView::MapObjectView(const Core::Location& location, Image& image): _location(location), _image(image) {
 }
 
-void MapObjectView::draw(SDL_Renderer* renderer) {
-    SDL_Rect rect;
-    rect.x = getX();
-    rect.y = getY();
-    SDL_QueryTexture(_image, nullptr, nullptr, &rect.w, &rect.h);
-    SDL_RenderCopy(renderer, _image, nullptr, &rect);
+void MapObjectView::draw(const Window& window) {
+    _image.draw(getX(), getY(), window);
 }
 
 int MapObjectView::getX() const {

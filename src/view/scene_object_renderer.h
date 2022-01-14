@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <vector>
 
+#include "image.h"
 #include "map_object_view.h"
 #include "window.h"
 
@@ -18,9 +19,9 @@ namespace View {
 class MapObjectView;
 class ViewFacade;
 
-class SceneObjectManager {
+class SceneObjectRenderer {
 public:
-    explicit SceneObjectManager(ViewFacade& view, Core::World& world);
+    explicit SceneObjectRenderer(ViewFacade& view, Core::World& world);
 
     void draw(const Window& window);
 private:
@@ -28,7 +29,7 @@ private:
     void createObjects(Core::World& world);
 
     std::vector<MapObjectUPtr> _mapObjects;
-    std::unordered_map<std::string, SDL_Texture*> _sprites;
+    std::unordered_map<std::string, Image> _sprites;
 };
 
 } // namespace View

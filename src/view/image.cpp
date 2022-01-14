@@ -36,7 +36,7 @@ void Image::draw(int x, int y, int w, int h, Window& window) {
     SDL_RenderCopy(window.getRenderer(), _texture, nullptr, &dstRect);
 }
 
-void Image::draw(int x, int y, Window& window) {
+void Image::draw(int x, int y, const Window& window) {
     SDL_Rect dstRect{x, y, 0, 0};
     SDL_QueryTexture(_texture, nullptr, nullptr, &dstRect.w, &dstRect.h);
     SDL_RenderCopy(window.getRenderer(), _texture, nullptr, &dstRect);

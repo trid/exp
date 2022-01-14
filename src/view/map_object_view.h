@@ -12,17 +12,20 @@ class Location;
 
 namespace View {
 
+class Image;
+class Window;
+
 class MapObjectView {
 public:
-    explicit MapObjectView(const Core::Location& location, SDL_Texture* image);
+    explicit MapObjectView(const Core::Location& location, Image& image);
 
-    void draw(SDL_Renderer* renderer);
+    void draw(const Window& window);
 
     [[nodiscard]] int getX() const;
     [[nodiscard]] int getY() const;
 
 private:
-    SDL_Texture* _image;
+    Image& _image;
     const Core::Location& _location;
 };
 

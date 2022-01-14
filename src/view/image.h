@@ -24,7 +24,7 @@ public:
     Image& operator=(Image&& other) noexcept;
 
     void draw(int x, int y, int w, int h, Window& window);
-    void draw(int x, int y, Window& window);
+    void draw(int x, int y, const Window& window);
     void draw(Window& window);
 private:
     SDL_Texture* _texture;

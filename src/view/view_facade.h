@@ -12,7 +12,7 @@
 
 #include "image.h"
 #include "map_object_view.h"
-#include "scene_object_manager.h"
+#include "scene_object_renderer.h"
 #include "window.h"
 #include "widgets/gui_panel.h"
 #include "widgets/speed_control_panel.h"
@@ -53,7 +53,7 @@ private:
     Core::GlobalMessageManager& _globalMessageManager;
     Widgets::GUIPanel _guiPanel;
     Widgets::SpeedControlPanel _speedControlPanel;
-    SceneObjectManager _sceneObjectManager;
+    SceneObjectRenderer _sceneObjectManager;
     const Core::AI::Actors::AgentsRegistry& _agentsRegistry;
 };
 
