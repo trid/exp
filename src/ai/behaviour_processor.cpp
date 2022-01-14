@@ -44,9 +44,15 @@ void BehaviourProcessor::processActor(Actors::Agent& actor) {
 
 void BehaviourProcessor::processReaction(Actors::Agent& actor) {
     for (const auto& globalState: actor.getStatuses()) {
-        const auto& reactionStateName = actor.getStatusReactors().at(globalState);
-        auto reactionBehaviour = _stateManager.getBehaviour(reactionStateName);
+        const auto & statusReactors = actor.getStatusReactors();
+        const auto& reactionStateName = statusReactors.find(globalState);
+        if (reactionStateName == statusReactors.end()) {
+            continue;
+        }
+
+        auto reactionBehaviour = _stateManager.getBehaviour(reactionStateName->second);
         if (reactionBehaviour) {
+            actor.removeStatus(kIdleStateName);
             actor.setExecutingReaction(true);
             setBehaviourStep(actor, reactionBehaviour->getStartingStep());
             break;

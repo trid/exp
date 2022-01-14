@@ -11,7 +11,7 @@ CutWoodStartStep = {
             return GoWoodcuttingStep
         end
         actor:say("Nothing to do but stay in bed!")
-        actor:addStatus("idle")
+        actor:addStatus("Idle")
         return ExitStep
     end
 }

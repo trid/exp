@@ -10,6 +10,7 @@ namespace Core::AI {
 constexpr char kNoStateStateName[] = "NoState";
 constexpr char kHungryStateName[] = "Hungry";
 constexpr char kThirstyStateName[] = "Thirsty";
+constexpr char kIdleStateName[] = "Idle";
 
 constexpr char kMaxFoodParameter[] = "maxFood";
 constexpr char kMaxWaterParameter[] = "maxWater";
