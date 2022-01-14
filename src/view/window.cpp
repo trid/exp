@@ -6,7 +6,7 @@
 
 #include <iostream>
 
-#include "../settings.h"
+#include "../core/settings.h"
 
 #include "constants.h"
 

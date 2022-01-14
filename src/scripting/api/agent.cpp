@@ -4,7 +4,7 @@
 
 #include "agent.h"
 
-#include "../../world.h"
+#include "../../core/world.h"
 
 namespace Scripting::API {
 

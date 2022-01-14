@@ -7,9 +7,9 @@
 #include <boost/filesystem.hpp>
 #include <boost/optional/optional_io.hpp>
 
-#include "../location_type.h"
-#include "../travel.h"
-#include "../world.h"
+#include "../core/location_type.h"
+#include "../core/travel.h"
+#include "../core/world.h"
 
 #include "../ai/actors/agent.h"
 #include "../ai/actors/agent_registry.h"

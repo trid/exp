@@ -3,8 +3,8 @@
 #include <sstream>
 
 #include "../constants.h"
-#include "../timed_process_controller.h"
-#include "../world.h"
+#include "../../core/timed_process_controller.h"
+#include "../../core/world.h"
 
 
 namespace Core::AI::Actors {

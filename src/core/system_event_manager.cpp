@@ -1,7 +1,7 @@
 #include <SDL2/SDL_events.h>
 #include "system_event_manager.h"
 #include "application.h"
-#include "view/view_facade.h"
+#include "../view/view_facade.h"
 
 namespace Core {
 

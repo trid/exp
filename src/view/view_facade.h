@@ -7,8 +7,8 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
-#include "../global_message_manager.h"
-#include "../settings.h"
+#include "../core/global_message_manager.h"
+#include "../core/settings.h"
 
 #include "image.h"
 #include "map_object_view.h"

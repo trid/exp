@@ -4,7 +4,7 @@
 
 #include "settings_reader.h"
 
-#include "../constants.h"
+#include "../core/constants.h"
 
 namespace Scripting {
 

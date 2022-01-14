@@ -2,7 +2,7 @@
 
 #include "../ai/constants.h"
 
-#include "../world.h"
+#include "../core/world.h"
 
 #include "constants.h"
 

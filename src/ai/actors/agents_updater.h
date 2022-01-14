@@ -5,7 +5,7 @@
 #ifndef EXP_AGENTS_UPDATER_H
 #define EXP_AGENTS_UPDATER_H
 
-#include "../../process.h"
+#include "../../core/process.h"
 
 #include "agent_registry.h"
 

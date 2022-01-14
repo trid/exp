@@ -4,7 +4,7 @@
 
 #include "speed_control_panel.h"
 
-#include "../../timer.h"
+#include "../../core/timer.h"
 
 #include "../view_facade.h"
 

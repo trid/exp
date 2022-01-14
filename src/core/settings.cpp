@@ -2,7 +2,7 @@
 
 #include "constants.h"
 
-#include "scripting/settings_reader.h"
+#include "../scripting/settings_reader.h"
 
 namespace Core {
 

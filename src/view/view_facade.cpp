@@ -4,7 +4,7 @@
 
 #include "../ai/actors/agent.h"
 #include "../ai/actors/agent_registry.h"
-#include "../world.h"
+#include "../core/world.h"
 
 #include "constants.h"
 

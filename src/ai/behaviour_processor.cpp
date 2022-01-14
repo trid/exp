@@ -4,7 +4,7 @@
 
 #include "behaviour_processor.h"
 
-#include "../world.h"
+#include "../core/world.h"
 
 #include "../scripting/api/agent.h"
 

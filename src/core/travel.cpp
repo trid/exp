@@ -9,7 +9,7 @@
 #include "location_type.h"
 #include "world.h"
 
-#include "ai/actors/agent.h"
+#include "../ai/actors/agent.h"
 
 namespace Core {
 

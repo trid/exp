@@ -7,9 +7,9 @@
 #include <string>
 #include <unordered_set>
 
-#include "actions/action_manager.h"
+#include "../actions/action_manager.h"
 
-#include "ai/actors/agent_registry.h"
+#include "../ai/actors/agent_registry.h"
 
 #include "agent_locator.h"
 #include "application.h"
@@ -20,8 +20,8 @@
 #include "world_map.h"
 #include "world_inventory.h"
 
-#include "view/map_object_view.h"
-#include "view/scene_object_manager.h"
+#include "../view/map_object_view.h"
+#include "../view/scene_object_manager.h"
 
 
 namespace Core {

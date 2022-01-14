@@ -7,7 +7,7 @@
 
 #include <vector>
 
-#include "../process.h"
+#include "../core/process.h"
 
 namespace Core {
 class World;

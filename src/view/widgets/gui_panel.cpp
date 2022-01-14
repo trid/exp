@@ -6,9 +6,9 @@
 
 #include <sstream>
 
-#include "../../constants.h"
-#include "../../message_data.h"
-#include "../../world.h"
+#include "../../core/constants.h"
+#include "../../core/message_data.h"
+#include "../../core/world.h"
 
 #include "../../actions/constants.h"
 

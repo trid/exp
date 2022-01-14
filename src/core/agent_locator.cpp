@@ -4,9 +4,9 @@
 
 #include "agent_locator.h"
 
-#include "ai/actors/agent.h"
+#include "../ai/actors/agent.h"
 
-#include "utils/rect_utils.h"
+#include "../utils/rect_utils.h"
 
 #include "location_type.h"
 #include "world_map.h"

@@ -1,6 +1,6 @@
 #include "map_object_view.h"
 
-#include "../location.h"
+#include "../core/location.h"
 
 namespace View {
 

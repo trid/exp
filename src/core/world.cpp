@@ -8,11 +8,11 @@
 #include "travel.h"
 #include "world_process.h"
 
-#include "actions/action_manager.h"
-#include "actions/constants.h"
+#include "../actions/action_manager.h"
+#include "../actions/constants.h"
 
-#include "ai/actors/agent.h"
-#include "ai/actors/agents_updater.h"
+#include "../ai/actors/agent.h"
+#include "../ai/actors/agents_updater.h"
 
 
 namespace Core {

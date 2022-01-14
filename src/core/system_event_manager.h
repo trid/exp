@@ -2,7 +2,7 @@
 #define SYSTEM_EVENT_MANAGER_H
 
 #include "application.h"
-#include "view/widgets/gui_panel.h"
+#include "../view/widgets/gui_panel.h"
 
 
 namespace Core {

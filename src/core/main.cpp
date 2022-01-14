@@ -8,12 +8,12 @@
 #include "timed_process_controller.h"
 #include "world.h"
 
-#include "ai/state_manager.h"
-#include "ai/behaviour_processor.h"
+#include "../ai/state_manager.h"
+#include "../ai/behaviour_processor.h"
 
-#include "scripting/main_script_context.h"
+#include "../scripting/main_script_context.h"
 
-#include "view/view_facade.h"
+#include "../view/view_facade.h"
 
 using namespace std;
 

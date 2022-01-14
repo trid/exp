@@ -4,8 +4,8 @@
 #include <limits>
 #include <string>
 
-#include "scripting/script_context.h"
-#include "scripting/settings_reader.h"
+#include "../scripting/script_context.h"
+#include "../scripting/settings_reader.h"
 
 namespace Core {
 

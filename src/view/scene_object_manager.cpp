@@ -5,10 +5,10 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 
-#include "../location.h"
-#include "../location_type.h"
-#include "../world_map.h"
-#include "../world.h"
+#include "../core/location.h"
+#include "../core/location_type.h"
+#include "../core/world_map.h"
+#include "../core/world.h"
 
 #include "constants.h"
 #include "map_object_view.h"

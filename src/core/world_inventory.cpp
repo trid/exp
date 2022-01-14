@@ -7,8 +7,8 @@
 #include "constants.h"
 #include "message_data.h"
 
-#include "ai/actors/agent.h"
-#include "actions/constants.h"
+#include "../ai/actors/agent.h"
+#include "../actions/constants.h"
 
 namespace Core {
 
