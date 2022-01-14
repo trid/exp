@@ -30,7 +30,9 @@ void setReaction(Core::AI::Actors::Agent& actor, const std::string& reactionType
 //Scene objects
 void createSceneObject(const std::string& type, const std::string& name, int x, int y, Core::World& world) {
     const auto& locationType = world.getLocationTypeManager().getLocationType(type);
-    world.getWorldMap().addLocation(locationType, name, x, y);
+    if (locationType) {
+        world.getWorldMap().addLocation(*locationType, name, x, y);
+    }
 }
 
 } // namespace Scripting

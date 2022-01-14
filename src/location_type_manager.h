@@ -5,18 +5,22 @@
 #include <string>
 #include <unordered_map>
 
+#include <boost/optional.hpp>
+
+#include "location_type.h"
+
 namespace Core {
 
-class LocationType;
+using LocationTypeOpt = boost::optional<const LocationType&>;
 
 class LocationTypeManager {
 public:
     LocationTypeManager();
 
-    const LocationType& getLocationType(std::string const& name) const;
+    LocationTypeOpt getLocationType(std::string const& name) const;
 
 private:
-    std::unordered_map<std::string, std::unique_ptr<LocationType>> _types;
+    std::unordered_map<std::string, LocationType> _types;
 };
 
 } // namespace Core
