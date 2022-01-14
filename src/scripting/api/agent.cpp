@@ -11,41 +11,41 @@ namespace Scripting::API {
 Agent::Agent(Core::World& world, int id) : _world(world), _id(id) {}
 
 void Agent::say(const std::string& message) {
-    _world.getAgentsRegistry().getActors()[_id]->say(message);
+    _world.getAgentsRegistry().getActors()[_id].say(message);
 }
 
 int Agent::getWater() const {
-    return _world.getAgentsRegistry().getActors()[_id]->getWater();
+    return _world.getAgentsRegistry().getActors()[_id].getWater();
 }
 
 int Agent::getFood() const {
-    return _world.getAgentsRegistry().getActors()[_id]->getFood();
+    return _world.getAgentsRegistry().getActors()[_id].getFood();
 }
 
 boost::optional<const std::string&> Agent::getPosition() const {
     const auto& actor = _world.getAgentsRegistry().getActors()[_id];
-    return _world.getAgentsLocation(*actor);
+    return _world.getAgentsLocation(actor);
 }
 
 int Agent::getInventory() const {
-    return _world.getAgentsRegistry().getActors()[_id]->getAllItemsCount();
+    return _world.getAgentsRegistry().getActors()[_id].getAllItemsCount();
 }
 
 int Agent::getInventoryLimit() const {
-    return _world.getAgentsRegistry().getActors()[_id]->getInventoryLimit();
+    return _world.getAgentsRegistry().getActors()[_id].getInventoryLimit();
 }
 
 void Agent::unloadResource(const std::string& resource) {
     auto& agent = _world.getAgentsRegistry().getActors()[_id];
-    _world.unloadResource(*agent, resource);
+    _world.unloadResource(agent, resource);
 }
 
 bool Agent::hasAction() const {
-    return _world.getAgentsRegistry().getActors()[_id]->hasAction();
+    return _world.getAgentsRegistry().getActors()[_id].hasAction();
 }
 
 void Agent::addStatus(const std::string& status) {
-    _world.getAgentsRegistry().getActors()[_id]->addStatus(status);
+    _world.getAgentsRegistry().getActors()[_id].addStatus(status);
 }
 
 Core::TravelPtr Agent::move(const std::string& dest) {
@@ -57,7 +57,7 @@ void Agent::doAction(const std::string& action) {
 }
 
 void Agent::clearState() {
-    _world.getAgentsRegistry().getActors()[_id]->setBehaviourStep(boost::none);
+    _world.getAgentsRegistry().getActors()[_id].setBehaviourStep(boost::none);
 }
 
 }

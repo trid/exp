@@ -2,7 +2,7 @@
 #include <SDL2/SDL_ttf.h>
 
 #include "../../ai/actors/agent.h"
-#include "../../ai/actors/registry.h"
+#include "../../ai/actors/agent_registry.h"
 
 #include "../../constants.h"
 #include "../../world.h"

@@ -16,7 +16,7 @@ ActionManager::ActionManager(Core::World& world) :
     _actionMap[kActionHunt] = std::make_unique<ActionFactory<ActionHunting>>();
 }
 
-ActionPtr ActionManager::getAction(const std::string& action, AI::Actors::Agent* actor) {
+ActionPtr ActionManager::getAction(const std::string& action, AI::Actors::Agent& actor) {
     return ActionPtr(_actionMap[action]->createAction(actor, _world));
 }
 

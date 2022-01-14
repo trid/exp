@@ -7,7 +7,7 @@ namespace Core::Actions {
 
 class ActionWoodcutting : public Action {
 public:
-    explicit ActionWoodcutting(AI::Actors::Agent* actor, Core::World& world);
+    explicit ActionWoodcutting(AI::Actors::Agent& actor, Core::World& world);
 
     [[nodiscard]] bool isValid() const override;
     void update(int delta) override;

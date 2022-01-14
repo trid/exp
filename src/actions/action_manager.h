@@ -12,7 +12,7 @@ class ActionManager {
 public:
     explicit ActionManager(Core::World& world);
 
-    ActionPtr getAction(const std::string& action, AI::Actors::Agent* actor);
+    ActionPtr getAction(const std::string& action, AI::Actors::Agent& actor);
 private:
     Core::World& _world;
 

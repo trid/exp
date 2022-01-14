@@ -3,7 +3,7 @@
 #include "view_facade.h"
 
 #include "../ai/actors/agent.h"
-#include "../ai/actors/registry.h"
+#include "../ai/actors/agent_registry.h"
 #include "../world.h"
 
 #include "constants.h"
@@ -37,10 +37,10 @@ void ViewFacade::draw() {
     //Scene objects before actors
     _sceneObjectManager.draw(_window);
 
-    for (Core::AI::Actors::Agent* actorItem: _agentsRegistry.getActors()) {
-        int x = actorItem->getX();
-        int y = actorItem->getY();
-        _actors.at(actorItem->getType()).draw(x, y,_window);
+    for (const auto& actorItem: _agentsRegistry.getActors()) {
+        int x = actorItem.getX();
+        int y = actorItem.getY();
+        _actors.at(actorItem.getType()).draw(x, y,_window);
     }
 
     _uiManager.draw(_window);

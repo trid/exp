@@ -22,7 +22,7 @@ BehaviourProcessor::BehaviourProcessor(const StateManager& stateManager, World& 
 
 void BehaviourProcessor::update() {
     for (auto& actor: _world.getAgentsRegistry().getActors()) {
-        processActor(*actor);
+        processActor(actor);
     }
 }
 

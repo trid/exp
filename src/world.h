@@ -9,7 +9,7 @@
 
 #include "actions/action_manager.h"
 
-#include "ai/actors/registry.h"
+#include "ai/actors/agent_registry.h"
 
 #include "agent_locator.h"
 #include "application.h"
@@ -38,9 +38,9 @@ public:
 
     void update(int delta);
 
-    std::unordered_set<std::string> const& getActions(AI::Actors::Agent* actor);
+    std::unordered_set<std::string> const& getActions(const AI::Actors::Agent& actor);
 
-    void doAction(AI::Actors::Agent* actor, const std::string& action);
+    void doAction(AI::Actors::Agent& actor, const std::string& action);
 
     AI::Actors::AgentsRegistry& getAgentsRegistry();
     const AI::Actors::AgentsRegistry& getAgentsRegistry() const;

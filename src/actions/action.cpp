@@ -6,9 +6,9 @@ bool Action::isRunning() const { return _running; }
 
 void Action::stop() { _running = false; }
 
-AI::Actors::Agent* Action::getActor() { return _actor; }
+AI::Actors::Agent& Action::getActor() { return _actor; }
 
-Action::Action(AI::Actors::Agent* actor, World&) : _actor(actor) {}
+Action::Action(AI::Actors::Agent& actor, World&) : _actor(actor) {}
 
 
 } // namespace Core::Actions

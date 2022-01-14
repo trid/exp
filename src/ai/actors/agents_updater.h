@@ -7,7 +7,7 @@
 
 #include "../../process.h"
 
-#include "registry.h"
+#include "agent_registry.h"
 
 namespace Core::AI::Actors {
 
@@ -19,7 +19,7 @@ public:
     bool finished() const override;
 
 private:
-    void updateNeeds(Agent* actor) const;
+    void updateNeeds(Agent& actor) const;
 
     unsigned int _time = 0;
     unsigned int _interval = 500;

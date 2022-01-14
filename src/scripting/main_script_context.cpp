@@ -12,7 +12,7 @@
 #include "../world.h"
 
 #include "../ai/actors/agent.h"
-#include "../ai/actors/registry.h"
+#include "../ai/actors/agent_registry.h"
 #include "../ai/state_manager.h"
 
 #include "../view/view_facade.h"

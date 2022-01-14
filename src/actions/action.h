@@ -15,6 +15,8 @@ namespace Core::Actions {
 
 class Action {
 public:
+    Action(AI::Actors::Agent& actor, Core::World&);
+
     [[nodiscard]] virtual bool isValid() const = 0;
     virtual void update(int delta) = 0;
     virtual int progress() = 0;
@@ -24,25 +26,23 @@ public:
 
     void stop();
 
-    AI::Actors::Agent* getActor();
-
-    Action(AI::Actors::Agent* actor, Core::World&);
+    AI::Actors::Agent& getActor();
 
 private:
     bool _running = true;
 
 protected:
-    AI::Actors::Agent* _actor;
+    AI::Actors::Agent& _actor;
 };
 
 class VirtualActionFactory {
 public:
-    virtual Action* createAction(AI::Actors::Agent* actor, Core::World& world) = 0;
+    virtual Action* createAction(AI::Actors::Agent& actor, Core::World& world) = 0;
 };
 
 template<class T>
 class ActionFactory : public VirtualActionFactory {
-    Action* createAction(AI::Actors::Agent* actor, Core::World& world) override { return new T(actor, world); }
+    Action* createAction(AI::Actors::Agent& actor, Core::World& world) override { return new T(actor, world); }
 };
 
 typedef std::shared_ptr<Action> ActionPtr;

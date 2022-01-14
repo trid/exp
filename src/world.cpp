@@ -27,7 +27,7 @@ void World::update(int delta) {
     for (Actions::ActionPtr& actionPtr: _actions) {
         if (!actionPtr->isValid() || actionPtr->isFinished() || !actionPtr->isRunning()) {
             // TODO: Check what is happening here
-            actionPtr->getActor()->removeAction();
+            actionPtr->getActor().removeAction();
         }
     }
 
@@ -50,8 +50,8 @@ World::World(TimedProcessController& timedProcessController, GlobalMessageManage
     timedProcessController.addProcess(std::make_shared<AI::Actors::AgentNeedsUpdater>(_actorsRegistry));
 }
 
-std::unordered_set<std::string> const& World::getActions(AI::Actors::Agent* actor) {
-    const auto locationName = getAgentsLocation(*actor);
+std::unordered_set<std::string> const& World::getActions(const AI::Actors::Agent& actor) {
+    const auto locationName = getAgentsLocation(actor);
     if (locationName) {
         const auto location = _worldMap.getLocation(*locationName);
         return location->getType().getActions();
@@ -59,11 +59,11 @@ std::unordered_set<std::string> const& World::getActions(AI::Actors::Agent* acto
     return _worldMap.getLocation(kPositionInRoute)->getType().getActions();
 }
 
-void World::doAction(AI::Actors::Agent* actor, const std::string& action) {
+void World::doAction(AI::Actors::Agent& actor, const std::string& action) {
     const auto& placeActions = getActions(actor);
     if (placeActions.find(action) != placeActions.end()) {
         Actions::ActionPtr actionInstance = _actionManager.getAction(action, actor);
-        actor->setAction(actionInstance);
+        actor.setAction(actionInstance);
         _actions.push_back(actionInstance);
     }
 }

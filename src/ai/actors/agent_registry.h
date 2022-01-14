@@ -22,13 +22,13 @@ public:
     Agent& createAgent(Core::World& world);
     [[nodiscard]] boost::optional<Agent&> getAgent(int id);
     [[nodiscard]] boost::optional<const Agent&> getAgent(int id) const;
-    [[nodiscard]] const std::vector<Agent*>& getActors() const;
-    [[nodiscard]] std::vector<Agent*>& getActors();
+    [[nodiscard]] const std::vector<Agent>& getActors() const;
+    [[nodiscard]] std::vector<Agent>& getActors();
 
     [[nodiscard]] int getLastId() const;
 
 private:
-    std::vector<Agent*> actors;
+    std::vector<Agent> _agents;
     int nextId = 0;
 };
 
