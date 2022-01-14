@@ -6,7 +6,7 @@
 
 #include "../../core/constants.h"
 
-namespace Core::AI::Actors {
+namespace Core::AI::Agents {
 
 
 void AgentPositioningData::updatePosition(double dx, double dy) {
@@ -26,4 +26,4 @@ double AgentPositioningData::getSpeed() const { return _speed; }
 
 void AgentPositioningData::setSpeed(double speed) { _speed = speed; }
 
-} // namespace Core::AI::Actors
+} // namespace Core::AI::Agents

@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.20)
 project(exp)
 
 file(GLOB ACTIONS_SOURCE_FILES src/actions/*.cpp)
-file(GLOB ACTORS_SOURCE_FILES src/ai/actors/*.cpp)
+file(GLOB ACTORS_SOURCE_FILES src/ai/agents/*.cpp)
 file(GLOB AI_SOURCE_FILES src/ai/*.cpp)
 file(GLOB CORE_SOURCE_FILES src/core/*.cpp)
 file(GLOB SCRIPTING_SOURCE_FILES src/scripting/*.cpp)

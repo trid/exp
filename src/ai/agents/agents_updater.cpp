@@ -6,7 +6,7 @@
 
 #include "../constants.h"
 
-namespace Core::AI::Actors {
+namespace Core::AI::Agents {
 
 AgentNeedsUpdater::AgentNeedsUpdater(AgentsRegistry& actorRegistry) : _actorRegistry(
         actorRegistry) {}
@@ -41,4 +41,4 @@ bool AgentNeedsUpdater::finished() const {
     return false;
 }
 
-} // namespace Core::AI::Actors
+} // namespace Core::AI::Agents

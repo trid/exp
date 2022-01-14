@@ -4,9 +4,10 @@
 
 #include "behaviour_step.h"
 
-#include "actors/agent.h"
-#include "constants.h"
 #include "../scripting/api/agent.h"
+
+#include "constants.h"
+
 
 namespace Core::AI {
 

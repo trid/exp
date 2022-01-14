@@ -9,7 +9,7 @@ namespace Core {
 class World;
 } // namespace Core
 
-namespace Core::AI::Actors {
+namespace Core::AI::Agents {
 
 class AgentNeeds {
 public:
@@ -31,7 +31,7 @@ private:
     int _maxWater = 60;
 };
 
-} // namespace AI::Actors
+} // namespace AI::Agents
 
 
 #endif //EXP_AGENT_NEEDS_H

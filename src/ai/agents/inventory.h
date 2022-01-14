@@ -8,7 +8,7 @@
 #include <string>
 #include <unordered_map>
 
-namespace Core::AI::Actors {
+namespace Core::AI::Agents {
 
 class Inventory {
 public:
@@ -26,6 +26,6 @@ private:
     int _inventoryLimit = 20;
 };
 
-}
+} // namespace Core::AI::Agents
 
 #endif //EXP_INVENTORY_H

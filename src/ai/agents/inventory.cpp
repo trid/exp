@@ -6,7 +6,7 @@
 
 #include <numeric>
 
-namespace Core::AI::Actors {
+namespace Core::AI::Agents {
 
 void Inventory::addItem(const std::string& item) {
     if (getAllItemsCount() < _inventoryLimit) {

@@ -11,7 +11,7 @@
 
 #include "../behaviour_step.h"
 
-namespace Core::AI::Actors {
+namespace Core::AI::Agents {
 
 class Actor {
 public:
@@ -38,6 +38,6 @@ private:
     Core::Actions::ActionPtr _currentAction;
 };
 
-}
+} // namespace Core::AI::Agents
 
 #endif //EXP_ACTOR_H

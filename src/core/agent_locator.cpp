@@ -4,7 +4,7 @@
 
 #include "agent_locator.h"
 
-#include "../ai/actors/agent.h"
+#include "../ai/agents/agent.h"
 
 #include "../utils/rect_utils.h"
 
@@ -15,7 +15,7 @@ namespace Core {
 
 AgentLocator::AgentLocator(const WorldMap& worldMap) : _worldMap(worldMap) {}
 
-void AgentLocator::setAgentLocation(AI::Actors::Agent& agent, const std::string& position) const {
+void AgentLocator::setAgentLocation(AI::Agents::Agent& agent, const std::string& position) const {
     const auto mapObject = _worldMap.getLocation(position);
     if (mapObject) {
         agent.setX(mapObject->getXPos());
@@ -24,7 +24,7 @@ void AgentLocator::setAgentLocation(AI::Actors::Agent& agent, const std::string&
 }
 
 boost::optional<const std::string&>
-AgentLocator::getAgentsLocation(const AI::Actors::AgentPositioningData& agent) const {
+AgentLocator::getAgentsLocation(const AI::Agents::AgentPositioningData& agent) const {
     // TODO: Change for something that works faster than O(n)
 
     auto isInLocation = [&agent](const auto& locationIter) {

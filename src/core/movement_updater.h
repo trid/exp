@@ -10,7 +10,7 @@
 
 namespace Core {
 
-namespace AI::Actors {
+namespace AI::Agents {
 class Agent;
 }
 
@@ -24,7 +24,7 @@ class MovementUpdater {
 public:
     MovementUpdater(const WorldMap& worldMap, const AgentLocator& locator);
 
-    TravelPtr moveActor(AI::Actors::Agent& actor, std::string const& dest);
+    TravelPtr moveActor(AI::Agents::Agent& actor, std::string const& dest);
 
     void update(int delta);
 private:

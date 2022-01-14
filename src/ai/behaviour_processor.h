@@ -15,9 +15,9 @@ class World;
 
 namespace Core::AI {
 
-namespace Actors {
+namespace Agents {
 class Agent;
-} // namespace Actors
+} // namespace Agents
 
 class BehaviourStep;
 class StateManager;
@@ -28,10 +28,10 @@ public:
 
     void update();
 private:
-    void processActor(Actors::Agent& actor);
-    void processReaction(Actors::Agent& actor);
-    void updateBehaviour(Actors::Agent& actor);
-    void setBehaviourStep(Actors::Agent& actor, BehaviourStep step);
+    void processActor(Agents::Agent& actor);
+    void processReaction(Agents::Agent& actor);
+    void updateBehaviour(Agents::Agent& actor);
+    void setBehaviourStep(Agents::Agent& actor, BehaviourStep step);
 
     const StateManager& _stateManager;
     World& _world;

@@ -1,8 +1,8 @@
 #include <sstream>
 #include <SDL2/SDL_ttf.h>
 
-#include "../../ai/actors/agent.h"
-#include "../../ai/actors/agent_registry.h"
+#include "../../ai/agents/agent.h"
+#include "../../ai/agents/agent_registry.h"
 
 #include "../../core/constants.h"
 #include "../../core/world.h"

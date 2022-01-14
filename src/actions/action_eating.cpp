@@ -32,7 +32,7 @@ bool ActionEating::isFinished() const {
     return _time >= _maxTime;
 }
 
-ActionEating::ActionEating(AI::Actors::Agent& actor, Core::World& world) :
+ActionEating::ActionEating(AI::Agents::Agent& actor, Core::World& world) :
         Action(actor, world),
         _maxTime(kActionEatTime),
         _world(world) {

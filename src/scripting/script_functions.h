@@ -3,7 +3,7 @@
 
 #include "../ai/state_manager.h"
 
-namespace Core::AI::Actors {
+namespace Core::AI::Agents {
 class AgentsRegistry;
 class Agent;
 }
@@ -13,9 +13,9 @@ namespace Scripting {
 // Utils
 void print(const std::string& message);
 
-// Actors
-void setState(Core::AI::Actors::Agent& actor, const std::string& stateName, const Core::AI::StateManager& stateManager);
-void setReaction(Core::AI::Actors::Agent& actor, const std::string& reactionType, const std::string& behaviourName);
+// Agents
+void setState(Core::AI::Agents::Agent& actor, const std::string& stateName, const Core::AI::StateManager& stateManager);
+void setReaction(Core::AI::Agents::Agent& actor, const std::string& reactionType, const std::string& behaviourName);
 int getId(lua_State* state);
 
 // Locations

@@ -9,7 +9,7 @@
 
 namespace Core {
 
-namespace AI::Actors {
+namespace AI::Agents {
 class Agent;
 class AgentPositioningData;
 }
@@ -20,10 +20,10 @@ class AgentLocator {
 public:
     AgentLocator(const WorldMap& worldMap);
 
-    void setAgentLocation(AI::Actors::Agent& agent, const std::string& position) const;
+    void setAgentLocation(AI::Agents::Agent& agent, const std::string& position) const;
 
     [[nodiscard]] boost::optional<const std::string&>
-    getAgentsLocation(const AI::Actors::AgentPositioningData& agent) const;
+    getAgentsLocation(const AI::Agents::AgentPositioningData& agent) const;
 
 private:
     const WorldMap& _worldMap;

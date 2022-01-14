@@ -2,7 +2,7 @@
 #define ACTION_EATING_H
 
 #include "action.h"
-#include "../ai/actors/agent.h"
+#include "../ai/agents/agent.h"
 
 namespace Core {
 class World;
@@ -12,7 +12,7 @@ namespace Core::Actions {
 
 class ActionEating : public Action {
 public:
-    ActionEating(AI::Actors::Agent& actor, Core::World& world);
+    ActionEating(AI::Agents::Agent& actor, Core::World& world);
 
     [[nodiscard]] bool isValid() const override;
     void update(int delta) override;

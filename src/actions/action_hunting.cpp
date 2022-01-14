@@ -1,7 +1,7 @@
 #include "action_hunting.h"
 
 #include "../ai/constants.h"
-#include "../ai/actors/agent.h"
+#include "../ai/agents/agent.h"
 
 #include "../core/world.h"
 
@@ -30,7 +30,7 @@ bool ActionHunting::isFinished() const {
     return false;
 }
 
-ActionHunting::ActionHunting(AI::Actors::Agent& actor, Core::World& world) :
+ActionHunting::ActionHunting(AI::Agents::Agent& actor, Core::World& world) :
         Action(actor, world),
         _interval(kActionHuntTime),
         _world(world) {}

@@ -9,7 +9,7 @@
 
 #include "agent_registry.h"
 
-namespace Core::AI::Actors {
+namespace Core::AI::Agents {
 
 class AgentNeedsUpdater : public Core::Process {
 public:
@@ -27,6 +27,6 @@ private:
     AgentsRegistry& _actorRegistry;
 };
 
-} // namespace Core::AI::Actors
+} // namespace Core::AI::Agents
 
 #endif //EXP_AGENTS_UPDATER_H

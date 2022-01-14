@@ -54,7 +54,7 @@ private:
     Widgets::GUIPanel _guiPanel;
     Widgets::SpeedControlPanel _speedControlPanel;
     SceneObjectRenderer _sceneObjectManager;
-    const Core::AI::Actors::AgentsRegistry& _agentsRegistry;
+    const Core::AI::Agents::AgentsRegistry& _agentsRegistry;
 };
 
 } // View

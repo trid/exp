@@ -6,7 +6,7 @@
 #include "../../core/message_data.h"
 #include "../../core/world.h"
 
-namespace Core::AI::Actors {
+namespace Core::AI::Agents {
 
 Agent::Agent(int id, Core::GlobalMessageManager& globalMessageBus) :
         AgentPositioningData(),
@@ -34,4 +34,4 @@ const std::string& Agent::getType() const {
     return _type;
 }
 
-} // namespace Core::AI::Actors
+} // namespace Core::AI::Agents

@@ -11,9 +11,9 @@
 
 namespace Core {
 
-namespace AI::Actors {
+namespace AI::Agents {
 class Agent;
-} // namespace AI::Actors
+} // namespace AI::Agents
 
 class AgentLocator;
 class World;
@@ -21,7 +21,7 @@ class WorldMap;
 
 class Travel {
 public:
-    Travel(AI::Actors::Agent& agent, const std::string& dest, const WorldMap& worldMap,
+    Travel(AI::Agents::Agent& agent, const std::string& dest, const WorldMap& worldMap,
            const AgentLocator& locator);
 
     void update(int delta);
@@ -30,7 +30,7 @@ public:
     [[nodiscard]] bool finished() const;
 
 private:
-    AI::Actors::Agent& _agent;
+    AI::Agents::Agent& _agent;
     std::string _dest;
     double _dx, _dy;
     const AgentLocator& _agentLocator;

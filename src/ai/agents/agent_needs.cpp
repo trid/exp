@@ -4,7 +4,7 @@
 
 #include "agent_needs.h"
 
-namespace Core::AI::Actors {
+namespace Core::AI::Agents {
 
 int AgentNeeds::getFood() const { return _food; }
 
@@ -28,4 +28,4 @@ void AgentNeeds::setMaxWater(int maxWater) {
     _water = maxWater;
 }
 
-} // namespace Core::AI::Actors
+} // namespace Core::AI::Agents

@@ -9,7 +9,7 @@
 #include "location_type.h"
 #include "world.h"
 
-#include "../ai/actors/agent.h"
+#include "../ai/agents/agent.h"
 
 namespace Core {
 
@@ -23,7 +23,7 @@ std::pair<double, double> normalize(double x, double y) {
 
 }
 
-Travel::Travel(AI::Actors::Agent& agent, const std::string& dest, const WorldMap& worldMap,
+Travel::Travel(AI::Agents::Agent& agent, const std::string& dest, const WorldMap& worldMap,
                const AgentLocator& locator)
         : _agent(agent),
           _dest(dest),

@@ -1,7 +1,7 @@
 #include "action_drink.h"
 
 #include "../ai/constants.h"
-#include "../ai/actors/agent.h"
+#include "../ai/agents/agent.h"
 
 #include "../core/world.h"
 
@@ -32,7 +32,7 @@ bool ActionDrink::isFinished() const {
     return _time >= _maxTime;
 }
 
-ActionDrink::ActionDrink(AI::Actors::Agent& actor, Core::World& world) :
+ActionDrink::ActionDrink(AI::Agents::Agent& actor, Core::World& world) :
         Action(actor, world),
         _maxTime(kActionDrinkTime),
         _world(world) {}

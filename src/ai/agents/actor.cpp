@@ -4,7 +4,7 @@
 
 #include "actor.h"
 
-namespace Core::AI::Actors {
+namespace Core::AI::Agents {
 
 void Actor::removeStatus(const std::string& stateName) {
     _statuses.erase(stateName);

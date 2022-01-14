@@ -16,7 +16,7 @@ class GlobalMessageManager;
 class World;
 } // namespace Core
 
-namespace Core::AI::Actors {
+namespace Core::AI::Agents {
 
 class Agent: public AgentNeeds, public AgentPositioningData, public Actor, public Inventory {
 public:
@@ -43,6 +43,6 @@ private:
     Core::GlobalMessageManager& _globalMessageBus;
 };
 
-} // namespace Core::AI::Actors
+} // namespace Core::AI::Agents
 
 #endif // ACTOR_H

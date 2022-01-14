@@ -11,7 +11,7 @@ namespace Core::Actions {
 
 class ActionDrink : public Action {
 public:
-    ActionDrink(AI::Actors::Agent& actor, Core::World& world);
+    ActionDrink(AI::Agents::Agent& actor, Core::World& world);
 
     [[nodiscard]] bool isValid() const override;
     void update(int delta) override;

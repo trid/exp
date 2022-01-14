@@ -7,7 +7,7 @@
 #include "../../core/world.h"
 
 
-namespace Core::AI::Actors {
+namespace Core::AI::Agents {
 
 AgentsRegistry::AgentsRegistry(TimedProcessController& timedProcessController) {}
 
@@ -35,4 +35,4 @@ boost::optional<const Agent&> AgentsRegistry::getAgent(int id) const {
 
 int AgentsRegistry::getLastId() const { return _agents.back().getID(); }
 
-} // namespace Core::AI::Actors
+} // namespace Core::AI::Agents

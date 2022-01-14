@@ -4,7 +4,7 @@
 
 #include "movement_updater.h"
 
-#include "../ai/actors/agent.h"
+#include "../ai/agents/agent.h"
 
 #include "travel.h"
 
@@ -14,7 +14,7 @@ MovementUpdater::MovementUpdater(const WorldMap& worldMap, const AgentLocator& l
                                  _worldMap(worldMap),
                                  _agentLocator(locator) {}
 
-TravelPtr MovementUpdater::moveActor(AI::Actors::Agent& actor, const std::string& dest) {
+TravelPtr MovementUpdater::moveActor(AI::Agents::Agent& actor, const std::string& dest) {
     auto route = std::make_shared<Travel>(actor, dest, _worldMap, _agentLocator);
     _inRoute[actor.getID()] = route;
     return route;

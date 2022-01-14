@@ -3,7 +3,7 @@
 
 #include "action.h"
 
-namespace Core::AI::Actors {
+namespace Core::AI::Agents {
 class Agent;
 }
 
@@ -11,7 +11,7 @@ namespace Core::Actions {
 
 class ActionHunting : public Action {
 public:
-    explicit ActionHunting(AI::Actors::Agent& actor, Core::World& world);
+    explicit ActionHunting(AI::Agents::Agent& actor, Core::World& world);
 
     [[nodiscard]] bool isValid() const override;
     void update(int delta) override;

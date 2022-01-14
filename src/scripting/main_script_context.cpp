@@ -11,12 +11,7 @@
 #include "../core/travel.h"
 #include "../core/world.h"
 
-#include "../ai/actors/agent.h"
-#include "../ai/actors/agent_registry.h"
 #include "../ai/state_manager.h"
-
-#include "../view/view_facade.h"
-#include "../view/widgets/gui_panel.h"
 
 #include "constants.h"
 #include "script_functions.h"
@@ -49,12 +44,12 @@ void MainScriptContext::registerFunctions() {
 void MainScriptContext::registerClasses() {
     auto& state = getState();
 
-    state.new_usertype<Core::AI::Actors::Agent>("AgentPrivate",
-                                                "say", &Core::AI::Actors::Agent::say,
-                                                "setName", &Core::AI::Actors::Agent::setName,
-                                                "setMaxFood", &Core::AI::Actors::Agent::setMaxFood,
-                                                "setMaxWater", &Core::AI::Actors::Agent::setMaxWater,
-                                                "setType", &Core::AI::Actors::Agent::setType);
+    state.new_usertype<Core::AI::Agents::Agent>("AgentPrivate",
+                                                "say", &Core::AI::Agents::Agent::say,
+                                                "setName", &Core::AI::Agents::Agent::setName,
+                                                "setMaxFood", &Core::AI::Agents::Agent::setMaxFood,
+                                                "setMaxWater", &Core::AI::Agents::Agent::setMaxWater,
+                                                "setType", &Core::AI::Agents::Agent::setType);
 
     state.new_usertype<Scripting::API::Agent>("Agent",
                                               "say", &Scripting::API::Agent::say,
@@ -70,8 +65,8 @@ void MainScriptContext::registerClasses() {
                                               "doAction", &Scripting::API::Agent::doAction,
                                               "clearState", &Scripting::API::Agent::clearState);
 
-    state.new_usertype<Core::AI::Actors::AgentsRegistry>("AgentsRegistry",
-                                                         "createAgent", &Core::AI::Actors::AgentsRegistry::createAgent);
+    state.new_usertype<Core::AI::Agents::AgentsRegistry>("AgentsRegistry",
+                                                         "createAgent", &Core::AI::Agents::AgentsRegistry::createAgent);
 
     state.new_usertype<Core::AI::StateManager>("StateManager",
                                                "registerBehaviour", &Core::AI::StateManager::registerBehaviour);

@@ -11,7 +11,7 @@ namespace Core {
 class TimedProcessController;
 } // namespace Core
 
-namespace Core::AI::Actors {
+namespace Core::AI::Agents {
 
 class Agent;
 
@@ -32,6 +32,6 @@ private:
     int nextId = 0;
 };
 
-} // namespace Core::AI::Actors
+} // namespace Core::AI::Agents
 
 #endif // ACTOR_REGISTRY_H

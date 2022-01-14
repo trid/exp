@@ -9,9 +9,9 @@
 
 #include "global_message_manager.h"
 
-namespace Core::AI::Actors {
+namespace Core::AI::Agents {
 class Agent;
-} // namespace Core::AI::Actors
+} // namespace Core::AI::Agents
 
 namespace Core {
 
@@ -26,7 +26,7 @@ public:
 
     void removeResource(const std::string& resource, unsigned int amount);
 
-    void unloadResource(AI::Actors::Agent& agent, const std::string& resource);
+    void unloadResource(AI::Agents::Agent& agent, const std::string& resource);
 
 private:
     std::unordered_map<std::string, unsigned int> _resources;

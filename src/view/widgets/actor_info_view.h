@@ -12,10 +12,10 @@ namespace Core {
 class World;
 } // namespace Core
 
-namespace Core::AI::Actors {
+namespace Core::AI::Agents {
 class Agent;
 class AgentsRegistry;
-} // namespace Core::AI::Actors
+} // namespace Core::AI::Agents
 
 namespace View::Widgets {
 
@@ -31,7 +31,7 @@ public:
 
     void draw(Window& window) override;
 private:
-    boost::optional<const Core::AI::Actors::Agent&> _actor = boost::none;
+    boost::optional<const Core::AI::Agents::Agent&> _actor = boost::none;
 
     Font _font;
 

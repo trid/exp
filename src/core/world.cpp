@@ -11,8 +11,8 @@
 #include "../actions/action_manager.h"
 #include "../actions/constants.h"
 
-#include "../ai/actors/agent.h"
-#include "../ai/actors/agents_updater.h"
+#include "../ai/agents/agent.h"
+#include "../ai/agents/agents_updater.h"
 
 
 namespace Core {
@@ -47,10 +47,10 @@ World::World(TimedProcessController& timedProcessController, GlobalMessageManage
         _worldMap(worldMap) {
     ProcessPtr ptr = std::make_shared<WorldProcess>(*this);
     timedProcessController.addProcess(ptr);
-    timedProcessController.addProcess(std::make_shared<AI::Actors::AgentNeedsUpdater>(_actorsRegistry));
+    timedProcessController.addProcess(std::make_shared<AI::Agents::AgentNeedsUpdater>(_actorsRegistry));
 }
 
-std::unordered_set<std::string> const& World::getActions(const AI::Actors::Agent& actor) {
+std::unordered_set<std::string> const& World::getActions(const AI::Agents::Agent& actor) {
     const auto locationName = getAgentsLocation(actor);
     if (locationName) {
         const auto location = _worldMap.getLocation(*locationName);
@@ -59,7 +59,7 @@ std::unordered_set<std::string> const& World::getActions(const AI::Actors::Agent
     return _worldMap.getLocation(kPositionInRoute)->getType().getActions();
 }
 
-void World::doAction(AI::Actors::Agent& actor, const std::string& action) {
+void World::doAction(AI::Agents::Agent& actor, const std::string& action) {
     const auto& placeActions = getActions(actor);
     if (placeActions.find(action) != placeActions.end()) {
         Actions::ActionPtr actionInstance = _actionManager.getAction(action, actor);
@@ -68,11 +68,11 @@ void World::doAction(AI::Actors::Agent& actor, const std::string& action) {
     }
 }
 
-AI::Actors::AgentsRegistry& World::getAgentsRegistry() {
+AI::Agents::AgentsRegistry& World::getAgentsRegistry() {
     return _actorsRegistry;
 }
 
-const AI::Actors::AgentsRegistry& World::getAgentsRegistry() const {
+const AI::Agents::AgentsRegistry& World::getAgentsRegistry() const {
     return _actorsRegistry;
 }
 

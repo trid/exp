@@ -7,7 +7,7 @@
 #include "constants.h"
 #include "message_data.h"
 
-#include "../ai/actors/agent.h"
+#include "../ai/agents/agent.h"
 #include "../actions/constants.h"
 
 namespace Core {
@@ -32,7 +32,7 @@ void WorldInventory::removeResource(const std::string& resource, unsigned int am
     _resources[resource] = currentAmount >= amount ? currentAmount - amount : 0;
 }
 
-void WorldInventory::unloadResource(AI::Actors::Agent& agent, const std::string& resource) {
+void WorldInventory::unloadResource(AI::Agents::Agent& agent, const std::string& resource) {
     _resources[resource] += agent.getItemsCount(resource);
     agent.removeAllItems(resource);
     _globalMessageManager.sendMessage(kResourceUpdatedMessage, MessageData{});

@@ -2,8 +2,8 @@
 
 #include "view_facade.h"
 
-#include "../ai/actors/agent.h"
-#include "../ai/actors/agent_registry.h"
+#include "../ai/agents/agent.h"
+#include "../ai/agents/agent_registry.h"
 #include "../core/world.h"
 
 #include "constants.h"
@@ -34,7 +34,7 @@ void ViewFacade::draw() {
 
     _background.draw(_window);
 
-    //Scene objects before actors
+    //Scene objects before agents
     _sceneObjectManager.draw(_window);
 
     for (const auto& actorItem: _agentsRegistry.getActors()) {

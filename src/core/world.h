@@ -9,7 +9,7 @@
 
 #include "../actions/action_manager.h"
 
-#include "../ai/actors/agent_registry.h"
+#include "../ai/agents/agent_registry.h"
 
 #include "agent_locator.h"
 #include "application.h"
@@ -26,9 +26,9 @@
 
 namespace Core {
 
-namespace AI::Actors {
+namespace AI::Agents {
 class Agent;
-} // namespace AI::Actors
+} // namespace AI::Agents
 
 class TimedProcessController;
 
@@ -38,12 +38,12 @@ public:
 
     void update(int delta);
 
-    std::unordered_set<std::string> const& getActions(const AI::Actors::Agent& actor);
+    std::unordered_set<std::string> const& getActions(const AI::Agents::Agent& actor);
 
-    void doAction(AI::Actors::Agent& actor, const std::string& action);
+    void doAction(AI::Agents::Agent& actor, const std::string& action);
 
-    AI::Actors::AgentsRegistry& getAgentsRegistry();
-    const AI::Actors::AgentsRegistry& getAgentsRegistry() const;
+    AI::Agents::AgentsRegistry& getAgentsRegistry();
+    const AI::Agents::AgentsRegistry& getAgentsRegistry() const;
 
     const WorldMap& getWorldMap() const;
     WorldMap& getWorldMap();
@@ -56,7 +56,7 @@ private:
     std::vector<Actions::ActionPtr> _actions;
 
     Actions::ActionManager _actionManager;
-    AI::Actors::AgentsRegistry _actorsRegistry;
+    AI::Agents::AgentsRegistry _actorsRegistry;
     LocationTypeManager _locationTypeManager;
     WorldMap& _worldMap;
     GlobalMessageManager& _globalMessageManager;

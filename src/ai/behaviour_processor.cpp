@@ -8,7 +8,7 @@
 
 #include "../scripting/api/agent.h"
 
-#include "actors/agent.h"
+#include "agents/agent.h"
 
 #include "constants.h"
 #include "state_manager.h"
@@ -26,7 +26,7 @@ void BehaviourProcessor::update() {
     }
 }
 
-void BehaviourProcessor::processActor(Actors::Agent& actor) {
+void BehaviourProcessor::processActor(Agents::Agent& actor) {
     if (!actor.getStatuses().empty() && !actor.isExecutingReaction()) {
         processReaction(actor);
     }
@@ -42,7 +42,7 @@ void BehaviourProcessor::processActor(Actors::Agent& actor) {
     updateBehaviour(actor);
 }
 
-void BehaviourProcessor::processReaction(Actors::Agent& actor) {
+void BehaviourProcessor::processReaction(Agents::Agent& actor) {
     for (const auto& globalState: actor.getStatuses()) {
         const auto & statusReactors = actor.getStatusReactors();
         const auto& reactionStateName = statusReactors.find(globalState);
@@ -60,7 +60,7 @@ void BehaviourProcessor::processReaction(Actors::Agent& actor) {
     }
 }
 
-void BehaviourProcessor::updateBehaviour(Actors::Agent& actor) {
+void BehaviourProcessor::updateBehaviour(Agents::Agent& actor) {
     boost::optional<BehaviourStep> step = actor.getBehaviourStep();
     while (step) {
         step = step->getTransition(Scripting::API::Agent(_world, actor.getID()));
@@ -71,7 +71,7 @@ void BehaviourProcessor::updateBehaviour(Actors::Agent& actor) {
     }
 }
 
-void BehaviourProcessor::setBehaviourStep(Actors::Agent& actor, BehaviourStep step) {
+void BehaviourProcessor::setBehaviourStep(Agents::Agent& actor, BehaviourStep step) {
     actor.setBehaviourStep(step);
     step.runStep(Scripting::API::Agent(_world, actor.getID()));
 }

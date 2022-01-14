@@ -11,7 +11,7 @@ namespace Core {
 class World;
 } // namespace Core
 
-namespace Core::AI::Actors {
+namespace Core::AI::Agents {
 
 class AgentPositioningData {
 public:
@@ -35,7 +35,7 @@ private:
     double _y = 0.0;
 };
 
-} // namespace Core::AI::Actors
+} // namespace Core::AI::Agents
 
 
 #endif //EXP_AGENT_MOVEMENT_DATA_H
