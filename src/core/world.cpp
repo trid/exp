@@ -38,7 +38,7 @@ World::World(TimedProcessController& timedProcessController, GlobalMessageBus& a
         AgentLocator(worldMap),
         MovementUpdater(worldMap, *this),
         _actionManager(*this),
-        _actorsRegistry(timedProcessController),
+        _actorsRegistry(),
         _globalMessageManager(appMessageManager),
         _worldMap(worldMap) {
     ProcessPtr ptr = std::make_unique<WorldProcess>(*this);

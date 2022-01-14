@@ -17,8 +17,6 @@ class Agent;
 
 class AgentsRegistry {
 public:
-    explicit AgentsRegistry(TimedProcessController& timedProcessController);
-
     Agent& createAgent(Core::World& world);
     [[nodiscard]] boost::optional<Agent&> getAgent(int id);
     [[nodiscard]] boost::optional<const Agent&> getAgent(int id) const;

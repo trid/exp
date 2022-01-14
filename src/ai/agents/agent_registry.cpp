@@ -9,8 +9,6 @@
 
 namespace Core::AI::Agents {
 
-AgentsRegistry::AgentsRegistry(TimedProcessController& timedProcessController) {}
-
 const std::vector<Agent>& AgentsRegistry::getActors() const {
     return _agents;
 }
