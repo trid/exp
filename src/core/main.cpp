@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
     Core::Timer timer;
     Core::TimedProcessController timedProcessController{timer};
     Core::Settings settings{};
-    Core::GlobalMessageManager messageManager;
+    Core::GlobalMessageBus messageManager;
     Core::WorldMap worldMap;
     Core::World world(timedProcessController, messageManager, worldMap);
     Core::AI::StateManager stateManager{};

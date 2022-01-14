@@ -7,7 +7,7 @@
 
 #include <unordered_map>
 
-#include "global_message_manager.h"
+#include "global_message_bus.h"
 
 namespace Core::AI::Agents {
 class Agent;
@@ -15,11 +15,11 @@ class Agent;
 
 namespace Core {
 
-class GlobalMessageManager;
+class GlobalMessageBus;
 
 class WorldInventory {
 public:
-    explicit WorldInventory(GlobalMessageManager& globalMessageManager);
+    explicit WorldInventory(GlobalMessageBus& globalMessageManager);
 
     unsigned int getResourceCount(const std::string& resource) const;
     void setResourceCount(const std::string& resource, unsigned int amount);
@@ -31,7 +31,7 @@ public:
 private:
     std::unordered_map<std::string, unsigned int> _resources;
 
-    GlobalMessageManager& _globalMessageManager;
+    GlobalMessageBus& _globalMessageManager;
 };
 
 } // namespace Core

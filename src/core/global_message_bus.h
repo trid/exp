@@ -22,10 +22,10 @@ public:
 
 using MessageListenerPtr = std::unique_ptr<MessageListener>;
 
-class GlobalMessageManager {
+class GlobalMessageBus {
 public:
-    GlobalMessageManager() = default;
-    GlobalMessageManager(const GlobalMessageManager&) = delete;
+    GlobalMessageBus() = default;
+    GlobalMessageBus(const GlobalMessageBus&) = delete;
 
     void addListener(const std::string& name, MessageListenerPtr listener);
     void sendMessage(const std::string& name, const MessageData& data);

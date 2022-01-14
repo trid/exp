@@ -12,7 +12,7 @@
 
 
 namespace Core {
-class GlobalMessageManager;
+class GlobalMessageBus;
 class World;
 } // namespace Core
 
@@ -20,7 +20,7 @@ namespace Core::AI::Agents {
 
 class Agent: public AgentNeeds, public AgentPositioningData, public Actor, public Inventory {
 public:
-    explicit Agent(int id, Core::GlobalMessageManager& globalMessageBus);
+    explicit Agent(int id, Core::GlobalMessageBus& globalMessageBus);
 
     int getID() const;
 
@@ -40,7 +40,7 @@ private:
     // TODO decide some better way to differentiate agent's color
     std::string _type;
 
-    Core::GlobalMessageManager& _globalMessageBus;
+    Core::GlobalMessageBus& _globalMessageBus;
 };
 
 } // namespace Core::AI::Agents

@@ -8,7 +8,7 @@
 
 namespace Core::AI::Agents {
 
-Agent::Agent(int id, Core::GlobalMessageManager& globalMessageBus) :
+Agent::Agent(int id, Core::GlobalMessageBus& globalMessageBus) :
         AgentPositioningData(),
         _id(id),
         _globalMessageBus(globalMessageBus) {}

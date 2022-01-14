@@ -8,10 +8,6 @@
 #include "travel.h"
 #include "world_process.h"
 
-#include "../actions/action_manager.h"
-#include "../actions/constants.h"
-
-#include "../ai/agents/agent.h"
 #include "../ai/agents/agents_updater.h"
 
 
@@ -37,7 +33,7 @@ void World::update(int delta) {
     _actions.erase(iter, _actions.end());
 }
 
-World::World(TimedProcessController& timedProcessController, GlobalMessageManager& appMessageManager, WorldMap& worldMap) :
+World::World(TimedProcessController& timedProcessController, GlobalMessageBus& appMessageManager, WorldMap& worldMap) :
         WorldInventory(appMessageManager),
         AgentLocator(worldMap),
         MovementUpdater(worldMap, *this),
@@ -88,7 +84,7 @@ const LocationTypeManager& World::getLocationTypeManager() const {
     return _locationTypeManager;
 }
 
-GlobalMessageManager& World::getGlobalMessageManager() {
+GlobalMessageBus& World::getGlobalMessageManager() {
     return _globalMessageManager;
 }
 

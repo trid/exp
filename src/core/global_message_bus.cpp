@@ -1,12 +1,12 @@
-#include "global_message_manager.h"
+#include "global_message_bus.h"
 
 namespace Core {
 
-void GlobalMessageManager::addListener(const std::string& name, MessageListenerPtr listener) {
+void GlobalMessageBus::addListener(const std::string& name, MessageListenerPtr listener) {
     _listeners[name].push_back(std::move(listener));
 }
 
-void GlobalMessageManager::sendMessage(const std::string& name, const MessageData& data) {
+void GlobalMessageBus::sendMessage(const std::string& name, const MessageData& data) {
     auto iter = _listeners.find(name);
     if (iter != _listeners.end()) {
         for (auto& item: iter->second) {

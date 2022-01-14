@@ -13,7 +13,7 @@
 
 #include "agent_locator.h"
 #include "application.h"
-#include "global_message_manager.h"
+#include "global_message_bus.h"
 #include "location_type_manager.h"
 #include "movement_updater.h"
 #include "process.h"
@@ -34,7 +34,7 @@ class TimedProcessController;
 
 class World: public WorldInventory, public AgentLocator, public MovementUpdater {
 public:
-    World(TimedProcessController& timedProcessController, GlobalMessageManager& appMessageManager, WorldMap& worldMap);
+    World(TimedProcessController& timedProcessController, GlobalMessageBus& appMessageManager, WorldMap& worldMap);
 
     void update(int delta);
 
@@ -50,7 +50,7 @@ public:
 
     const LocationTypeManager& getLocationTypeManager() const;
 
-    GlobalMessageManager& getGlobalMessageManager();
+    GlobalMessageBus& getGlobalMessageManager();
 
 private:
     std::vector<Actions::ActionPtr> _actions;
@@ -59,7 +59,7 @@ private:
     AI::Agents::AgentsRegistry _actorsRegistry;
     LocationTypeManager _locationTypeManager;
     WorldMap& _worldMap;
-    GlobalMessageManager& _globalMessageManager;
+    GlobalMessageBus& _globalMessageManager;
 };
 
 } // namespace Core

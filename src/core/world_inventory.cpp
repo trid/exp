@@ -12,7 +12,7 @@
 
 namespace Core {
 
-WorldInventory::WorldInventory(GlobalMessageManager& globalMessageManager) : _globalMessageManager(
+WorldInventory::WorldInventory(GlobalMessageBus& globalMessageManager) : _globalMessageManager(
         globalMessageManager) {}
 
 unsigned int WorldInventory::getResourceCount(const std::string& resource) const {

@@ -7,7 +7,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
-#include "../core/global_message_manager.h"
+#include "../core/global_message_bus.h"
 #include "../core/settings.h"
 
 #include "image.h"
@@ -28,11 +28,11 @@ namespace View {
 
 class ViewFacade {
 public:
-    explicit ViewFacade(const Core::Settings& settings, Core::GlobalMessageManager& globalMessageManager,
+    explicit ViewFacade(const Core::Settings& settings, Core::GlobalMessageBus& globalMessageManager,
                         Core::World& world,
                         Core::Timer& timer);
 
-    Core::GlobalMessageManager& getUIMessageManager();
+    Core::GlobalMessageBus& getUIMessageManager();
 
     Uint32 getScreenPixelFormat() const;
 
@@ -50,7 +50,7 @@ private:
     std::unordered_map<std::string, Image> _actors;
 
     Widgets::UIManager _uiManager;
-    Core::GlobalMessageManager& _globalMessageManager;
+    Core::GlobalMessageBus& _globalMessageManager;
     Widgets::GUIPanel _guiPanel;
     Widgets::SpeedControlPanel _speedControlPanel;
     SceneObjectRenderer _sceneObjectManager;

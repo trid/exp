@@ -14,7 +14,7 @@
 
 namespace View {
 
-ViewFacade::ViewFacade(const Core::Settings& settings, Core::GlobalMessageManager& globalMessageManager,
+ViewFacade::ViewFacade(const Core::Settings& settings, Core::GlobalMessageBus& globalMessageManager,
                        Core::World& world,
                        Core::Timer& timer) :
         _window(settings),
@@ -52,7 +52,7 @@ Uint32 ViewFacade::getScreenPixelFormat() const {
     return _window.getScreenPixelFormat();
 }
 
-Core::GlobalMessageManager& ViewFacade::getUIMessageManager() {
+Core::GlobalMessageBus& ViewFacade::getUIMessageManager() {
     return _globalMessageManager;
 }
 
