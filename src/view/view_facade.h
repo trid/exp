@@ -1,7 +1,6 @@
 #ifndef VIEW_FACADE_H
 #define VIEW_FACADE_H
 
-#include <list>
 #include <string>
 
 #include <SDL2/SDL.h>

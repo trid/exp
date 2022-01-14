@@ -3,7 +3,6 @@
 
 #include <algorithm>
 #include <cmath>
-#include <list>
 #include <memory>
 #include <string>
 #include <unordered_set>
