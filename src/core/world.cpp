@@ -88,4 +88,13 @@ GlobalMessageBus& World::getGlobalMessageManager() {
     return _globalMessageManager;
 }
 
+bool World::hasLocation(const std::string& locationType) {
+    const auto& locations = _worldMap.getLocations();
+    auto iter = std::find_if(locations.begin(), locations.end(),
+                             [&locationType](const auto& locationIter) {
+                                 return locationIter.second->getType().getName() == locationType;
+                             });
+    return iter != locations.end();
+}
+
 } // namespace Core

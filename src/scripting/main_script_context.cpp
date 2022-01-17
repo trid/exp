@@ -78,7 +78,8 @@ void MainScriptContext::registerClasses() {
                                     "moveActor", &Core::World::moveActor,
                                     "doAction", &Core::World::doAction,
                                     "getStoredResource", &Core::World::getResourceCount,
-                                    "setAgentLocation", &Core::World::setAgentLocation);
+                                    "setAgentLocation", &Core::World::setAgentLocation,
+                                    "hasLocation", &Core::World::hasLocation);
 }
 
 void MainScriptContext::registerGlobals() {

@@ -52,6 +52,7 @@ public:
 
     GlobalMessageBus& getGlobalMessageManager();
 
+    bool hasLocation(const std::string& locationType);
 private:
     std::vector<Actions::ActionPtr> _actions;
 
