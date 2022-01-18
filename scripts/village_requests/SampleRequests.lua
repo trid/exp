@@ -7,12 +7,13 @@ SampleRequests = {
     update = function()
         requests = {}
         if not g_world:hasLocation("home") then
-            table.insert(requests, {request_type = "building", building = "home"})
+            if g_world:getStorage():getStoredResource("wood") > 300 then
+                table.insert(requests, {request_type = "building", building = "home"})
+            else
+                table.insert(requests, {request_type = "resource", resource_type = "wood", amount = 300})
+            end
         end
-        if not g_world:hasLocation("home") and g_world:getStoredResource("wood") < 300 then
-            table.insert(requests, {request_type = "resource", resource_type = "wood", amount = 300})
-        end
-        if g_world:getStoredResource("food") < 50 then
+        if g_world:getStorage():getStoredResource("food") < 50 then
             table.insert(requests, {request_type = "resource", resource_type = "food", amount = 50})
         end
     end
