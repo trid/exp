@@ -75,11 +75,16 @@ void MainScriptContext::registerClasses() {
                                            "finished", &Core::Travel::finished);
 
     state.new_usertype<Core::World>("World",
-                                    "moveActor", &Core::World::moveActor,
                                     "doAction", &Core::World::doAction,
-                                    "getStoredResource", &Core::World::getResourceCount,
-                                    "setAgentLocation", &Core::World::setAgentLocation,
-                                    "hasLocation", &Core::World::hasLocation);
+                                    "hasLocation", &Core::World::hasLocation,
+                                    "getStorage", &Core::World::getConstInventory,
+                                    "getLocator", &Core::World::getAgentLocator);
+
+    state.new_usertype<Core::WorldInventory>("WorldInventory",
+                                              "getStoredResource", &Core::WorldInventory::getResourceCount);
+
+    state.new_usertype<Core::AgentLocator>("AgentLocator",
+                                           "setAgentLocation", &Core::AgentLocator::setAgentLocation);
 }
 
 void MainScriptContext::registerGlobals() {

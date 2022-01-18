@@ -5,7 +5,7 @@
 
 HuntingStartStep = {
     transition = function(actor)
-        if g_world:getStoredResource("food") < 50 then
+        if g_world:getStorage():getStoredResource("food") < 50 then
             actor:say("Need to collect some food.")
             return GoHuntingStep
         end

@@ -10,7 +10,7 @@
 namespace Core::Actions {
 
 bool ActionDrink::isValid() const {
-    const auto& location = _world.getAgentsLocation(_actor);
+    const auto& location = _world.getAgentLocator().getAgentsLocation(_actor);
     return location && *location == kWellLocationName;
 }
 

@@ -18,7 +18,7 @@ std::vector<Agent>& AgentsRegistry::getActors() {
 }
 
 Agent& AgentsRegistry::createAgent(Core::World& world) {
-    auto& agent = _agents.emplace_back(nextId, world.getGlobalMessageManager());
+    auto& agent = _agents.emplace_back(nextId, world.getGlobalMessageBus());
     nextId++;
     return agent;
 }

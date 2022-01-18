@@ -14,7 +14,7 @@
 namespace Core {
 
 void World::update(int delta) {
-    MovementUpdater::update(delta);
+    _movementUpdater.update(delta);
 
     for (Actions::ActionPtr& actionPtr: _actions) {
         actionPtr->update(delta);
@@ -34,20 +34,20 @@ void World::update(int delta) {
 }
 
 World::World(TimedProcessController& timedProcessController, GlobalMessageBus& appMessageManager, WorldMap& worldMap) :
-        WorldInventory(appMessageManager),
-        AgentLocator(worldMap),
-        MovementUpdater(worldMap, *this),
         _actionManager(*this),
         _actorsRegistry(),
         _globalMessageManager(appMessageManager),
-        _worldMap(worldMap) {
+        _worldMap(worldMap),
+        _worldInventory(appMessageManager),
+        _agentLocator(worldMap),
+        _movementUpdater(worldMap, _agentLocator) {
     ProcessPtr ptr = std::make_unique<WorldProcess>(*this);
     timedProcessController.addProcess(std::move(ptr));
     timedProcessController.addProcess(std::make_unique<AI::Agents::AgentNeedsUpdater>(_actorsRegistry));
 }
 
 std::unordered_set<std::string> const& World::getActions(const AI::Agents::Agent& actor) {
-    const auto locationName = getAgentsLocation(actor);
+    const auto locationName = _agentLocator.getAgentsLocation(actor);
     if (locationName) {
         const auto location = _worldMap.getLocation(*locationName);
         return location->getType().getActions();
@@ -84,8 +84,24 @@ const LocationTypeManager& World::getLocationTypeManager() const {
     return _locationTypeManager;
 }
 
-GlobalMessageBus& World::getGlobalMessageManager() {
+GlobalMessageBus& World::getGlobalMessageBus() {
     return _globalMessageManager;
+}
+
+const AgentLocator& World::getAgentLocator() const {
+    return _agentLocator;
+}
+
+WorldInventory& World::getInventory() {
+    return _worldInventory;
+}
+
+MovementUpdater& World::getMovementUpdater() {
+    return _movementUpdater;
+}
+
+const WorldInventory& World::getConstInventory() const {
+    return _worldInventory;
 }
 
 bool World::hasLocation(const std::string& locationType) {
