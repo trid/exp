@@ -32,7 +32,7 @@ class Agent;
 
 class TimedProcessController;
 
-class World: public WorldInventory, public AgentLocator, public MovementUpdater {
+class World {
 public:
     World(TimedProcessController& timedProcessController, GlobalMessageBus& appMessageManager, WorldMap& worldMap);
 
@@ -50,8 +50,15 @@ public:
 
     const LocationTypeManager& getLocationTypeManager() const;
 
-    GlobalMessageBus& getGlobalMessageManager();
+    GlobalMessageBus& getGlobalMessageBus();
 
+    const AgentLocator& getAgentLocator() const;
+
+    WorldInventory& getInventory();
+    // Due to binding resolution reasons
+    const WorldInventory& getConstInventory() const;
+
+    MovementUpdater& getMovementUpdater();
 private:
     std::vector<Actions::ActionPtr> _actions;
 
@@ -60,6 +67,9 @@ private:
     LocationTypeManager _locationTypeManager;
     WorldMap& _worldMap;
     GlobalMessageBus& _globalMessageManager;
+    WorldInventory _worldInventory;
+    AgentLocator _agentLocator;
+    MovementUpdater _movementUpdater;
 };
 
 } // namespace Core

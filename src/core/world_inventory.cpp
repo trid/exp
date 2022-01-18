@@ -30,6 +30,7 @@ void WorldInventory::setResourceCount(const std::string& resource, unsigned int 
 void WorldInventory::removeResource(const std::string& resource, unsigned int amount) {
     auto currentAmount = _resources[resource];
     _resources[resource] = currentAmount >= amount ? currentAmount - amount : 0;
+    _globalMessageManager.sendMessage(kResourceUpdatedMessage, MessageData{});
 }
 
 void WorldInventory::unloadResource(AI::Agents::Agent& agent, const std::string& resource) {

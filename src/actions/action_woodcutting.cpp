@@ -9,7 +9,7 @@
 namespace Core::Actions {
 
 bool ActionWoodcutting::isValid() const {
-    const auto& location = _world.getAgentsLocation(_actor);
+    const auto& location = _world.getAgentLocator().getAgentsLocation(_actor);
     return location && *location == Core::AI::kForestLocationName;
 }
 

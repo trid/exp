@@ -29,7 +29,7 @@ public:
 
     bool listen(Core::MessageData const& messageData) override {
         std::stringstream ss;
-        ss << kWoodLabelPrefix << _world.getResourceCount(Core::Actions::kItemWood);
+        ss << kWoodLabelPrefix << _world.getConstInventory().getResourceCount(Core::Actions::kItemWood);
         _label.setText(ss.str());
         return true;
     }
@@ -47,7 +47,7 @@ public:
 
     bool listen(Core::MessageData const& messageData) override {
         std::stringstream ss;
-        ss << kFoodLabelPrefix << _world.getResourceCount(Core::Actions::kItemFood);
+        ss << kFoodLabelPrefix << _world.getConstInventory().getResourceCount(Core::Actions::kItemFood);
         _label.setText(ss.str());
         return true;
     }

@@ -72,7 +72,7 @@ void ActorInfoView::updateLabels() {
     ss.str("");
     ss << kWaterLabelPrefix << _actor->getWater();
     _waterLabel->setText(ss.str());
-    auto actorLocation = _world.getAgentsLocation(*_actor);
+    auto actorLocation = _world.getAgentLocator().getAgentsLocation(*_actor);
     _placeLabel->setText(kLocationLabelPrefix + actorLocation.get_value_or(Core::kPositionInRoute));
 }
 

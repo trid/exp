@@ -24,7 +24,7 @@ int Agent::getFood() const {
 
 boost::optional<const std::string&> Agent::getPosition() const {
     const auto& actor = _world.getAgentsRegistry().getActors()[_id];
-    return _world.getAgentsLocation(actor);
+    return _world.getAgentLocator().getAgentsLocation(actor);
 }
 
 int Agent::getInventory() const {
@@ -37,7 +37,7 @@ int Agent::getInventoryLimit() const {
 
 void Agent::unloadResource(const std::string& resource) {
     auto& agent = _world.getAgentsRegistry().getActors()[_id];
-    _world.unloadResource(agent, resource);
+    _world.getInventory().unloadResource(agent, resource);
 }
 
 bool Agent::hasAction() const {
@@ -49,7 +49,7 @@ void Agent::addStatus(const std::string& status) {
 }
 
 Core::TravelPtr Agent::move(const std::string& dest) {
-    return _world.moveActor(_world.getAgentsRegistry().getActors()[_id], dest);
+    return _world.getMovementUpdater().moveActor(_world.getAgentsRegistry().getActors()[_id], dest);
 }
 
 void Agent::doAction(const std::string& action) {

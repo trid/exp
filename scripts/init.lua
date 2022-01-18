@@ -18,7 +18,7 @@ woodcutter:setType("green")
 setReaction(woodcutter, "NoState", "Woodcutting")
 setReaction(woodcutter, "Thirsty", "Thirsty")
 setReaction(woodcutter, "Hungry", "Hungry")
-g_world:setAgentLocation(woodcutter, "home")
+g_world:getLocator():setAgentLocation(woodcutter, "home")
 
 woodcutter:setMaxFood(120);
 woodcutter:setMaxWater(90);
@@ -32,5 +32,5 @@ hunter:setType("blue")
 setReaction(hunter, "NoState", "Hunting")
 setReaction(hunter, "Thirsty", "Thirsty")
 setReaction(hunter, "Hungry", "Hungry")
-g_world:setAgentLocation(hunter, "home")
+g_world:getLocator():setAgentLocation(hunter, "home")
 
