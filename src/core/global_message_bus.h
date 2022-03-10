@@ -17,6 +17,8 @@ using MessageParameter = std::variant<int, std::string>;
 
 class MessageListener {
 public:
+    virtual ~MessageListener() = default;
+
     virtual bool listen(MessageData const& messageData) = 0;
 };
 
