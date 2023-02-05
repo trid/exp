@@ -6,6 +6,7 @@
 #define EXP_MESSAGE_DATA_H
 
 #include <string>
+#include <unordered_map>
 #include <variant>
 
 #include <boost/optional.hpp>

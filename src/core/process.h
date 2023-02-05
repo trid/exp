@@ -7,6 +7,8 @@ namespace Core {
 
 class Process {
 public:
+    virtual ~Process() = default;
+
     virtual void update(unsigned int delta) = 0;
     [[nodiscard]] virtual bool finished() const = 0;
 };
